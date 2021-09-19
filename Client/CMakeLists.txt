@@ -8,13 +8,19 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif ()
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
-set(SOURCES
-	)
+file(
+	GLOB_RECURSE
+	SOURCES
+	${PROJECT_SOURCE_DIR}/src/*.cpp
+	${PROJECT_SOURCE_DIR}/src/*.hpp
+)
+
+list(REMOVE_ITEM SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp)
 
 include_directories(src)
 
 add_executable(babel_client
-	src/main.cpp
+	${PROJECT_SOURCE_DIR}/src/main.cpp
 	${SOURCES}
 	)
 
