@@ -31,7 +31,8 @@ jobs:
       - name: CheckBinaryName
         shell: bash
         if: matrix.name == 'Linux'
-        run: test -f build/bomberman
+        run: |
+          test -f build/Client/babel_client && test -f build/Server/babel_server
 #      - name: Archive production artifact for Windows binary
 #        if: matrix.name == 'Windows'
 #        uses: actions/upload-artifact@v1
