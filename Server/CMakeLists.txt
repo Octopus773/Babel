@@ -13,12 +13,12 @@ set(SOURCES
 
 include_directories(src)
 
-add_executable(babel_client
+add_executable(babel_server
 	src/main.cpp
 	${SOURCES}
 	)
 
-add_executable(client_unit_tests EXCLUDE_FROM_ALL
+add_executable(server_unit_tests EXCLUDE_FROM_ALL
 	tests/Catch2Main.cpp
 	${SOURCES}
 	)
@@ -28,5 +28,4 @@ if (NOT Catch2_FOUND)
 	set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/lib/catch2)
 	find_package(Catch2 REQUIRED)
 endif ()
-
-target_link_libraries(client_unit_tests PRIVATE Catch2::Catch2)
+target_link_libraries(server_unit_tests PRIVATE Catch2::Catch2)
