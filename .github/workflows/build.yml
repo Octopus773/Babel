@@ -1,0 +1,46 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  Build:
+    name: "Build on ${{ matrix.name }}"
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: Linux
+          # - os: macOS-latest
+          #   name: MacOS
+          - os: windows-latest
+            name: Windows
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      - name: Update G++
+        if: matrix.name == 'Linux'
+        run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+      - name: Build
+        run: |
+          mkdir build && cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+          cmake --build .
+      - name: CheckBinaryName
+        shell: bash
+        if: matrix.name == 'Linux'
+        run: test -f build/bomberman
+#      - name: Archive production artifact for Windows binary
+#        if: matrix.name == 'Windows'
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: BombermanWindows.exe
+#          path: build/Debug/bomberman.exe
+#      - name: Archive production artifact for Linux binary
+#        if: matrix.name == 'Linux'
+#        uses: actions/upload-artifact@v1
+#        with:
+#          name: BombermanLinux
+#          path: build/bomberman
