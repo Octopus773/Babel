@@ -1,4 +1,4 @@
-name: Build and Run Tests
+name: Build
 on: [push, pull_request]
 
 jobs:
@@ -20,49 +20,23 @@ jobs:
       - uses: actions/checkout@v1
         with:
           submodules: true
+      
       - name: Update G++
         if: matrix.name == 'Linux'
         run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+      
       - name: Build Main Binaries
         run: |
           mkdir build && cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build .
+      
       - name: CheckBinaryName
         shell: bash
         if: matrix.name == 'Linux'
         run: |
           test -f build/Client/babel_client && test -f build/Server/babel_server
-      - name: Build Client Test Binary
-        run: |
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug
-          cmake --build . -t client_unit_tests
-      - name: Run Client tests Linux
-        shell: bash
-        if: matrix.name == 'Linux'
-        run: |
-          ./build/Client/client_unit_tests
-      - name: Run Client tests Windows
-        shell: bash
-        if: matrix.name == 'Windows'
-        run: |
-          build/Debug/Client/client_unit_tests.exe
-      - name: Build Server Test Binary
-        run: |
-          cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug
-          cmake --build . -t server_unit_tests
-      - name: Run Server tests Linux
-        shell: bash
-        if: matrix.name == 'Linux'
-        run: |
-          ./build/Server/server_unit_tests
-      - name: Run Server tests Windows
-        shell: bash
-        if: matrix.name == 'Windows'
-        run: |
-          build/Debug/Server/server_unit_tests.exe
+      
 #      - name: Archive production artifact for Windows binary
 #        if: matrix.name == 'Windows'
 #        uses: actions/upload-artifact@v1
