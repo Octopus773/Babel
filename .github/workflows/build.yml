@@ -53,8 +53,8 @@ jobs:
         shell: bash
         if: matrix.name == 'Windows'
         run: |
-          ls
-          tree
+          ls build
+          ls build/Debug
           build/Debug/Client/client_unit_tests.exe
       
       - name: Build Server Test Binary
