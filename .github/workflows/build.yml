@@ -35,7 +35,7 @@ jobs:
           test -f build/Client/babel_client && test -f build/Server/babel_server
       - name: Build Client Test Binary
         run: |
-          mkdir --parents build && cd build
+          cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t client_unit_tests
       - name: Run Client tests Linux
@@ -50,7 +50,7 @@ jobs:
           build/Debug/Client/client_unit_tests.exe
       - name: Build Server Test Binary
         run: |
-          mkdir --parents build && cd build
+          cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t server_unit_tests
       - name: Run Server tests Linux
