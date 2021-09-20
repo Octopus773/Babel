@@ -7,6 +7,9 @@ out
 .idea/*
 .vs/*
 
+# Doxygen output directory
+docs/*
+
 # Prerequisites
 *.d
 
