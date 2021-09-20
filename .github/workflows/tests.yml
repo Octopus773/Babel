@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   Build:
-    name: "Build on ${{ matrix.name }}"
+    name: "Run tests on ${{ matrix.name }}"
     runs-on: ${{ matrix.os }}
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
     strategy:
@@ -27,7 +27,7 @@ jobs:
       
       - name: Build Client Test Binary
         run: |
-          cd build
+          mkdir build && cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t client_unit_tests
       
