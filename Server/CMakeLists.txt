@@ -22,11 +22,13 @@ include_directories(src)
 add_executable(babel_server
 	${PROJECT_SOURCE_DIR}/src/main.cpp
 	${SOURCES}
+	${COMMON_SOURCES}
 	)
 
 add_executable(server_unit_tests EXCLUDE_FROM_ALL
 	tests/Catch2Main.cpp
 	${SOURCES}
+	${COMMON_SOURCES}
 	)
 
 find_package(Catch2 QUIET)

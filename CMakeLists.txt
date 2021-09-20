@@ -1,6 +1,16 @@
 cmake_minimum_required(VERSION 3.19)
 project(Babel)
 
+# COMMON_SOURCES is used by subdirectories
+file(
+	GLOB_RECURSE
+	COMMON_SOURCES
+	${PROJECT_SOURCE_DIR}/Common/*.cpp
+	${PROJECT_SOURCE_DIR}/Common/*.hpp
+)
+
+include_directories(Common)
+
 add_subdirectory(Client)
 add_subdirectory(Server)
 
