@@ -25,8 +25,15 @@ add_executable(babel_server
 	${COMMON_SOURCES}
 	)
 
+file(
+	GLOB_RECURSE
+	TESTS_SOURCES
+	${PROJECT_SOURCE_DIR}/tests/*.cpp
+	${PROJECT_SOURCE_DIR}/tests/*.hpp
+)
+
 add_executable(server_unit_tests EXCLUDE_FROM_ALL
-	tests/Catch2Main.cpp
+	${TESTS_SOURCES}
 	${SOURCES}
 	${COMMON_SOURCES}
 	)
