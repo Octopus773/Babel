@@ -17,7 +17,6 @@ jobs:
         run: |
           rm -rf docs/*
           doxygen Doxyfile
-          mkdir docs
           cd docs
           git config --global user.email "${GITHUB_ACTOR}@github.com";
           git config --global user.name "${GITHUB_ACTOR}";
