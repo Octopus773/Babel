@@ -1,0 +1,62 @@
+name: Run Tests
+on: [push, pull_request]
+
+jobs:
+  Build:
+    name: "Run tests on ${{ matrix.name }}"
+    runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: Linux
+          # - os: macOS-latest
+          #   name: MacOS
+          - os: windows-latest
+            name: Windows
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          submodules: true
+      
+      - name: Update G++
+        if: matrix.name == 'Linux'
+        run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
+      
+      - name: Build Client Test Binary
+        run: |
+          mkdir build && cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+          cmake --build . -t client_unit_tests
+      
+      - name: Run Client tests Linux
+        shell: bash
+        if: matrix.name == 'Linux'
+        run: |
+          ./build/Client/client_unit_tests
+      
+      - name: Run Client tests Windows
+        shell: bash
+        if: matrix.name == 'Windows'
+        run: |
+          build/Client/Debug/client_unit_tests.exe
+      
+      - name: Build Server Test Binary
+        run: |
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+          cmake --build . -t server_unit_tests
+      
+      - name: Run Server tests Linux
+        shell: bash
+        if: matrix.name == 'Linux'
+        run: |
+          ./build/Server/server_unit_tests
+      
+      - name: Run Server tests Windows
+        shell: bash
+        if: matrix.name == 'Windows'
+        run: |
+          build/Server/Debug/server_unit_tests.exe
