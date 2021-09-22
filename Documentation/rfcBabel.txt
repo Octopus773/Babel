@@ -67,27 +67,24 @@ Internet-Draft               Babel Protocol               September 2021
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Protocol Definition . . . . . . . . . . . . . . . . . . . . .   3
-     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
-   3.  Client <-> Server Protocol  . . . . . . . . . . . . . . . . .   3
+   2.  Protocol Definition . . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   2
+   3.  Client -> Server Protocol . . . . . . . . . . . . . . . . . .   3
      3.1.  Login . . . . . . . . . . . . . . . . . . . . . . . . . .   3
      3.2.  List users  . . . . . . . . . . . . . . . . . . . . . . .   3
      3.3.  Call user . . . . . . . . . . . . . . . . . . . . . . . .   3
      3.4.  Accept a receiving call from a user . . . . . . . . . . .   3
      3.5.  Deny a receiving call from a user . . . . . . . . . . . .   4
-     3.6.  Discovering External IP Address and Port  . . . . . . . .   4
-     3.7.  Storing Data  . . . . . . . . . . . . . . . . . . . . . .   4
-     3.8.  Notification  . . . . . . . . . . . . . . . . . . . . . .   5
-     3.9.  Retrieving Data . . . . . . . . . . . . . . . . . . . . .   5
-   4.  Implementation Notes  . . . . . . . . . . . . . . . . . . . .   5
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .   6
-   6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   6
-     6.1.  Normative References  . . . . . . . . . . . . . . . . . .   6
-     6.2.  Informative References  . . . . . . . . . . . . . . . . .   7
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .   7
-   Appendix B.  Sample Implementation  . . . . . . . . . . . . . . .  10
-   Appendix C.  Using XMPP as Out-Of-Band Channel  . . . . . . . . .  12
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
+     3.6.  Hang up a call  . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Server -> Client Protocol . . . . . . . . . . . . . . . . . .   4
+     4.1.  General purpuse response  . . . . . . . . . . . . . . . .   4
+     4.2.  Receiving call  . . . . . . . . . . . . . . . . . . . . .   4
+     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   5
+     4.4.  User leaving call . . . . . . . . . . . . . . . . . . . .   5
+   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     5.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
+     5.2.  Informative References  . . . . . . . . . . . . . . . . .   5
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
 
 1.  Introduction
 
@@ -102,10 +99,13 @@ Table of Contents
    The Babel Protocol allows anyone to implement their own client or
    servers and be able to communicate with our wondeful implementation
 
+2.  Protocol Definition
 
+2.1.  Terminology
 
-
-
+   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
+   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+   and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
 
 
 
@@ -114,17 +114,10 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 2]
 Internet-Draft               Babel Protocol               September 2021
 
 
-2.  Protocol Definition
-
-2.1.  Terminology
-
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
    [RFC2119] and indicate requirement levels for compliant Babel
    implementations.
 
-3.  Client <-> Server Protocol
+3.  Client -> Server Protocol
 
 3.1.  Login
 
@@ -160,6 +153,13 @@ Internet-Draft               Babel Protocol               September 2021
 
    203 - Accept a call from a user
 
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
+
+            * username : The username of the user we're receiving the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           203           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
 
 
 
@@ -169,14 +169,6 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 3]
 
 Internet-Draft               Babel Protocol               September 2021
 
-
-            * username_length : The length of the login of the user : 1 byte (uint8_t)
-
-            * username : The username of the user we're receiving the call : username_length bytes (char)
-
-        +------------+------------+------------+------------+------------+------------+--
-        |           203           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
 
 3.5.  Deny a receiving call from a user
 
@@ -190,33 +182,41 @@ Internet-Draft               Babel Protocol               September 2021
         |           204           |     username_length     |          username ...
         +------------+------------+------------+------------+------------+------------+--
 
-3.6.  Discovering External IP Address and Port
+3.6.  Hang up a call
 
-   A client may discover its external IP address and the port required
-   for port prediction by performing a HTTP GET request to a STuPiD
-   server.  The STuPiD server MUST reply with the remote address and
-   remote port in the following format:
+   204 - Hang up a call
 
-   host ":" port
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
 
-   where 'host' and 'port' are defined as in [RFC3986].
+            * username : The username of the user that we're making the call : username_length bytes (char)
 
-3.7.  Storing Data
+        +------------+------------+------------+------------+------------+------------+--
+        |           205           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
 
-   Data chunks are stored using the POST request of HTTP.  The STuPiD
-   server MUST support one URI parameter which is passed as query-
-   string:
+4.  Server -> Client Protocol
 
-   'chid': A unique ID identifying the data chunk to be stored.  The ID
-   SHOULD be chosen from the characters of the base64url set [RFC4648].
+4.1.  General purpuse response
 
-   The payload of the POST request MUST be the data to be stored.  The
-   'Content-Type' SHOULD be 'application/octet-stream', although a
-   STuPiD server implementation SHOULD simply ignore the 'Content-Type'
-   as a client implementation may be restricted and may not able to
-   specify a specific 'Content-Type'.  (E.g., in certain cases, the peer
-   may be limited to sending the data as multipart-form-encoded --
-   still, the data is stored as a byte stream.)
+   300 - general purpuse response
+
+            * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+
+            * description_length : The length of the description : 2 bytes (uint8_t)
+
+            * description : human readable response (can be displayed to the user) : description_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+        |           300           |      response_code      |    description_length   |       description ...
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+
+4.2.  Receiving call
+
+   301 - Receiving a call from a user
+
+            * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+
+            * username : The username of the user that want to make a call : username_length bytes (char)
 
 
 
@@ -226,52 +226,52 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 4]
 Internet-Draft               Babel Protocol               September 2021
 
 
-   STuPiD servers may reject data chunks that are larger than some
-   predefined limit.  This maximum size in bytes of each data chunk is
-   RECOMMENDED to be 65536 or more.
+        +------------+------------+------------+------------+------------+------------+--
+        |           301           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
 
-   As HTTP already provides data transparency, the data chunk SHOULD NOT
-   be encoded using Base64 or any other data transparency mechanism; in
-   any case, the STuPiD server will not attempt to decode the chunk.
+4.3.  User joining call
 
-   The sender MUST wait for the HTTP response before going on to notify
-   the receiver.
+   302 - User joining the call
 
-3.8.  Notification
+            * username_length : The length of the login of the user joining the call : 1 byte (uint8_t)
 
-   The sender notifies the receiver of the data chunk by passing via an
-   out-of-band channel (which is not part of the STuPiD protocol):
+            * username : The username of the user that is joining the call : username_length bytes (char)
 
-   The full URL from which the data chunk can be retrieved, i.e. the
-   same URL that was used to store the data chunk, including the chunk
-   ID parameter.
+        +------------+------------+------------+------------+------------+------------+--
+        |           302           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
 
-   The exact notification mechanism over the out-of-band channel and the
-   definition of a session is dependent on the out-of-band channel.  See
-   Appendix C for one example of such an out-of-band channel.
+4.4.  User leaving call
 
-3.9.  Retrieving Data
+   302 - User leaving the call
 
-   The notified peer retrieves the data chunk using a GET request with
-   the URL supplied by the sender.  The STuPiD server MUST set the
-   'Content-Type' of the returned body to 'application/octet-stream'.
+            * username_length : The length of the login of the user leaving the call : 1 byte (uint8_t)
 
-4.  Implementation Notes
+            * username : The username of the user that is leaving the call : username_length bytes (char)
 
-   A STuPiD server implementation SHOULD delete stored data some time
-   after it was stored.  It is RECOMMENDED not to delete the data before
-   five minutes have elapsed after it was stored.  Different client
-   protocols will have different reactions to data that have been
-   deleted prematurely and cannot be retrieved by the notified peer;
-   this may be as trivial as packet loss or it may cause a reliable
-   byte-stream to fail (Appendix B).  (TODO: It may be useful to provide
-   some hints in the storing POST request.)
+        +------------+------------+------------+------------+------------+------------+--
+        |           302           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
 
-   STuPiD clients should aggregate data in order to minimize the number
-   of requests to the STuPiD server per second.  The specific
-   aggregation method chosen depends on the data rate required (and the
-   maximum chunk size), the latency requirements, and the application
-   semantics.
+5.  References
+
+5.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+5.2.  Informative References
+
+   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
+              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
+              DOI 10.17487/RFC5389, October 2008,
+              <https://www.rfc-editor.org/info/rfc5389>.
+
+
+
 
 
 
@@ -281,434 +281,6 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 5]
 
 Internet-Draft               Babel Protocol               September 2021
 
-
-   Clearly, it is up to the implementation to decide how the data chunks
-   are actually stored.  A sufficiently silly STuPiD server
-   implementation might for instance use a MySQL database.
-
-5.  Security Considerations
-
-   The security objectives of STuPiD are to be as secure as if NAT
-   traversal had succeeded, i.e., an on-path attacker can overhear and
-   fake messages, but an off-path attacker cannot.  If a higher level of
-   security is desired, it should be provided on top of the data relayed
-   by STuPiD, e.g. by using XTLS [I-D.meyer-xmpp-e2e-encryption].
-
-   Much of the security of STuPiD is based on the assumption that an
-   off-path attacker cannot guess the chunk identifiers.  A suitable
-   source of randomness [RFC4086] should be used to generate at least a
-   sufficiently large part of the chunk identifiers (e.g., the chunk
-   identifier could be a hard to guess prefix followed by a serial
-   number).
-
-   To protect the STuPiD server against denial of service and possibly
-   some forms of theft of service, it is RECOMMENDED that the POST side
-   of the STuPiD server be protected by some form of authentication such
-   as HTTP authentication.  There is little need to protect the GET
-   side.
-
-6.  References
-
-6.1.  Normative References
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
-              Resource Identifier (URI): Generic Syntax", STD 66,
-              RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <https://www.rfc-editor.org/info/rfc3986>.
-
-   [RFC4086]  Eastlake 3rd, D., Schiller, J., and S. Crocker,
-              "Randomness Requirements for Security", BCP 106, RFC 4086,
-              DOI 10.17487/RFC4086, June 2005,
-              <https://www.rfc-editor.org/info/rfc4086>.
-
-   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
-              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
-              <https://www.rfc-editor.org/info/rfc4648>.
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-6.2.  Informative References
-
-   [I-D.ietf-behave-turn]
-              Rosenberg, J., Mahy, R., and P. Matthews, "Traversal Using
-              Relays around NAT (TURN): Relay Extensions to Session
-              Traversal Utilities for NAT (STUN)", draft-ietf-behave-
-              turn-16 (work in progress), July 2009.
-
-   [I-D.ietf-xmpp-3920bis]
-              Saint-Andre, P., "Extensible Messaging and Presence
-              Protocol (XMPP): Core", draft-ietf-xmpp-3920bis-22 (work
-              in progress), December 2010.
-
-   [I-D.meyer-xmpp-e2e-encryption]
-              Meyer, D. and P. Saint-Andre, "XTLS: End-to-End Encryption
-              for the Extensible Messaging and Presence Protocol (XMPP)
-              Using Transport Layer Security (TLS)", draft-meyer-xmpp-
-              e2e-encryption-02 (work in progress), June 2009.
-
-   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
-              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
-              DOI 10.17487/RFC5389, October 2008,
-              <https://www.rfc-editor.org/info/rfc5389>.
-
-   [STUNT]    Hanson, R., "STUNT & out-of-band channels", September
-              2007, <http://deusty.blogspot.com/2007/09/stunt-out-of-
-              band-channels.html>.
-
-Appendix A.  Examples
-
-   This appendix provides some examples of the STuPiD protocol
-   operation.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 7]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-      Request:
-
-         GET /stupid.php HTTP/1.0
-         User-Agent: Example/1.11.4
-         Accept: */*
-         Host: example.org
-         Connection: Keep-Alive
-
-      Response:
-
-         HTTP/1.1 200 OK
-         Date: Sun, 05 Jul 2009 00:30:37 GMT
-         Server: Apache/2.2
-         Cache-Control: no-cache, must-revalidate
-         Expires: Sat, 26 Jul 1997 05:00:00 GMT
-         Vary: Accept-Encoding
-         Content-Length: 17
-         Keep-Alive: timeout=1, max=400
-         Connection: Keep-Alive
-         Content-Type: application/octet-stream
-
-         192.0.2.239:36654
-
-            Figure 2: Discovering External IP Address and Port
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 8]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-      Request:
-
-         POST /stupid.php?chid=i781hf64-0 HTTP/1.0
-         User-Agent: Example/1.11.4
-         Accept: */*
-         Host: example.org
-         Connection: Keep-Alive
-         Content-Type: application/octet-stream
-         Content-Length: 11
-
-         Hello World
-
-      Response:
-
-         HTTP/1.1 200 OK
-         Date: Sun, 05 Jul 2009 00:20:34 GMT
-         Server: Apache/2.2
-         Cache-Control: no-cache, must-revalidate
-         Expires: Sat, 26 Jul 1997 05:00:00 GMT
-         Vary: Accept-Encoding
-         Content-Length: 0
-         Keep-Alive: timeout=1, max=400
-         Connection: Keep-Alive
-         Content-Type: application/octet-stream
-
-                          Figure 3: Storing Data
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 9]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-      Request:
-
-         GET /stupid.php?chid=i781hf64-0 HTTP/1.0
-         User-Agent: Example/1.11.4
-         Accept: */*
-         Host: example.org
-         Connection: Keep-Alive
-
-      Response:
-
-         HTTP/1.1 200 OK
-         Date: Sun, 05 Jul 2009 00:21:29 GMT
-         Server: Apache/2.2
-         Cache-Control: no-cache, must-revalidate
-         Expires: Sat, 26 Jul 1997 05:00:00 GMT
-         Vary: Accept-Encoding
-         Content-Length: 11
-         Keep-Alive: timeout=1, max=400
-         Connection: Keep-Alive
-         Content-Type: application/octet-stream
-
-         Hello World
-
-                         Figure 4: Retrieving Data
-
-Appendix B.  Sample Implementation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                [Page 10]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-<?php
-header("Cache-Control: no-cache, must-revalidate");
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-header("Content-Type: application/octet-stream");
-
-mysql_connect(localhost, "username", "password");
-mysql_select_db("stupid");
-
-$chid = mysql_real_escape_string($_GET["chid"]);
-
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-   if (empty($chid)) {
-      echo $_SERVER["REMOTE_ADDR"] . ":" . $_SERVER["REMOTE_PORT"];
-   } elseif ($result = mysql_query("SELECT `data` FROM `Data` " .
-                         "WHERE `chid` = '$chid'")) {
-      if ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-         echo base64_decode($row["data"]);
-      } else {
-         header("HTTP/1.0 404 Not Found");
-      }
-      mysql_free_result($result);
-   } else {
-      header("HTTP/1.0 404 Not Found");
-   }
-} elseif ($_SERVER["REQUEST_METHOD"] == "POST") {
-   if (empty($chid)) {
-      header("HTTP/1.0 404 Not Found");
-   } else {
-      mysql_query("DELETE FROM `Data` " .
-                  "WHERE `timestamp` < DATE_SUB(NOW(), INTERVAL 5 MINUTE)");
-      $data = base64_encode(file_get_contents("php://input"));
-      if (!mysql_query("INSERT INTO `Data` (`chid`, `data`) " .
-                       "VALUES ('$chid', '$data')")) {
-         header("HTTP/1.0 403 Bad Request");
-      }
-   }
-} else {
-   header("HTTP/1.0 405 Method Not Allowed");
-   header("Allow: GET, HEAD, POST");
-}
-mysql_close();
-?>
-
-                  Figure 5: STuPiD Sample Implementation
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                [Page 11]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-Appendix C.  Using XMPP as Out-Of-Band Channel
-
-   XMPP [I-D.ietf-xmpp-3920bis] is a good choice for an out-of-band
-   channel.
-
-   The notification protocol is closely modeled after XMPP's In-Band
-   Bytestreams (IBB, see http://xmpp.org/extensions/xep-0047.html).
-   Just replace the namespace and insert the STuPiD Retrieval URI
-   instead of the actual Base64 encoded data, see Figure 8.  (Note that
-   the current proposal redundantly sends a sid and a seq as well as the
-   chid composed of these two; it may be possible to optimize this,
-   possibly sending the constant prefix of the URI once at bytestream
-   creation time.)
-
-   Notifications MUST be processed in the order they are received.  If
-   an out-of-sequence notification is received for a particular session
-   (determined by checking the 'seq' attribute), then this indicates
-   that a notification has been lost.  The recipient MUST NOT process
-   such an out-of-sequence notification, nor any that follow it within
-   the same session; instead, the recipient MUST consider the session
-   invalid.  (Adapted from http://xmpp.org/extensions/xep-
-   0047.html#send)
-
-   Of course, other methods can be used for setup and teardown, such as
-   Jingle (see http://xmpp.org/extensions/xep-0261.html).
-
-         <iq from='romeo@montague.net/orchard'
-             id='jn3h8g65'
-             to='juliet@capulet.com/balcony'
-             type='set'>
-           <open xmlns='urn:xmpp:tmp:stupid'
-                 block-size='65536'
-                 sid='i781hf64'
-                 stanza='iq'/>
-         </iq>
-
-        Figure 6: Creating a Bytestream: Initiator requests session
-
-         <iq from='juliet@capulet.com/balcony'
-             id='jn3h8g65'
-             to='romeo@montague.net/orchard'
-             type='result'/>
-
-        Figure 7: Creating a Bytestream: Responder accepts session
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                [Page 12]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
-         <iq from='romeo@montague.net/orchard'
-             id='kr91n475'
-             to='juliet@capulet.com/balcony'
-             type='set'>
-           <data xmlns='urn:xmpp:tmp:stupid'
-                 seq='0'
-                 sid='i781hf64'
-                 url='http://example.org/stupid.php?chid=i781hf64-0'/>
-         </iq>
-
-       Figure 8: Sending Notifications: Notification in an IQ stanza
-
-         <iq from='juliet@capulet.com/balcony'
-             id='kr91n475'
-             to='romeo@montague.net/orchard'
-             type='result'/>
-
-   Figure 9: Sending Notifications: Acknowledging notification using IQ
-
-         <iq from='romeo@montague.net/orchard'
-             id='us71g45j'
-             to='juliet@capulet.com/balcony'
-             type='set'>
-           <close xmlns='urn:xmpp:tmp:stupid'
-                  sid='i781hf64'/>
-         </iq>
-
-                Figure 10: Closing the Bytestream: Request
-
-         <iq from='juliet@capulet.com/balcony'
-             id='us71g45j'
-             to='romeo@montague.net/orchard'
-             type='result'/>
-
-            Figure 11: Closing the Bytestream: Success response
 
 Authors' Addresses
 
@@ -721,13 +293,6 @@ Authors' Addresses
    Adam Djebar
 
    Email: adam.djebar@epitech.eu
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                [Page 13]
-
-Internet-Draft               Babel Protocol               September 2021
 
 
    Marius Glo
@@ -768,17 +333,4 @@ Internet-Draft               Babel Protocol               September 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                [Page 14]
+Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
