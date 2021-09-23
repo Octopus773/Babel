@@ -30,9 +30,16 @@ if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 
 	conan_basic_setup(TARGETS)
 
+	target_include_directories(babel_client PUBLIC
+		${CONAN_INCLUDE_DIRS_QT}
+		${CONAN_INCLUDE_DIRS_PORTAUDIO}
+		${CONAN_INCLUDE_DIRS_OPUS}
+	)
+
 	conan_target_link_libraries(babel_client
 								CONAN_PKG::QT
 								CONAN_PKG::PORTAUDIO
+								CONAN_PKG::OPUS
 	)
 else()
 	message(SEND_ERROR " conanbuildinfo.cmake not found, you must call conan install to create it")
