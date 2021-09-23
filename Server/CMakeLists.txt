@@ -11,25 +11,37 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 file(
 	GLOB_RECURSE
 	SOURCES
-	${PROJECT_SOURCE_DIR}/src/*.cpp
-	${PROJECT_SOURCE_DIR}/src/*.hpp
+	"${PROJECT_SOURCE_DIR}/src/*.cpp"
+	"${PROJECT_SOURCE_DIR}/src/*.hpp"
 )
 
-list(REMOVE_ITEM SOURCES ${PROJECT_SOURCE_DIR}/src/main.cpp)
+list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
 
-include_directories(src)
+include_directories("src")
 
 add_executable(babel_server
-	${PROJECT_SOURCE_DIR}/src/main.cpp
+	"${PROJECT_SOURCE_DIR}/src/main.cpp"
 	${SOURCES}
 	${COMMON_SOURCES}
+)
+
+if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+	include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+
+	conan_basic_setup(TARGETS)
+
+	conan_target_link_libraries(babel_server
+		CONAN_PKG::PORTAUDIO
 	)
+else()
+	message(SEND_ERROR " conanbuildinfo.cmake not found, you must call conan install to create it")
+endif()
 
 file(
 	GLOB_RECURSE
 	TESTS_SOURCES
-	${PROJECT_SOURCE_DIR}/tests/*.cpp
-	${PROJECT_SOURCE_DIR}/tests/*.hpp
+	"${PROJECT_SOURCE_DIR}/tests/*.cpp"
+	"${PROJECT_SOURCE_DIR}/tests/*.hpp"
 )
 
 add_executable(server_unit_tests EXCLUDE_FROM_ALL
@@ -40,7 +52,7 @@ add_executable(server_unit_tests EXCLUDE_FROM_ALL
 
 find_package(Catch2 QUIET)
 if (NOT Catch2_FOUND)
-	set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/lib/catch2)
+	set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/catch2")
 	find_package(Catch2 REQUIRED)
 endif ()
 target_link_libraries(server_unit_tests PRIVATE Catch2::Catch2)

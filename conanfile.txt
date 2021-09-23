@@ -1,0 +1,17 @@
+[requires]
+portaudio/19.7.0@bincrafters/stable
+opus/1.3.1
+qt/5.15.2
+
+[generators]
+cmake
+
+[options]
+opus:shared=True
+portaudio:shared=True
+qt:shared=False
+qt:with_mysql=False
+qt:with_odbc=False
+
+[imports]
+lib, *.so* -> bin
