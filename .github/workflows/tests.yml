@@ -29,9 +29,14 @@ jobs:
         run: |
           pip3 install conan
 
-      - name: Build Client Test Binary
+      - name: Run Conan install
         run: |
           mkdir build && cd build
+          conan install ..
+
+      - name: Build Client Test Binary
+        run: |
+          cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t client_unit_tests
       

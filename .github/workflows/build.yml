@@ -28,10 +28,15 @@ jobs:
       - name: Install Conan
         run: |
           pip3 install conan
+
+      - name: Run conan install
+        run: |
+          mkdir build && cd build
+          conan install ..
       
       - name: Build Main Binaries
         run: |
-          mkdir build && cd build
+          cd build
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build .
       
