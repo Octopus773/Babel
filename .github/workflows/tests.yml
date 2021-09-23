@@ -24,7 +24,11 @@ jobs:
       - name: Update G++
         if: matrix.name == 'Linux'
         run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
-      
+
+      - name: Install Conan
+        run: |
+          pip3 install conan
+
       - name: Build Client Test Binary
         run: |
           mkdir build && cd build
