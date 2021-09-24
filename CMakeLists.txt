@@ -11,6 +11,9 @@ file(
 
 set(CONAN_DISABLE_CHECK_COMPILER 1)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
+
 include_directories("Common")
 
 add_subdirectory("Client")

@@ -25,23 +25,12 @@ add_executable(babel_server
 	${COMMON_SOURCES}
 )
 
-if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
-	include("${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 
-	conan_basic_setup(TARGETS)
+find_package(opus)
+find_package(asio)
 
-	target_include_directories(babel_server PUBLIC
-		${CONAN_INCLUDE_DIRS_OPUS}
-		${CONAN_INCLUDE_DIRS_ASIO}
-	)
+target_link_libraries(babel_server opus::opus asio::asio)
 
-	conan_target_link_libraries(babel_server
-		CONAN_PKG::OPUS
-		CONAN_PKG::ASIO
-	)
-else()
-	message(SEND_ERROR " conanbuildinfo.cmake not found, you must call conan install to create it")
-endif()
 
 file(
 	GLOB_RECURSE

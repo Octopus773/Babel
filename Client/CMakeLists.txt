@@ -41,9 +41,15 @@ if(EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
 								CONAN_PKG::PORTAUDIO
 								CONAN_PKG::OPUS
 	)
-else()
-	message(SEND_ERROR " conanbuildinfo.cmake not found, you must call conan install to create it")
-endif()
+#else()
+#	message(SEND_ERROR " conanbuildinfo.cmake not found, you must call conan install to create it")
+#endif()
+
+find_package(qt)
+find_package(portaudio)
+find_package(opus)
+
+target_link_libraries(babel_client qt::qt portaudio::portaudio opus::opus)
 
 file(
 	GLOB_RECURSE
