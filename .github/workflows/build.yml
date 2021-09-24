@@ -17,7 +17,7 @@ jobs:
           - os: windows-latest
             name: Windows
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           submodules: true
       
@@ -29,8 +29,22 @@ jobs:
         run: |
           pip3 install conan
 
-      - name: Run Conan install
+      - uses: actions/cache@v2
         if: matrix.name == 'Linux'
+        id: cache_linux
+        with:
+          path: |
+            /home/runner/.conan/data
+            build
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+      - name: Linux install mandatory libs for conan install
+        if: matrix.name == 'Linux'
+        run: |
+          sudo apt-get install -y libgl-dev
+
+      - name: Run Conan install Linux
+        if: matrix.name == 'Linux' && steps.cache_linux.outputs.cache-hit != 'true'
         run: |
           mkdir build && cd build
           conan profile new --detect default
@@ -39,8 +53,17 @@ jobs:
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan install .. --build missing
 
-      - name: Run Conan install
+      - uses: actions/cache@v2
         if: matrix.name == 'Windows'
+        id: cache_windows
+        with:
+          path: |
+            C:\Users\runneradmin\.conan\data
+            build
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+
+      - name: Run Conan install Windows
+        if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
         run: |
           mkdir build && cd build
           conan profile new --detect default
