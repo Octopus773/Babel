@@ -37,7 +37,7 @@ jobs:
           path: |
             /home/runner/.conan/data
             build
-          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+          key: ${{ runner.os }}-cache
 
       - name: Linux install mandatory libs for conan install
         if: matrix.name == 'Linux'
@@ -63,7 +63,7 @@ jobs:
           path: |
             C:\Users\runneradmin\.conan\data
             build
-          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+          key: ${{ runner.os }}-cache
 
       - name: Run Conan install Windows
         if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
