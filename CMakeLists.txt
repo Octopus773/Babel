@@ -9,6 +9,8 @@ file(
 	"${PROJECT_SOURCE_DIR}/Common/*.hpp"
 )
 
+set(CONAN_DISABLE_CHECK_COMPILER 1)
+
 include_directories("Common")
 
 add_subdirectory("Client")

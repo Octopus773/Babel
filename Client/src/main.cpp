@@ -5,7 +5,7 @@
 #include <iostream>
 #include <portaudio.h>
 #include <opus/opus.h>
-#include "qt5/QtCore/QtCoreVersion"
+#include <qt5/QtCore/QtCoreVersion>
 
 int main()
 {

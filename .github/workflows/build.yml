@@ -31,6 +31,7 @@ jobs:
 
       - uses: actions/cache@v2
         if: matrix.name == 'Linux'
+        name: Cache for linux
         id: cache_linux
         with:
           path: |
@@ -49,11 +50,13 @@ jobs:
           mkdir build && cd build
           conan profile new --detect default
           conan profile update settings.compiler.libcxx=libstdc++11 default
+          conan profile update settings.compiler.version=10 default
           conan config set general.revisions_enabled=1
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan install .. --build missing
 
       - uses: actions/cache@v2
+        name: Cache for windows
         if: matrix.name == 'Windows'
         id: cache_windows
         with:
