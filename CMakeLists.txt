@@ -11,8 +11,11 @@ file(
 
 set(CONAN_DISABLE_CHECK_COMPILER 1)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
+if (EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
+	include("${CMAKE_BINARY_DIR}/conan_paths.cmake")
+else()
+	list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
+endif()
 
 include_directories("Common")
 

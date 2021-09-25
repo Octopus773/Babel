@@ -6,6 +6,7 @@ asio/1.19.2
 
 [generators]
 cmake_find_package
+cmake_paths
 
 [options]
 opus:shared=True

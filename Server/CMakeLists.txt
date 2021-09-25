@@ -26,11 +26,10 @@ add_executable(babel_server
 )
 
 
-find_package(opus)
-find_package(asio)
+#find_package(opus 1.3.1 REQUIRED)
+find_package(asio 1.19.2 REQUIRED)
 
-target_link_libraries(babel_server opus::opus asio::asio)
-
+target_link_libraries(babel_server asio::asio)
 
 file(
 	GLOB_RECURSE
@@ -47,7 +46,7 @@ add_executable(server_unit_tests EXCLUDE_FROM_ALL
 
 find_package(Catch2 QUIET)
 if (NOT Catch2_FOUND)
-	set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/catch2")
+	list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/catch2")
 	find_package(Catch2 REQUIRED)
 endif ()
 target_link_libraries(server_unit_tests PRIVATE Catch2::Catch2)
