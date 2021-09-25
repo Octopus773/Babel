@@ -26,10 +26,10 @@ add_executable(babel_server
 )
 
 
-#find_package(opus 1.3.1 REQUIRED)
+find_package(Opus 1.3.1 REQUIRED)
 find_package(asio 1.19.2 REQUIRED)
 
-target_link_libraries(babel_server asio::asio)
+target_link_libraries(babel_server asio::asio Opus::opus)
 
 file(
 	GLOB_RECURSE

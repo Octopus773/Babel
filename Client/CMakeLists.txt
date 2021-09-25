@@ -27,9 +27,9 @@ add_executable(babel_client
 
 find_package(Qt5 5.15.2 REQUIRED COMPONENTS Widgets)
 find_package(portaudio 19.7.0 REQUIRED)
-#find_package(opus 1.3.1 REQUIRED)
+find_package(Opus 1.3.1 REQUIRED)
 
-target_link_libraries(babel_client Qt5::Widgets portaudio::portaudio)
+target_link_libraries(babel_client Qt5::Widgets portaudio::portaudio Opus::opus)
 
 file(
 	GLOB_RECURSE
