@@ -14,6 +14,7 @@ set(CONAN_DISABLE_CHECK_COMPILER 1)
 if (EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
 	include("${CMAKE_BINARY_DIR}/conan_paths.cmake")
 else()
+	message(WARNING "The file conan_paths.cmake doesn't exist, you may have to run conan install first")
 	list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
 endif()
 
