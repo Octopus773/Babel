@@ -30,12 +30,20 @@ jobs:
           pip3 install conan
           mkdir build
 
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1  # not v2!
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
         with:
-          version: '5.12.2'
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: '5.15.2'
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v1
         if: matrix.name == 'Linux'
         name: Cache for linux
         id: cache_linux
@@ -68,7 +76,7 @@ jobs:
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
           conan install .. --build missing
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v1
         name: Cache for windows
         if: matrix.name == 'Windows'
         id: cache_windows
