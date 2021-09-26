@@ -61,8 +61,8 @@ jobs:
         run: |
           sudo apt-get install -y libgl-dev
 
-      - name: Run Conan install Linux
-        if: matrix.name == 'Linux'
+      - name: Setup Conan Linux
+        if: matrix.name == 'Linux' && steps.cache_linux.outputs.cache-hit != 'true'
         env:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
@@ -74,7 +74,6 @@ jobs:
           conan profile update settings.compiler.version=10 default
           conan config set general.revisions_enabled=1
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
-          conan install .. --build missing
 
       - uses: actions/cache@v1
         name: Cache for windows
@@ -89,8 +88,8 @@ jobs:
           key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
           restore-keys: ${{ runner.os }}-builder-${{ env.cache-name }}-
 
-      - name: Run Conan install Windows
-        if: matrix.name == 'Windows'
+      - name: Setup Conan Windows
+        if: matrix.name == 'Windows' && steps.cache_linux.outputs.cache-hit != 'true'
         env:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
@@ -100,12 +99,11 @@ jobs:
           conan profile new --detect default
           conan config set general.revisions_enabled=1
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
-          conan install .. --build missing
-
 
       - name: Build Main Binaries
         run: |
           cd build
+          conan install .. --build missing
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build .
       
