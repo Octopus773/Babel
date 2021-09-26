@@ -28,7 +28,7 @@ target_link_libraries(babel_server asio::asio Opus::opus)
 
 if (UNIX)
 	target_compile_options(babel_server PUBLIC
-		-fPIC -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wuninitialized -Wunreachable-code
+		-fPIC -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wuninitialized -Wunreachable-code -fcoroutines
 		$<$<CONFIG:RELEASE>:-Ofast>
 		)
 endif ()
