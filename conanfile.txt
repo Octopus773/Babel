@@ -16,6 +16,3 @@ portaudio:shared=True
 #qt:shared=False
 #qt:with_mysql=False
 #qt:with_odbc=False
-
-[imports]
-lib, *.so* -> bin
