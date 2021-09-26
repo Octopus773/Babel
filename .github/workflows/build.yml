@@ -30,6 +30,11 @@ jobs:
           pip3 install conan
           mkdir build
 
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: '5.12.2'
+
       - uses: actions/cache@v2
         if: matrix.name == 'Linux'
         name: Cache for linux
