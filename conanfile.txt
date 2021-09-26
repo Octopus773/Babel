@@ -1,7 +1,7 @@
 [requires]
 portaudio/19.7.0@bincrafters/stable
 opus/1.3.1
-# qt was commented due to long build in the CI, feel free to uncomment it with its options if you're using it on your machine
+# qt was commented due to long build in the CI, feel free to uncomment it with its options if you're compiling it on your machine
 #qt/5.15.2
 asio/1.19.2
 

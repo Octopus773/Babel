@@ -89,7 +89,7 @@ jobs:
           restore-keys: ${{ runner.os }}-builder-${{ env.cache-name }}-
 
       - name: Setup Conan Windows
-        if: matrix.name == 'Windows' && steps.cache_linux.outputs.cache-hit != 'true'
+        if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
         env:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
