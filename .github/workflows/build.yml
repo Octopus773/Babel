@@ -67,7 +67,9 @@ jobs:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
           cache-name: cache-conan-modules
+          TEST: steps.cache_linux.outputs.cache-hit
         run: |
+          echo $TEST
           cd build
           conan profile new --detect default
           conan profile update settings.compiler.libcxx=libstdc++11 default
@@ -94,7 +96,9 @@ jobs:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
           cache-name: cache-conan-modules
+          TEST: steps.cache_windows.outputs.cache-hit
         run: |
+          echo $TEST
           cd build
           conan profile new --detect default
           conan config set general.revisions_enabled=1
