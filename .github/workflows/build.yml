@@ -67,7 +67,7 @@ jobs:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
           cache-name: cache-conan-modules
-          TEST: steps.cache_linux.outputs.cache-hit
+          TEST: ${ { steps.cache_linux.outputs.cache-hit } }
         run: |
           echo $TEST
           cd build
@@ -96,7 +96,7 @@ jobs:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
           cache-name: cache-conan-modules
-          TEST: steps.cache_windows.outputs.cache-hit
+          TEST: ${ { steps.cache_windows.outputs.cache-hit } }
         run: |
           echo $TEST
           cd build
