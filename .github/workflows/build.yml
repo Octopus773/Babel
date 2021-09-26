@@ -61,7 +61,7 @@ jobs:
 #          sudo apt-get install -y libgl-dev
 
       - name: Setup Conan Linux
-        if: matrix.name == 'Linux' && steps.cache_linux.outputs.cache-hit != 'true'
+        if: matrix.name == 'Linux' && !steps.cache_linux.outputs.cache-hit
         env:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
@@ -89,7 +89,7 @@ jobs:
           key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
 
       - name: Setup Conan Windows
-        if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
+        if: matrix.name == 'Windows' && !steps.cache_windows.outputs.cache-hit
         env:
           CONAN_USER_HOME: "${{ github.workspace }}/release/"
           CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
