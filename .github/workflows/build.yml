@@ -103,6 +103,9 @@ jobs:
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan; true
 
       - name: Build Main Binaries
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
         run: |
           cd build
           conan install .. --build missing
