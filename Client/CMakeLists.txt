@@ -24,7 +24,7 @@ find_package(Qt5 5.15.2 REQUIRED COMPONENTS Widgets)
 find_package(portaudio 19.7.0 REQUIRED)
 find_package(Opus 1.3.1 REQUIRED)
 
-target_link_libraries(babel_client Qt5::Widgets portaudio::portaudio Opus::opus)
+target_link_libraries(babel_client PRIVATE Qt5::Widgets portaudio::portaudio Opus::opus)
 
 if (UNIX)
 	target_compile_options(babel_client PUBLIC
@@ -52,4 +52,4 @@ if (NOT Catch2_FOUND)
 	find_package(Catch2 REQUIRED)
 endif ()
 
-target_link_libraries(client_unit_tests PRIVATE Catch2::Catch2)
+target_link_libraries(client_unit_tests PRIVATE Catch2::Catch2 portaudio::portaudio Opus::opus)
