@@ -1,0 +1,336 @@
+
+
+
+
+Nantes Working Group                                         C. Le Bihan
+Internet-Draft                           Epitech Promo 2024; Team Leader
+Intended status: Informational                                 A. Djebar
+Expires: March 25, 2022
+                                                                  M. Glo
+
+                                                             U. Genereau
+                                                      September 21, 2021
+
+
+                   EPITECH's VoIP Project 2021; Babel
+                       draft-babel-protocol-v0.1
+
+Abstract
+
+   The Babel is VoIP application able to make voice calls like Skype,
+   TeamSpeak or Discord
+
+   The Babel Protocol allows anyone to implement their own client or
+   servers and be able to communicate with our wondeful implementation
+   Main git repo: https://github.com/Octopus773/Babel
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on March 25, 2022.
+
+Copyright Notice
+
+   Copyright (c) 2021 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 1]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Protocol Definition . . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   2
+   3.  Client -> Server Protocol . . . . . . . . . . . . . . . . . .   3
+     3.1.  Login . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+     3.2.  List users  . . . . . . . . . . . . . . . . . . . . . . .   3
+     3.3.  Call user . . . . . . . . . . . . . . . . . . . . . . . .   3
+     3.4.  Accept a receiving call from a user . . . . . . . . . . .   3
+     3.5.  Deny a receiving call from a user . . . . . . . . . . . .   4
+     3.6.  Hang up a call  . . . . . . . . . . . . . . . . . . . . .   4
+   4.  Server -> Client Protocol . . . . . . . . . . . . . . . . . .   4
+     4.1.  General purpuse response  . . . . . . . . . . . . . . . .   4
+     4.2.  Receiving call  . . . . . . . . . . . . . . . . . . . . .   4
+     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   5
+     4.4.  User leaving call . . . . . . . . . . . . . . . . . . . .   5
+   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
+     5.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
+     5.2.  Informative References  . . . . . . . . . . . . . . . . .   5
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+
+1.  Introduction
+
+   ______       _          _
+   | ___ \     | |        | |
+   | |_/ / __ _| |__   ___| |
+   | ___ \/ _` | '_ \ / _ \ |
+   | |_/ / (_| | |_) |  __/ |
+   \____/ \__,_|_.__/ \___|_|
+
+
+   The Babel Protocol allows anyone to implement their own client or
+   servers and be able to communicate with our wondeful implementation
+
+2.  Protocol Definition
+
+2.1.  Terminology
+
+   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
+   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+   and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 2]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+   [RFC2119] and indicate requirement levels for compliant Babel
+   implementations.
+
+3.  Client -> Server Protocol
+
+3.1.  Login
+
+   200 username_length username - Login a user in the server
+
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
+
+            * username : The username  : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           200           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+              Figure 1: Login Protocol from Client to server
+
+3.2.  List users
+
+   201 - Get the list of server currently active users
+
+           +------------+------------+
+           |           201           |
+           +------------+------------+
+
+3.3.  Call user
+
+   202 - Call a user from it's username
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           202           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+3.4.  Accept a receiving call from a user
+
+   203 - Accept a call from a user
+
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
+
+            * username : The username of the user we're receiving the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           203           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 3]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+3.5.  Deny a receiving call from a user
+
+   204 - Deny a call from a user
+
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
+
+            * username : The username of the user we're receiving the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           204           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+3.6.  Hang up a call
+
+   204 - Hang up a call
+
+            * username_length : The length of the login of the user : 1 byte (uint8_t)
+
+            * username : The username of the user that we're making the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           205           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+4.  Server -> Client Protocol
+
+4.1.  General purpuse response
+
+   300 - general purpuse response
+
+            * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+
+            * description_length : The length of the description : 2 bytes (uint8_t)
+
+            * description : human readable response (can be displayed to the user) : description_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+        |           300           |      response_code      |    description_length   |       description ...
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+
+4.2.  Receiving call
+
+   301 - Receiving a call from a user
+
+            * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+
+            * username : The username of the user that want to make a call : username_length bytes (char)
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 4]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           301           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+4.3.  User joining call
+
+   302 - User joining the call
+
+            * username_length : The length of the login of the user joining the call : 1 byte (uint8_t)
+
+            * username : The username of the user that is joining the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           302           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+4.4.  User leaving call
+
+   302 - User leaving the call
+
+            * username_length : The length of the login of the user leaving the call : 1 byte (uint8_t)
+
+            * username : The username of the user that is leaving the call : username_length bytes (char)
+
+        +------------+------------+------------+------------+------------+------------+--
+        |           302           |     username_length     |          username ...
+        +------------+------------+------------+------------+------------+------------+--
+
+5.  References
+
+5.1.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+5.2.  Informative References
+
+   [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
+              "Session Traversal Utilities for NAT (STUN)", RFC 5389,
+              DOI 10.17487/RFC5389, October 2008,
+              <https://www.rfc-editor.org/info/rfc5389>.
+
+
+
+
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 5]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+Authors' Addresses
+
+   Clement Le Bihan
+   Epitech Promo 2024; Team Leader
+
+   Email: clement.lebihan773@gmail.com
+
+
+   Adam Djebar
+
+   Email: adam.djebar@epitech.eu
+
+
+   Marius Glo
+
+   Email: marius1.glo@epitech.eu
+
+
+   Ugo Genereau
+
+   Email: ugo.genereau@epitech.eu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
