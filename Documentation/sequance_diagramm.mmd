@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant Lena
+    participant Client1
+    participant Server
+    participant Client2
+    participant Stephane
+    autonumber
+
+    Lena->>Client1: Starts the app
+
+
+    rect rgba(164, 245, 66, .5)
+        alt Login Success
+            Client1->>+Server: 200 LOGIN
+            Server->>-Client1: 300 OK
+            Client1->>+Server: 201 LIST USERS
+            Server->>-Client1: 300 CONNECTED USERS
+        end
+    end
+
+
+
+    Stephane->>Client2: Starts the app
+    loop 3 Disconnect after 3 tries
+        alt Login failure
+            rect rgba(245, 81, 66, .5)
+                Client2->>+Server: 200 LOGIN
+                Server->>-Client2: 300 KO
+            end
+        else Login Success
+            rect rgba(164, 245, 66, .5)
+                Client2->>+Server: 200 LOGIN
+                Server->>-Client2: 300 OK
+                Client2->>+Server: 201 LIST USERS
+                Server->>-Client2: 300 CONNECTED USERS
+            end
+        end
+    end
+
+    Note over Client1, Client2: Typical login interactions
