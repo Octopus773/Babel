@@ -20,9 +20,9 @@ namespace Babel
 		//! @brief The id of the message
 		T codeId;
 		//! @brief The size of the message body in bytes
-		uint64_t bodySize;
+		uint32_t bodySize;
 		//! @brief The UNIX Timestamp of the creation of the message
-		uint64_t timeStamp;
+		uint32_t timeStamp;
 	};
 
 	template<typename T>
