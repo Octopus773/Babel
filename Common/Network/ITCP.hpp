@@ -25,6 +25,6 @@ namespace Babel
 		virtual TSQueue &retrieve() = 0;
 
 		//! @brief default dtor
-		~ITCP() = 0;
+		virtual ~ITCP() = 0;
 	};
 }
