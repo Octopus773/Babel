@@ -12,15 +12,19 @@ namespace Babel
 {
 	class ITCP
 	{
+	public:
 		//! @brief connect to a hostname and a port
-		void connect(const std::string &hostname, const std::string &port) = 0;
+		virtual void connect(const std::string &hostname, const std::string &port) = 0;
 		//! @brief disconnect the connection
-		void disconnect() = 0;
+		virtual void disconnect() = 0;
 		//! @brief Tells if the connection is up
-		bool isConnected() = 0;
+		virtual bool isConnected() = 0;
 		//! @brief Send the message
-		void send(Message message) = 0;
+		virtual void send(Message message) = 0;
 		//! @brief Retrieve the received messages
-		TSQueue &retrieve() = 0;
+		virtual TSQueue &retrieve() = 0;
+
+		//! @brief default dtor
+		~ITCP() = 0;
 	};
 }
