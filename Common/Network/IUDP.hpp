@@ -10,6 +10,7 @@ namespace Babel
 {
 	class ITCP
 	{
+	public:
 		//! @brief connect to a hostname and a port
 		void connect(const std::string &hostname, const std::string &port) = 0;
 		//! @brief disconnect the connection
