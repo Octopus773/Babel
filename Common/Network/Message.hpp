@@ -15,9 +15,8 @@ namespace Babel
 	};
 
 	template<typename T>
-	class MessageHeader
+	struct MessageHeader
 	{
-	public:
 		//! @brief The id of the message
 		T codeId;
 		//! @brief The size of the message body in bytes
@@ -27,7 +26,7 @@ namespace Babel
 	};
 
 	template<typename T>
-	class Message
+	struct Message
 	{
 		//! @brief The message metadata
 		MessageHeader<T> header;
