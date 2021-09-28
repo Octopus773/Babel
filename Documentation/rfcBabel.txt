@@ -184,7 +184,7 @@ Internet-Draft               Babel Protocol               September 2021
 
 3.6.  Hang up a call
 
-   204 - Hang up a call
+   205 - Hang up a call
 
             * username_length : The length of the login of the user : 1 byte (uint8_t)
 
@@ -244,14 +244,14 @@ Internet-Draft               Babel Protocol               September 2021
 
 4.4.  User leaving call
 
-   302 - User leaving the call
+   303 - User leaving the call
 
             * username_length : The length of the login of the user leaving the call : 1 byte (uint8_t)
 
             * username : The username of the user that is leaving the call : username_length bytes (char)
 
         +------------+------------+------------+------------+------------+------------+--
-        |           302           |     username_length     |          username ...
+        |           303           |     username_length     |          username ...
         +------------+------------+------------+------------+------------+------------+--
 
 5.  References
