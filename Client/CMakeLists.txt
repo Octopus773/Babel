@@ -20,11 +20,11 @@ add_executable(babel_client
 	${COMMON_SOURCES}
 )
 
-find_package(Qt5 5.15.2 REQUIRED COMPONENTS Widgets)
+find_package(Qt5 5.15.2 REQUIRED COMPONENTS Widgets Network)
 find_package(portaudio 19.7.0 REQUIRED)
 find_package(Opus 1.3.1 REQUIRED)
 
-target_link_libraries(babel_client PRIVATE Qt5::Widgets portaudio::portaudio Opus::opus)
+target_link_libraries(babel_client PRIVATE Qt5::Widgets Qt5::Network portaudio::portaudio Opus::opus)
 
 if (UNIX)
 	target_compile_options(babel_client PUBLIC
