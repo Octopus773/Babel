@@ -67,7 +67,7 @@ TEST_CASE("empty", "[Babel][TSQueue]")
 
 	CHECK(queue._queue.empty() == queue.empty());
 
-	queue._queue.pushBack(1);
+	queue._queue.push_back(1);
 	CHECK(queue._queue.empty() == queue.empty());
 }
 
