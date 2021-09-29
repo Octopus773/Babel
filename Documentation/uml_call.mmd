@@ -1,0 +1,53 @@
+sequenceDiagram
+    participant Lena
+    participant Client1
+    participant Server
+    participant Client2
+    participant Stephane
+    autonumber
+
+    Lena->>Client1: Call Stephane
+    Client1->>+Server: 202 Stephane
+    Server->>-Client1: 300 calling Stephane
+
+
+    loop 3 Give up after 3 tries if no response
+        Server->>Client2: 301 from Lena
+    end
+    Client2->>Stephane: Incoming call
+
+    alt Didn't respond to call
+        Server->>Client1: 300 Stephane KO
+        Client1->>Lena: Stephane didnt respond
+    else Refuses call
+        rect rgba(245, 81, 66, .5)
+            Stephane->>Client2: Decline call
+            Client2->>Server: 204 Lena
+            Server->>Client1: 300 Stephane KO
+            Client1->>Lena: Stephane hanged up
+        end
+    else Accept call
+        rect rgba(164, 245, 66, .5)
+            Stephane->>Client2: Accept call
+            Client2->>+Server: 203 Lena
+            par
+                Server->>-Client2: 300 ip Lena + port
+                Client2->>Client1: creation UDP connection
+                Client2->>Stephane: Calling interface
+            and
+                Server->>Client1: 300 ip Stephane + port
+                Client1->>Client2: creation UDP connection
+                Client1->>Lena: Calling interface
+            end
+        end
+    end
+
+    Note over Lena, Stephane: Ongoing Call
+
+    Lena->>Client1: Hang up
+    Client1->>+Server: 205 Stephane
+    Server->>-Client1: OK
+    Client1-xClient2: Close UDP connection
+    Server->>Client2: 303 Lena
+    Client2-xClient1: Close UDP connection
+    Client2->>Stephane: Lena hang up

@@ -20,14 +20,86 @@ jobs:
       - uses: actions/checkout@v1
         with:
           submodules: true
-      
+
       - name: Update G++
         if: matrix.name == 'Linux'
         run: sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-10 100
-      
-      - name: Build Client Test Binary
+
+      - name: Install Conan
         run: |
-          mkdir build && cd build
+          pip3 install conan
+          mkdir build
+
+      - name: Cache Qt
+        id: cache-qt
+        uses: actions/cache@v1  # not v2!
+        with:
+          path: ../Qt
+          key: ${{ runner.os }}-QtCache
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          version: '5.15.2'
+
+#      - uses: actions/cache@v1
+#        if: matrix.name == 'Linux'
+#        name: Cache for linux
+#        id: cache_linux
+#        env:
+#          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+#          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+#          cache-name: cache-conan-modules
+#        with:
+#          path: ${{ env.CONAN_USER_HOME }}
+#          key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
+
+      - name: Setup Conan Linux
+        if: matrix.name == 'Linux'
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+          cache-name: cache-conan-modules
+        run: |
+          cd build
+          conan profile new --detect default
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+          conan profile update settings.compiler.version=10 default
+          conan config set general.revisions_enabled=1
+          conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+
+      - uses: actions/cache@v1
+        name: Cache for windows
+        if: matrix.name == 'Windows'
+        id: cache_windows
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+          cache-name: cache-conan-modules
+        with:
+          path: ${{ env.CONAN_USER_HOME }}
+          key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
+
+      - name: Setup Conan Windows
+        if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+          cache-name: cache-conan-modules
+        run: |
+          cd build
+          conan profile new --detect default
+          conan config set general.revisions_enabled=1
+          conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+
+      - name: Build Client Test Binary
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+        run: |
+          cd build
+          conan install .. --build missing
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t client_unit_tests
       
@@ -44,8 +116,12 @@ jobs:
           build/Client/Debug/client_unit_tests.exe
       
       - name: Build Server Test Binary
+        env:
+          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
         run: |
           cd build
+          conan install .. --build missing
           cmake .. -DCMAKE_BUILD_TYPE=Debug
           cmake --build . -t server_unit_tests
       
