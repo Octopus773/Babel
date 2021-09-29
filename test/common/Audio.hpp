@@ -9,30 +9,18 @@
 #define AUDIO_HPP_
 
 #include "portaudio.h"
-#define SAMPLE_RATE  (44100)
-#define FRAMES_PER_BUFFER (512)
-#define NUM_SECONDS     (5)
+#define SAMPLE_RATE  (48000)
+#define FRAMES_PER_BUFFER (960)
+#define NUM_SECONDS     (10)
 #define NUM_CHANNELS    (2)
 #define DITHER_FLAG     (0)
 #define WRITE_TO_FILE   (0)
+#include <vector>
+#include <cstdint>
 
-#if 1
-#define PA_SAMPLE_TYPE  paFloat32
-typedef float SAMPLE;
-#define SAMPLE_SILENCE  0.0f
-#elif 1
 #define PA_SAMPLE_TYPE  paInt16
 typedef short SAMPLE;
 #define SAMPLE_SILENCE  0
-#elif 0
-#define PA_SAMPLE_TYPE  paInt8
-typedef char SAMPLE;
-#define SAMPLE_SILENCE  0
-#else
-#define PA_SAMPLE_TYPE  paUInt8
-typedef unsigned char SAMPLE;
-#define SAMPLE_SILENCE  (128)
-#endif
 
 typedef struct
 {
@@ -53,6 +41,7 @@ public:
     ~Audio();
 private:
     paTestData data;
+    std::vector<int16_t> pcm;
 };
 
 #endif
