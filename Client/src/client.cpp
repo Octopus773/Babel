@@ -77,14 +77,14 @@ Client::Client(QWidget *parent)
 	// find out IP addresses of this machine
 	QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 	// add non-localhost addresses
-	for (int i = 0; i < ipAddressesList.size(); ++i) {
-		if (!ipAddressesList.at(i).isLoopback())
-			hostCombo->addItem(ipAddressesList.at(i).toString());
+	for (const auto & i : ipAddressesList) {
+		if (!i.isLoopback())
+			hostCombo->addItem(i.toString());
 	}
 	// add localhost addresses
-	for (int i = 0; i < ipAddressesList.size(); ++i) {
-		if (ipAddressesList.at(i).isLoopback())
-			hostCombo->addItem(ipAddressesList.at(i).toString());
+	for (const auto & i : ipAddressesList) {
+		if (i.isLoopback())
+			hostCombo->addItem(i.toString());
 	}
 
 	portLineEdit->setValidator(new QIntValidator(1, 65535, this));
@@ -195,7 +195,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 	case QAbstractSocket::RemoteHostClosedError:
 		break;
 	case QAbstractSocket::HostNotFoundError:
-		QMessageBox::information(this, tr("Fortune Client"),
+		QMessageBox::critical(this, tr("Fortune Client"),
 		                         tr("The host was not found. Please check the "
 		                            "host name and port settings."));
 		break;
