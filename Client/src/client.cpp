@@ -50,6 +50,7 @@
 
 #include <QtWidgets>
 #include <QtNetwork>
+#include <iostream>
 
 #include "client.hpp"
 
@@ -169,19 +170,33 @@ void Client::requestNewFortune()
 //! [8]
 void Client::readFortune()
 {
+	std::cout << "readFortune" << std::endl;
 	in.startTransaction();
 
 	QString nextFortune;
-	in >> nextFortune;
+	char text[100] = {0};
 
-	if (!in.commitTransaction())
+	//in >> text;
+	in.readRawData(text, 100);
+	//in >> nextFortune;
+
+	std::cout << "nextFortune value: '" << nextFortune.toStdString() << "'" << std::endl;
+	std::cout << "text value: '" << text << "'" << std::endl;
+
+	nextFortune = text;
+
+	if (!in.commitTransaction()) {
+		std::cout << "no commit trans" << std::endl;
 		return;
+	}
 
-	if (nextFortune == currentFortune) {
+	if (nextFortune == currentFortune && !nextFortune.isEmpty()) {
+		std::cout << "re ask" << std::endl;
 		QTimer::singleShot(0, this, &Client::requestNewFortune);
 		return;
 	}
 
+	std::cout << "pass" << std::endl;
 	currentFortune = nextFortune;
 	statusLabel->setText(currentFortune);
 	getFortuneButton->setEnabled(true);

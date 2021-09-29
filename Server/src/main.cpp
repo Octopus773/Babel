@@ -1,6 +1,6 @@
 //
-// timer.cpp
-// ~~~~~~~~~
+// server.cpp
+// ~~~~~~~~~~
 //
 // Copyright (c) 2003-2021 Christopher M. Kohlhoff (chris at kohlhoff dot com)
 //
@@ -8,75 +8,116 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
+#include <ctime>
 #include <iostream>
-#include <asio.hpp>
+#include <string>
+#include <memory>
 #include <functional>
+#include <asio.hpp>
 
-class printer
+using asio::ip::tcp;
+
+std::string make_daytime_string()
+{
+	using namespace std; // For time_t, time and ctime;
+	time_t now = time(nullptr);
+	struct tm * p = localtime(&now);
+	char str[100];
+	strftime(str, 100, "%a, %b %d %k:%M:%S", p);
+	return str;
+}
+
+class tcp_connection
+	: public std::shared_ptr<tcp_connection>
 {
 public:
-	printer(asio::io_context& io)
-		: strand_(asio::make_strand(io)),
-		  timer1_(io, asio::chrono::seconds(1)),
-		  timer2_(io, asio::chrono::seconds(1)),
-		  count_(0)
-	{
-		timer1_.async_wait(asio::bind_executor(strand_,
-		                                       std::bind(&printer::print1, this)));
+	typedef std::shared_ptr<tcp_connection> pointer;
 
-		timer2_.async_wait(asio::bind_executor(strand_,
-		                                       std::bind(&printer::print2, this)));
+	static pointer create(asio::io_context& io_context)
+	{
+		return pointer(new tcp_connection(io_context));
 	}
 
-	~printer()
+	tcp::socket& socket()
 	{
-		std::cout << "Final count is " << count_ << std::endl;
+		return socket_;
 	}
 
-	void print1()
+	void start()
 	{
-		if (count_ < 10)
-		{
-			std::cout << "Timer 1: " << count_ << std::endl;
-			++count_;
+		message_ = make_daytime_string();
 
-			timer1_.expires_at(timer1_.expiry() + asio::chrono::seconds(1));
+		std::cout << "send: '" << message_ << "'" << std::endl;
 
-			timer1_.async_wait(asio::bind_executor(strand_,
-			                                       std::bind(&printer::print1, this)));
-		}
-	}
-
-	void print2()
-	{
-		if (count_ < 10)
-		{
-			std::cout << "Timer 2: " << count_ << std::endl;
-			++count_;
-
-			timer2_.expires_at(timer2_.expiry() + asio::chrono::seconds(1));
-
-			timer2_.async_wait(asio::bind_executor(strand_,
-			                                       std::bind(&printer::print2, this)));
-		}
+		asio::async_write(socket_, asio::buffer(message_),
+		                  std::bind(&tcp_connection::handle_write, this,
+		                              std::placeholders::_1,
+		                              std::placeholders::_2));
 	}
 
 private:
-	asio::strand<asio::io_context::executor_type> strand_;
-	asio::steady_timer timer1_;
-	asio::steady_timer timer2_;
-	int count_;
+	tcp_connection(asio::io_context& io_context)
+		: socket_(io_context)
+	{
+	}
+
+	void handle_write(const asio::error_code& /*error*/,
+	                  size_t /*bytes_transferred*/)
+	{
+	}
+
+	tcp::socket socket_;
+	std::string message_;
+};
+
+class tcp_server
+{
+public:
+	tcp_server(asio::io_context& io_context)
+		: io_context_(io_context),
+		  acceptor_(io_context, tcp::endpoint(tcp::v4(), 4242))
+	{
+		start_accept();
+	}
+
+private:
+	void start_accept()
+	{
+		tcp_connection::pointer new_connection =
+			tcp_connection::create(io_context_);
+
+		acceptor_.async_accept(new_connection->socket(),
+		                       std::bind(&tcp_server::handle_accept, this, new_connection,
+		                                   std::placeholders::_1));
+	}
+
+	void handle_accept(tcp_connection::pointer new_connection,
+	                   const asio::error_code& error)
+	{
+		if (!error)
+		{
+			new_connection->start();
+		}
+
+		start_accept();
+	}
+
+	asio::io_context& io_context_;
+	tcp::acceptor acceptor_;
 };
 
 int main()
 {
-	asio::io_context io;
-	printer p(io);
-
-	asio::thread t(std::bind(static_cast<std::size_t (asio::io_service::*)()>(&asio::io_service::run),
-							 &io));
-	io.run();
-	t.join();
+	try
+	{
+		asio::io_context io_context;
+		tcp_server server(io_context);
+		io_context.run();
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 
 	return 0;
 }
