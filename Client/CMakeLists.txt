@@ -12,6 +12,10 @@ file(
 
 list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
 include_directories(src)
 
 add_executable(babel_client
@@ -52,4 +56,4 @@ if (NOT Catch2_FOUND)
 	find_package(Catch2 REQUIRED)
 endif ()
 
-target_link_libraries(client_unit_tests PRIVATE Catch2::Catch2 portaudio::portaudio Opus::opus)
+target_link_libraries(client_unit_tests PRIVATE Catch2::Catch2 Qt5::Widgets Qt5::Network  portaudio::portaudio Opus::opus)
