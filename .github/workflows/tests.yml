@@ -69,17 +69,17 @@ jobs:
           conan config set general.revisions_enabled=1
           conan remote add bincrafters https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
 
-      - uses: actions/cache@v1
-        name: Cache for windows
-        if: matrix.name == 'Windows'
-        id: cache_windows
-        env:
-          CONAN_USER_HOME: "${{ github.workspace }}/release/"
-          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
-          cache-name: cache-conan-modules
-        with:
-          path: ${{ env.CONAN_USER_HOME }}
-          key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
+#      - uses: actions/cache@v1
+#        name: Cache for windows
+#        if: matrix.name == 'Windows'
+#        id: cache_windows
+#        env:
+#          CONAN_USER_HOME: "${{ github.workspace }}/release/"
+#          CONAN_USER_HOME_SHORT: "${{ github.workspace }}/release/short"
+#          cache-name: cache-conan-modules
+#        with:
+#          path: ${{ env.CONAN_USER_HOME }}
+#          key: ${{ runner.os }}-builder-${{ env.cache-name }}-${{ hashFiles('conanfile.txt') }}
 
       - name: Setup Conan Windows
         if: matrix.name == 'Windows' && steps.cache_windows.outputs.cache-hit != 'true'
