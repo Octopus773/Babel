@@ -27,10 +27,11 @@ namespace Babel {
         //! @brief Same as Decode() with floats
         int Decode(const unsigned char *data, float *pcm);
 
-
+        //! @brief get the bitrate
         [[nodiscard]] std::int32_t getBitrate() const;
         void setBitrate(opus_int32 bitrate);
 
+        //! @brief get the channels
         [[nodiscard]] int getChannel() const;
         void setChannel(int channel);
 
@@ -52,14 +53,14 @@ namespace Babel {
         [[nodiscard]] bool isDecoderInitialized() const;
 
     private:
-        OpusEncoder *_encoder;
-        bool _encoderIsInitialized;
-        bool _decoderIsInitialized;
-        OpusDecoder *_decoder;
-        opus_int32 _bitrate;
-        int _channel;
-        int _application;
-        int _frameSize;
-        std::int32_t _dataSize;
+        OpusEncoder *_encoder; //!< Contains the encoder state
+        bool _encoderIsInitialized; //!< True if encoder state is allocated and initialized, false otherwise
+        bool _decoderIsInitialized; //!< True if decoder state is allocated and initialized, false otherwise
+        OpusDecoder *_decoder; //!< Contains the decoder state
+        opus_int32 _bitrate; //!< Decoder and encoder bitrate (default 48000)
+        int _channel; //!< Decoder and encoder audio channels (default 2)
+        int _application; //!< Encoder application mode (default OPUS_APPLICATION_VOIP)
+        int _frameSize; //!< Number of samples per channel in the input signal (default 960)
+        std::int32_t _dataSize; //!< Max duration of the frame in samples (per channel) that can fit into the decoded_frame array
     };
 }
