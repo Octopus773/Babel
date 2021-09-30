@@ -1,18 +1,11 @@
-//
-// Created by mgl on 9/29/21.
-//
-
-#ifndef BABEL_OPUSEXCEPTION_HPP
-#define BABEL_OPUSEXCEPTION_HPP
+#pragma once
 
 #include <string>
 #include "Exceptions/BabelException.hpp"
 
 namespace Babel {
-    class OpusException : public BabelException {
+    class OpusException : public Exception::BabelException {
     public:
         explicit OpusException(const std::string &str) : BabelException(str) {};
     };
 }
-
-#endif //BABEL_OPUSEXCEPTION_HPP
