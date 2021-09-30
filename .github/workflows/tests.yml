@@ -114,7 +114,6 @@ jobs:
         if: matrix.name == 'Windows'
         run: |
           ls build
-          ls build/bin
           ls build/Client
           ls build/Client/Debug
           build/Client/Debug/client_unit_tests.exe
