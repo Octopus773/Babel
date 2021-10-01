@@ -16,9 +16,8 @@ namespace Babel
 	{
 	public:
 		//! @brief connect to a hostname and a port
-		//! @param hostname The ip you want to connect
 		//! @param port The port belonging to the hostname you want to connect
-		virtual void connect(const std::string &hostname, uint16_t port) = 0;
+		virtual void connect(uint16_t port) = 0;
 
 		//! @brief disconnect the connection
 		virtual void disconnect() = 0;
@@ -29,6 +28,10 @@ namespace Babel
 		//! @brief Send the message
 		//! @param message The message to send
 		virtual void send(Message<T> message) = 0;
+
+		virtual void start() = 0;
+
+		virtual void stop() = 0;
 
 		virtual void accept() = 0;
 
