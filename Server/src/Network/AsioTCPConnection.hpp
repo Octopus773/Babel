@@ -40,6 +40,9 @@ namespace Babel
 		void writeHeader();
 		void writeBody();
 
+		void readHeader();
+		void readBody();
+
 
 
 		//! @brief The asio context to link everything
@@ -99,6 +102,7 @@ namespace Babel
 			this->_messagesOut.pushBack(message);
 			if (!isMessageBeingSend) {
 				// writeheader
+				this->writeHeader();
 			}
 		})
 	}
@@ -190,6 +194,71 @@ namespace Babel
 				                  this->_scoket.close();
 			                  }
 		                  });
+	}
+
+	template<typename T>
+	void AsioTCPConnection<T>::readHeader()
+	{
+		// If this function is called, we are expecting asio to wait until it receives
+		// enough bytes to form a header of a message. We know the headers are a fixed
+		// size, so allocate a transmission buffer large enough to store it. In fact,
+		// we will construct the message in a "temporary" message object as it's
+		// convenient to work with.
+		asio::async_read(this->_socket, asio::buffer(&this->_tmpMessage.header, sizeof(MessageHeader<T>)),
+		                 [this](std::error_code ec, std::size_t length)
+		                 {
+			                 if (!ec)
+			                 {
+				                 // A complete message header has been read, check if this message
+				                 // has a body to follow...
+				                 if (this->_tmpMessage.header.size > 0)
+				                 {
+					                 // ...it does, so allocate enough space in the messages' body
+					                 // vector, and issue asio with the task to read the body.
+					                 this->_tmpMessage.body.resize(this->_tmpMessage.header.size);
+					                 this->readBody();
+				                 }
+				                 else
+				                 {
+					                 // it doesn't, so add this bodyless message to the connections
+					                 // incoming message queue
+					                 this->_messagesIn.pushBack(this->_tmpMessage);
+					                 this->readHeader();
+				                 }
+			                 }
+			                 else
+			                 {
+				                 // Reading form the client went wrong, most likely a disconnect
+				                 // has occurred. Close the socket and let the system tidy it up later.
+				                 std::cout << "[" << _id << "] Read Header Fail.\n";
+				                 this->_socket.close();
+			                 }
+		                 });
+	}
+
+	template<typename T>
+	void AsioTCPConnection<T>::readBody()
+	{
+		// If this function is called, a header has already been read, and that header
+		// request we read a body, The space for that body has already been allocated
+		// in the temporary message object, so just wait for the bytes to arrive...
+		asio::async_read(this->_socket, asio::buffer(this->_tmpMessage.body.data(), this->_tmpMessage.body.size()),
+		                 [this](std::error_code ec, std::size_t length)
+		                 {
+			                 if (!ec)
+			                 {
+				                 // ...and they have! The message is now complete, so add
+				                 // the whole message to incoming queue
+				                 this->_messagesIn.pushBack(this->_tmpMessage);
+								 this->readHeader();
+			                 }
+			                 else
+			                 {
+				                 // As above!
+				                 std::cout << "[" << _id << "] Read Body Fail.\n";
+				                 this->_socket.close();
+			                 }
+		                 });
 	}
 
 }
