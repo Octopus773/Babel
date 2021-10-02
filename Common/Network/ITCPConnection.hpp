@@ -6,7 +6,7 @@
 
 #include <string>
 #include <vector>
-#include "Message.hpp"
+#include "Network/Message.hpp"
 #include "Utilities/TSQueue.hpp"
 
 namespace Babel
@@ -24,15 +24,17 @@ namespace Babel
 		virtual void disconnect() = 0;
 
 		//! @brief Tells if the connection is up
-		virtual bool isConnected() = 0;
+		virtual bool isConnected() const = 0;
 
 		//! @brief Send the message
 		//! @param message The message to send
 		virtual void send(Message<T> message) = 0;
 
-		//! @brief Retrieve all the fully received messages
-		//! @return All the received message first is oldest received
-		virtual std::vector<Message<T>> retrieveAllMessages() = 0;
+		//! @brief listen for new messages
+		virtual void readForMessages() = 0;
+
+		//! @brief Called when we received a message
+		virtual onMessage(Message<T> msg) = 0;
 
 		//! @brief default dtor
 		virtual ~ITCPConnection() = 0;
