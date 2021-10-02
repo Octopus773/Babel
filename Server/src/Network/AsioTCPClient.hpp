@@ -5,13 +5,13 @@
 #pragma once
 
 #include <asio.hpp>
-#include "Network/ITCPClient.hpp"
+#include "Network/ITCPConnection.hpp"
 
 namespace Babel
 {
 	//! @brief Asio implementation of a tcp communication
 	template<typename T>
-	class AsioTCPClient : public ITCPClient
+	class AsioTCPClient : public ITCPConnection
 	{
 	public:
 		//! @brief connect to a hostname and a port
@@ -43,7 +43,7 @@ namespace Babel
 	template<typename T>
 	void AsioTCPClient::connect(const std::string &hostname, uint16_t port)
 	{
-		ITCPClient::connect(hostname, port);
+		ITCPConnection::connect(hostname, port);
 	}
 
 	template<typename T>

@@ -12,7 +12,7 @@
 namespace Babel
 {
 	template<typename T>
-	class ITCPClient
+	class ITCPConnection
 	{
 	public:
 		//! @brief connect to a hostname and a port
@@ -35,6 +35,6 @@ namespace Babel
 		virtual std::vector<Message<T>> retrieveAllMessages() = 0;
 
 		//! @brief default dtor
-		virtual ~ITCPClient() = 0;
+		virtual ~ITCPConnection() = 0;
 	};
 }

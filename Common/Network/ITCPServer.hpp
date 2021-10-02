@@ -4,44 +4,47 @@
 
 #pragma once
 
+#include <cstdint>
+#include <memory>
 #include <string>
 #include <vector>
 #include "Message.hpp"
 #include "Utilities/TSQueue.hpp"
+#include "Network/ITCPConnection.hpp"
 
 namespace Babel
 {
 	template<typename T>
-	class ITCPClient
+	class ITCPServer
 	{
 	public:
-		//! @brief connect to a hostname and a port
-		//! @param port The port belonging to the hostname you want to connect
-		virtual void connect(uint16_t port) = 0;
 
-		//! @brief disconnect the connection
-		virtual void disconnect() = 0;
+		//! @brief Starts the server on indicated port
+		virtual void start(uint16_t port) = 0;
 
-		//! @brief Tells if the connection is up
-		virtual bool isConnected() = 0;
-
-		//! @brief Send the message
-		//! @param message The message to send
-		virtual void send(Message<T> message) = 0;
-
-		virtual void start() = 0;
-
+		//! @brief Stop the server
 		virtual void stop() = 0;
 
-		virtual void accept() = 0;
+		//! @brief Send a message to the specified client
+		virtual void messageClient(std::shared_ptr<ITCPConnection<T>> client, const Message<T> &msg) = 0;
 
-		virtual void listen() = 0;
+		//! @brief Send a message to all connected clients
+		virtual void messageAllClients(const Message<T> &msg) = 0;
 
-		//! @brief Retrieve all the fully received messages
-		//! @return All the received message first is oldest received
-		virtual std::vector<Message<T>> retrieveAllMessages() = 0;
+		//! @brief Forces the server to call callbacks
+		virtual void update() = 0;
+
+		//! @brief Called when a client connect
+		//! @note You can refuse the connection by returning false
+		virtual bool onClientConnect(std::shared_ptr<ITCPConnection<T> client) = 0;
+
+		//! @brief Called when a client disconnect
+		virtual void ocClientDisconnect(std::shared_ptr<ITCPConnection<T>> client) = 0;
+
+		//! @brief Called when we received a message from a client
+		virtual void onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg) = 0;
 
 		//! @brief default dtor
-		virtual ~ITCPClient() = 0;
+		virtual ~ITCPServer() = 0;
 	};
 }
