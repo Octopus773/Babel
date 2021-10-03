@@ -52,7 +52,7 @@ namespace Babel
 
 
 		//! @brief The asio context to link everything
-		asio::io_context _ioContext;
+		asio::io_context &_ioContext;
 		//! @brief The connection's socket
 		asio::ip::tcp::socket _socket;
 		//! @brief The function called when a message has been fully received
@@ -80,39 +80,38 @@ namespace Babel
 	}
 
 	template<typename T>
-	void AsioTCPConnection::connect(const std::string &hostname, uint16_t port)
+	void AsioTCPConnection<T>::connect(const std::string &, uint16_t )
 	{
-		ITCPConnection::connect(hostname, port);
 	}
 
 	template<typename T>
-	uint64_t AsioTCPConnection::getId() const
+	uint64_t AsioTCPConnection<T>::getId() const
 	{
 		return this->_id;
 	}
 
 	template<typename T>
-	void AsioTCPConnection::setId(uint64_t id)
+	void AsioTCPConnection<T>::setId(uint64_t id)
 	{
 		this->_id = id;
 	}
 
 	template<typename T>
-	void AsioTCPConnection::disconnect()
+	void AsioTCPConnection<T>::disconnect()
 	{
 		if (this->isConnected()) {
-			asio::post(this->_ioContext, [this]() { this->_socket.close(); })
+			asio::post(this->_ioContext, [this]() { this->_socket.close(); });
 		}
 	}
 
 	template<typename T>
-	bool AsioTCPConnection::isConnected() const
+	bool AsioTCPConnection<T>::isConnected() const
 	{
 		return this->_socket.is_open();
 	}
 
 	template<typename T>
-	void AsioTCPConnection::send(Message<T> message)
+	void AsioTCPConnection<T>::send(Message<T> message)
 	{
 		asio::post(this->_ioContext, [this, message] {
 			bool isMessageBeingSend = this->_messagesOut.empty();
@@ -122,11 +121,11 @@ namespace Babel
 				// writeheader
 				this->writeHeader();
 			}
-		})
+		});
 	}
 
 	template<typename T>
-	void AsioTCPConnection<T>::onMessage(Message<T> message)
+	void AsioTCPConnection<T>::onMessage(Message<T> )
 	{
 
 	}
@@ -144,7 +143,7 @@ namespace Babel
 		// at least one message to send. So allocate a transmission buffer to hold
 		// the message, and issue the work - asio, send these bytes
 		asio::async_write(this->_socket, asio::buffer(&this->_messagesOut.front().header, sizeof(MessageHeader<T>)),
-		                  [this](std::error_code ec, std::size_t length)
+		                  [this](std::error_code ec, std::size_t )
 		                  {
 			                  // asio has now sent the bytes - if there was a problem
 			                  // an error would be available...
@@ -161,7 +160,7 @@ namespace Babel
 				                  {
 					                  // ...it didnt, so we are done with this message. Remove it from
 					                  // the outgoing message queue
-					                  this->_messagesOut.pop_front();
+					                  this->_messagesOut.popFront();
 
 					                  // If the queue is not empty, there are more messages to send, so
 					                  // make this happen by issuing the task to send the next header.
@@ -190,13 +189,13 @@ namespace Babel
 		// indicated a body existed for this message. Fill a transmission buffer
 		// with the body data, and send it!
 		asio::async_write(this->_socket, asio::buffer(this->_messagesOut.front().body.data(), this->_messagesOut.front().body.size()),
-		                  [this](std::error_code ec, std::size_t length)
+		                  [this](std::error_code ec, std::size_t )
 		                  {
 			                  if (!ec)
 			                  {
 				                  // Sending was successful, so we are done with the message
 				                  // and remove it from the queue
-				                  this->_messagesOut.pop_front();
+				                  this->_messagesOut.popFront();
 
 				                  // If the queue still has messages in it, then issue the task to
 				                  // send the next messages' header.
@@ -209,7 +208,7 @@ namespace Babel
 			                  {
 				                  // Sending failed, see WriteHeader() equivalent for description :P
 				                  std::cout << "[" << this->_id << "] Write Body Fail.\n";
-				                  this->_scoket.close();
+				                  this->_socket.close();
 			                  }
 		                  });
 	}

@@ -87,7 +87,7 @@ namespace Babel
 		asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), port);
 		this->_acceptor.open(endpoint.protocol());
 		this->_acceptor.bind(endpoint);
-		std::cout << "server started on port " << port << std::endl
+		std::cout << "server started on port " << port << std::endl;
 		try
 		{
 			// Issue a task to the asio context - This is important
@@ -174,19 +174,19 @@ namespace Babel
 	}
 
 	template<typename T>
-	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>> client)
+	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>> )
 	{
 		return true;
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::onClientDisconnect(std::shared_ptr<ITCPConnection<T>> client)
+	void AsioTCPServer<T>::onClientDisconnect(std::shared_ptr<ITCPConnection<T>> )
 	{
 
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg)
+	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> , Message<T> &)
 	{
 
 	}
@@ -208,7 +208,7 @@ namespace Babel
 
 					// Create a new connection to handle this client
 					std::shared_ptr<AsioTCPConnection<T>> newconn =
-						                               std::make_shared<AsioTCPConnection<T>>(this->_ioContext, std::move(socket), [](Message<T> message) {
+						                               std::make_shared<AsioTCPConnection<T>>(this->_ioContext, std::move(socket), [](Message<T>) {
 														   std::cout << "msg received" << std::endl;
 													   });
 
@@ -222,10 +222,10 @@ namespace Babel
 
 						// And very important! Issue a task to the connection's
 						// asio context to sit and wait for bytes to arrive!
-						this->_connections.setId(this->_id++);
+						this->_connections.back()->setId(this->_idCounter++);
 						this->_connections.back()->readForMessages();
 
-						std::cout << "[" << this->_connections.back()->GetID() << "] Connection Approved\n";
+						std::cout << "[" << this->_connections.back()->getId() << "] Connection Approved\n";
 					}
 					else
 					{

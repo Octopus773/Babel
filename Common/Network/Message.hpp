@@ -32,18 +32,6 @@ namespace Babel
 
 		//! @brief Returns the message body size
 		size_t size() const;
-		//! @brief Convenience debug print
-		std::ostream &operator<<(std::ostream &os, const Message<T> &msg);
-
-		//! @brief Append type value into the message
-		//! @tparam DataType it must be trivially constructable
-		template<typename DataType>
-		Message<T> &operator<<(Message<T> &msg, const DataType &data);
-
-		//! @brief Retrieve the first datatype and remove it from the message
-		//! @tparam DataType it must be trivially constructable
-		template<typename DataType>
-		Message<T> &operator>>(Message<T> &msg, const DataType &data);
 	};
 
 	template<typename T>
@@ -53,15 +41,14 @@ namespace Babel
 	}
 
 	template<typename T>
-	std::ostream &Message<T>::operator<<(std::ostream &os, const Message<T> &msg)
+	std::ostream &operator<<(std::ostream &os, const Message<T> &msg)
 	{
 		os << "ID:" << int(msg.header.codeId) << " Size:" << msg.header.bodySize;
 		return os;
 	}
 
-	template<typename T>
-	template<typename DataType>
-	Message<T> &Message<T>::operator<<(Message<T> &msg, const DataType &data)
+	template<typename T, typename DataType>
+	Message<T> &operator<<(Message<T> &msg, const DataType &data)
 	{
 		// Check that the type of the data being pushed is trivially copyable
 		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
@@ -82,9 +69,8 @@ namespace Babel
 		return msg;
 	}
 
-	template<typename T>
-	template<typename DataType>
-	Message<T> &Message<T>::operator>>(Message<T> &msg, const DataType &data)
+	template<typename T, typename DataType>
+	Message<T> operator>>(Message<T> &msg, const DataType &data)
 	{
 
 		// Check that the type of the data being pushed is trivially copyable
