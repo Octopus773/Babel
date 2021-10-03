@@ -18,10 +18,13 @@ namespace Babel
 	public:
 		//! @brief connect to a hostname and a port
 		void connect(const std::string &hostname, uint16_t port) override;
+
 		//! @brief disconnect the connection
 		void disconnect() override;
+
 		//! @brief Tells if the connection is up
 		bool isConnected() const override;
+
 		//! @brief Send the message
 		void send(Message<T> message) override;
 
@@ -43,11 +46,12 @@ namespace Babel
 	private:
 
 		void writeHeader();
+
 		void writeBody();
 
 		void readHeader();
-		void readBody();
 
+		void readBody();
 
 
 		//! @brief The asio context to link everything
@@ -73,12 +77,12 @@ namespace Babel
 	)
 		: _ioContext(ioContext),
 		  _socket(std::move(socket)),
-		  _callbackMessageReceived([](auto){})
+		  _callbackMessageReceived([](auto) {})
 	{
 	}
 
 	template<typename T>
-	void AsioTCPConnection<T>::connect(const std::string &, uint16_t )
+	void AsioTCPConnection<T>::connect(const std::string &, uint16_t)
 	{
 	}
 
@@ -142,35 +146,27 @@ namespace Babel
 		// at least one message to send. So allocate a transmission buffer to hold
 		// the message, and issue the work - asio, send these bytes
 		asio::async_write(this->_socket, asio::buffer(&this->_messagesOut.front().header, sizeof(MessageHeader<T>)),
-		                  [this](std::error_code ec, std::size_t )
-		                  {
+		                  [this](std::error_code ec, std::size_t) {
 			                  // asio has now sent the bytes - if there was a problem
 			                  // an error would be available...
-			                  if (!ec)
-			                  {
+			                  if (!ec) {
 				                  // ... no error, so check if the message header just sent also
 				                  // has a message body...
-				                  if (this->_messagesOut.front().body.size() > 0)
-				                  {
+				                  if (this->_messagesOut.front().body.size() > 0) {
 					                  // ...it does, so issue the task to write the body bytes
 					                  this->writeBody();
-				                  }
-				                  else
-				                  {
+				                  } else {
 					                  // ...it didnt, so we are done with this message. Remove it from
 					                  // the outgoing message queue
 					                  this->_messagesOut.popFront();
 
 					                  // If the queue is not empty, there are more messages to send, so
 					                  // make this happen by issuing the task to send the next header.
-					                  if (!this->_messagesOut.empty())
-					                  {
+					                  if (!this->_messagesOut.empty()) {
 						                  this->writeHeader();
 					                  }
 				                  }
-			                  }
-			                  else
-			                  {
+			                  } else {
 				                  // ...asio failed to write the message, we could analyse why but
 				                  // for now simply assume the connection has died by closing the
 				                  // socket. When a future attempt to write to this client fails due
@@ -187,24 +183,20 @@ namespace Babel
 		// If this function is called, a header has just been sent, and that header
 		// indicated a body existed for this message. Fill a transmission buffer
 		// with the body data, and send it!
-		asio::async_write(this->_socket, asio::buffer(this->_messagesOut.front().body.data(), this->_messagesOut.front().body.size()),
-		                  [this](std::error_code ec, std::size_t )
-		                  {
-			                  if (!ec)
-			                  {
+		asio::async_write(this->_socket,
+		                  asio::buffer(this->_messagesOut.front().body.data(), this->_messagesOut.front().body.size()),
+		                  [this](std::error_code ec, std::size_t) {
+			                  if (!ec) {
 				                  // Sending was successful, so we are done with the message
 				                  // and remove it from the queue
 				                  this->_messagesOut.popFront();
 
 				                  // If the queue still has messages in it, then issue the task to
 				                  // send the next messages' header.
-				                  if (!this->_messagesOut.empty())
-				                  {
+				                  if (!this->_messagesOut.empty()) {
 					                  this->writeHeader();
 				                  }
-			                  }
-			                  else
-			                  {
+			                  } else {
 				                  // Sending failed, see WriteHeader() equivalent for description :P
 				                  std::cout << "[" << this->_id << "] Write Body Fail.\n";
 				                  this->_socket.close();
@@ -221,30 +213,23 @@ namespace Babel
 		// we will construct the message in a "temporary" message object as it's
 		// convenient to work with.
 		asio::async_read(this->_socket, asio::buffer(&this->_tmpMessage.header, sizeof(MessageHeader<T>)),
-		                 [this](std::error_code ec, std::size_t)
-		                 {
-			                 if (!ec)
-			                 {
+		                 [this](std::error_code ec, std::size_t) {
+			                 if (!ec) {
 				                 // A complete message header has been read, check if this message
 				                 // has a body to follow...
-				                 if (this->_tmpMessage.header.bodySize > 0)
-				                 {
+				                 if (this->_tmpMessage.header.bodySize > 0) {
 					                 // ...it does, so allocate enough space in the messages' body
 					                 // vector, and issue asio with the task to read the body.
 					                 this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
 					                 this->readBody();
-				                 }
-				                 else
-				                 {
+				                 } else {
 					                 // it doesn't, so add this bodyless message to the connections
 					                 // incoming message queue
 					                 this->_messagesIn.pushBack(this->_tmpMessage);
-									 this->_callbackMessageReceived(this->_tmpMessage);
+					                 this->_callbackMessageReceived(this->_tmpMessage);
 					                 this->readHeader();
 				                 }
-			                 }
-			                 else
-			                 {
+			                 } else {
 				                 // Reading form the client went wrong, most likely a disconnect
 				                 // has occurred. Close the socket and let the system tidy it up later.
 				                 std::cout << "[" << _id << "] Read Header Fail.\n";
@@ -260,18 +245,14 @@ namespace Babel
 		// request we read a body, The space for that body has already been allocated
 		// in the temporary message object, so just wait for the bytes to arrive...
 		asio::async_read(this->_socket, asio::buffer(this->_tmpMessage.body.data(), this->_tmpMessage.body.size()),
-		                 [this](std::error_code ec, std::size_t)
-		                 {
-			                 if (!ec)
-			                 {
+		                 [this](std::error_code ec, std::size_t) {
+			                 if (!ec) {
 				                 // ...and they have! The message is now complete, so add
 				                 // the whole message to incoming queue
 				                 this->_messagesIn.pushBack(this->_tmpMessage);
 				                 this->_callbackMessageReceived(this->_tmpMessage);
-								 this->readHeader();
-			                 }
-			                 else
-			                 {
+				                 this->readHeader();
+			                 } else {
 				                 // As above!
 				                 std::cout << "[" << _id << "] Read Body Fail.\n";
 				                 this->_socket.close();
