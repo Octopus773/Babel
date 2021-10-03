@@ -29,13 +29,16 @@ namespace Babel {
 
         //! @brief get the bitrate
         [[nodiscard]] std::int32_t getBitrate() const;
+
         void setBitrate(opus_int32 bitrate);
 
         //! @brief get the channels
         [[nodiscard]] int getChannel() const;
+
         void setChannel(int channel);
 
         [[nodiscard]] int getApplication() const;
+
         //! @brief sets the Opus application mode
         //! Possible values are OPUS_APPLICATION_AUDIO (default)
         //! OPUS_APPLICATION_VOIP
@@ -43,12 +46,14 @@ namespace Babel {
         void setApplication(int application);
 
         [[nodiscard]] int getFrameSize() const;
+
         //! @brief sets the number of samples per channel
         //! Possible values are 120/480/960 (default)/1920/2880
         void setFrameSize(int frameSize);
 
         //! @brief false if encoder failed to initialize
         [[nodiscard]] bool isEncoderInitialized() const;
+
         //! @brief false if decoder failed to initialize
         [[nodiscard]] bool isDecoderInitialized() const;
 
