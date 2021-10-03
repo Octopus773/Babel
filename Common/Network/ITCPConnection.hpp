@@ -36,6 +36,12 @@ namespace Babel
 		//! @brief Called when we received a message
 		virtual onMessage(Message<T> msg) = 0;
 
+		//! @brief Get the id of this connection
+		virtual uint64_t getId() const = 0;
+
+		//! @brief set the id of the connection
+		virtual void setId(uint64_t id) = 0;
+
 		//! @brief default dtor
 		virtual ~ITCPConnection() = 0;
 	};
