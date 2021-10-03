@@ -86,8 +86,19 @@ namespace Babel
 			this->_queue.clear();
 		}
 
+		void wait()
+		{
+			while (empty())
+			{
+				std::unique_lock<std::mutex> ul(muxBlocking);
+				cvBlocking.wait(ul);
+			}
+		}
+
 	protected:
 		std::mutex _mutex;
 		std::deque<T> _queue;
+		std::condition_variable cvBlocking;
+		std::mutex muxBlocking;
 	};
 }

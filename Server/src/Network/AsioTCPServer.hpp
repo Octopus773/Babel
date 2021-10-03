@@ -160,6 +160,8 @@ namespace Babel
 	{
 		size_t msgToRead = 50;
 
+		this->_messagesIn.wait();
+
 		size_t readedMessages = 0;
 
 		while (readedMessages < msgToRead && !this->_messagesIn.empty()) {
@@ -188,7 +190,7 @@ namespace Babel
 	template<typename T>
 	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> , Message<T> &)
 	{
-
+		std::cout << "asio received message" << std::endl;
 	}
 
 	template<typename T>
