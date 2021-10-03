@@ -30,8 +30,7 @@ int main()
 
 
 	while (true) {
-		sleep(1);
 		server.messageAllClients(msg);
-		server.update(50, false);
+		server.update(50, true);
 	}
 }
