@@ -20,7 +20,7 @@ namespace Babel
 	public:
 
 		//! @brief Starts the server on indicated port
-		virtual void start(uint16_t port) = 0;
+		virtual bool start(uint16_t port) = 0;
 
 		//! @brief Stop the server
 		virtual void stop() = 0;
@@ -36,10 +36,10 @@ namespace Babel
 
 		//! @brief Called when a client connect
 		//! @note You can refuse the connection by returning false
-		virtual bool onClientConnect(std::shared_ptr<ITCPConnection<T> client) = 0;
+		virtual bool onClientConnect(std::shared_ptr<ITCPConnection<T>> client) = 0;
 
 		//! @brief Called when a client disconnect
-		virtual void ocClientDisconnect(std::shared_ptr<ITCPConnection<T>> client) = 0;
+		virtual void onClientDisconnect(std::shared_ptr<ITCPConnection<T>> client) = 0;
 
 		//! @brief Called when we received a message from a client
 		virtual void onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg) = 0;

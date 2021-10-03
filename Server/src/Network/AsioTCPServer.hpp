@@ -13,6 +13,7 @@
 #include "Network/AsioTCPConnection.hpp"
 #include "Network/ITCPServer.hpp"
 #include "Utilities/TSQueue.hpp"
+#include "Network/OwnedMessage.hpp"
 
 namespace Babel
 {
@@ -21,7 +22,7 @@ namespace Babel
 	{
 	public:
 		//! @brief Starts the server on indicated port
-		void start(uint16_t port) override;
+		bool start(uint16_t port) override;
 
 		//! @brief Stop the server
 		void stop() override;
@@ -37,44 +38,48 @@ namespace Babel
 
 		//! @brief Called when a client connect
 		//! @note You can refuse the connection by returning false
-		bool onClientConnect(std::shared_ptr<ITCPConnection<T> client) override;
+		bool onClientConnect(std::shared_ptr<ITCPConnection<T>> client) override;
 
 		//! @brief Called when a client disconnect
-		void ocClientDisconnect(std::shared_ptr<ITCPConnection<T>> client) override;
+		void onClientDisconnect(std::shared_ptr<ITCPConnection<T>> client) override;
 
 		//! @brief Called when we received a message from a client
 		void onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg) override;
 
 		//! @brief default dtor
-		~ITCPServer() override = default;
+		~AsioTCPServer() override;
 
-		explicit ITCPServer();
+		explicit AsioTCPServer();
 
 	private:
 
 		void waitForClientConnections();
 
-		TSQueue<Message<T>> _messagesIn;
-		std::deque<std::shared_ptr<ITCPConnection<T>>> _connections;
+		TSQueue<OwnedMessage<T>> _messagesIn;
+		std::deque<std::shared_ptr<AsioTCPConnection<T>>> _connections;
 		asio::io_context _ioContext;
 		std::thread _contextThread;
 
 		asio::ip::tcp::acceptor _acceptor;
 
 		uint64_t _idCounter = 5;
-
-
-
 	};
 
+
 	template<typename T>
-	AsioTCPServer<T>::ITCPServer()
+	AsioTCPServer<T>::AsioTCPServer()
 		: _acceptor(this->_ioContext)
 	{
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::start(uint16_t port)
+	AsioTCPServer<T>::~AsioTCPServer()
+	{
+		this->stop();
+	}
+
+	template<typename T>
+	bool AsioTCPServer<T>::start(uint16_t port)
 	{
 		if (this->_acceptor.is_open()) {
 			this->_acceptor.close();
@@ -83,6 +88,27 @@ namespace Babel
 		this->_acceptor.open(endpoint.protocol());
 		this->_acceptor.bind(endpoint);
 		std::cout << "server started on port " << port << std::endl
+		try
+		{
+			// Issue a task to the asio context - This is important
+			// as it will prime the context with "work", and stop it
+			// from exiting immediately. Since this is a server, we
+			// want it primed ready to handle clients trying to
+			// connect.
+			this->waitForClientConnections();
+
+			// Launch the asio context in its own thread
+			this->_contextThread = std::thread([this]() { this->_ioContext.run(); });
+		}
+		catch (std::exception& e)
+		{
+			// Something prohibited the server from listening
+			std::cerr << "[SERVER] Exception: " << e.what() << "\n";
+			return false;
+		}
+
+		std::cout << "[SERVER] Started!\n";
+		return true;
 	}
 
 	template<typename T>
@@ -103,7 +129,7 @@ namespace Babel
 			client->send(msg);
 		}
 		else {
-			this->ocClientDisconnect(client);
+			this->onClientDisconnect(client);
 			client.reset();
 			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), client), this->_connections.end());
 		}
@@ -119,7 +145,7 @@ namespace Babel
 				client->send(msg);
 			}
 			else {
-				this->ocClientDisconnect(client);
+				this->onClientDisconnect(client);
 				client.reset();
 				disconnectedClients = true;
 			}
@@ -132,17 +158,29 @@ namespace Babel
 	template<typename T>
 	void AsioTCPServer<T>::update()
 	{
+		size_t msgToRead = 50;
 
+		size_t readedMessages = 0;
+
+		while (readedMessages < msgToRead && !this->_messagesIn.empty()) {
+			// Grab the front message
+			auto msg = this->_messagesIn.popFront();
+
+			// Pass to message handler
+			this->onMessage(msg.remote, msg.msg);
+
+			readedMessages++;
+		}
 	}
 
 	template<typename T>
-	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>, client>)
+	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>> client)
 	{
 		return true;
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::ocClientDisconnect(std::shared_ptr<ITCPConnection<T>> client)
+	void AsioTCPServer<T>::onClientDisconnect(std::shared_ptr<ITCPConnection<T>> client)
 	{
 
 	}
@@ -169,7 +207,7 @@ namespace Babel
 					std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
 
 					// Create a new connection to handle this client
-					std::shared_ptr<connection<T>> newconn =
+					std::shared_ptr<AsioTCPConnection<T>> newconn =
 						                               std::make_shared<AsioTCPConnection<T>>(this->_ioContext, std::move(socket), [](Message<T> message) {
 														   std::cout << "msg received" << std::endl;
 													   });
