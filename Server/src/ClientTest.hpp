@@ -50,6 +50,7 @@
 #include <thread>
 #include <mutex>
 #include <deque>
+#include <exception>
 #include <optional>
 #include <vector>
 #include <iostream>
@@ -158,6 +159,54 @@ namespace olc
 				// Return the target message so it can be "chained"
 				return msg;
 			}
+
+
+			template<typename DataType>
+			static message<T> &GetBytes(message<T> &msg, DataType &data, uint64_t size)
+			{
+				static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pulled from vector");
+
+				if (size > msg.body.size()) {
+					throw std::runtime_error("size > msg bytes");
+				}
+
+				// Cache the location towards the end of the vector where the pulled data starts
+				size_t i = msg.body.size() - size;
+
+				// Physically copy the data from the vector into the user variable
+				std::memcpy(&data, msg.body.data() + i, size);
+
+				// Shrink the vector to remove read bytes, and reset end position
+				msg.body.resize(i);
+
+				// Recalculate the message size
+				msg.header.size = msg.size();
+
+				// Return the target message so it can be "chained"
+				return msg;
+			}
+
+			static message<T> &GetBytes(message<T> &msg, std::string &data, uint64_t size)
+			{
+				if (size > msg.body.size()) {
+					throw std::runtime_error("size > msg bytes");
+				}
+
+				// Cache the location towards the end of the vector where the pulled data starts
+				size_t i = msg.body.size() - size;
+
+				data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
+
+				// Shrink the vector to remove read bytes, and reset end position
+				msg.body.resize(i);
+
+				// Recalculate the message size
+				msg.header.size = msg.size();
+
+				// Return the target message so it can be "chained"
+				return msg;
+			}
+
 		};
 
 
