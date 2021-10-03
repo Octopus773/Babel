@@ -192,7 +192,6 @@ namespace Babel
 	template<typename T>
 	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg)
 	{
-
 		std::string str;
 
 		Message<T>::GetBytes(msg, str, msg.header.bodySize);
@@ -213,6 +212,7 @@ namespace Babel
 
 					if (this->onClientConnect(newconn)) {
 						newconn->setCallbackOnMessage([this, newconn](Message<T> msg) {
+							std::cout << "new msg" << std::endl;
 							this->_messagesIn.pushBack(OwnedMessage<T>{newconn, msg});
 						});
 						this->_connections.push_back(std::move(newconn));
