@@ -190,63 +190,43 @@ namespace Babel
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> , Message<T> &msg)
+	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg)
 	{
-		std::cout << "asio received message " << msg << std::endl;
+
+		std::string str;
+
+		Message<T>::GetBytes(msg, str, msg.header.bodySize);
+		std::cout << "from client id: " << client->getId() << " received: '" << str << "'" << std::endl;
 	}
 
 	template<typename T>
 	void AsioTCPServer<T>::waitForClientConnections()
 	{
-		// Prime context with an instruction to wait until a socket connects. This
-		// is the purpose of an "acceptor" object. It will provide a unique socket
-		// for each incoming connection attempt
 		this->_acceptor.async_accept(
-			[this](std::error_code ec, asio::ip::tcp::socket socket)
-			{
-				// Triggered by incoming connection request
-				if (!ec)
-				{
-					// Display some useful(?) information
+			[this](std::error_code ec, asio::ip::tcp::socket socket) {
+				if (!ec) {
 					std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
 
-					// Create a new connection to handle this client
-					std::shared_ptr<AsioTCPConnection<T>> newconn =
-						                               std::make_shared<AsioTCPConnection<T>>(this->_ioContext, std::move(socket), [](Message<T>) {
-														   std::cout << "msg received" << std::endl;
-													   });
+					std::shared_ptr<AsioTCPConnection<T>> newconn = nullptr;
+					newconn = std::make_shared<AsioTCPConnection<T>>(this->_ioContext, std::move(socket));
 
 
-
-					// Give the user server a chance to deny connection
-					if (this->onClientConnect(newconn))
-					{
-						// Connection allowed, so add to container of new connections
+					if (this->onClientConnect(newconn)) {
+						newconn->setCallbackOnMessage([this, newconn](Message<T> msg) {
+							this->_messagesIn.pushBack(OwnedMessage<T>{newconn, msg});
+						});
 						this->_connections.push_back(std::move(newconn));
-
-						// And very important! Issue a task to the connection's
-						// asio context to sit and wait for bytes to arrive!
 						this->_connections.back()->setId(this->_idCounter++);
 						this->_connections.back()->readForMessages();
 
-						std::cout << "[" << this->_connections.back()->getId() << "] Connection Approved\n";
+						std::cout << "[" << this->_connections.back()->getId() << "] Connection Approved" << std::endl;
+					} else {
+						std::cout << "[-----] Connection Denied" << std::endl;
 					}
-					else
-					{
-						std::cout << "[-----] Connection Denied\n";
-
-						// Connection will go out of scope with no pending tasks, so will
-						// get destroyed automagically due to the wonder of smart pointers
-					}
-				}
-				else
-				{
-					// Error has occurred during acceptance
-					std::cout << "[SERVER] New Connection Error: " << ec.message() << "\n";
+				} else {
+					std::cout << "[SERVER] New Connection Error: " << ec.message() << std::endl;
 				}
 
-				// Prime the asio context with more work - again simply wait for
-				// another connection...
 				this->waitForClientConnections();
 			});
 	}

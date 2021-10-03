@@ -34,11 +34,10 @@ namespace Babel
 		//! @brief set the id of the connection
 		void setId(uint64_t id) override;
 
-		void onMessage(Message<T> message) override;
+		void setCallbackOnMessage(std::function<void(Message<T>)> callMessageReceived) override;
 
 		explicit AsioTCPConnection(asio::io_context &ioContext,
-		                           asio::ip::tcp::socket socket,
-		                           std::function<void(Message<T>)> callMessageReceived
+		                           asio::ip::tcp::socket socket
 		);
 
 	private:
@@ -70,12 +69,11 @@ namespace Babel
 
 	template<typename T>
 	AsioTCPConnection<T>::AsioTCPConnection(asio::io_context &ioContext,
-	                                        asio::ip::tcp::socket socket,
-	                                        std::function<void(Message<T>)> callMessageReceived
+	                                        asio::ip::tcp::socket socket
 	)
 		: _ioContext(ioContext),
 		  _socket(std::move(socket)),
-		  _callbackMessageReceived(std::move(callMessageReceived))
+		  _callbackMessageReceived([](auto){})
 	{
 	}
 
@@ -126,9 +124,9 @@ namespace Babel
 	}
 
 	template<typename T>
-	void AsioTCPConnection<T>::onMessage(Message<T> )
+	void AsioTCPConnection<T>::setCallbackOnMessage(std::function<void(Message<T>)> callMessageReceived)
 	{
-
+		this->_callbackMessageReceived = std::move(callMessageReceived);
 	}
 
 	template<typename T>
@@ -241,6 +239,7 @@ namespace Babel
 					                 // it doesn't, so add this bodyless message to the connections
 					                 // incoming message queue
 					                 this->_messagesIn.pushBack(this->_tmpMessage);
+									 this->_callbackMessageReceived(this->_tmpMessage);
 					                 this->readHeader();
 				                 }
 			                 }
@@ -261,13 +260,14 @@ namespace Babel
 		// request we read a body, The space for that body has already been allocated
 		// in the temporary message object, so just wait for the bytes to arrive...
 		asio::async_read(this->_socket, asio::buffer(this->_tmpMessage.body.data(), this->_tmpMessage.body.size()),
-		                 [this](std::error_code ec, std::size_t length)
+		                 [this](std::error_code ec, std::size_t)
 		                 {
 			                 if (!ec)
 			                 {
 				                 // ...and they have! The message is now complete, so add
 				                 // the whole message to incoming queue
 				                 this->_messagesIn.pushBack(this->_tmpMessage);
+				                 this->_callbackMessageReceived(this->_tmpMessage);
 								 this->readHeader();
 			                 }
 			                 else
@@ -278,5 +278,4 @@ namespace Babel
 			                 }
 		                 });
 	}
-
 }

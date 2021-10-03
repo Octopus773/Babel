@@ -38,6 +38,8 @@ namespace Babel
 		//! @brief Get size bytes from the message and put it in data, useful for strings (no compile time size)
 		template<typename DataType>
 		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
+
+		static Message<T> &GetBytes(Message<T> &message, std::string &data, uint64_t size);
 	};
 
 	template<typename T>
@@ -65,7 +67,7 @@ namespace Babel
 	}
 
 	template<typename T>
-	static Message<T> &GetBytes(Message<T> &msg, std::string &data, uint64_t size)
+	Message<T> &Message<T>::GetBytes(Message<T> &msg, std::string &data, uint64_t size)
 	{
 		if (size > msg.body.size()) {
 			throw Exception::BabelException("GetBytes: the size was superior than the message size");
@@ -75,7 +77,7 @@ namespace Babel
 
 		data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
 		msg.body.resize(i);
-		msg.header.size = msg.size();
+		msg.header.bodySize = msg.body.size();
 
 		return msg;
 	}

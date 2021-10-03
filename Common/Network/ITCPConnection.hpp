@@ -6,6 +6,7 @@
 
 #include <string>
 #include <vector>
+#include <functional>
 #include "Network/Message.hpp"
 #include "Utilities/TSQueue.hpp"
 
@@ -34,7 +35,7 @@ namespace Babel
 		virtual void readForMessages() = 0;
 
 		//! @brief Called when we received a message
-		virtual void onMessage(Message<T> msg) = 0;
+		virtual void setCallbackOnMessage(std::function<void(Message<T>)> callMessageReceived) = 0;
 
 		//! @brief Get the id of this connection
 		virtual uint64_t getId() const = 0;

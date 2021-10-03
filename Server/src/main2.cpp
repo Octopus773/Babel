@@ -17,12 +17,15 @@ int main()
 
 	if (client.Connect("127.0.0.1", 4245)) {
 		std::cout << "connected" << std::endl;
+	} else {
+		return 1;
 	}
 	olc::net::message<testCodes> msg;
 
 	msg.header.id = testCodes::Code1;
-	msg << "slt";
 
+	sleep(3);
+	msg << "slt";
 	client.Send(msg);
 
 	std::cout << msg << std::endl;
