@@ -133,7 +133,7 @@ namespace Babel
 	template<typename T>
 	void AsioTCPConnection<T>::readForMessages()
 	{
-
+		this->readHeader();
 	}
 
 	template<typename T>
@@ -222,17 +222,17 @@ namespace Babel
 		// we will construct the message in a "temporary" message object as it's
 		// convenient to work with.
 		asio::async_read(this->_socket, asio::buffer(&this->_tmpMessage.header, sizeof(MessageHeader<T>)),
-		                 [this](std::error_code ec, std::size_t length)
+		                 [this](std::error_code ec, std::size_t)
 		                 {
 			                 if (!ec)
 			                 {
 				                 // A complete message header has been read, check if this message
 				                 // has a body to follow...
-				                 if (this->_tmpMessage.header.size > 0)
+				                 if (this->_tmpMessage.header.bodySize > 0)
 				                 {
 					                 // ...it does, so allocate enough space in the messages' body
 					                 // vector, and issue asio with the task to read the body.
-					                 this->_tmpMessage.body.resize(this->_tmpMessage.header.size);
+					                 this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
 					                 this->readBody();
 				                 }
 				                 else

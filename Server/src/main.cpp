@@ -13,14 +13,14 @@
 
 enum class testCodes : uint16_t
 {
-	Code1
+	Code1 = 1
 };
 
 int main()
 {
 	Babel::AsioTCPServer<testCodes> server{};
 
-	server.start(4242);
+	server.start(4245);
 
-	server.update();
+	server.update(50, true);
 }
