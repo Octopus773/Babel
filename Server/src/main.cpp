@@ -9,6 +9,7 @@
 //
 
 
+#include "Network/Message.hpp"
 #include "Network/AsioTCPServer.hpp"
 
 enum class testCodes : uint16_t
@@ -19,8 +20,17 @@ enum class testCodes : uint16_t
 int main()
 {
 	Babel::AsioTCPServer<testCodes> server{};
+	Babel::Message<testCodes> msg;
 
+
+	msg.header.codeId = testCodes::Code1;
+	msg << "salut" << 42;
 	server.start(4245);
 
-	server.update(50, true);
+
+	while (true) {
+		sleep(1);
+		server.messageAllClients(msg);
+		server.update(50, false);
+	}
 }
