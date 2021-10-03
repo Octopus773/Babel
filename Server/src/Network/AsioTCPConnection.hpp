@@ -28,6 +28,12 @@ namespace Babel
 		//! @brief listen for new messages
 		void readForMessages() override;
 
+		//! @brief Get the id of this connection
+		uint64_t getId() const override;
+
+		//! @brief set the id of the connection
+		void setId(uint64_t id) override;
+
 		void onMessage(Message<T> message) override;
 
 		explicit AsioTCPConnection(asio::io_context &ioContext,
@@ -77,6 +83,18 @@ namespace Babel
 	void AsioTCPConnection::connect(const std::string &hostname, uint16_t port)
 	{
 		ITCPConnection::connect(hostname, port);
+	}
+
+	template<typename T>
+	uint64_t AsioTCPConnection::getId() const
+	{
+		return this->_id;
+	}
+
+	template<typename T>
+	void AsioTCPConnection::setId(uint64_t id)
+	{
+		this->_id = id;
 	}
 
 	template<typename T>
