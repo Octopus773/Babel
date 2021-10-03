@@ -3,6 +3,7 @@
 //
 
 #include "ClientTest.hpp"
+#include <iostream>
 
 enum class testCodes : uint16_t
 {
@@ -14,12 +15,24 @@ int main()
 {
 	olc::net::client_interface<testCodes> client{};
 
-	client.Connect("127.0.0.1", 4245);
-	olc::net::message<testCodes> msg
+	if (client.Connect("127.0.0.1", 4245)) {
+		std::cout << "connected" << std::endl;
+	}
+	olc::net::message<testCodes> msg;
 
 	msg.header.id = testCodes::Code1;
 	msg << "slt";
 
 	client.Send(msg);
 
+	std::cout << msg << std::endl;
+
+	while (true) {
+		sleep(1);
+		auto &queue = client.Incoming();
+		if (queue.empty())
+			continue;
+		auto rmsg = queue.pop_front();
+		std::cout << rmsg << std::endl;
+	}
 }

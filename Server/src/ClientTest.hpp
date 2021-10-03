@@ -370,11 +370,11 @@ namespace olc
 					                    {
 						                    if (!ec)
 						                    {
-							                    // Was: ReadHeader();
+							                    ReadHeader();
 
 							                    // First thing server will do is send packet to be validated
 							                    // so wait for that and respond
-							                    ReadValidation();
+							                    //ReadValidation();
 						                    }
 					                    });
 				}
