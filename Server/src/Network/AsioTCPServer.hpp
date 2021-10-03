@@ -34,7 +34,7 @@ namespace Babel
 		void messageAllClients(const Message<T> &msg) override;
 
 		//! @brief Forces the server to call callbacks
-		void update() override;
+		void update(uint64_t nbMessagesToProcess, bool wait) override;
 
 		//! @brief Called when a client connect
 		//! @note You can refuse the connection by returning false
@@ -86,7 +86,9 @@ namespace Babel
 		}
 		asio::ip::tcp::endpoint endpoint(asio::ip::tcp::v4(), port);
 		this->_acceptor.open(endpoint.protocol());
+		this->_acceptor.set_option(asio::ip::tcp::acceptor::reuse_address(true));
 		this->_acceptor.bind(endpoint);
+		this->_acceptor.listen();
 		std::cout << "server started on port " << port << std::endl;
 		try
 		{
@@ -156,22 +158,22 @@ namespace Babel
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::update()
+	void AsioTCPServer<T>::update(uint64_t nbMessagesToProcess, bool wait)
 	{
-		size_t msgToRead = 50;
+		if (wait) {
+			this->_messagesIn.wait();
+		}
 
-		this->_messagesIn.wait();
+		size_t processedMessages = 0;
 
-		size_t readedMessages = 0;
-
-		while (readedMessages < msgToRead && !this->_messagesIn.empty()) {
+		while (processedMessages < nbMessagesToProcess && !this->_messagesIn.empty()) {
 			// Grab the front message
 			auto msg = this->_messagesIn.popFront();
 
 			// Pass to message handler
 			this->onMessage(msg.remote, msg.msg);
 
-			readedMessages++;
+			processedMessages++;
 		}
 	}
 
@@ -188,9 +190,9 @@ namespace Babel
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> , Message<T> &)
+	void AsioTCPServer<T>::onMessage(std::shared_ptr<ITCPConnection<T>> , Message<T> &msg)
 	{
-		std::cout << "asio received message" << std::endl;
+		std::cout << "asio received message " << msg << std::endl;
 	}
 
 	template<typename T>

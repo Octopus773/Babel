@@ -32,7 +32,7 @@ namespace Babel
 		virtual void messageAllClients(const Message<T> &msg) = 0;
 
 		//! @brief Forces the server to call callbacks
-		virtual void update() = 0;
+		virtual void update(uint64_t nbMessagesToProcess, bool wait) = 0;
 
 		//! @brief Called when a client connect
 		//! @note You can refuse the connection by returning false
