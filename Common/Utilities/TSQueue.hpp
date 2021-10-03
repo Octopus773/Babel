@@ -86,19 +86,20 @@ namespace Babel
 			this->_queue.clear();
 		}
 
+		//! @brief Block a thread until the queue is non empty
 		void wait()
 		{
-			while (empty())
+			while (this->empty())
 			{
-				std::unique_lock<std::mutex> ul(muxBlocking);
-				cvBlocking.wait(ul);
+				std::unique_lock<std::mutex> ul(this->_waitMutex);
+				this->_blocker.wait(ul);
 			}
 		}
 
 	protected:
 		std::mutex _mutex;
 		std::deque<T> _queue;
-		std::condition_variable cvBlocking;
-		std::mutex muxBlocking;
+		std::condition_variable _blocker;
+		std::mutex _waitMutex;
 	};
 }
