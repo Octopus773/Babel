@@ -113,6 +113,7 @@ namespace Babel
 	template<typename T>
 	void AsioTCPConnection<T>::send(Message<T> message)
 	{
+		std::cout << "sending: " << message << std::endl;
 		asio::post(this->_ioContext, [this, message] {
 			bool isMessageBeingSend = this->_messagesOut.empty();
 

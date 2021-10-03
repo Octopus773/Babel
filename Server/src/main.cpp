@@ -14,7 +14,8 @@
 
 enum class testCodes : uint16_t
 {
-	Code1 = 1
+	// 64 47 @/
+	Code1 = 0b0100000000101111
 };
 
 int main()
@@ -24,7 +25,7 @@ int main()
 
 
 	msg.header.codeId = testCodes::Code1;
-	msg << "salut" << 42;
+	msg << "salut";
 	server.start(4245);
 
 
