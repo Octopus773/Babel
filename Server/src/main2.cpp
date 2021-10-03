@@ -27,6 +27,12 @@ int main()
 
 	std::cout << msg << std::endl;
 
+	std::string yolo = "oui";
+
+	msg.GetBytes(msg, yolo, msg.header.size);
+
+	std::cout << yolo << std::endl;
+
 	while (true) {
 		sleep(1);
 		auto &queue = client.Incoming();
@@ -34,5 +40,8 @@ int main()
 			continue;
 		auto rmsg = queue.pop_front();
 		std::cout << rmsg << std::endl;
+		std::string str = "";
+		olc::net::message<testCodes>::GetBytes(rmsg.msg, str, rmsg.msg.header.size);
+		std::cout << str << std::endl;
 	}
 }

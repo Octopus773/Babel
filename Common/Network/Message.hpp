@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "Exceptions/BabelException.hpp"
 #include <cstring>
 #include <cstdint>
 #include <vector>
@@ -33,12 +34,50 @@ namespace Babel
 
 		//! @brief Returns the message body size
 		size_t size() const;
+
+		//! @brief Get size bytes from the message and put it in data, useful for strings (no compile time size)
+		template<typename DataType>
+		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
 	};
 
 	template<typename T>
 	size_t Message<T>::size() const
 	{
 		return this->body.size();
+	}
+
+	template<typename T>
+	template<typename DataType>
+	Message<T> &Message<T>::GetBytes(Message<T> &msg, DataType &data, uint64_t size)
+	{
+		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pulled from vector");
+
+		if (size > msg.body.size()) {
+			throw Exception::BabelException("GetBytes: the size was superior than the message size");
+		}
+
+		size_t i = msg.body.size() - size;
+		std::memcpy(&data, msg.body.data() + i, size);
+		msg.body.resize(i);
+		msg.header.bodySize = msg.size();
+
+		return msg;
+	}
+
+	template<typename T>
+	static Message<T> &GetBytes(Message<T> &msg, std::string &data, uint64_t size)
+	{
+		if (size > msg.body.size()) {
+			throw Exception::BabelException("GetBytes: the size was superior than the message size");
+		}
+
+		size_t i = msg.body.size() - size;
+
+		data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
+		msg.body.resize(i);
+		msg.header.size = msg.size();
+
+		return msg;
 	}
 
 	template<typename T>
@@ -51,45 +90,19 @@ namespace Babel
 	template<typename T, typename DataType>
 	Message<T> &operator<<(Message<T> &msg, const DataType &data)
 	{
-		// Check that the type of the data being pushed is trivially copyable
 		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
 
-		// Cache current size of vector, as this will be the point we insert the data
 		size_t i = msg.body.size();
 
-		// Resize the vector by the size of the data being pushed
 		msg.body.resize(msg.body.size() + sizeof(DataType));
-
-		// Physically copy the data into the newly allocated vector space
 		std::memcpy(msg.body.data() + i, &data, sizeof(DataType));
-
-		// Recalculate the message size
 		msg.header.bodySize = msg.size();
-
-		// Return the target message so it can be "chained"
 		return msg;
 	}
 
 	template<typename T, typename DataType>
 	Message<T> operator>>(Message<T> &msg, const DataType &data)
 	{
-
-		// Check that the type of the data being pushed is trivially copyable
-		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pulled from vector");
-
-		// Cache the location towards the end of the vector where the pulled data starts
-		size_t i = msg.body.size() - sizeof(DataType);
-
-		// Physically copy the data from the vector into the user variable
-		std::memcpy(&data, msg.body.data() + i, sizeof(DataType));
-
-		// Shrink the vector to remove read bytes, and reset end position
-		msg.body.resize(i);
-
-		// Recalculate the message size
-		msg.header.bodySize = msg.size();
-
-		// Return the target message so it can be "chained"
-		return msg;
+		return Message<T>::GetBytes(msg, data, sizeof(DataType));
 	}
 }
