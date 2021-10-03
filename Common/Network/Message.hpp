@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <cstring>
 #include <cstdint>
 #include <vector>
 #include <iostream>
@@ -18,8 +19,8 @@ namespace Babel
 		T codeId;
 		//! @brief The size of the message body in bytes
 		uint32_t bodySize;
-		//! @brief The UNIX Timestamp of the creation of the message
-		uint32_t timeStamp;
+//		//! @brief The UNIX Timestamp of the creation of the message
+//		uint32_t timeStamp;
 	};
 
 	template<typename T>
