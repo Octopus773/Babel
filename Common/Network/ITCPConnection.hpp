@@ -43,6 +43,6 @@ namespace Babel
 		virtual void setId(uint64_t id) = 0;
 
 		//! @brief default dtor
-		virtual ~ITCPConnection() = 0;
+		virtual ~ITCPConnection() = default;
 	};
 }

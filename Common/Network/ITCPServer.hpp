@@ -45,6 +45,6 @@ namespace Babel
 		virtual void onMessage(std::shared_ptr<ITCPConnection<T>> client, Message<T> &msg) = 0;
 
 		//! @brief default dtor
-		virtual ~ITCPServer() = 0;
+		virtual ~ITCPServer() = default;
 	};
 }
