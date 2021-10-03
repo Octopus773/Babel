@@ -17,18 +17,23 @@ namespace Babel
 	{
 	public:
 		TSQueue() = default;
-		TSQueue(const TSQueue<T>&) = delete;
-		~TSQueue() { this->clear(); };
+
+		TSQueue(const TSQueue<T> &) = delete;
+
+		~TSQueue()
+		{
+			this->clear();
+		};
 
 		//!	@brief Returns a constant reference to the first element of the queue
-		const T& front()
+		const T &front()
 		{
 			std::scoped_lock lock(this->_mutex);
 			return this->_queue.front();
 		}
 
 		//!	@brief Returns a constant reference to the last element of the queue
-		const T& back()
+		const T &back()
 		{
 			std::scoped_lock lock(this->_mutex);
 			return this->_queue.back();
@@ -53,14 +58,14 @@ namespace Babel
 		}
 
 		//!	@brief Adds an element to the beginning of the queue
-		void pushFront(const T& t)
+		void pushFront(const T &t)
 		{
 			std::scoped_lock lock(this->_mutex);
 			this->_queue.push_front(t);
 		}
 
 		//!	@brief Adds an element to the beginning of the queue
-		void pushBack(const T& t)
+		void pushBack(const T &t)
 		{
 			std::scoped_lock lock(this->_mutex);
 			this->_queue.push_back(t);
@@ -90,8 +95,7 @@ namespace Babel
 		//! @brief Block a thread until the queue is non empty
 		void wait()
 		{
-			while (this->empty())
-			{
+			while (this->empty()) {
 				std::unique_lock<std::mutex> ul(this->_waitMutex);
 				this->_blocker.wait(ul);
 			}

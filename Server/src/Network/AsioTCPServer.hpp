@@ -90,8 +90,7 @@ namespace Babel
 		this->_acceptor.bind(endpoint);
 		this->_acceptor.listen();
 		std::cout << "server started on port " << port << std::endl;
-		try
-		{
+		try {
 			// Issue a task to the asio context - This is important
 			// as it will prime the context with "work", and stop it
 			// from exiting immediately. Since this is a server, we
@@ -102,8 +101,7 @@ namespace Babel
 			// Launch the asio context in its own thread
 			this->_contextThread = std::thread([this]() { this->_ioContext.run(); });
 		}
-		catch (std::exception& e)
-		{
+		catch (std::exception &e) {
 			// Something prohibited the server from listening
 			std::cerr << "[SERVER] Exception: " << e.what() << "\n";
 			return false;
@@ -129,11 +127,11 @@ namespace Babel
 	{
 		if (client && client->isConnected()) {
 			client->send(msg);
-		}
-		else {
+		} else {
 			this->onClientDisconnect(client);
 			client.reset();
-			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), client), this->_connections.end());
+			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), client),
+			                         this->_connections.end());
 		}
 	}
 
@@ -142,18 +140,18 @@ namespace Babel
 	{
 		bool disconnectedClients = false;
 
-		for (auto &client : this->_connections) {
+		for (auto &client: this->_connections) {
 			if (client && client->isConnected()) {
 				client->send(msg);
-			}
-			else {
+			} else {
 				this->onClientDisconnect(client);
 				client.reset();
 				disconnectedClients = true;
 			}
 		}
 		if (disconnectedClients) {
-			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), nullptr), this->_connections.end());
+			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), nullptr),
+			                         this->_connections.end());
 		}
 	}
 
@@ -178,13 +176,13 @@ namespace Babel
 	}
 
 	template<typename T>
-	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>> )
+	bool AsioTCPServer<T>::onClientConnect(std::shared_ptr<ITCPConnection<T>>)
 	{
 		return true;
 	}
 
 	template<typename T>
-	void AsioTCPServer<T>::onClientDisconnect(std::shared_ptr<ITCPConnection<T>> )
+	void AsioTCPServer<T>::onClientDisconnect(std::shared_ptr<ITCPConnection<T>>)
 	{
 
 	}
