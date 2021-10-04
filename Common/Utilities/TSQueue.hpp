@@ -62,6 +62,7 @@ namespace Babel
 		{
 			std::scoped_lock lock(this->_mutex);
 			this->_queue.push_front(t);
+			this->_blocker.notify_one();
 		}
 
 		//!	@brief Adds an element to the beginning of the queue
@@ -69,6 +70,7 @@ namespace Babel
 		{
 			std::scoped_lock lock(this->_mutex);
 			this->_queue.push_back(t);
+			this->_blocker.notify_one();
 		}
 
 		//!	@brief Returns true if the queue is empty, false otherwise
