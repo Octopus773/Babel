@@ -44,6 +44,8 @@ namespace Babel
 		                           asio::ip::tcp::socket socket
 		);
 
+		~AsioTCPConnection() override;
+
 	private:
 
 		//! @brief write a message header
@@ -82,6 +84,13 @@ namespace Babel
 		  _callbackMessageReceived([](auto) {}),
 		  _id(0)
 	{
+	}
+
+	template<typename T>
+	AsioTCPConnection<T>::~AsioTCPConnection(
+	)
+	{
+		this->disconnect();
 	}
 
 	template<typename T>
