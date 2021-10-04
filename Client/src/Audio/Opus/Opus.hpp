@@ -13,24 +13,24 @@ namespace Babel {
         //! @brief Encodes exactly one frame of audio data
         //! @param pcm the frame to encode
         //! @param data encoded output
-        int Encode(const std::int16_t *pcm, unsigned char *data);
+        int encode(const std::int16_t *pcm, unsigned char *data);
 
         //! @brief same as Encode() with floats
-        int Encode(const float *pcm, unsigned char *data);
+        int encode(const float *pcm, unsigned char *data);
 
         //! @brief Decodes exactly one frame of audio data
         //! @param data the frame to decode, can be nullptr in case of packet loss
         //! @param pcm decoded data
         //! @return number of samples decoded
-        int Decode(const unsigned char *data, std::int16_t *pcm);
+        int decode(const unsigned char *data, std::int16_t *pcm);
 
         //! @brief Same as Decode() with floats
-        int Decode(const unsigned char *data, float *pcm);
+        int decode(const unsigned char *data, float *pcm);
 
         //! @brief get the bitrate
         [[nodiscard]] std::int32_t getBitrate() const;
 
-        void setBitrate(opus_int32 bitrate);
+        void setBitrate(std::int32_t bitrate);
 
         //! @brief get the channels
         [[nodiscard]] int getChannel() const;

@@ -36,7 +36,7 @@ opus_int32 Babel::Opus::getBitrate() const {
     return this->_bitrate;
 }
 
-void Babel::Opus::setBitrate(opus_int32 bitrate) {
+void Babel::Opus::setBitrate(std::int32_t bitrate) {
     this->_bitrate = bitrate;
 }
 
@@ -73,7 +73,7 @@ bool Babel::Opus::isDecoderInitialized() const {
 }
 
 
-int Babel::Opus::Encode(const std::int16_t *pcm, unsigned char *data) {
+int Babel::Opus::encode(const std::int16_t *pcm, unsigned char *data) {
     if (this->_encoderIsInitialized) {
         std::int32_t bytesRead = opus_encode(this->_encoder, pcm, this->_frameSize, data, this->_dataSize);
         if (bytesRead < 0) {
@@ -85,7 +85,7 @@ int Babel::Opus::Encode(const std::int16_t *pcm, unsigned char *data) {
     }
 }
 
-int Babel::Opus::Encode(const float *pcm, unsigned char *data) {
+int Babel::Opus::encode(const float *pcm, unsigned char *data) {
     if (this->_encoderIsInitialized) {
         std::int32_t bytesRead = opus_encode_float(this->_encoder, pcm, this->_frameSize, data, this->_dataSize);
         if (bytesRead < 0) {
@@ -97,7 +97,7 @@ int Babel::Opus::Encode(const float *pcm, unsigned char *data) {
     }
 }
 
-int Babel::Opus::Decode(const unsigned char *data, std::int16_t *pcm) {
+int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm) {
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {
@@ -116,7 +116,7 @@ int Babel::Opus::Decode(const unsigned char *data, std::int16_t *pcm) {
     }
 }
 
-int Babel::Opus::Decode(const unsigned char *data, float *pcm) {
+int Babel::Opus::decode(const unsigned char *data, float *pcm) {
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {
