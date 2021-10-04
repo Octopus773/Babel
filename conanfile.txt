@@ -11,8 +11,8 @@ cmake_find_package
 cmake_paths
 
 [options]
-opus:shared=True
-portaudio:shared=True
+opus:shared=False
+portaudio:shared=False
 #qt:shared=False
 #qt:with_mysql=False
 #qt:with_odbc=False
