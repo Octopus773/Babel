@@ -99,7 +99,7 @@ namespace Babel
 			this->_contextThread = std::thread([this]() { this->_ioContext.run(); });
 		}
 		catch (std::exception &e) {
-			std::cerr << "[SERVER] Exception: " << e.what() << "\n";
+			std::cerr << "[SERVER] Exception: " << e.what() << std::endl;
 			return false;
 		}
 
@@ -161,10 +161,8 @@ namespace Babel
 		uint64_t processedMessages = 0;
 
 		while (processedMessages < nbMessagesToProcess && !this->_messagesIn.empty()) {
-			// Grab the front message
 			auto msg = this->_messagesIn.popFront();
 
-			// Pass to message handler
 			this->onMessage(msg.remote, msg.msg);
 
 			processedMessages++;
@@ -198,7 +196,7 @@ namespace Babel
 		this->_acceptor.async_accept(
 			[this](std::error_code ec, asio::ip::tcp::socket socket) {
 				if (!ec) {
-					std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << "\n";
+					std::cout << "[SERVER] New Connection: " << socket.remote_endpoint() << std::endl;
 
 					std::shared_ptr<AsioTCPConnection<T>> newConnection = std::make_shared<AsioTCPConnection<T>>(
 						this->_ioContext, std::move(socket));
