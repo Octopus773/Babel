@@ -221,7 +221,6 @@ namespace Babel
 				                 this->_callbackMessageReceived(this->_tmpMessage);
 				                 this->readHeader();
 			                 } else {
-				                 // As above!
 				                 std::cout << "[" << this->_id << "] Read Body Fail." << std::endl;
 				                 this->_socket.close();
 			                 }

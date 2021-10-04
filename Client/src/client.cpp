@@ -51,8 +51,14 @@
 #include <QtWidgets>
 #include <QtNetwork>
 #include <iostream>
-
+#include "Network/Message.hpp"
 #include "client.hpp"
+
+
+enum class testsCodes : uint16_t
+{
+	first = 1
+};
 
 //! [0]
 Client::Client(QWidget *parent)
@@ -163,6 +169,11 @@ void Client::requestNewFortune()
 //! [7]
 	tcpSocket->connectToHost(hostCombo->currentText(),
 	                         portLineEdit->text().toInt());
+	Babel::Message<testsCodes> m;
+
+	m << "i'm from qT5";
+
+	tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
 //! [7]
 }
 //! [6]
@@ -179,7 +190,6 @@ void Client::readFortune()
 	//in >> text;
 	in.readRawData(text, 100);
 	//in >> nextFortune;
-
 	std::cout << "nextFortune value: '" << nextFortune.toStdString() << "'" << std::endl;
 	std::cout << "text value: '" << text << "'" << std::endl;
 
