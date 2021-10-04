@@ -21,17 +21,10 @@ add_executable(babel_server
 	${COMMON_SOURCES}
 )
 
-add_executable(babel_client_asio
-	"${PROJECT_SOURCE_DIR}/src/main2.cpp"
-	${SOURCES}
-	${COMMON_SOURCES}
-	)
-
 
 find_package(asio 1.19.2 REQUIRED)
 
 target_link_libraries(babel_server PRIVATE asio::asio)
-target_link_libraries(babel_client_asio PRIVATE asio::asio)
 
 if (UNIX)
 	target_compile_options(babel_server PUBLIC
