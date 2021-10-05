@@ -202,7 +202,6 @@ void Client::readFortune()
 
 	std::string message;
 	QString nextFortune;
-	sleep(1);
 
 	in.readRawData(reinterpret_cast<char *>(&m.header), sizeof(Babel::MessageHeader<Babel::RFCCodes>));
 	if (m.header.bodySize > 0) {
