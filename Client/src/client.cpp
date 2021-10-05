@@ -52,6 +52,8 @@
 #include <QtNetwork>
 
 #include <iostream>
+#include <string>
+#include "Network/RFCCodes.hpp"
 #include "Network/Message.hpp"
 #include "client.hpp"
 
@@ -196,15 +198,27 @@ void Client::requestNewFortune()
 void Client::readFortune()
 {
 	in.startTransaction();
+	Babel::Message<Babel::RFCCodes> m;
 
+	std::string message;
 	QString nextFortune;
-	in >> nextFortune;
+	sleep(1);
+
+	in.readRawData(reinterpret_cast<char *>(&m.header), sizeof(Babel::MessageHeader<Babel::RFCCodes>));
+	if (m.header.bodySize > 0) {
+		m.body.resize(m.header.bodySize);
+		in.readRawData(reinterpret_cast<char *>(m.body.data()), m.header.bodySize);
+	}
+
+	//in >> nextFortune;
+	Babel::Message<Babel::RFCCodes>::GetBytes(m, message, m.header.bodySize);
+	std::cout << "readed " << message << std::endl;
 
 	if (!in.commitTransaction())
 		return;
 
 	if (nextFortune == currentFortune) {
-		QTimer::singleShot(0, this, &Client::requestNewFortune);
+		//QTimer::singleShot(0, this, &Client::requestNewFortune);
 		return;
 	}
 

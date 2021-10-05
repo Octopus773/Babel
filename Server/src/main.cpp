@@ -8,9 +8,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-
+#include "Network/RFCCodes.hpp"
 #include "Network/Message.hpp"
-#include "Network/AsioTCPServer.hpp"
 #include "Network/BabelServer.hpp"
 
 
