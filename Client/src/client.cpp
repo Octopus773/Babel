@@ -173,7 +173,11 @@ void Client::requestNewFortune()
 
 	m << "i'm from qT5";
 
-	tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
+	if (tcpSocket->isWritable()) {
+
+		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
+		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
+	}
 //! [7]
 }
 //! [6]
