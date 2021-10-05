@@ -11,20 +11,17 @@
 
 #include "Network/Message.hpp"
 #include "Network/AsioTCPServer.hpp"
+#include "Network/BabelServer.hpp"
 
-enum class testCodes : uint16_t
-{
-	// 64 47 @/
-	Code1 = 0b0100000000101111
-};
+
 
 int main()
 {
-	Babel::AsioTCPServer<testCodes> server{};
-	Babel::Message<testCodes> msg;
+	Babel::BabelServer server{};
+	Babel::Message<Babel::RFCCodes> msg;
 
 
-	msg.header.codeId = testCodes::Code1;
+	msg.header.codeId = Babel::RFCCodes::Code1;
 	msg << "salut";
 	server.start(4245);
 

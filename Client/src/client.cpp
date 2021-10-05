@@ -50,6 +50,7 @@
 
 #include <QtWidgets>
 #include <QtNetwork>
+
 #include <iostream>
 #include "Network/Message.hpp"
 #include "client.hpp"
@@ -59,6 +60,7 @@ enum class testsCodes : uint16_t
 {
 	first = 1
 };
+
 
 //! [0]
 Client::Client(QWidget *parent)
@@ -84,14 +86,14 @@ Client::Client(QWidget *parent)
 	// find out IP addresses of this machine
 	QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 	// add non-localhost addresses
-	for (const auto & i : ipAddressesList) {
-		if (!i.isLoopback())
-			hostCombo->addItem(i.toString());
+	for (int i = 0; i < ipAddressesList.size(); ++i) {
+		if (!ipAddressesList.at(i).isLoopback())
+			hostCombo->addItem(ipAddressesList.at(i).toString());
 	}
 	// add localhost addresses
-	for (const auto & i : ipAddressesList) {
-		if (i.isLoopback())
-			hostCombo->addItem(i.toString());
+	for (int i = 0; i < ipAddressesList.size(); ++i) {
+		if (ipAddressesList.at(i).isLoopback())
+			hostCombo->addItem(ipAddressesList.at(i).toString());
 	}
 
 	portLineEdit->setValidator(new QIntValidator(1, 65535, this));
@@ -131,6 +133,8 @@ Client::Client(QWidget *parent)
 	connect(tcpSocket, &QAbstractSocket::errorOccurred,
 //! [3]
             this, &Client::displayError);
+
+	connect(tcpSocket, &QAbstractSocket::connected, this, &Client::sendMsg);
 //! [4]
 
 	QGridLayout *mainLayout = nullptr;
@@ -161,6 +165,19 @@ Client::Client(QWidget *parent)
 }
 //! [5]
 
+void Client::sendMsg()
+{
+
+	Babel::Message<testsCodes> m;
+
+	m << "i'm from qT5";
+
+	if (tcpSocket->isWritable()) {
+		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
+		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
+	}
+}
+
 //! [6]
 void Client::requestNewFortune()
 {
@@ -169,15 +186,8 @@ void Client::requestNewFortune()
 //! [7]
 	tcpSocket->connectToHost(hostCombo->currentText(),
 	                         portLineEdit->text().toInt());
-	Babel::Message<testsCodes> m;
 
-	m << "i'm from qT5";
 
-	if (tcpSocket->isWritable()) {
-
-		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
-		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
-	}
 //! [7]
 }
 //! [6]
@@ -185,32 +195,19 @@ void Client::requestNewFortune()
 //! [8]
 void Client::readFortune()
 {
-	std::cout << "readFortune" << std::endl;
 	in.startTransaction();
 
 	QString nextFortune;
-	char text[100] = {0};
+	in >> nextFortune;
 
-	//in >> text;
-	in.readRawData(text, 100);
-	//in >> nextFortune;
-	std::cout << "nextFortune value: '" << nextFortune.toStdString() << "'" << std::endl;
-	std::cout << "text value: '" << text << "'" << std::endl;
-
-	nextFortune = text;
-
-	if (!in.commitTransaction()) {
-		std::cout << "no commit trans" << std::endl;
+	if (!in.commitTransaction())
 		return;
-	}
 
-	if (nextFortune == currentFortune && !nextFortune.isEmpty()) {
-		std::cout << "re ask" << std::endl;
+	if (nextFortune == currentFortune) {
 		QTimer::singleShot(0, this, &Client::requestNewFortune);
 		return;
 	}
 
-	std::cout << "pass" << std::endl;
 	currentFortune = nextFortune;
 	statusLabel->setText(currentFortune);
 	getFortuneButton->setEnabled(true);
@@ -224,7 +221,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 	case QAbstractSocket::RemoteHostClosedError:
 		break;
 	case QAbstractSocket::HostNotFoundError:
-		QMessageBox::critical(this, tr("Fortune Client"),
+		QMessageBox::information(this, tr("Fortune Client"),
 		                         tr("The host was not found. Please check the "
 		                            "host name and port settings."));
 		break;

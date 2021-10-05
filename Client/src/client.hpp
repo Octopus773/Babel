@@ -72,6 +72,7 @@ public:
 	explicit Client(QWidget *parent = nullptr);
 
 private slots:
+	void sendMsg();
 	void requestNewFortune();
 	void readFortune();
 	void displayError(QAbstractSocket::SocketError socketError);
