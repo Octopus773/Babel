@@ -50,11 +50,15 @@
 
 #include <QApplication>
 #include "client.hpp"
+#include "Network/QtTCPConnection.hpp"
+#include "Network/RFCCodes.hpp"
 
 int main(int argc, char *argv[])
 {
+
 	QApplication app(argc, argv);
 	QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
+	Babel::QtTCPConnection<Babel::RFCCodes> connection;
 	Client client;
 	client.show();
 	return app.exec();
