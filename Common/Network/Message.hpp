@@ -6,7 +6,6 @@
 
 #include "Exceptions/BabelException.hpp"
 #include "Utilities/SwapEndian.hpp"
-#include <arpa/inet.h>
 #include <cstring>
 #include <cstdint>
 #include <vector>
@@ -62,7 +61,8 @@ namespace Babel
 		}
 
 		size_t i = msg.body.size() - size;
-		std::memmove(&data, msg.body.data() + i, size);
+		std::memmove(&data, msg.body.data(), size);
+		msg.body.assign(msg.body.begin() + size, msg.body.end());
 		if constexpr(std::endian::native != std::endian::big) {
 			data = swapEndian<DataType>(data);
 		}
@@ -81,7 +81,8 @@ namespace Babel
 
 		size_t i = msg.body.size() - size;
 
-		data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
+		data.assign(reinterpret_cast<char *>(msg.body.data()), size - 1);
+		msg.body.assign(msg.body.begin() + size, msg.body.end());
 		if constexpr(std::endian::native != std::endian::big) {
 			data = swapEndian<std::string>(data);
 		}
@@ -116,7 +117,7 @@ namespace Babel
 	}
 
 	template<typename T, typename DataType>
-	Message<T> operator>>(Message<T> &msg, DataType &data)
+	Message<T> &operator>>(Message<T> &msg, DataType &data)
 	{
 		return Message<T>::GetBytes(msg, data, sizeof(DataType));
 	}
