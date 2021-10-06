@@ -12,19 +12,15 @@ namespace Babel
 	template <typename T>
 	T swapEndian(T value)
 	{
-		static_assert (CHAR_BIT == 8, "CHAR_BIT != 8");
-		union
-		{
-			T value;
-			uint8_t bytes[sizeof(T)];
-		} source, dest;
-
-		source.value = value;
-
-		for (size_t k = 0; k < sizeof(T); k++) {
-			dest.bytes[k] = source.bytes[sizeof(T) - k - 1];
+		auto *lo = reinterpret_cast<unsigned char *>(&value);
+		auto *hi = reinterpret_cast<unsigned char *>(&value) + sizeof(T) - 1;
+		unsigned char swap;
+		while (lo < hi) {
+			swap = *lo;
+			*lo++ = *hi;
+			*hi-- = swap;
 		}
 
-		return dest.value;
+		return value;
 	}
 }
