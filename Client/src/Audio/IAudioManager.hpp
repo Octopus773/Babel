@@ -16,8 +16,17 @@ namespace Babel
 	class IAudioManager
 	{
 	public:
-		//! @brief set the number of channels for future streams
-		virtual void setChannelsNumber(int32_t) = 0;
+		//! @brief get the number of channels of Input Device for future streams
+		virtual int32_t getInputChannelsNumber() const = 0;
+
+		//! @brief get the number of channels of Output Device for future streams
+		virtual int32_t getOutputChannelsNumber() const = 0;
+
+		//! @brief set the number of channels of Output for future streams
+		virtual void setOutputChannelsNumber(int32_t) = 0;
+
+		//! @brief set the number of channels of Output for future streams
+		virtual void setInputChannelsNumber(int32_t) = 0;
 
 		//! @brief get the number of channels for future streams
 		virtual int32_t getChannelsNumber() const = 0;
