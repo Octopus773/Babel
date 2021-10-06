@@ -28,9 +28,6 @@ namespace Babel
 		//! @brief set the number of channels of Output for future streams
 		virtual void setInputChannelsNumber(int32_t) = 0;
 
-		//! @brief get the number of channels for future streams
-		virtual int32_t getChannelsNumber() const = 0;
-
 		//! @brief set the samplerate for future streams
 		virtual void setSampleRate(int32_t) = 0;
 
