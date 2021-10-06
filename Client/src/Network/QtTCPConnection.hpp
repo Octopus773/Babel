@@ -6,16 +6,19 @@
 
 #include <cstdint>
 #include "Network/ITCPConnection.hpp"
+#include "Network/RFCCodes.hpp"
 #include <QTcpSocket>
 #include <QtWidgets>
 #include <QString>
+#include <QObject>
 
 namespace Babel
 {
-	template<typename T>
-	class QtTCPConnection : ITCPConnection<T>
+	class QtTCPConnection : public QObject, public ITCPConnection<RFCCodes>
 	{
+	Q_OBJECT
 	public:
+
 		//! @brief connect to a hostname and a port
 		//! @param hostname The ip you want to connect
 		//! @param port The port belonging to the hostname you want to connect
@@ -29,13 +32,13 @@ namespace Babel
 
 		//! @brief Send the message
 		//! @param message The message to send
-		void send(Message<T> message) override;
+		void send(Message<RFCCodes> message) override;
 
 		//! @brief listen for new messages
 		void readForMessages() override;
 
 		//! @brief Called when we received a message
-		void setCallbackOnMessage(std::function<void(Message<T>)> callMessageReceived) override;
+		void setCallbackOnMessage(std::function<void(Message<RFCCodes>)> callMessageReceived) override;
 
 		//! @brief Get the id of this connection
 		uint64_t getId() const override;
@@ -55,113 +58,17 @@ namespace Babel
 
 		QDataStream _stream;
 		//! @brief The function called when a message has been fully received
-		std::function<void(Message<T>)> _callbackMessageReceived;
+		std::function<void(Message<RFCCodes>)> _callbackMessageReceived;
 		//! @brief All the received messages
-		TSQueue<Message<T>> _messagesIn;
+		TSQueue<Message<RFCCodes>> _messagesIn;
 		//! @brief All the messages that need to be sent
-		TSQueue<Message<T>> _messagesOut;
+		TSQueue<Message<RFCCodes>> _messagesOut;
 		//! @brief Message used when reading a message
-		Message<T> _tmpMessage;
+		Message<RFCCodes> _tmpMessage;
 
 		uint64_t _bytesRead;
 		//! @brief id used to identify the connection
-		uint64_t _id;
+		uint64_t _connectionId;
 	};
-
-	template<typename T>
-	QtTCPConnection<T>::QtTCPConnection(QWidget *parent)
-		: _socket(new QTcpSocket(parent)),
-		  _bytesRead(0),
-		  _id(0)
-	{
-		this->_stream.setDevice(this->_socket);
-		//this->_stream.setVersion()
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::connect(const std::string &hostname, uint16_t port)
-	{
-		this->_socket->abort();
-		this->_socket->connectToHost(QString::fromStdString(hostname), port);
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::disconnect()
-	{
-		this->_socket->close();
-	}
-
-	template<typename T>
-	bool QtTCPConnection<T>::isConnected() const
-	{
-		return this->_socket->isOpen();
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::send(Message<T> message)
-	{
-		this->_messagesOut.pushBack(message);
-		if (this->_socket->isWritable()) {
-			this->_socket->write(reinterpret_cast<const char *>(&message.header), sizeof(Babel::MessageHeader<T>));
-			this->_socket->write(reinterpret_cast<const char *>(message.body.data()), message.header.bodySize);
-		}
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::readForMessages()
-	{
-		connect(this->_socket, &QIODevice::readyRead, this, &QtTCPConnection<T>::readMessage);
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::readMessage()
-	{
-		uint64_t headerSize = sizeof(Babel::MessageHeader<T>);
-
-		if (this->_bytesRead < headerSize) {
-			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(&this->_tmpMessage.header), headerSize);
-			if (sizeRead == -1) {
-				this->_bytesRead = 0;
-				return;
-			}
-			this->_bytesRead += sizeRead;
-		}
-
-		if (this->_tmpMessage.header.bodySize > 0) {
-			if (this->_bytesRead == headerSize) {
-				this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
-			}
-			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(this->_tmpMessage.body.data()),
-			                                         this->_tmpMessage.header.bodySize);
-			if (sizeRead == -1) {
-				this->_bytesRead = 0;
-				return;
-			}
-			this->_bytesRead += sizeRead;
-		}
-		if (this->_bytesRead == headerSize + this->_tmpMessage.header.bodySize) {
-			this->_bytesRead = 0;
-			this->_callbackMessageReceived(this->_tmpMessage);
-		}
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::setCallbackOnMessage(std::function<void(Message<T>)> callMessageReceived)
-	{
-		this->_callbackMessageReceived = std::move(callMessageReceived);
-	}
-
-	template<typename T>
-	uint64_t QtTCPConnection<T>::getId() const
-	{
-		return this->_id;
-	}
-
-	template<typename T>
-	void QtTCPConnection<T>::setId(uint64_t id)
-	{
-		this->_id = id;
-	}
-
 
 }
