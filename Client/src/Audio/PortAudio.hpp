@@ -20,10 +20,10 @@ namespace Babel
 		PortAudio();
 		
 		//! @brief set the number of channels for future streams
-		void set InputChannelsNumber(int32_t) override;
+		void setInputChannelsNumber(int32_t) override;
 
 		//! @brief set the number of channels for future streams
-		void set OutputChannelsNumber(int32_t) override;
+		void setOutputChannelsNumber(int32_t) override;
 
 		//! @brief get the number of channels of Input Device for future streams
 		int32_t getInputChannelsNumber() const override;
