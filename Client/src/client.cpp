@@ -196,7 +196,7 @@ void Client::requestNewFortune()
 	this->connection.connect(hostCombo->currentText().toStdString(), portLineEdit->text().toInt());
 	Babel::Message<Babel::RFCCodes> m;
 
-	m.header.codeId == Babel::RFCCodes::Code1;
+	m.header.codeId = Babel::RFCCodes::Code1;
 	m << "i'm from qT5";
 
 	this->connection.send(m);
