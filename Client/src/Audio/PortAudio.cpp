@@ -180,8 +180,9 @@ void Babel::PortAudio::writeStream(std::vector<int16_t> &data)
 		throw std::exception();
 	}
 	err = Pa_WriteStream(this->_stream, data.data(), data.size() / this->_number_channels);
-	if (err != paNoError) {
-		std::cerr << "Error: could not write to stream" << std::endl;
+	if (err != paNoError && err != paOutputUnderflow) {
+        std::cout << err << std::endl;
+		std::cerr << "Error: could not write to stream" << Pa_GetErrorText(err) << std::endl;
 		throw std::exception();
 	}
 }

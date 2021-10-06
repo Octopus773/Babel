@@ -22,7 +22,7 @@ namespace Babel {
         //! @param data the frame to decode, can be nullptr in case of packet loss
         //! @param pcm decoded data
         //! @return number of samples decoded
-        int decode(const unsigned char *data, std::int16_t *pcm);
+        int decode(const unsigned char *data, std::int16_t *pcm, std::int32_t dataSize);
 
         //! @brief Same as Decode() with floats
         int decode(const unsigned char *data, float *pcm);
