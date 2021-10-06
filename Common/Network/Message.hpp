@@ -5,10 +5,13 @@
 #pragma once
 
 #include "Exceptions/BabelException.hpp"
+#include "Utilities/SwapEndian.hpp"
+#include <arpa/inet.h>
 #include <cstring>
 #include <cstdint>
 #include <vector>
 #include <iostream>
+#include <bit>
 
 namespace Babel
 {
@@ -59,7 +62,10 @@ namespace Babel
 		}
 
 		size_t i = msg.body.size() - size;
-		std::memcpy(&data, msg.body.data() + i, size);
+		std::memmove(&data, msg.body.data() + i, size);
+		if constexpr(std::endian::native != std::endian::big) {
+			data = swapEndian<DataType>(data);
+		}
 		msg.body.resize(i);
 		msg.header.bodySize = msg.size();
 
@@ -76,6 +82,9 @@ namespace Babel
 		size_t i = msg.body.size() - size;
 
 		data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
+		if constexpr(std::endian::native != std::endian::big) {
+			data = swapEndian<std::string>(data);
+		}
 		msg.body.resize(i);
 		msg.header.bodySize = msg.body.size();
 
@@ -90,20 +99,24 @@ namespace Babel
 	}
 
 	template<typename T, typename DataType>
-	Message<T> &operator<<(Message<T> &msg, const DataType &data)
+	Message<T> &operator<<(Message<T> &msg, DataType data)
 	{
 		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
 
 		size_t i = msg.body.size();
 
 		msg.body.resize(msg.body.size() + sizeof(DataType));
-		std::memcpy(msg.body.data() + i, &data, sizeof(DataType));
+		if constexpr(std::endian::native != std::endian::big) {
+			data = swapEndian<DataType>(data);
+		}
+
+		std::memmove(msg.body.data() + i, &data, sizeof(DataType));
 		msg.header.bodySize = msg.size();
 		return msg;
 	}
 
 	template<typename T, typename DataType>
-	Message<T> operator>>(Message<T> &msg, const DataType &data)
+	Message<T> operator>>(Message<T> &msg, DataType &data)
 	{
 		return Message<T>::GetBytes(msg, data, sizeof(DataType));
 	}
