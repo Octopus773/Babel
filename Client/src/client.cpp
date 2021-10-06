@@ -53,6 +53,7 @@
 
 #include <iostream>
 #include <string>
+#include <utility>
 #include "Network/RFCCodes.hpp"
 #include "Network/Message.hpp"
 #include "client.hpp"
@@ -73,6 +74,11 @@ Client::Client(QWidget *parent)
 	, tcpSocket(new QTcpSocket(this))
 {
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+	this->connection.setCallbackOnMessage([this](Babel::Message<Babel::RFCCodes> message) {
+		this->readFortune(std::move(message));
+	});
+
 //! [0]
 	hostCombo->setEditable(true);
 	// find out name of this machine
@@ -130,13 +136,13 @@ Client::Client(QWidget *parent)
 	        this, &Client::requestNewFortune);
 	connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
 //! [2] //! [3]
-	connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
+	//connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
 //! [2] //! [4]
 	connect(tcpSocket, &QAbstractSocket::errorOccurred,
 //! [3]
             this, &Client::displayError);
 
-	connect(tcpSocket, &QAbstractSocket::connected, this, &Client::sendMsg);
+//	connect(tcpSocket, &QAbstractSocket::connected, this, &Client::sendMsg);
 //! [4]
 
 	QGridLayout *mainLayout = nullptr;
@@ -170,51 +176,66 @@ Client::Client(QWidget *parent)
 void Client::sendMsg()
 {
 
-	Babel::Message<testsCodes> m;
-
-	m << "i'm from qT5";
-
-	if (tcpSocket->isWritable()) {
-		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
-		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
-	}
+//
+//
+//	if (tcpSocket->isWritable()) {
+//		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
+//		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
+//	}
 }
 
 //! [6]
 void Client::requestNewFortune()
 {
 	getFortuneButton->setEnabled(false);
-	tcpSocket->abort();
-//! [7]
-	tcpSocket->connectToHost(hostCombo->currentText(),
-	                         portLineEdit->text().toInt());
+//	tcpSocket->abort();
+////! [7]
+//	tcpSocket->connectToHost(hostCombo->currentText(),
+//	                         portLineEdit->text().toInt());
 
+	this->connection.connect(hostCombo->currentText().toStdString(), portLineEdit->text().toInt());
+	Babel::Message<Babel::RFCCodes> m;
 
+	m.header.codeId == Babel::RFCCodes::Code1;
+	m << "i'm from qT5";
+
+	this->connection.send(m);
+
+	this->connection.readForMessages();
 //! [7]
 }
 //! [6]
 
 //! [8]
-void Client::readFortune()
+void Client::readFortune(Babel::Message<Babel::RFCCodes> message)
 {
-	in.startTransaction();
-	Babel::Message<Babel::RFCCodes> m;
-
-	std::string message;
+//	in.startTransaction();
+//	Babel::Message<Babel::RFCCodes> m;
+//
+//	std::string message;
 	QString nextFortune;
+//
+//	in.readRawData(reinterpret_cast<char *>(&m.header), sizeof(Babel::MessageHeader<Babel::RFCCodes>));
+//	if (m.header.bodySize > 0) {
+//		m.body.resize(m.header.bodySize);
+//		in.readRawData(reinterpret_cast<char *>(m.body.data()), m.header.bodySize);
+//	}
+//
+//	//in >> nextFortune;
+//	Babel::Message<Babel::RFCCodes>::GetBytes(m, message, m.header.bodySize);
+//	std::cout << "readed " << message << std::endl;
+//
+//	if (!in.commitTransaction())
+//		return;
 
-	in.readRawData(reinterpret_cast<char *>(&m.header), sizeof(Babel::MessageHeader<Babel::RFCCodes>));
-	if (m.header.bodySize > 0) {
-		m.body.resize(m.header.bodySize);
-		in.readRawData(reinterpret_cast<char *>(m.body.data()), m.header.bodySize);
-	}
+	std::string str;
 
-	//in >> nextFortune;
-	Babel::Message<Babel::RFCCodes>::GetBytes(m, message, m.header.bodySize);
-	std::cout << "readed " << message << std::endl;
+	Babel::Message<Babel::RFCCodes>::GetBytes(message, str, message.header.bodySize);
 
-	if (!in.commitTransaction())
-		return;
+	getFortuneButton->setEnabled(true);
+	std::cout << "readed " << str << std::endl;
+	nextFortune = QString::fromStdString(str);
+
 
 	if (nextFortune == currentFortune) {
 		//QTimer::singleShot(0, this, &Client::requestNewFortune);
@@ -223,7 +244,7 @@ void Client::readFortune()
 
 	currentFortune = nextFortune;
 	statusLabel->setText(currentFortune);
-	getFortuneButton->setEnabled(true);
+
 }
 //! [8]
 

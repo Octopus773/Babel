@@ -9,6 +9,8 @@
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
 namespace Babel
 {
@@ -30,7 +32,15 @@ namespace Babel
 
 		Message<RFCCodes> response;
 		response.header.codeId = RFCCodes::Code1;
-		response << "Les bananes arrivent";
+
+		auto t = std::time(nullptr);
+		auto tm = *std::localtime(&t);
+		std::ostringstream oss;
+		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+		str = oss.str();
+		std::cout << str << std::endl;
+		response << str;
+		//response << "Les bananes arrivent";
 		client->send(response);
 	}
 

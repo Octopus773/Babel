@@ -13,7 +13,6 @@
 #include "Network/BabelServer.hpp"
 
 
-
 int main()
 {
 	Babel::BabelServer server{};
@@ -26,7 +25,7 @@ int main()
 
 
 	while (true) {
-		server.messageAllClients(msg);
 		server.update(50, true);
+		server.messageAllClients(msg);
 	}
 }

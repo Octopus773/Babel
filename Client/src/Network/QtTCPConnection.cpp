@@ -16,6 +16,7 @@ namespace Babel
 		this->_stream.setDevice(this->_socket);
 		//this->_stream.setVersion()
 
+
 	}
 
 	void QtTCPConnection::connect(const std::string &hostname, uint16_t port)
@@ -37,11 +38,12 @@ namespace Babel
 
 	void QtTCPConnection::send(Message<RFCCodes> message)
 	{
-		this->_messagesOut.pushBack(message);
+		//this->_messagesOut.pushBack(message);
 		if (this->_socket->isWritable()) {
-			this->_socket->write(reinterpret_cast<const char *>(&message.header),
-			                     sizeof(Babel::MessageHeader<RFCCodes>));
-			this->_socket->write(reinterpret_cast<const char *>(message.body.data()), message.header.bodySize);
+			this->_stream.writeRawData(reinterpret_cast<const char *>(&message.header),
+			                           sizeof(Babel::MessageHeader<RFCCodes>));
+			this->_stream.writeRawData(reinterpret_cast<const char *>(message.body.data()),
+			                           static_cast<int>(message.header.bodySize));
 		}
 	}
 
@@ -55,7 +57,8 @@ namespace Babel
 		uint64_t headerSize = sizeof(Babel::MessageHeader<RFCCodes>);
 
 		if (this->_bytesRead < headerSize) {
-			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(&this->_tmpMessage.header), headerSize);
+			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(&this->_tmpMessage.header),
+			                                         static_cast<int>(headerSize));
 			if (sizeRead == -1) {
 				this->_bytesRead = 0;
 				return;
@@ -68,7 +71,7 @@ namespace Babel
 				this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
 			}
 			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(this->_tmpMessage.body.data()),
-			                                         this->_tmpMessage.header.bodySize);
+			                                         static_cast<int>(this->_tmpMessage.header.bodySize));
 			if (sizeRead == -1) {
 				this->_bytesRead = 0;
 				return;

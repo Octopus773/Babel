@@ -59,13 +59,11 @@ namespace Babel
 		QDataStream _stream;
 		//! @brief The function called when a message has been fully received
 		std::function<void(Message<RFCCodes>)> _callbackMessageReceived;
-		//! @brief All the received messages
-		TSQueue<Message<RFCCodes>> _messagesIn;
 		//! @brief All the messages that need to be sent
 		TSQueue<Message<RFCCodes>> _messagesOut;
 		//! @brief Message used when reading a message
 		Message<RFCCodes> _tmpMessage;
-
+		//! @brief used to track how much bytes of a message had been read
 		uint64_t _bytesRead;
 		//! @brief id used to identify the connection
 		uint64_t _connectionId;

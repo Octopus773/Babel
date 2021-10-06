@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
 	QApplication app(argc, argv);
 	QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
-	Babel::QtTCPConnection connection;
+
 	Client client;
 	client.show();
 	return app.exec();

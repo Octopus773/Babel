@@ -53,7 +53,10 @@
 
 #include <QDataStream>
 #include <QDialog>
+#include "Network/QtTCPConnection.hpp"
 #include <QTcpSocket>
+#include "Network/Message.hpp"
+#include "Network/RFCCodes.hpp"
 
 QT_BEGIN_NAMESPACE
 class QComboBox;
@@ -74,11 +77,13 @@ public:
 private slots:
 	void sendMsg();
 	void requestNewFortune();
-	void readFortune();
+	void readFortune(Babel::Message<Babel::RFCCodes> message);
 	void displayError(QAbstractSocket::SocketError socketError);
 	void enableGetFortuneButton();
 
 private:
+
+	Babel::QtTCPConnection connection;
 	QComboBox *hostCombo = nullptr;
 	QLineEdit *portLineEdit = nullptr;
 	QLabel *statusLabel = nullptr;
