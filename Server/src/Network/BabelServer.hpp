@@ -38,8 +38,12 @@ namespace Babel
 		std::ostringstream oss;
 		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
 		str = oss.str();
-		std::cout << str << std::endl;
-		response << str;
+		for (char c : str) {
+			response << c;
+		}
+		//response << "06-10-2021 22-15-58";
+		//response << str;
+		std::cout << response << " str: " << str << std::endl;
 		//response << "Les bananes arrivent";
 		client->send(response);
 	}

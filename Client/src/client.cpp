@@ -187,7 +187,7 @@ void Client::sendMsg()
 //! [6]
 void Client::requestNewFortune()
 {
-	getFortuneButton->setEnabled(false);
+	//getFortuneButton->setEnabled(false);
 //	tcpSocket->abort();
 ////! [7]
 //	tcpSocket->connectToHost(hostCombo->currentText(),
