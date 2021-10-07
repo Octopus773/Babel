@@ -21,7 +21,7 @@ Babel::PortAudio::PortAudio()
 	this->_recordtime = 10;
 
 	if (err != paNoError) {
-		throw Exception::BabelException("Error in intializing PortAudio");
+		throw Exception::BabelException("Error in initializing PortAudio");
 	}
 }
 
