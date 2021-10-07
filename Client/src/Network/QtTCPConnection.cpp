@@ -15,7 +15,7 @@ namespace Babel
 	{
 		this->_stream.setDevice(this->_socket);
 		//this->_stream.setVersion()
-
+		QObject::connect(this->_socket, &QIODevice::readyRead, this, &QtTCPConnection::readMessage);
 
 	}
 
@@ -33,7 +33,7 @@ namespace Babel
 
 	bool QtTCPConnection::isConnected() const
 	{
-		return this->_socket->isOpen();
+		return this->_socket->isValid();
 	}
 
 	void QtTCPConnection::send(Message<RFCCodes> message)
@@ -49,7 +49,6 @@ namespace Babel
 
 	void QtTCPConnection::readForMessages()
 	{
-		QObject::connect(this->_socket, &QIODevice::readyRead, this, &QtTCPConnection::readMessage);
 	}
 
 	void QtTCPConnection::readMessage()

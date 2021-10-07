@@ -88,6 +88,7 @@ private:
 	QLineEdit *portLineEdit = nullptr;
 	QLabel *statusLabel = nullptr;
 	QPushButton *getFortuneButton = nullptr;
+	QPushButton *sendMsgButton = nullptr;
 
 	QTcpSocket *tcpSocket = nullptr;
 	QDataStream in;

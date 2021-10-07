@@ -163,3 +163,17 @@ TEST_CASE("Message adding multiple strings", "[Babel][Network]")
 	REQUIRE(m.body.empty());
 }
 
+TEST_CASE("Message adding rodata string", "[Babel][Network]")
+{
+	Babel::Message<Babel::RFCCodes> m{};
+
+
+	m << "i'm from qT5";
+	REQUIRE(m.header.bodySize == 12);
+
+	std::string s;
+	Babel::Message<Babel::RFCCodes>::GetBytes(m, s, m.header.bodySize);
+	CHECK(s == "i'm from qT5");
+	REQUIRE(m.header.bodySize == 0);
+	REQUIRE(m.body.empty());
+}

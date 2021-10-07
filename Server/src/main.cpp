@@ -26,6 +26,6 @@ int main()
 
 	while (true) {
 		server.update(50, true);
-		server.messageAllClients(msg);
+		//server.messageAllClients(msg);
 	}
 }

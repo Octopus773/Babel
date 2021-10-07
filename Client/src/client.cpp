@@ -71,6 +71,7 @@ Client::Client(QWidget *parent)
 	, hostCombo(new QComboBox)
 	, portLineEdit(new QLineEdit)
 	, getFortuneButton(new QPushButton(tr("Get Fortune")))
+	, sendMsgButton(new QPushButton(tr("Send Msg")))
 	, tcpSocket(new QTcpSocket(this))
 {
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
@@ -116,11 +117,13 @@ Client::Client(QWidget *parent)
 
 	getFortuneButton->setDefault(true);
 	getFortuneButton->setEnabled(false);
+	sendMsgButton->setDefault(true);
 
 	auto quitButton = new QPushButton(tr("Quit"));
 
 	auto buttonBox = new QDialogButtonBox;
 	buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
+	buttonBox->addButton(sendMsgButton, QDialogButtonBox::ActionRole);
 	buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
 //! [1]
@@ -134,6 +137,9 @@ Client::Client(QWidget *parent)
 	        this, &Client::enableGetFortuneButton);
 	connect(getFortuneButton, &QAbstractButton::clicked,
 	        this, &Client::requestNewFortune);
+
+	connect(sendMsgButton, &QAbstractButton::clicked,
+	        this, &Client::sendMsg);
 	connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
 //! [2] //! [3]
 	//connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
@@ -175,7 +181,19 @@ Client::Client(QWidget *parent)
 
 void Client::sendMsg()
 {
+	Babel::Message<Babel::RFCCodes> m{};
 
+	m.header.codeId = Babel::RFCCodes::Code1;
+	m << "i'm from qT5";
+
+	sleep(1);
+	if (this->connection.isConnected()) {
+
+
+		this->connection.send(m);
+
+		this->connection.readForMessages();
+	}
 //
 //
 //	if (tcpSocket->isWritable()) {
@@ -194,14 +212,9 @@ void Client::requestNewFortune()
 //	                         portLineEdit->text().toInt());
 
 	this->connection.connect(hostCombo->currentText().toStdString(), portLineEdit->text().toInt());
-	Babel::Message<Babel::RFCCodes> m;
 
-	m.header.codeId = Babel::RFCCodes::Code1;
-	m << "i'm from qT5";
 
-	this->connection.send(m);
 
-	this->connection.readForMessages();
 //! [7]
 }
 //! [6]

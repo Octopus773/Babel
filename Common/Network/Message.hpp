@@ -43,7 +43,10 @@ namespace Babel
 		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
 
 		static Message<T> &GetBytes(Message<T> &message, std::string &data, uint64_t size);
+
+		explicit Message();
 	};
+
 
 	template<typename T>
 	size_t Message<T>::size() const
@@ -94,6 +97,13 @@ namespace Babel
 	}
 
 	template<typename T>
+	Message<T>::Message()
+		: header({}),
+		  body({})
+	{
+	}
+
+	template<typename T>
 	std::ostream &operator<<(std::ostream &os, const Message<T> &msg)
 	{
 		os << "ID:" << int(msg.header.codeId) << " Size:" << msg.header.bodySize;
@@ -131,6 +141,12 @@ namespace Babel
 		std::memmove(msg.body.data() + i, data.data(), data.size());
 		msg.header.bodySize = msg.size();
 		return msg;
+	}
+
+	template<typename T>
+	Message<T> &operator<<(Message<T> &msg, const char data[])
+	{
+		return msg << std::string(data);
 	}
 
 	template<typename T, typename DataType>
