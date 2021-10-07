@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.11)
-project(Babel_Client LANGUAGES CXX)
+project(Babel_Server LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -11,6 +11,7 @@ file(
 )
 
 list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
+list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main2.cpp")
 
 include_directories("src")
 
