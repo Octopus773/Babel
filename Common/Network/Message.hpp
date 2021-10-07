@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cstdint>
 #include <vector>
+#include <algorithm>
 #include <iostream>
 #include <bit>
 
@@ -81,10 +82,10 @@ namespace Babel
 
 		size_t i = msg.body.size() - size;
 
-		data.assign(reinterpret_cast<char *>(msg.body.data()), size - 1);
+		data.assign(reinterpret_cast<char *>(msg.body.data()), size);
 		msg.body.assign(msg.body.begin() + size, msg.body.end());
 		if constexpr(std::endian::native != std::endian::big) {
-			data = swapEndian<std::string>(data);
+			std::reverse(data.begin(), data.end());
 		}
 		msg.body.resize(i);
 		msg.header.bodySize = msg.body.size();
@@ -112,6 +113,22 @@ namespace Babel
 		}
 
 		std::memmove(msg.body.data() + i, &data, sizeof(DataType));
+		msg.header.bodySize = msg.size();
+		return msg;
+	}
+
+	template<typename T>
+	Message<T> &operator<<(Message<T> &msg, std::string data)
+	{
+
+		size_t i = msg.body.size();
+
+		msg.body.resize(msg.body.size() + data.size());
+		if constexpr(std::endian::native != std::endian::big) {
+			std::reverse(data.begin(), data.end());
+		}
+
+		std::memmove(msg.body.data() + i, data.data(), data.size());
 		msg.header.bodySize = msg.size();
 		return msg;
 	}

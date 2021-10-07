@@ -3,6 +3,7 @@
 //
 
 #include <cstdint>
+#include <string>
 #include <catch2/catch.hpp>
 #include "Network/RFCCodes.hpp"
 #include "Network/Message.hpp"
@@ -113,3 +114,52 @@ TEST_CASE("Message adding misc types", "[Babel][Network]")
 	m >> d2;
 	CHECK(d2 == 9.897878897);
 }
+
+TEST_CASE("Message adding string", "[Babel][Network]")
+{
+	Babel::Message<Babel::RFCCodes> m;
+
+	std::string s = "hello";
+
+	m << s;
+	REQUIRE(m.header.bodySize == 5);
+
+	s = "";
+
+	Babel::Message<Babel::RFCCodes>::GetBytes(m, s, m.header.bodySize);
+
+	CHECK(s == "hello");
+	REQUIRE(m.header.bodySize == 0);
+	REQUIRE(m.body.empty());
+}
+
+TEST_CASE("Message adding multiple strings", "[Babel][Network]")
+{
+	Babel::Message<Babel::RFCCodes> m;
+
+	uint16_t sizeS1 = 5;
+	std::string s1 = "hello";
+	uint16_t  sizeS2 = 8;
+	std::string s2 = " World !";
+
+	m << sizeS1 << s1 << sizeS2 << s2;
+	REQUIRE(m.header.bodySize == sizeS1 + sizeS2 + 2 * 2);
+
+
+	sizeS1 = 0;
+	sizeS2 = 0;
+	s1 = "";
+	s2 = "";
+
+	m >> sizeS1;
+	REQUIRE(sizeS1 == 5);
+	Babel::Message<Babel::RFCCodes>::GetBytes(m, s1, sizeS1);
+	m >> sizeS2;
+	REQUIRE(sizeS2 == 8);
+	Babel::Message<Babel::RFCCodes>::GetBytes(m, s2, sizeS2);
+	CHECK(s1 == "hello");
+	CHECK(s2 == " World !");
+	REQUIRE(m.header.bodySize == 0);
+	REQUIRE(m.body.empty());
+}
+
