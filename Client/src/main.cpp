@@ -13,7 +13,7 @@ int main()
 	std::cout << "Hello from client" << std::endl;
 	std::cout << "pulseaudio version: " << Pa_GetVersion() << std::endl;
 	std::cout << "opus version " << opus_get_version_string() << std::endl;
-	std::unique_ptr<Babel::PortAudio> pa = std::make_unique<Babel::PortAudio>();
+	Babel::PortAudio pa;
 	//std::cout << "qT version " << QTCORE_VERSION_STR << " : " << QTCORE_VERSION << std::endl;
-	//auto w = QWidget(nullptr);
+	auto w = QWidget(nullptr);
 }
