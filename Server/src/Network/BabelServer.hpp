@@ -47,7 +47,7 @@ namespace Babel
 		//response << str;
 		std::cout << response << " str: " << str << std::endl;
 		//response << "Les bananes arrivent";
-		client->send(response);
+		this->messageClient(client, response);
 	}
 
 }

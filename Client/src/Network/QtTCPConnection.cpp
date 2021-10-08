@@ -81,6 +81,9 @@ namespace Babel
 		if (this->_bytesRead == headerSize + this->_tmpMessage.header.bodySize) {
 			this->_bytesRead = 0;
 			this->_callbackMessageReceived(this->_tmpMessage);
+			if (this->_socket->isReadable()) {
+				this->readMessage();
+			}
 		}
 	}
 

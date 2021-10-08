@@ -7,6 +7,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <deque>
+#include <chrono>
 
 namespace Babel
 {
@@ -94,13 +95,14 @@ namespace Babel
 			this->_queue.clear();
 		}
 
-		//! @brief Block a thread until the queue is non empty
-		void wait()
+		//! @brief Block a thread until the queue is non empty or the timeout is reached
+		//! @param time The number time before release
+		template<typename TimeType>
+		void waitFor(std::chrono::duration<TimeType> time)
 		{
-			while (this->empty()) {
-				std::unique_lock<std::mutex> ul(this->_waitMutex);
-				this->_blocker.wait(ul);
-			}
+			using namespace std::chrono_literals;
+			std::unique_lock<std::mutex> ul(this->_waitMutex);
+			this->_blocker.wait_for(ul, time);
 		}
 
 	protected:
