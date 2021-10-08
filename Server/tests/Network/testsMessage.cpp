@@ -183,7 +183,7 @@ TEST_CASE("Message using handleEndianness", "[Babel][Network]")
 {
 	Babel::Message<Babel::RFCCodes> m{};
 
-	Babel::RFCCodes code = static_cast<Babel::RFCCodes>(0xD5620000);
+	Babel::RFCCodes code = static_cast<Babel::RFCCodes>(0xD562);
 	m.header.codeId = code;
 	m.header.bodySize = 0xD451CAF0;
 
@@ -193,7 +193,7 @@ TEST_CASE("Message using handleEndianness", "[Babel][Network]")
 
 		// 0x0000F0CA (big)
 		REQUIRE(m.header.bodySize == 0xD451CAF0);
-		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0xD5620000));
+		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0xD562));
 	} else {
 		// target big and host big
 //		REQUIRE(m.header.bodySize == 0b11001010101);
@@ -203,6 +203,7 @@ TEST_CASE("Message using handleEndianness", "[Babel][Network]")
 
 
 	// the tcp network is defined to be in big endian
+
 	m.header.handleEndianness();
 
 	if constexpr(std::endian::native != std::endian::big) {
@@ -210,7 +211,7 @@ TEST_CASE("Message using handleEndianness", "[Babel][Network]")
 
 		// 0xCAF00000 (big)
 		REQUIRE(m.header.bodySize == 0xF0CA51D4);
-		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0x000062D5));
+		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0x62D5));
 	} else {
 		// target big and host big
 //		REQUIRE(m.header.bodySize == 0b11001010101);
