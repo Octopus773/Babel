@@ -17,7 +17,7 @@ Babel::PortAudio::PortAudio()
 	PaStreamParameters outputParameters;
 	this->_streamStopped = true;
 	this->_stream = nullptr;
-	this->_frames_per_buffer = 960;
+	this->_framesPerBuffer = 960;
 	this->_samplerate = 48000;
 	this->_recordtime = 10;
 
@@ -30,39 +30,39 @@ Babel::PortAudio::PortAudio()
 	if (outputParameters.device == paNoDevice)
 		throw PortAudioException("No default output device found");
 	const PaDeviceInfo *info_device_in = Pa_GetDeviceInfo(inputParameters.device);
-	this->_input_number_channels = info_device_in->maxInputChannels;
+	this->_inputNumberChannels = info_device_in->maxInputChannels;
 	const PaDeviceInfo *info_device_out = Pa_GetDeviceInfo(outputParameters.device);
-	this->_output_number_channels = info_device_out->maxOutputChannels;
+	this->_outputNumberChannels = info_device_out->maxOutputChannels;
 }
 
 void Babel::PortAudio::setOutputChannelsNumber(int32_t nb)
 {
-	this->_output_number_channels = nb;
+	this->_outputNumberChannels = nb;
 }
 
 void Babel::PortAudio::setInputChannelsNumber(int32_t nb)
 {
-	this->_input_number_channels = nb;
+	this->_inputNumberChannels = nb;
 }
 
 int32_t Babel::PortAudio::getInputChannelsNumber() const
 {
-	return (this->_input_number_channels);
+	return (this->_inputNumberChannels);
 }
 
 int32_t Babel::PortAudio::getOutputChannelsNumber() const
 {
-	return (this->_output_number_channels);
+	return (this->_outputNumberChannels);
 }
 
 void Babel::PortAudio::setFramesPerBuffer(int32_t nb)
 {
-	this->_frames_per_buffer = nb;
+	this->_framesPerBuffer = nb;
 }
 
 int32_t Babel::PortAudio::getFramesPerBuffer() const
 {
-	return (this->_frames_per_buffer);
+	return (this->_framesPerBuffer);
 }
 
 void Babel::PortAudio::setSampleRate(int32_t nb)
@@ -94,18 +94,18 @@ void Babel::PortAudio::openStream()
 	inputParameters.device = Pa_GetDefaultInputDevice();
 	if (inputParameters.device == paNoDevice)
 		throw PortAudioException("No input devices found");
-	inputParameters.channelCount = this->_input_number_channels;
+	inputParameters.channelCount = this->_inputNumberChannels;
 	inputParameters.sampleFormat = PA_SAMPLE_TYPE;
 	inputParameters.suggestedLatency = Pa_GetDeviceInfo(inputParameters.device)->defaultLowInputLatency;
 	inputParameters.hostApiSpecificStreamInfo = nullptr;
 	outputParameters.device = Pa_GetDefaultOutputDevice();
 	if (outputParameters.device == paNoDevice)
 		throw PortAudioException("No default output device found");
-	outputParameters.channelCount = this->_output_number_channels;
+	outputParameters.channelCount = this->_outputNumberChannels;
 	outputParameters.sampleFormat = PA_SAMPLE_TYPE;
 	outputParameters.suggestedLatency = Pa_GetDeviceInfo(outputParameters.device)->defaultLowOutputLatency;
 	outputParameters.hostApiSpecificStreamInfo = nullptr;
-	err = Pa_OpenStream(&this->_stream, &inputParameters, &outputParameters, this->_samplerate, this->_frames_per_buffer, paClipOff, nullptr, nullptr);
+	err = Pa_OpenStream(&this->_stream, &inputParameters, &outputParameters, this->_samplerate, this->_framesPerBuffer, paClipOff, nullptr, nullptr);
 	if (err != paNoError || !this->_stream) {
 		this->_stream = nullptr;
 		throw PortAudioException("Could not open output stream");
@@ -157,7 +157,7 @@ void Babel::PortAudio::closeStream()
 
 std::vector<int16_t> Babel::PortAudio::readStream()
 {
-	std::vector<int16_t> data(this->_frames_per_buffer * this->_input_number_channels);
+	std::vector<int16_t> data(this->_framesPerBuffer * this->_inputNumberChannels);
 	int32_t err = paNoError;
 
 	if (!this->_stream)
@@ -165,7 +165,7 @@ std::vector<int16_t> Babel::PortAudio::readStream()
 	if (this->_streamStopped)
 		throw PortAudioException("Error: stream not started");
 	std::fill(data.begin(), data.end(), 0);
-	err = Pa_ReadStream(this->_stream, data.data(), this->_frames_per_buffer);
+	err = Pa_ReadStream(this->_stream, data.data(), this->_framesPerBuffer);
 	if (err != paNoError)
 		throw PortAudioException(Pa_GetErrorText(err));
 	return (data);
@@ -179,7 +179,7 @@ void Babel::PortAudio::writeStream(std::vector<int16_t> &data)
 		throw PortAudioException("Error: stream is not set");
 	if (this->_streamStopped)
 		throw PortAudioException("Error: stream not started");
-	err = Pa_WriteStream(this->_stream, data.data(), data.size() / this->_output_number_channels);
+	err = Pa_WriteStream(this->_stream, data.data(), data.size() / this->_outputNumberChannels);
 	if (err != paNoError)
 		throw PortAudioException(Pa_GetErrorText(err));
 }

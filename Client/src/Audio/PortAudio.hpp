@@ -73,11 +73,11 @@ namespace Babel
 		//! @brief stream for sound input and output
 		PaStream *_stream;
 		//! @brief frames per buffer for readStream
-		int32_t _frames_per_buffer;
+		int32_t _framesPerBuffer;
 		//! @brief number of channels for default input device
-		int32_t _input_number_channels;
+		int32_t _inputNumberChannels;
 		//! @brief number of channels for default output device
-		int32_t _output_number_channels;
+		int32_t _outputNumberChannels;
 		//@! brief record number in seconds for one frame
 		int32_t _recordtime;
 		//@! sample rate for input and output streams
