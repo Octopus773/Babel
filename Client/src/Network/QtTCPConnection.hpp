@@ -56,7 +56,6 @@ namespace Babel
 		//! @brief The socket internally used
 		QTcpSocket *_socket;
 
-		QDataStream _stream;
 		//! @brief The function called when a message has been fully received
 		std::function<void(Message<RFCCodes>)> _callbackMessageReceived;
 		//! @brief All the messages that need to be sent

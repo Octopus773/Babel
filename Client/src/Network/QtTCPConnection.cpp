@@ -14,10 +14,7 @@ namespace Babel
 		  _bytesRead(0),
 		  _connectionId(0)
 	{
-		this->_stream.setDevice(this->_socket);
-		//this->_stream.setVersion()
 		QObject::connect(this->_socket, &QIODevice::readyRead, this, &QtTCPConnection::readMessage);
-
 	}
 
 	void QtTCPConnection::connect(const std::string &hostname, uint16_t port)
@@ -25,7 +22,6 @@ namespace Babel
 		this->_socket->abort();
 		this->_socket->connectToHost(QString::fromStdString(hostname), port);
 	}
-
 
 	void QtTCPConnection::disconnect()
 	{
@@ -39,17 +35,14 @@ namespace Babel
 
 	void QtTCPConnection::send(Message<RFCCodes> message)
 	{
-		//this->_messagesOut.pushBack(message);
-		//std::cout << "sending: " << message << std::endl;
-		//if (this->_socket->isWritable()) {
+		if (this->_socket->isWritable()) {
 			uint32_t bodySize = message.header.bodySize;
 			message.header.handleEndianness();
-			//std::cout << "writing: " << message << std::endl;
-			this->_stream.writeRawData(reinterpret_cast<const char *>(&message.header),
+			this->_socket->write(reinterpret_cast<const char *>(&message.header),
 			                           sizeof(Babel::MessageHeader<RFCCodes>));
-			this->_stream.writeRawData(reinterpret_cast<const char *>(message.body.data()),
+			this->_socket->write(reinterpret_cast<const char *>(message.body.data()),
 			                           static_cast<int>(bodySize));
-		//}
+		}
 	}
 
 	void QtTCPConnection::readForMessages()
@@ -61,7 +54,7 @@ namespace Babel
 		uint64_t headerSize = sizeof(Babel::MessageHeader<RFCCodes>);
 
 		if (this->_bytesRead < headerSize) {
-			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(&this->_tmpMessage.header),
+			qint64 sizeRead = this->_socket->read(reinterpret_cast<char *>(&this->_tmpMessage.header),
 			                                         static_cast<int>(headerSize));
 			if (sizeRead == -1) {
 				this->_bytesRead = 0;
@@ -77,7 +70,7 @@ namespace Babel
 			if (this->_bytesRead == headerSize) {
 				this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
 			}
-			int sizeRead = this->_stream.readRawData(reinterpret_cast<char *>(this->_tmpMessage.body.data()),
+			qint64 sizeRead = this->_socket->read(reinterpret_cast<char *>(this->_tmpMessage.body.data()),
 			                                         static_cast<int>(this->_tmpMessage.header.bodySize));
 			if (sizeRead == -1) {
 				this->_bytesRead = 0;
