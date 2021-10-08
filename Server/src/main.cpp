@@ -19,7 +19,7 @@ int main()
 	Babel::Message<Babel::RFCCodes> msg;
 
 
-	msg.header.codeId = Babel::RFCCodes::Code1;
+	msg.header.codeId = Babel::RFCCodes::Debug;
 	msg << "salut";
 	server.start(4245);
 

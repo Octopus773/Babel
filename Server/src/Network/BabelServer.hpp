@@ -32,7 +32,7 @@ namespace Babel
 		std::cout << "Received from client id: " << client->getId() << " -> " << str << std::endl;
 
 		Message<RFCCodes> response;
-		response.header.codeId = RFCCodes::Code1;
+		response.header.codeId = RFCCodes::Debug;
 
 		auto t = std::time(nullptr);
 		auto tm = *std::localtime(&t);

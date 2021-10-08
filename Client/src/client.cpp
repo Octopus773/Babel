@@ -183,7 +183,7 @@ void Client::sendMsg()
 {
 	Babel::Message<Babel::RFCCodes> m{};
 
-	m.header.codeId = Babel::RFCCodes::Code1;
+	m.header.codeId = Babel::RFCCodes::Debug;
 	m << "i'm from qT5";
 
 

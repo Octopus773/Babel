@@ -41,14 +41,15 @@ namespace Babel
 	{
 		//this->_messagesOut.pushBack(message);
 		//std::cout << "sending: " << message << std::endl;
-		if (this->_socket->isWritable()) {
+		//if (this->_socket->isWritable()) {
+			uint32_t bodySize = message.header.bodySize;
 			message.header.handleEndianness();
 			//std::cout << "writing: " << message << std::endl;
 			this->_stream.writeRawData(reinterpret_cast<const char *>(&message.header),
 			                           sizeof(Babel::MessageHeader<RFCCodes>));
 			this->_stream.writeRawData(reinterpret_cast<const char *>(message.body.data()),
-			                           static_cast<int>(message.header.bodySize));
-		}
+			                           static_cast<int>(bodySize));
+		//}
 	}
 
 	void QtTCPConnection::readForMessages()

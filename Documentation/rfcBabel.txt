@@ -196,7 +196,7 @@ Internet-Draft               Babel Protocol               September 2021
 
 4.  Server -> Client Protocol
 
-4.1.  General purpuse response
+4.1.  General purpose response
 
    300 - general purpuse response
 
