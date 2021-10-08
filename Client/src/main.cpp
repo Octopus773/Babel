@@ -4,6 +4,7 @@
 
 #include "Audio/PortAudio.hpp"
 #include "Audio/Opus/Opus.hpp"
+#include "Audio/PortAudioException.hpp"
 #include <iostream>
 #include <memory>
 
@@ -18,13 +19,20 @@ int main() {
 
     decoded.reserve(4000);
     for (long i = 0; i < (a->getRecordTime() * a->getSampleRate()) / a->getFramesPerBuffer(); i++) {
-        std::vector<int16_t> data = a->readStream();
-        std::cout << data.size() << std::endl;
-        auto encoded = opus->encode(data.data(), decoded.data());
-        std::cout << encoded << std::endl;
-        opus->decode(decoded.data(), data.data(), encoded);
-        pcm.insert(pcm.end(), data.begin(), data.end());
+        try {
+            std::vector<int16_t> data = a->readStream();
+            std::cout << data.size() << std::endl;
+            auto encoded = opus->encode(data.data(), decoded.data());
+            std::cout << encoded << std::endl;
+            opus->decode(decoded.data(), data.data(), encoded);
+            pcm.insert(pcm.end(), data.begin(), data.end());
+        }
+        catch (const Babel::PortAudioException &e)
+        {
+            std ::cerr << e.what();
+        }
     }
+    std::cout << pcm.size() << std::endl;
     a->writeStream(pcm);
     return (EXIT_SUCCESS);
 }

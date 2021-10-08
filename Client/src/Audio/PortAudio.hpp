@@ -20,10 +20,16 @@ namespace Babel
 		PortAudio();
 		
 		//! @brief set the number of channels for future streams
-		void setChannelsNumber(int32_t) override;
+		void setInputChannelsNumber(int32_t) override;
 
-		//! @brief get the number of channels for future streams
-		int32_t getChannelsNumber() const override;
+		//! @brief set the number of channels for future streams
+		void setOutputChannelsNumber(int32_t) override;
+
+		//! @brief get the number of channels of Input Device for future streams
+		int32_t getInputChannelsNumber() const override;
+
+		//! @brief get the number of channels of Output Device for future streams
+		int32_t getOutputChannelsNumber() const override;
 
 		//! @brief set the samplerate for future streams
 		void setSampleRate(int32_t) override;
@@ -67,9 +73,11 @@ namespace Babel
 		//! @brief stream for sound input and output
 		PaStream *_stream;
 		//! @brief frames per buffer for readStream
-		int32_t _frames_per_buffer;
-		//! @brief number of channels
-		int32_t _number_channels;
+		int32_t _framesPerBuffer;
+		//! @brief number of channels for default input device
+		int32_t _inputNumberChannels;
+		//! @brief number of channels for default output device
+		int32_t _outputNumberChannels;
 		//@! brief record number in seconds for one frame
 		int32_t _recordtime;
 		//@! sample rate for input and output streams
