@@ -14,7 +14,7 @@ namespace Babel::Exception
 	public:
 		//! @brief Base Project Exception.
 		//! @note Every project Exceptions should inherit from this class
-		explicit BabelException(const std::string &str)
+		explicit BabelException(const std::string &str = "Babel exception")
 			: std::runtime_error(str)
 		{
 		}
