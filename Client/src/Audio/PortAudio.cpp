@@ -22,7 +22,7 @@ Babel::PortAudio::PortAudio()
 	this->_recordtime = 10;
 
 	if (err != paNoError)
-		throw PortAudioException("Error in intializing PortAudio");
+		throw PortAudioException(Pa_GetErrorText(err));
 	inputParameters.device = Pa_GetDefaultInputDevice();
 	if (inputParameters.device == paNoDevice)
 		throw PortAudioException("No default imput devices found");
@@ -124,7 +124,7 @@ void Babel::PortAudio::startStream()
 	}
 	err = Pa_StartStream(this->_stream);
 	if (err != paNoError)
-		throw PortAudioException("Error: could not start audio stream");
+		throw PortAudioException(Pa_GetErrorText(err));
 	this->_streamStopped = false;
 }
 
@@ -167,7 +167,7 @@ std::vector<int16_t> Babel::PortAudio::readStream()
 	std::fill(data.begin(), data.end(), 0);
 	err = Pa_ReadStream(this->_stream, data.data(), this->_frames_per_buffer);
 	if (err != paNoError)
-		throw PortAudioException("Error: could not read from stream");
+		throw PortAudioException(Pa_GetErrorText(err));
 	return (data);
 }
 
@@ -181,7 +181,7 @@ void Babel::PortAudio::writeStream(std::vector<int16_t> &data)
 		throw PortAudioException("Error: stream not started");
 	err = Pa_WriteStream(this->_stream, data.data(), data.size() / this->_output_number_channels);
 	if (err != paNoError)
-		throw PortAudioException("Error: could not write to stream");
+		throw PortAudioException(Pa_GetErrorText(err));
 }
 
 Babel::PortAudio::~PortAudio()
