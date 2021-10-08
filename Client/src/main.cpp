@@ -21,7 +21,6 @@ int main() {
     for (long i = 0; i < (a->getRecordTime() * a->getSampleRate()) / a->getFramesPerBuffer(); i++) {
         try {
             std::vector<int16_t> data = a->readStream();
-            a->writeStream(data);
             std::cout << data.size() << std::endl;
             auto encoded = opus->encode(data.data(), decoded.data());
             std::cout << encoded << std::endl;
@@ -34,6 +33,6 @@ int main() {
         }
     }
     std::cout << pcm.size() << std::endl;
-    //a->writeStream(pcm);
+    a->writeStream(pcm);
     return (EXIT_SUCCESS);
 }
