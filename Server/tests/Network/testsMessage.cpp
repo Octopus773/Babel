@@ -3,6 +3,7 @@
 //
 
 #include <cstdint>
+#include <bit>
 #include <string>
 #include <catch2/catch.hpp>
 #include "Network/RFCCodes.hpp"
@@ -176,4 +177,43 @@ TEST_CASE("Message adding rodata string", "[Babel][Network]")
 	CHECK(s == "i'm from qT5");
 	REQUIRE(m.header.bodySize == 0);
 	REQUIRE(m.body.empty());
+}
+
+TEST_CASE("Message using handleEndianness", "[Babel][Network]")
+{
+	Babel::Message<Babel::RFCCodes> m{};
+
+	Babel::RFCCodes code = static_cast<Babel::RFCCodes>(0xD5620000);
+	m.header.codeId = code;
+	m.header.bodySize = 0xD451CAF0;
+
+
+	if constexpr(std::endian::native != std::endian::big) {
+		// target big but host is little
+
+		// 0x0000F0CA (big)
+		REQUIRE(m.header.bodySize == 0xD451CAF0);
+		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0xD5620000));
+	} else {
+		// target big and host big
+//		REQUIRE(m.header.bodySize == 0b11001010101);
+//		REQUIRE(m.header.codeId == code);
+	}
+
+
+
+	// the tcp network is defined to be in big endian
+	m.header.handleEndianness();
+
+	if constexpr(std::endian::native != std::endian::big) {
+		// target big but host is little
+
+		// 0xCAF00000 (big)
+		REQUIRE(m.header.bodySize == 0xF0CA51D4);
+		REQUIRE(m.header.codeId == static_cast<Babel::RFCCodes>(0x000062D5));
+	} else {
+		// target big and host big
+//		REQUIRE(m.header.bodySize == 0b11001010101);
+//		REQUIRE(m.header.codeId == code);
+	}
 }
