@@ -1,25 +1,22 @@
 #include "Opus.hpp"
 #include "OpusException.hpp"
+#include <iostream>
 
 Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false), _bitrate(48000),
                       _channel(2), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
     int err = 0;
 
-    if (this->_encoder == nullptr) {
-        this->_encoder = opus_encoder_create(this->_bitrate, this->_channel, this->_application, &err);
-        if (err < 0) {
-            throw OpusException("Could not create the Opus encoder: " + std::string(opus_strerror(err)));
-        } else {
-            this->_encoderIsInitialized = true;
-        }
+    this->_encoder = opus_encoder_create(this->_bitrate, this->_channel, this->_application, &err);
+    if (err < 0) {
+        throw OpusException("Could not create the Opus encoder: " + std::string(opus_strerror(err)));
+    } else {
+        this->_encoderIsInitialized = true;
     }
-    if (this->_decoder == nullptr) {
-        this->_decoder = opus_decoder_create(this->_bitrate, this->_channel, &err);
-        if (err < 0) {
-            OpusException("Could not create the Opus decoder: " + std::string(opus_strerror(err)));
-        } else {
-            this->_decoderIsInitialized = true;
-        }
+    this->_decoder = opus_decoder_create(this->_bitrate, this->_channel, &err);
+    if (err < 0) {
+        OpusException("Could not create the Opus decoder: " + std::string(opus_strerror(err)));
+    } else {
+        this->_decoderIsInitialized = true;
     }
 }
 
@@ -97,15 +94,16 @@ int Babel::Opus::encode(const float *pcm, unsigned char *data) {
     }
 }
 
-int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm) {
+int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32_t dataSize) {
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {
         if (data == nullptr) {
             decodedFrames = opus_decode(this->_decoder, nullptr, 0, pcm, this->_frameSize, 0);
         } else {
-            decodedFrames = opus_decode(this->_decoder, data, this->_dataSize, pcm, this->_frameSize, 0);
+            decodedFrames = opus_decode(this->_decoder, data, dataSize, pcm, this->_frameSize, 0);
         }
+        std::cout << "[OPUS] Decoded " << decodedFrames << " frames" << std::endl;
         if (decodedFrames < 0) {
             throw OpusException("Error when encoding with Opus: " + std::string(opus_strerror(decodedFrames)));
         } else {
