@@ -138,7 +138,7 @@ void Babel::PortAudio::stopStream()
 		std::cerr << "stream already stopped" << std::endl;
 		return;
 	}
-	if (Pa_StopStream(this->_stream) != paNoError)
+	if (Pa_AbortStream(this->_stream) != paNoError)
 		std::cerr << "Error: could not stop stream" << std::endl;
 	this->_streamStopped = true;
 }
