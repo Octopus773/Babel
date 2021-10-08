@@ -23,9 +23,22 @@ namespace Babel
 		T codeId;
 		//! @brief The size of the message body in bytes
 		uint32_t bodySize;
+
+		//! @brief Transform to network endianness the MessageHeader
+		//! @warning Function should not be called by the user (the send function should do it)
+		void handleEndianness();
 //		//! @brief The UNIX Timestamp of the creation of the message
 //		uint32_t timeStamp;
 	};
+
+	template<typename T>
+	void MessageHeader<T>::handleEndianness()
+	{
+		if constexpr(std::endian::native != std::endian::big) {
+			this->codeId = swapEndian<T>(this->codeId);
+			this->bodySize = swapEndian<uint32_t>(this->bodySize);
+		}
+	}
 
 	template<typename T>
 	struct Message

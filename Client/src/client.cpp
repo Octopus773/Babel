@@ -186,14 +186,10 @@ void Client::sendMsg()
 	m.header.codeId = Babel::RFCCodes::Code1;
 	m << "i'm from qT5";
 
-	sleep(1);
-	if (this->connection.isConnected()) {
 
+	this->connection.send(m);
 
-		this->connection.send(m);
-
-		this->connection.readForMessages();
-	}
+	this->connection.readForMessages();
 //
 //
 //	if (tcpSocket->isWritable()) {

@@ -9,6 +9,7 @@
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include <iostream>
+#include <algorithm>
 #include <iomanip>
 #include <sstream>
 
@@ -38,9 +39,10 @@ namespace Babel
 		std::ostringstream oss;
 		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
 		str = oss.str();
-		for (char c : str) {
-			response << c;
-		}
+		//std::reverse(str.begin(), str.end());
+		//for (char c : str) {
+			response << str;
+		//}
 		//response << "06-10-2021 22-15-58";
 		//response << str;
 		std::cout << response << " str: " << str << std::endl;

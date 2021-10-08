@@ -3,6 +3,7 @@
 //
 
 #include "QtTCPConnection.hpp"
+#include <iostream>
 
 namespace Babel
 {
@@ -39,7 +40,10 @@ namespace Babel
 	void QtTCPConnection::send(Message<RFCCodes> message)
 	{
 		//this->_messagesOut.pushBack(message);
+		//std::cout << "sending: " << message << std::endl;
 		if (this->_socket->isWritable()) {
+			message.header.handleEndianness();
+			//std::cout << "writing: " << message << std::endl;
 			this->_stream.writeRawData(reinterpret_cast<const char *>(&message.header),
 			                           sizeof(Babel::MessageHeader<RFCCodes>));
 			this->_stream.writeRawData(reinterpret_cast<const char *>(message.body.data()),
@@ -63,6 +67,9 @@ namespace Babel
 				return;
 			}
 			this->_bytesRead += sizeRead;
+			if (this->_bytesRead == headerSize) {
+				this->_tmpMessage.header.handleEndianness();
+			}
 		}
 
 		if (this->_tmpMessage.header.bodySize > 0) {
