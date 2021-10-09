@@ -5,10 +5,13 @@
 #pragma once
 
 #include "Exceptions/BabelException.hpp"
+#include "Utilities/SwapEndian.hpp"
 #include <cstring>
 #include <cstdint>
 #include <vector>
+#include <algorithm>
 #include <iostream>
+#include <bit>
 
 namespace Babel
 {
@@ -20,9 +23,22 @@ namespace Babel
 		T codeId;
 		//! @brief The size of the message body in bytes
 		uint32_t bodySize;
+
+		//! @brief Transform to network endianness the MessageHeader
+		//! @warning Function should not be called by the user (the send function should do it)
+		void handleEndianness();
 //		//! @brief The UNIX Timestamp of the creation of the message
 //		uint32_t timeStamp;
 	};
+
+	template<typename T>
+	void MessageHeader<T>::handleEndianness()
+	{
+		if constexpr(std::endian::native != std::endian::big) {
+			this->codeId = swapEndian<T>(this->codeId);
+			this->bodySize = swapEndian<uint32_t>(this->bodySize);
+		}
+	}
 
 	template<typename T>
 	struct Message
@@ -40,7 +56,10 @@ namespace Babel
 		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
 
 		static Message<T> &GetBytes(Message<T> &message, std::string &data, uint64_t size);
+
+		explicit Message();
 	};
+
 
 	template<typename T>
 	size_t Message<T>::size() const
@@ -59,7 +78,11 @@ namespace Babel
 		}
 
 		size_t i = msg.body.size() - size;
-		std::memcpy(&data, msg.body.data() + i, size);
+		std::memmove(&data, msg.body.data(), size);
+		msg.body.assign(msg.body.begin() + size, msg.body.end());
+		if constexpr(std::endian::native != std::endian::big) {
+			data = swapEndian<DataType>(data);
+		}
 		msg.body.resize(i);
 		msg.header.bodySize = msg.size();
 
@@ -75,11 +98,22 @@ namespace Babel
 
 		size_t i = msg.body.size() - size;
 
-		data.assign(reinterpret_cast<char *>(msg.body.data() + i), size - 1);
+		data.assign(reinterpret_cast<char *>(msg.body.data()), size);
+		msg.body.assign(msg.body.begin() + size, msg.body.end());
+		if constexpr(std::endian::native != std::endian::big) {
+			std::reverse(data.begin(), data.end());
+		}
 		msg.body.resize(i);
 		msg.header.bodySize = msg.body.size();
 
 		return msg;
+	}
+
+	template<typename T>
+	Message<T>::Message()
+		: header({}),
+		  body({})
+	{
 	}
 
 	template<typename T>
@@ -90,20 +124,46 @@ namespace Babel
 	}
 
 	template<typename T, typename DataType>
-	Message<T> &operator<<(Message<T> &msg, const DataType &data)
+	Message<T> &operator<<(Message<T> &msg, DataType data)
 	{
 		static_assert(std::is_standard_layout<DataType>::value, "Data is too complex to be pushed into vector");
 
 		size_t i = msg.body.size();
 
 		msg.body.resize(msg.body.size() + sizeof(DataType));
-		std::memcpy(msg.body.data() + i, &data, sizeof(DataType));
+		if constexpr(std::endian::native != std::endian::big) {
+			data = swapEndian<DataType>(data);
+		}
+
+		std::memmove(msg.body.data() + i, &data, sizeof(DataType));
 		msg.header.bodySize = msg.size();
 		return msg;
 	}
 
+	template<typename T>
+	Message<T> &operator<<(Message<T> &msg, std::string data)
+	{
+
+		size_t i = msg.body.size();
+
+		msg.body.resize(msg.body.size() + data.size());
+		if constexpr(std::endian::native != std::endian::big) {
+			std::reverse(data.begin(), data.end());
+		}
+
+		std::memmove(msg.body.data() + i, data.data(), data.size());
+		msg.header.bodySize = msg.size();
+		return msg;
+	}
+
+	template<typename T>
+	Message<T> &operator<<(Message<T> &msg, const char data[])
+	{
+		return msg << std::string(data);
+	}
+
 	template<typename T, typename DataType>
-	Message<T> operator>>(Message<T> &msg, const DataType &data)
+	Message<T> &operator>>(Message<T> &msg, DataType &data)
 	{
 		return Message<T>::GetBytes(msg, data, sizeof(DataType));
 	}

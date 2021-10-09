@@ -155,7 +155,8 @@ namespace Babel
 	void AsioTCPServer<T>::update(uint64_t nbMessagesToProcess, bool wait)
 	{
 		if (wait) {
-			this->_messagesIn.wait();
+			using namespace std::chrono_literals;
+			this->_messagesIn.waitFor(1s);
 		}
 
 		uint64_t processedMessages = 0;
@@ -166,6 +167,20 @@ namespace Babel
 			this->onMessage(msg.remote, msg.msg);
 
 			processedMessages++;
+		}
+
+		bool disconnectedClients = false;
+
+		for (auto &client: this->_connections) {
+			if (!(client && client->isConnected())) {
+				this->onClientDisconnect(client);
+				client.reset();
+				disconnectedClients = true;
+			}
+		}
+		if (disconnectedClients) {
+			this->_connections.erase(std::remove(this->_connections.begin(), this->_connections.end(), nullptr),
+			                         this->_connections.end());
 		}
 	}
 

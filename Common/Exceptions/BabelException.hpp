@@ -26,5 +26,3 @@ namespace Babel::Exception
 		~BabelException() override = default;
 	};
 }
-
-

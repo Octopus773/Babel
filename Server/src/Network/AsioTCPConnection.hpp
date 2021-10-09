@@ -6,6 +6,8 @@
 
 #include <functional>
 #include <asio.hpp>
+#include <bit>
+#include "Utilities/SwapEndian.hpp"
 #include "Network/ITCPConnection.hpp"
 #include "Network/Message.hpp"
 
@@ -127,6 +129,7 @@ namespace Babel
 	template<typename T>
 	void AsioTCPConnection<T>::send(Message<T> message)
 	{
+		message.header.handleEndianness();
 		asio::post(this->_ioContext, [this, message] {
 			bool isMessageBeingSend = this->_messagesOut.empty();
 
@@ -196,6 +199,7 @@ namespace Babel
 		asio::async_read(this->_socket, asio::buffer(&this->_tmpMessage.header, sizeof(MessageHeader<T>)),
 		                 [this](std::error_code ec, std::size_t) {
 			                 if (!ec) {
+								 this->_tmpMessage.header.handleEndianness();
 				                 if (this->_tmpMessage.header.bodySize > 0) {
 					                 this->_tmpMessage.body.resize(this->_tmpMessage.header.bodySize);
 					                 this->readBody();
@@ -221,7 +225,6 @@ namespace Babel
 				                 this->_callbackMessageReceived(this->_tmpMessage);
 				                 this->readHeader();
 			                 } else {
-				                 // As above!
 				                 std::cout << "[" << this->_id << "] Read Body Fail." << std::endl;
 				                 this->_socket.close();
 			                 }

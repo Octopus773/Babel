@@ -8,29 +8,24 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 
-
+#include "Network/RFCCodes.hpp"
 #include "Network/Message.hpp"
-#include "Network/AsioTCPServer.hpp"
+#include "Network/BabelServer.hpp"
 
-enum class testCodes : uint16_t
-{
-	// 64 47 @/
-	Code1 = 0b0100000000101111
-};
 
 int main()
 {
-	Babel::AsioTCPServer<testCodes> server{};
-	Babel::Message<testCodes> msg;
+	Babel::BabelServer server{};
+	Babel::Message<Babel::RFCCodes> msg;
 
 
-	msg.header.codeId = testCodes::Code1;
+	msg.header.codeId = Babel::RFCCodes::Debug;
 	msg << "salut";
 	server.start(4245);
 
 
 	while (true) {
-		server.messageAllClients(msg);
 		server.update(50, true);
+		//server.messageAllClients(msg);
 	}
 }

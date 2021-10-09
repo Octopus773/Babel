@@ -11,7 +11,6 @@ file(
 )
 
 list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main.cpp")
-list(REMOVE_ITEM SOURCES "${PROJECT_SOURCE_DIR}/src/main2.cpp")
 
 include_directories("src")
 

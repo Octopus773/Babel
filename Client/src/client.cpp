@@ -50,8 +50,12 @@
 
 #include <QtWidgets>
 #include <QtNetwork>
-#include <iostream>
 
+#include <iostream>
+#include <string>
+#include <utility>
+#include "Network/RFCCodes.hpp"
+#include "Network/Message.hpp"
 #include "client.hpp"
 
 //! [0]
@@ -59,10 +63,16 @@ Client::Client(QWidget *parent)
 	: QDialog(parent)
 	, hostCombo(new QComboBox)
 	, portLineEdit(new QLineEdit)
-	, getFortuneButton(new QPushButton(tr("Get Fortune")))
+	, getFortuneButton(new QPushButton(tr("Connect")))
+	, sendMsgButton(new QPushButton(tr("Send Msg")))
 	, tcpSocket(new QTcpSocket(this))
 {
 	setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+
+	this->connection.setCallbackOnMessage([this](Babel::Message<Babel::RFCCodes> message) {
+		this->readFortune(std::move(message));
+	});
+
 //! [0]
 	hostCombo->setEditable(true);
 	// find out name of this machine
@@ -78,14 +88,14 @@ Client::Client(QWidget *parent)
 	// find out IP addresses of this machine
 	QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
 	// add non-localhost addresses
-	for (const auto & i : ipAddressesList) {
-		if (!i.isLoopback())
-			hostCombo->addItem(i.toString());
+	for (int i = 0; i < ipAddressesList.size(); ++i) {
+		if (!ipAddressesList.at(i).isLoopback())
+			hostCombo->addItem(ipAddressesList.at(i).toString());
 	}
 	// add localhost addresses
-	for (const auto & i : ipAddressesList) {
-		if (i.isLoopback())
-			hostCombo->addItem(i.toString());
+	for (int i = 0; i < ipAddressesList.size(); ++i) {
+		if (ipAddressesList.at(i).isLoopback())
+			hostCombo->addItem(ipAddressesList.at(i).toString());
 	}
 
 	portLineEdit->setValidator(new QIntValidator(1, 65535, this));
@@ -100,11 +110,13 @@ Client::Client(QWidget *parent)
 
 	getFortuneButton->setDefault(true);
 	getFortuneButton->setEnabled(false);
+	sendMsgButton->setDefault(true);
 
 	auto quitButton = new QPushButton(tr("Quit"));
 
 	auto buttonBox = new QDialogButtonBox;
 	buttonBox->addButton(getFortuneButton, QDialogButtonBox::ActionRole);
+	buttonBox->addButton(sendMsgButton, QDialogButtonBox::ActionRole);
 	buttonBox->addButton(quitButton, QDialogButtonBox::RejectRole);
 
 //! [1]
@@ -118,13 +130,18 @@ Client::Client(QWidget *parent)
 	        this, &Client::enableGetFortuneButton);
 	connect(getFortuneButton, &QAbstractButton::clicked,
 	        this, &Client::requestNewFortune);
+
+	connect(sendMsgButton, &QAbstractButton::clicked,
+	        this, &Client::sendMsg);
 	connect(quitButton, &QAbstractButton::clicked, this, &QWidget::close);
 //! [2] //! [3]
-	connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
+	//connect(tcpSocket, &QIODevice::readyRead, this, &Client::readFortune);
 //! [2] //! [4]
 	connect(tcpSocket, &QAbstractSocket::errorOccurred,
 //! [3]
             this, &Client::displayError);
+
+//	connect(tcpSocket, &QAbstractSocket::connected, this, &Client::sendMsg);
 //! [4]
 
 	QGridLayout *mainLayout = nullptr;
@@ -155,51 +172,56 @@ Client::Client(QWidget *parent)
 }
 //! [5]
 
+void Client::sendMsg()
+{
+	Babel::Message<Babel::RFCCodes> m{};
+
+	m.header.codeId = Babel::RFCCodes::Debug;
+	m << "i'm from qT5";
+
+
+	this->connection.send(m);
+
+	this->connection.readForMessages();
+}
+
 //! [6]
 void Client::requestNewFortune()
 {
-	getFortuneButton->setEnabled(false);
-	tcpSocket->abort();
-//! [7]
-	tcpSocket->connectToHost(hostCombo->currentText(),
-	                         portLineEdit->text().toInt());
+	//getFortuneButton->setEnabled(false);
+//	tcpSocket->abort();
+////! [7]
+//	tcpSocket->connectToHost(hostCombo->currentText(),
+//	                         portLineEdit->text().toInt());
+
+	this->connection.connect(hostCombo->currentText().toStdString(), portLineEdit->text().toInt());
+
+
+
 //! [7]
 }
 //! [6]
 
 //! [8]
-void Client::readFortune()
+void Client::readFortune(Babel::Message<Babel::RFCCodes> message)
 {
-	std::cout << "readFortune" << std::endl;
-	in.startTransaction();
-
 	QString nextFortune;
-	char text[100] = {0};
+	std::string str;
 
-	//in >> text;
-	in.readRawData(text, 100);
-	//in >> nextFortune;
+	Babel::Message<Babel::RFCCodes>::GetBytes(message, str, message.header.bodySize);
 
-	std::cout << "nextFortune value: '" << nextFortune.toStdString() << "'" << std::endl;
-	std::cout << "text value: '" << text << "'" << std::endl;
+	getFortuneButton->setEnabled(true);
+	std::cout << "readed " << str << std::endl;
+	nextFortune = QString::fromStdString(str);
 
-	nextFortune = text;
 
-	if (!in.commitTransaction()) {
-		std::cout << "no commit trans" << std::endl;
+	if (nextFortune == currentFortune) {
 		return;
 	}
 
-	if (nextFortune == currentFortune && !nextFortune.isEmpty()) {
-		std::cout << "re ask" << std::endl;
-		QTimer::singleShot(0, this, &Client::requestNewFortune);
-		return;
-	}
-
-	std::cout << "pass" << std::endl;
 	currentFortune = nextFortune;
 	statusLabel->setText(currentFortune);
-	getFortuneButton->setEnabled(true);
+
 }
 //! [8]
 
@@ -210,7 +232,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 	case QAbstractSocket::RemoteHostClosedError:
 		break;
 	case QAbstractSocket::HostNotFoundError:
-		QMessageBox::critical(this, tr("Fortune Client"),
+		QMessageBox::information(this, tr("Fortune Client"),
 		                         tr("The host was not found. Please check the "
 		                            "host name and port settings."));
 		break;
