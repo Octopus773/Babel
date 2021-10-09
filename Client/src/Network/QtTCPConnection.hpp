@@ -51,6 +51,7 @@ namespace Babel
 
 	private:
 
+		//! @brief Read a Message<T> from the socket when a message is read _callbackMessageReceived is called
 		void readMessage();
 
 		//! @brief The socket internally used

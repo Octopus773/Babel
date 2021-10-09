@@ -58,19 +58,12 @@
 #include "Network/Message.hpp"
 #include "client.hpp"
 
-
-enum class testsCodes : uint16_t
-{
-	first = 1
-};
-
-
 //! [0]
 Client::Client(QWidget *parent)
 	: QDialog(parent)
 	, hostCombo(new QComboBox)
 	, portLineEdit(new QLineEdit)
-	, getFortuneButton(new QPushButton(tr("Get Fortune")))
+	, getFortuneButton(new QPushButton(tr("Connect")))
 	, sendMsgButton(new QPushButton(tr("Send Msg")))
 	, tcpSocket(new QTcpSocket(this))
 {
@@ -190,12 +183,6 @@ void Client::sendMsg()
 	this->connection.send(m);
 
 	this->connection.readForMessages();
-//
-//
-//	if (tcpSocket->isWritable()) {
-//		tcpSocket->write(reinterpret_cast<const char *>(&m.header), sizeof(Babel::MessageHeader<testsCodes>));
-//		tcpSocket->write(reinterpret_cast<const char *>(m.body.data()), m.header.bodySize);
-//	}
 }
 
 //! [6]
@@ -218,25 +205,7 @@ void Client::requestNewFortune()
 //! [8]
 void Client::readFortune(Babel::Message<Babel::RFCCodes> message)
 {
-//	in.startTransaction();
-//	Babel::Message<Babel::RFCCodes> m;
-//
-//	std::string message;
 	QString nextFortune;
-//
-//	in.readRawData(reinterpret_cast<char *>(&m.header), sizeof(Babel::MessageHeader<Babel::RFCCodes>));
-//	if (m.header.bodySize > 0) {
-//		m.body.resize(m.header.bodySize);
-//		in.readRawData(reinterpret_cast<char *>(m.body.data()), m.header.bodySize);
-//	}
-//
-//	//in >> nextFortune;
-//	Babel::Message<Babel::RFCCodes>::GetBytes(m, message, m.header.bodySize);
-//	std::cout << "readed " << message << std::endl;
-//
-//	if (!in.commitTransaction())
-//		return;
-
 	std::string str;
 
 	Babel::Message<Babel::RFCCodes>::GetBytes(message, str, message.header.bodySize);
@@ -247,7 +216,6 @@ void Client::readFortune(Babel::Message<Babel::RFCCodes> message)
 
 
 	if (nextFortune == currentFortune) {
-		//QTimer::singleShot(0, this, &Client::requestNewFortune);
 		return;
 	}
 
