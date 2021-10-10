@@ -10,15 +10,10 @@ namespace Babel
 
 	Message<RFCCodes> BabelServer::login(User &user, Message<RFCCodes> message)
 	{
-		uint8_t usernameLength;
-
-		message >> usernameLength;
-
-		if (usernameLength < 3 || usernameLength > 10) {
-			return Utils::response(0, "username length must be between 3 and 10 characters");
-		}
 		std::string requestedUsername;
-		Message<RFCCodes>::GetBytes(message, requestedUsername, usernameLength);
+		if (!Utils::getString(message, requestedUsername, {3, 10})) {
+			return Utils::response(0, "username_length must be between 3 and 10 characters");
+		}
 
 		for (const auto &u : this->_users) {
 			if (u.second.username == requestedUsername) {
@@ -66,10 +61,27 @@ namespace Babel
 
 		for (const auto &u : this->_users) {
 			if (u.second.isConnected()) {
-				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username;
+				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username << u.second.canBeCalled;
 			}
 		}
 		return r;
 	}
 
+	Message<RFCCodes> BabelServer::callUser(User &user, Message<RFCCodes> message)
+	{
+		std::string usernameToCall;
+		if (!Utils::getString(message, usernameToCall, {3, 10})) {
+			return Utils::response(0, "username_length must be between 3 and 10 characters");
+		}
+		for (const auto &u : this->_users) {
+			if (u.second.username == usernameToCall) {
+				if (!u.second.isCallable()) {
+					return Utils::response(0, "This is user is not currently able to receive calls");
+				}
+				// send a call request to the userToCall
+				return Utils::response(1, "OK");
+			}
+		}
+		return Utils::response(0, "User not find on the server please recheck the username");
+	}
 }

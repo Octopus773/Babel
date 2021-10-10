@@ -19,7 +19,15 @@ namespace Babel
 		bool canBeCalled = false;
 
 
-		bool isConnected() const;
+		inline bool isConnected() const
+		{
+			return this->username.empty();
+		};
+
+		inline bool isCallable() const
+		{
+			return this->isConnected() && this->canBeCalled;
+		};
 
 	};
 

@@ -39,6 +39,7 @@ namespace Babel
 
 		Message<RFCCodes> login(User &user, Message<RFCCodes> message);
 		Message<RFCCodes> listUsers(User &user, Message<RFCCodes> message);
+		Message<RFCCodes> callUser(User &user, Message<RFCCodes> message);
 
 	private:
 
@@ -52,14 +53,18 @@ namespace Babel
 		};
 
 		std::map<RFCCodes, requestHandler> requestsHandlers{
-			{RFCCodes::Login, {
-				[this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m)); },
-				false
-			}},
+			{RFCCodes::Login,     {
+				                      [this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m)); },
+				                      false
+			                      }},
 			{RFCCodes::ListUsers, {
-				[this](User &u, Message<RFCCodes> m) { return this->listUsers(u, std::move(m)); },
-				false
-			}}
+				                      [this](User &u, Message<RFCCodes> m) { return this->listUsers(u, std::move(m)); },
+				                      false
+			                      }},
+			{RFCCodes::Call,      {
+				                      [this](User &u, Message<RFCCodes> m) { return this->callUser(u, std::move(m)); },
+				                      true
+			                      }}
 		};
 
 	};

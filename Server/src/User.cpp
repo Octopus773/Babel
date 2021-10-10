@@ -6,8 +6,4 @@
 
 namespace Babel
 {
-	bool User::isConnected() const
-	{
-		return this->username.empty();
-	}
 }
