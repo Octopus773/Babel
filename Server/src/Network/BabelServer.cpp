@@ -38,8 +38,12 @@ namespace Babel
 		if (this->requestsHandlers[msg.header.codeId].loginRequired && !this->_users[client->getId()].isConnected()) {
 			return this->messageClient(client, Utils::response(0, "You must login to make this request"));
 		}
-		this->messageClient(client,
-		                    this->requestsHandlers[msg.header.codeId].method(this->_users[client->getId()], msg));
+		try {
+			this->messageClient(client,
+			                    this->requestsHandlers[msg.header.codeId].method(this->_users[client->getId()], msg));
+		} catch (Exception::BabelException &) {
+			this->messageClient(client, Utils::response(0, "request body was ill formed"));
+		}
 	}
 
 	bool BabelServer::onClientConnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
@@ -51,6 +55,21 @@ namespace Babel
 	void BabelServer::onClientDisconnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
 	{
 		this->_users.erase(client->getId());
+	}
+
+	Message<RFCCodes> BabelServer::listUsers(User &user, Message<RFCCodes>)
+	{
+		Message<RFCCodes> r;
+
+		r.header.codeId = RFCCodes::Response;
+		r << static_cast<uint16_t>(1);
+
+		for (const auto &u : this->_users) {
+			if (u.second.isConnected()) {
+				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username;
+			}
+		}
+		return r;
 	}
 
 }

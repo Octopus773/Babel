@@ -9,6 +9,5 @@
 
 namespace Babel::Utils
 {
-	Message<RFCCodes> response(uint16_t code, std::string description)
 
 }

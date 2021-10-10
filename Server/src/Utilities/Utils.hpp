@@ -17,7 +17,7 @@ namespace Babel
 			Message<RFCCodes> m;
 
 			m.header.codeId = RFCCodes::Response;
-			m << code << description.size();
+			m << code << static_cast<uint8_t>(description.size());
 			m << std::move(description);
 			return m;
 		};
