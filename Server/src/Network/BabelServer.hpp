@@ -8,19 +8,30 @@
 #include "AsioTCPConnection.hpp"
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
+#include "Utilities/FreeList.hpp"
+#include "User.hpp"
 #include <iostream>
 #include <algorithm>
+#include <string>
 #include <iomanip>
 #include <sstream>
 
 namespace Babel
 {
+
 	class BabelServer : public AsioTCPServer<RFCCodes>
 	{
 	public:
 
 		//! @brief Called when we received a message from a client
 		void onMessage(std::shared_ptr<ITCPConnection<RFCCodes>> client, Message<RFCCodes> &msg) override;
+
+
+		bool login(std::string username);
+
+	private:
+
+		FreeList<User> _users;
 
 	};
 
