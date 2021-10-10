@@ -10,9 +10,6 @@ namespace Babel
 
 	Message<RFCCodes> BabelServer::login(User &user, Message<RFCCodes> message)
 	{
-
-		std::string requestedUsername;
-		bool isValid = false;
 		uint8_t usernameLength;
 
 		message >> usernameLength;
@@ -20,6 +17,7 @@ namespace Babel
 		if (usernameLength < 3 || usernameLength > 10) {
 			return Utils::response(0, "username length must be between 3 and 10 characters");
 		}
+		std::string requestedUsername;
 		Message<RFCCodes>::GetBytes(message, requestedUsername, usernameLength);
 
 		for (const auto &u : this->_users) {
@@ -34,23 +32,25 @@ namespace Babel
 
 	void BabelServer::onMessage(std::shared_ptr<ITCPConnection<RFCCodes>> client, Message<RFCCodes> &msg)
 	{
-		std::string str;
+		if (this->requestsHandlers.find(msg.header.codeId) == this->requestsHandlers.end()) {
+			return this->messageClient(client, Utils::response(0, "Unknown request type"));
+		}
+		if (this->requestsHandlers[msg.header.codeId].loginRequired && !this->_users[client->getId()].isConnected()) {
+			return this->messageClient(client, Utils::response(0, "You must login to make this request"));
+		}
+		this->messageClient(client,
+		                    this->requestsHandlers[msg.header.codeId].method(this->_users[client->getId()], msg));
+	}
 
-		Message<RFCCodes>::GetBytes(msg, str, msg.header.bodySize);
-		std::cout << "Received from client id: " << client->getId() << " -> " << str << std::endl;
+	bool BabelServer::onClientConnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
+	{
+		this->_users[client->getId()];
+		return true;
+	}
 
-		Message<RFCCodes> response;
-		response.header.codeId = RFCCodes::Debug;
-
-		auto t = std::time(nullptr);
-		auto tm = *std::localtime(&t);
-		std::ostringstream oss;
-		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
-		str = oss.str();
-		response << str;
-		std::cout << response << " str: " << str << std::endl;
-		//response << "Les bananes arrivent";
-		this->messageClient(client, response);
+	void BabelServer::onClientDisconnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
+	{
+		this->_users.erase(client->getId());
 	}
 
 }

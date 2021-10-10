@@ -29,6 +29,13 @@ namespace Babel
 		//! @brief Called when we received a message from a client
 		void onMessage(std::shared_ptr<ITCPConnection<RFCCodes>> client, Message<RFCCodes> &msg) override;
 
+		//! @brief Called when a client connect
+		//! @note You can refuse the connection by returning false
+		bool onClientConnect(std::shared_ptr<ITCPConnection<RFCCodes>> client) override;
+
+		//! @brief Called when a client disconnect
+		void onClientDisconnect(std::shared_ptr<ITCPConnection<RFCCodes>> client) override;
+
 
 		Message<RFCCodes> login(User &user, Message<RFCCodes> message);
 
@@ -36,9 +43,19 @@ namespace Babel
 
 		std::map<uint64_t, User> _users;
 
+		struct requestHandler {
+			//! @brief the actual function to call to process the request
+			std::function<Message<RFCCodes>(User &, Message<RFCCodes>)> method;
+			//! @brief prerequisite of the request
+			bool loginRequired;
+		};
 
-		std::map<RFCCodes, std::function<Message<RFCCodes>(User &, Message<RFCCodes>)>> requestsHandlers {
-			{RFCCodes::Login, [this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m));}}
+		std::map<RFCCodes, requestHandler> requestsHandlers{
+			{RFCCodes::Login, {
+				[this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m)); },
+				false
+			}
+			}
 		};
 
 	};
