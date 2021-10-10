@@ -10,15 +10,18 @@
 #include "Network/RFCCodes.hpp"
 #include "Utilities/FreeList.hpp"
 #include "User.hpp"
+#include <array>
+#include <functional>
 #include <iostream>
 #include <algorithm>
 #include <string>
+#include <map>
 #include <iomanip>
 #include <sstream>
+#include <utility>
 
 namespace Babel
 {
-
 	class BabelServer : public AsioTCPServer<RFCCodes>
 	{
 	public:
@@ -27,33 +30,16 @@ namespace Babel
 		void onMessage(std::shared_ptr<ITCPConnection<RFCCodes>> client, Message<RFCCodes> &msg) override;
 
 
-		bool login(std::string username);
+		Message<RFCCodes> login(User &user, Message<RFCCodes> message);
 
 	private:
 
-		FreeList<User> _users;
+		std::map<uint64_t, User> _users;
+
+
+		std::map<RFCCodes, std::function<Message<RFCCodes>(User &, Message<RFCCodes>)>> requestsHandlers {
+			{RFCCodes::Login, [this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m));}}
+		};
 
 	};
-
-	void BabelServer::onMessage(std::shared_ptr<ITCPConnection<RFCCodes>> client, Message<RFCCodes> &msg)
-	{
-		std::string str;
-
-		Message<RFCCodes>::GetBytes(msg, str, msg.header.bodySize);
-		std::cout << "Received from client id: " << client->getId() << " -> " << str << std::endl;
-
-		Message<RFCCodes> response;
-		response.header.codeId = RFCCodes::Debug;
-
-		auto t = std::time(nullptr);
-		auto tm = *std::localtime(&t);
-		std::ostringstream oss;
-		oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
-		str = oss.str();
-			response << str;
-		std::cout << response << " str: " << str << std::endl;
-		//response << "Les bananes arrivent";
-		this->messageClient(client, response);
-	}
-
 }
