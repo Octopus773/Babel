@@ -46,6 +46,12 @@ namespace Babel
 		//! @brief set the id of the connection
 		void setId(uint64_t id) override;
 
+		//! @brief Get the connected pair address
+		std::string getIp() const override;
+
+		//! @brief get the connected pair port
+		uint16_t getPort() const override;
+
 		//! @brief ctor
 		explicit QtTCPConnection(QWidget *parent = nullptr);
 
