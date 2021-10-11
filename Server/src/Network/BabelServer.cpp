@@ -79,9 +79,56 @@ namespace Babel
 					return Utils::response(0, "This is user is not currently able to receive calls");
 				}
 				// send a call request to the userToCall
+				this->messageClient(this->_connections[u.second.connectionId], Utils::response(1, u.second.username + " is calling you"));
 				return Utils::response(1, "OK");
 			}
 		}
 		return Utils::response(0, "User not find on the server please recheck the username");
+	}
+
+	Message<RFCCodes> BabelServer::acceptUserCall(User &user, Message<RFCCodes> message)
+	{
+		std::string usernameCalling;
+		if (!Utils::getString(message, usernameCalling, {3, 10})) {
+			return Utils::response(0, "username_length must be between 3 and 10 characters");
+		}
+		User u;
+		if (!getUserByUsername(usernameCalling, u)) {
+			return Utils::response(0, "wrong username provided");
+		}
+
+		this->messageClient(this->_connections[u.connectionId], Utils::response(1, u.username + " accepted your call"));
+		return Utils::response(1, "127.0.0.1:34567");
+	}
+
+	bool BabelServer::getUserByUsername(const std::string &username, User &user)
+	{
+		for (auto &u : this->_users) {
+			if (u.second.username == username) {
+				user = u.second;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	Message<RFCCodes> BabelServer::denyUserCall(User &user, Message<RFCCodes> message)
+	{
+		std::string usernameCalling;
+		if (!Utils::getString(message, usernameCalling, {3, 10})) {
+			return Utils::response(0, "username_length must be between 3 and 10 characters");
+		}
+		User u;
+		if (!getUserByUsername(usernameCalling, u)) {
+			return Utils::response(0, "wrong username provided");
+		}
+
+		this->messageClient(this->_connections[u.connectionId], Utils::response(1, u.username + " denied your call"));
+		return Utils::response(1, "OK");
+	}
+
+	Message<RFCCodes> BabelServer::hangUpCall(User &user, Message<RFCCodes> message)
+	{
+		return Message<RFCCodes>();
 	}
 }

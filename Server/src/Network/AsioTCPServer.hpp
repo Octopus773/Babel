@@ -52,7 +52,7 @@ namespace Babel
 		//! @brief ctor
 		explicit AsioTCPServer();
 
-	private:
+	protected:
 		//! @brief Listens for client messages
 		void waitForClientConnections();
 		//! @brief Received messages from clients
