@@ -14,7 +14,7 @@ Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false)
     }
     this->_decoder = opus_decoder_create(this->_bitrate, this->_channel, &err);
     if (err < 0) {
-        OpusException("Could not create the Opus decoder: " + std::string(opus_strerror(err)));
+        throw OpusException("Could not create the Opus decoder: " + std::string(opus_strerror(err)));
     } else {
         this->_decoderIsInitialized = true;
     }
