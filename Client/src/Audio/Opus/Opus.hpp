@@ -30,13 +30,16 @@ namespace Babel {
         //! @brief get the bitrate
         [[nodiscard]] std::int32_t getBitrate() const;
 
+        //! @brief Sets the bitrate
         void setBitrate(std::int32_t bitrate);
 
         //! @brief get the channels
         [[nodiscard]] int getChannel() const;
 
+        //! @brief sets the channel
         void setChannel(int channel);
 
+        //! @brief get the application type
         [[nodiscard]] int getApplication() const;
 
         //! @brief sets the Opus application mode
@@ -45,6 +48,7 @@ namespace Babel {
         //! OPUS_APPLICATION_RESTRICTED_LOWDELAY
         void setApplication(int application);
 
+        //! @brief get the frame size
         [[nodiscard]] int getFrameSize() const;
 
         //! @brief sets the number of samples per channel
