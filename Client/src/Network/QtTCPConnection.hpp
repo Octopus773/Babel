@@ -47,10 +47,10 @@ namespace Babel
 		void setId(uint64_t id) override;
 
 		//! @brief Get the connected pair address
-		std::string getIp() const override;
+		std::string getPeerIp() const override;
 
 		//! @brief get the connected pair port
-		uint16_t getPort() const override;
+		uint16_t getPeerPort() const override;
 
 		//! @brief ctor
 		explicit QtTCPConnection(QWidget *parent = nullptr);

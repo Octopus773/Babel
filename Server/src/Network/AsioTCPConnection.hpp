@@ -37,10 +37,10 @@ namespace Babel
 		uint64_t getId() const override;
 
 		//! @brief Get the connected pair address
-		std::string getIp() const override;
+		std::string getPeerIp() const override;
 
 		//! @brief get the connected pair port
-		uint16_t getPort() const override;
+		uint16_t getPeerPort() const override;
 
 		//! @brief set the id of the connection
 		void setId(uint64_t id) override;
@@ -238,13 +238,13 @@ namespace Babel
 	}
 
 	template<typename T>
-	std::string AsioTCPConnection<T>::getIp() const
+	std::string AsioTCPConnection<T>::getPeerIp() const
 	{
 		return this->_socket.remote_endpoint().address().to_string();
 	}
 
 	template<typename T>
-	uint16_t AsioTCPConnection<T>::getPort() const
+	uint16_t AsioTCPConnection<T>::getPeerPort() const
 	{
 		return this->_socket.remote_endpoint().port();
 	}

@@ -103,7 +103,7 @@ namespace Babel
 		this->_connectionId = id;
 	}
 
-	std::string QtTCPConnection::getIp() const
+	std::string QtTCPConnection::getPeerIp() const
 	{
 		if (!this->_socket->peerAddress().isNull()) {
 			return this->_socket->peerAddress().toString().toStdString();
@@ -111,7 +111,7 @@ namespace Babel
 		return "";
 	}
 
-	uint16_t QtTCPConnection::getPort() const
+	uint16_t QtTCPConnection::getPeerPort() const
 	{
 		return static_cast<uint16_t>(this->_socket->peerPort());
 	}

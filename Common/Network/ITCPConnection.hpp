@@ -44,10 +44,10 @@ namespace Babel
 		virtual void setId(uint64_t id) = 0;
 
 		//! @brief Get the connected pair address
-		virtual std::string getIp() const = 0;
+		virtual std::string getPeerIp() const = 0;
 
 		//! @brief get the connected pair port
-		virtual uint16_t getPort() const = 0;
+		virtual uint16_t getPeerPort() const = 0;
 
 		//! @brief default dtor
 		virtual ~ITCPConnection() = default;
