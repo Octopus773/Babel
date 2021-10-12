@@ -3,7 +3,7 @@
 #include <iostream>
 
 Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false), _bitrate(48000),
-                      _channel(2), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
+                      _channel(1), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
     int err = 0;
 
     this->_encoder = opus_encoder_create(this->_bitrate, this->_channel, this->_application, &err);
