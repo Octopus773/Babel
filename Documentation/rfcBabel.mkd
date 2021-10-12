@@ -142,7 +142,7 @@ List users
 
             an array of connected users following the pattern
             username_length: the length of the username, length: uint8_t
-            username: the connected user username, legnth: username_length
+            username: the connected user username, length: username_length
             canBeCalled: a boolean set to 1 if he can be called and set to 0 otherwise, length: uint8_t
 
 ~~~~~~~~~~
@@ -154,7 +154,7 @@ List users
 Call user
 --------------
 
-202 - Call a user from it's username
+202 - Call a user from its username
 
         You have to be logged in to make this request
 
