@@ -39,8 +39,6 @@ namespace Babel
 
 		bool getUserByUsername(const std::string &username, User &user);
 
-		Message<RFCCodes> &appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c);
-
 
 		Message<RFCCodes> login(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 

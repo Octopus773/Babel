@@ -34,6 +34,14 @@ namespace Babel
 			Message<RFCCodes>::GetBytes(m, str, stringLength);
 			return true;
 		};
+
+		inline Message<RFCCodes> &appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
+		{
+			std::string address = c.getPeerIp();
+			uint16_t port = c.getPeerPort();
+			m << static_cast<uint16_t>(address.size()) <<  address << port;
+			return m;
+		}
 	}
 }
 

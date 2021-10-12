@@ -101,13 +101,13 @@ namespace Babel
 		m.header.codeId = RFCCodes::Response;
 
 		m << static_cast<uint16_t>(1);
-		this->appendIpPort(m, connection);
+		Utils::appendIpPort(m, connection);
 
 		this->messageClient(this->_connections[u.connectionId], m);
 		m.reset();
 
 		m << static_cast<uint16_t>(1);
-		this->appendIpPort(m, *this->_connections[u.connectionId]);
+		Utils::appendIpPort(m, *this->_connections[u.connectionId]);
 
 		return m;
 	}
@@ -143,18 +143,10 @@ namespace Babel
 		return Message<RFCCodes>();
 	}
 
-	Message<RFCCodes> &BabelServer::appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
-	{
-		std::string address = c.getPeerIp();
-		uint16_t port = c.getPeerPort();
-		m << static_cast<uint16_t>(address.size()) <<  address << port;
-		return m;
-	}
-
 	Message<RFCCodes> &BabelServer::getCallAllIPs(Message<RFCCodes> &m, Call &call)
 	{
 		for (const auto &callParticipantID : call.participantIds) {
-			this->appendIpPort(m, *this->_connections[callParticipantID]);
+			Utils::appendIpPort(m, *this->_connections[callParticipantID]);
 		}
 		return m;
 	}
