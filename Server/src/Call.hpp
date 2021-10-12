@@ -30,7 +30,7 @@ namespace Babel
 
 		explicit Call();
 
-		void addParticipant(ITCPConnection<RFCCodes> &p);
+		void addParticipant(ITCPConnection<RFCCodes> &p, std::string udpAddress, uint16_t udpPort);
 		bool isParticipant(const ITCPConnection<RFCCodes> &p) const;
 		void removeParticipant(ITCPConnection<RFCCodes> &p);
 

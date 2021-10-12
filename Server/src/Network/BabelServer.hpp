@@ -40,15 +40,15 @@ namespace Babel
 		bool getUserByUsername(const std::string &username, User &user);
 
 
-		Message<RFCCodes> login(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> login(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> listUsers(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> listUsers(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> callUser(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> callUser(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> joinCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
-		Message<RFCCodes> denyCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
-		Message<RFCCodes> hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> joinCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
+		Message<RFCCodes> denyCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
+		Message<RFCCodes> hangUpCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message);
 
 	private:
 
@@ -58,38 +58,40 @@ namespace Babel
 
 		FreeList<Call> ongoingCalls;
 
-		Message<RFCCodes> &getCallAllIPs(Message<RFCCodes> &m, Call &call);
+		Message<RFCCodes> &getCallAllIPs(Message<RFCCodes> &m, const Call &call);
+
+		std::shared_ptr<ITCPConnection<RFCCodes>> getConnectionById(uint64_t id) const;
 
 
 		struct RequestHandler
 		{
 			//! @brief the actual function to call to process the request
-			std::function<Message<RFCCodes>(ITCPConnection<RFCCodes> &, Message<RFCCodes>)> method;
+			std::function<Message<RFCCodes>(std::shared_ptr<ITCPConnection<RFCCodes>> , Message<RFCCodes>)> method;
 			//! @brief prerequisite of the request
 			bool loginRequired;
 		};
 
 		std::map<RFCCodes, RequestHandler> requestsHandlers{
 			{RFCCodes::Login, {
-				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->login(c, std::move(m)); },
+				                  [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) { return this->login(c, std::move(m)); },
 				                  false
 			                  }},
 			{RFCCodes::ListUsers, {
-				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->listUsers(c, std::move(m)); },
+				                  [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) { return this->listUsers(c, std::move(m)); },
 				                  false
 			                  }},
 			{RFCCodes::Call, {
-				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->callUser(c, std::move(m)); },
+				                  [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) { return this->callUser(c, std::move(m)); },
 				                  true
 			                  }},
 			{RFCCodes::Accept, {
-				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
+				                  [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) {
 					                  return this->joinCall(c, std::move(m));
 				                  },
 				                  true
 			                  }},
 			{RFCCodes::Deny, {
-				                   [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
+				                   [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) {
 					                   return this->denyCall(c, std::move(m));
 				                   },
 				                   true
