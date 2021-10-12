@@ -49,10 +49,15 @@ public:
 };
 
 namespace Babel::Ui {
-    class IncomingCall : public Ui_IncomingCall {
-        IncomingCall(QDialog*);
-        ~IncomingCall();
-        IncomingCall(const IncomingCall&) = delete;
+    class IncomingCall : public QDialog, public Ui_IncomingCall {
+		Q_OBJECT
+    public:
+
+	    ~IncomingCall();
+
+	    IncomingCall(QDialog*);
+
+	    IncomingCall(const IncomingCall&) = delete;
         IncomingCall& operator=(const IncomingCall&) = delete;
 
     public slots:
@@ -83,8 +88,7 @@ namespace Babel::Ui {
     {
 
     }
-};
-} // namespace Ui
+}; // namespace Ui
 
 QT_END_NAMESPACE
 

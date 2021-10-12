@@ -48,8 +48,9 @@ public:
 };
 
 namespace Babel::Ui {
-    class LoginPage : public Ui_Dialog {
-    public:
+    class LoginPage : public QDialog, public Ui_Dialog {
+    Q_OBJECT
+	public:
         LoginPage(QDialog* Dialog);
         ~LoginPage();
         LoginPage(const LoginPage&) = delete;
@@ -71,9 +72,9 @@ namespace Babel::Ui {
     LoginPage::LoginPage(QDialog* Dialog)
     {
         this->setupUi(Dialog);
-        connect(this->loginButton, SIGNAL(clicked()), this, SLOT(loginButtonCallback()));
-        connect(this->cancelButton, SIGNAL(clicked()), this, SLOT(cancelButtonCallback()));
-        connect(this->userList, SIGNAL(clicked()), this, SLOT(userListCallback()));
+        QDialog::connect(this->loginButton, SIGNAL(clicked()), this, SLOT(loginButtonCallback()));
+        QDialog::connect(this->cancelButton, SIGNAL(clicked()), this, SLOT(cancelButtonCallback()));
+        QDialog::connect(this->userList, SIGNAL(clicked()), this, SLOT(userListCallback()));
     }
 
     void LoginPage::loginButtonCallback()

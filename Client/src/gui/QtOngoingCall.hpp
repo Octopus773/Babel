@@ -44,8 +44,9 @@ public:
 };
 
 namespace Babel::Ui {
-    class OngoingCall : public Ui_OngoingCall
+    class OngoingCall : public QDialog, public Ui_OngoingCall
     {
+		Q_OBJECT
     public:
         OngoingCall(QDialog*);
         ~OngoingCall();

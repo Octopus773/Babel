@@ -9,10 +9,10 @@
 namespace Babel {
 	class QtBabelGui {
 	public:
-		QtBabelGui() : _homePage(Ui::HomePage(new QDialog)), _loginPage(Ui::LoginPage(new QDialog)), _ongoingCallPage(Ui::OngoingCallPage(new QDialog)), _incomingCallPage(new QDialog));
-		QtBabelGui(const QtBabelGui& other) = default;
+		QtBabelGui();
+		QtBabelGui(const QtBabelGui& other) = delete;
 		~QtBabelGui() = default;
-		void& operator=(const QtBabelGui& other) = delete;
+		void operator=(const QtBabelGui& other) = delete;
 
 	private:
 		Ui::HomePage _homePage;
@@ -24,6 +24,10 @@ namespace Babel {
 	};
 
 	QtBabelGui::QtBabelGui()
+		: _homePage(Ui::HomePage(new QDialog)),
+		  _loginPage(Ui::LoginPage(new QDialog)),
+		  _ongoingCallPage(Ui::OngoingCall(new QDialog)),
+		  _incomingCallPage(new QDialog)
 	{
 		_loginPage.show();
 	}

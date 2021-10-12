@@ -54,8 +54,9 @@ public:
 };
 
 namespace Babel::Ui {
-    class HomePage : public Ui_HomePage
+    class HomePage : public QObject, public Ui_HomePage
     {
+	Q_OBJECT
     public:
         HomePage(QDialog*);
         ~HomePage();
@@ -70,8 +71,8 @@ namespace Babel::Ui {
     HomePage::HomePage(QDialog* Dialog)
     {
         this->setupUi(Dialog);
-        connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
-        connect(this->callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
+        QDialog::connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
+        QDialog::connect(this->callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
     }
 
     HomePage::~HomePage()
