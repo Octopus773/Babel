@@ -31,18 +31,11 @@ int main()
             std::cout << data.size() << std::endl;
 			auto encoded = opus->encode(data.data(), decoded.data());
 			std::cout << encoded << std::endl;
-            auto framePerBuffer = 960;
-            auto framesize = a->getInputChannelsNumber() * sizeof(std::int16_t);
-            std::int8_t *tmp = new int8_t[framePerBuffer * framesize];
-			auto decodedSamples = opus->decode(decoded.data(), reinterpret_cast<std::int16_t*>(tmp), encoded);
-            std::cout << "decoded sample = " << decodedSamples << " and data size = " << data.size() << " " << framePerBuffer * framesize << std::endl;
+            std::vector<std::int16_t> decodedData(a->getFramesPerBuffer() * a->getInputChannelsNumber(), 0);
+			auto decodedSamples = opus->decode(decoded.data(), decodedData.data(), encoded);
+            std::cout << "decoded sample = " << decodedSamples << " and data size = " << data.size() << " decodedData size = " << decodedData.size() << std::endl;
             //pcm.insert(pcm.end(), data.begin(), data.end());
-            std::vector<std::int16_t> decoded_data;
-            std::int16_t *rawPtr = static_cast<std::int16_t *>(static_cast<void*>(tmp));
-            for (int j = 0; j < framePerBuffer; j++) {
-                decoded_data.push_back(rawPtr[j]);
-            }
-            a->writeStream(decoded_data);
+            a->writeStream(decodedData);
 		}
 		catch (const Babel::PortAudioException &e) {
 			std::cerr << e.what();
