@@ -14,9 +14,9 @@ namespace Babel
 	{
 	}
 
-	void Call::addParticipant(ITCPConnection<RFCCodes> &p, std::string udpAddress, uint16_t udpPort)
+	void Call::addParticipant(ITCPConnection<RFCCodes> &p, std::string udpAddress, uint16_t udpPort, std::string username)
 	{
-		this->participants.emplace_back(Participant{p.getId(), std::move(udpAddress), udpPort});
+		this->participants.emplace_back(Participant{p.getId(), std::move(udpAddress), udpPort, std::move(username)});
 	}
 
 	bool Call::isParticipant(const ITCPConnection<RFCCodes> &p) const
@@ -52,6 +52,10 @@ namespace Babel
 
 	Message<RFCCodes> &Call::Participant::appendIP(Message<RFCCodes> &m) const
 	{
-		return m << static_cast<uint16_t>(this->address.size()) << this->address << this->port;
+		return m << static_cast<uint8_t>(this->address.size())
+		         << this->address
+		         << this->port
+		         << static_cast<uint8_t>(this->username.size())
+		         << this->username;
 	}
 }

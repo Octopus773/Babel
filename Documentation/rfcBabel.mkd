@@ -90,6 +90,15 @@ and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
 {{RFC2119}} and indicate requirement levels for compliant Babel
 implementations.
 
+Endianness
+------------
+Every variable on the network is in Big Endian
+
+Must know
+------------------
+The first 2 bytes of each message is a code Id and is interpreted as
+an uint16_t and is used to classify your request
+
 
 Client -> Server Protocol
 =========================
@@ -99,10 +108,20 @@ Login
 
 200 username_length username - Login a user in the server
 
-                * username_length : The length of the login of the user : 1 byte (uint8_t)
+        * username_length : The length of the login of the user, must be between 3 and 10 : 1 byte (uint8_t)
 
-                * username : The username  : username_length bytes (char)
+        * username : The username  : username_length bytes (char)
 
+
+        Responses from server:
+
+            On error:
+            300 : response_code : 0
+            and the description will explain the error
+
+            On success:
+            300: response_code: 1
+            description is set to a generic login success message
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
@@ -116,6 +135,16 @@ List users
 
 201 - Get the list of server currently active users
 
+        Responses from server:
+            300: response_code: 1
+
+            WARNING no description_length and description in this response
+
+            an array of connected users following the pattern
+            username_length: the length of the username, length: uint8_t
+            username: the connected user username, legnth: username_length
+            canBeCalled: a boolean set to 1 if he can be called and set to 0 otherwise, length: uint8_t
+
 ~~~~~~~~~~
         +------------+------------+
         |           201           |
@@ -127,20 +156,60 @@ Call user
 
 202 - Call a user from it's username
 
+        You have to be logged in to make this request
+
+        * username_length : The length of the login of the user, must be between 3 and 10 : 1 byte (uint8_t)
+
+        * username : The username  : username_length bytes (char)
+
+        Responses from server:
+            On error:
+                300: response_code: 0
+                description will explain the error
+
+            On success:
+                300: response_code: 1
+                description: will be set to the callId as string (you have to make a request joinCall with this callId)
+
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
         |           202           |     username_length     |          username ...
         +------------+------------+------------+------------+------------+------------+--
 ~~~~~~~~~~
 
-Accept a receiving call from a user
+Joining a call
 --------------
 
-203 - Accept a call from a user
+203 - Joining a call
 
-                * username_length : The length of the login of the user : 1 byte (uint8_t)
+        You have to be logged in to make this request
 
-                * username : The username of the user we're receiving the call : username_length bytes (char)
+        * callId : the call Id you want to join : (uint16_t)
+
+        * udpAddress_length : The length of the udpAddress : (uint8_t)
+
+        * udpAddress : the address (in ipv4 format) to receive audio udp packets  : (udpAddress_length length)
+
+        * updPort : the port of the udpAddress to receive audio udp packets : (uint16_t)
+
+
+        Responses from server:
+
+            On error:
+                300: response_code: 0
+                description will be set to the error description
+
+            On success:
+                300: response_code: 1
+
+                WARNING no description_length and description in this response
+
+                an array of call participants following the pattern:
+                udpAddress_length: uint8_t
+                udpAddress: udpAddress_length length
+                udpPort: uint16_t
+                username_length: uint8_t
+                username: username_length length
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
@@ -148,18 +217,18 @@ Accept a receiving call from a user
         +------------+------------+------------+------------+------------+------------+--
 ~~~~~~~~~~
 
-Deny a receiving call from a user
+Deny a receiving call
 --------------
 
 204 - Deny a call from a user
 
-                * username_length : The length of the login of the user : 1 byte (uint8_t)
+        You have to be logged in to make this request
 
-                * username : The username of the user we're receiving the call : username_length bytes (char)
+        * callId : the call Id you want to join : (uint16_t)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
-        |           204           |     username_length     |          username ...
+        |           204           |         callId          |          username ...
         +------------+------------+------------+------------+------------+------------+--
 ~~~~~~~~~~
 
@@ -168,25 +237,27 @@ Hang up a call
 
 205 - Hang up a call
 
-                * username_length : The length of the login of the user : 1 byte (uint8_t)
+        You have to be logged in to make this request
 
-                * username : The username of the user that we're making the call : username_length bytes (char)
+        * callId : the call Id you want to join : (uint16_t)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
-        |           205           |     username_length     |          username ...
+        |           204           |         callId          |          username ...
         +------------+------------+------------+------------+------------+------------+--
 ~~~~~~~~~~
 
 Server -> Client Protocol
 =========================
 
-General purpuse response
+General purpose response
 --------------
 
-300 - general purpuse response
+300 - general purpose response
 
                 * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+
+                Unless explicitly specified the server responses will always have a description
 
                 * description_length : The length of the description : 2 bytes (uint8_t)
 

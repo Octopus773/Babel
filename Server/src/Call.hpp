@@ -20,6 +20,7 @@ namespace Babel
 			uint64_t connectionId;
 			std::string address;
 			uint16_t port;
+			std::string username;
 
 			bool operator==(const Participant &p) const;
 
@@ -30,7 +31,7 @@ namespace Babel
 
 		explicit Call();
 
-		void addParticipant(ITCPConnection<RFCCodes> &p, std::string udpAddress, uint16_t udpPort);
+		void addParticipant(ITCPConnection<RFCCodes> &p, std::string udpAddress, uint16_t udpPort, std::string username);
 		bool isParticipant(const ITCPConnection<RFCCodes> &p) const;
 		void removeParticipant(ITCPConnection<RFCCodes> &p);
 

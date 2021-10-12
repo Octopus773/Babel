@@ -94,10 +94,7 @@ namespace Babel
 		m << this->_users[connection->getId()].username;
 		std::shared_ptr<ITCPConnection<RFCCodes>> calledConnection = this->getConnectionById(calledUser.connectionId);
 		this->messageClient(calledConnection, m);
-		m.header.codeId = RFCCodes::Response;
-		m.reset();
-		m << static_cast<uint16_t>(idx);
-		return m;
+		return Utils::response(1, std::to_string(idx));
 	}
 
 	Message<RFCCodes> BabelServer::joinCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message)
@@ -117,6 +114,7 @@ namespace Babel
 
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Response;
+		m << static_cast<uint16_t>(1);
 		this->ongoingCalls[callId].appendAllIPs(m);
 
 		Message<RFCCodes> announce;
@@ -124,7 +122,7 @@ namespace Babel
 		announce << static_cast<uint8_t>(udpAddress.size()) << udpAddress << udpPort;
 		this->messageAllParticipants(this->ongoingCalls[callId], announce);
 
-		this->ongoingCalls[callId].addParticipant(*connection, udpAddress, udpPort);
+		this->ongoingCalls[callId].addParticipant(*connection, udpAddress, udpPort, this->_users[connection->getId()].username);
 		return m;
 	}
 
