@@ -46,7 +46,7 @@ namespace Babel
 
 		Message<RFCCodes> callUser(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> acceptUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> joinCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 		Message<RFCCodes> denyUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 		Message<RFCCodes> hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
@@ -84,7 +84,7 @@ namespace Babel
 			                  }},
 			{RFCCodes::Accept, {
 				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
-					                  return this->acceptUserCall(c, std::move(m));
+					                  return this->joinCall(c, std::move(m));
 				                  },
 				                  true
 			                  }},

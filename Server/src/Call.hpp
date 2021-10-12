@@ -5,6 +5,8 @@
 #pragma once
 
 #include <vector>
+#include <string>
+#include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include "Network/ITCPConnection.hpp"
 
@@ -13,7 +15,26 @@ namespace Babel
 
 	struct Call
 	{
-		std::vector<uint64_t> participantIds;
+		struct Participant
+		{
+			uint64_t connectionId;
+			std::string address;
+			uint16_t port;
+
+			bool operator==(const Participant &p) const;
+
+			Message<RFCCodes> &appendIP(Message<RFCCodes> &m) const;
+		};
+
+		std::vector<Participant> participantIds;
+
+		explicit Call();
+
+		void addParticipant(ITCPConnection<RFCCodes> &p);
+		bool isParticipant(const ITCPConnection<RFCCodes> &p) const;
+		void removeParticipant(ITCPConnection<RFCCodes> &p);
+
+		Message<RFCCodes> &appendAllIPs(Message<RFCCodes> &m) const;
 	};
 
 }

@@ -79,27 +79,43 @@ namespace Babel
 				if (!u.second.isCallable()) {
 					return Utils::response(0, "This is user is not currently able to receive calls");
 				}
-				// send a call request to the userToCall
-				this->messageClient(this->_connections[u.second.connectionId], Utils::response(1, u.second.username + " is calling you"));
-				return Utils::response(1, "OK");
+				int idx = this->ongoingCalls.insert(Call({connection));
+
+				Message<RFCCodes> m;
+				m.header.codeId = RFCCodes::Called;
+				m << static_cast<uint16_t>(idx);
+				this->messageClient(this->_connections[u.second.connectionId], m);
+				m.header.codeId = RFCCodes::Response;
+				return m;
 			}
 		}
 		return Utils::response(0, "User not find on the server please recheck the username");
 	}
 
-	Message<RFCCodes> BabelServer::acceptUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::joinCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
-		std::string usernameCalling;
-		if (!Utils::getString(message, usernameCalling, {3, 10})) {
-			return Utils::response(0, "username_length must be between 3 and 10 characters");
-		}
-		User u;
-		if (!getUserByUsername(usernameCalling, u)) {
-			return Utils::response(0, "wrong username provided");
-		}
+		uint16_t callId;
+		message >> callId;
+
+		bool isCallIdValid = false;
+
+		this->ongoingCalls.forEach([&](Call &c, int idx) {
+			if (idx > callId) {
+				return false;
+			}
+			if (idx == callId) {
+				isCallIdValid = true;
+				return false;
+			}
+			return true;
+		});
+
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Response;
 
+		for (auto &participantId : this->ongoingCalls[callId].participantIds) {
+			Utils::appendIpPort(m, this->_connections[participantId])
+		}
 		m << static_cast<uint16_t>(1);
 		Utils::appendIpPort(m, connection);
 
@@ -140,7 +156,8 @@ namespace Babel
 
 	Message<RFCCodes> BabelServer::hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
-		return Message<RFCCodes>();
+
+		return Utils::response(1, "OK");
 	}
 
 	Message<RFCCodes> &BabelServer::getCallAllIPs(Message<RFCCodes> &m, Call &call)

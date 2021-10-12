@@ -6,6 +6,7 @@
 
 #include <string>
 #include "Network/Message.hpp"
+#include "Network/ITCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 
 namespace Babel
