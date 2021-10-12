@@ -27,6 +27,8 @@ namespace Babel
 		//! @brief Transform to network endianness the MessageHeader
 		//! @warning Function should not be called by the user (the send function should do it)
 		void handleEndianness();
+
+
 //		//! @brief The UNIX Timestamp of the creation of the message
 //		uint32_t timeStamp;
 	};
@@ -56,6 +58,10 @@ namespace Babel
 		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
 
 		static Message<T> &GetBytes(Message<T> &message, std::string &data, uint64_t size);
+
+		//! @brief Reset this message, this message will be totally empty
+		//! @note Te message header id won't be changed
+		void reset();
 
 		explicit Message();
 	};
@@ -114,6 +120,13 @@ namespace Babel
 		: header({}),
 		  body({})
 	{
+	}
+
+	template<typename T>
+	void Message<T>::reset()
+	{
+		this->header.bodySize = 0;
+		this->body.clear();
 	}
 
 	template<typename T>

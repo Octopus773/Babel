@@ -12,6 +12,7 @@
 #include "User.hpp"
 #include <array>
 #include <functional>
+#include "Call.hpp"
 #include <iostream>
 #include <algorithm>
 #include <string>
@@ -38,51 +39,60 @@ namespace Babel
 
 		bool getUserByUsername(const std::string &username, User &user);
 
+		Message<RFCCodes> &appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c);
 
-		Message<RFCCodes> login(User &user, Message<RFCCodes> message);
 
-		Message<RFCCodes> listUsers(User &user, Message<RFCCodes> message);
+		Message<RFCCodes> login(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> callUser(User &user, Message<RFCCodes> message);
+		Message<RFCCodes> listUsers(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
-		Message<RFCCodes> acceptUserCall(User &user, Message<RFCCodes> message);
-		Message<RFCCodes> denyUserCall(User &user, Message<RFCCodes> message);
-		Message<RFCCodes> hangUpCall(User &user, Message<RFCCodes> message);
+		Message<RFCCodes> callUser(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+
+		Message<RFCCodes> acceptUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> denyUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
 	private:
 
 		std::map<uint64_t, User> _users;
 
-		struct requestHandler
+
+
+		FreeList<Call> ongoingCalls;
+
+		Message<RFCCodes> &getCallAllIPs(Message<RFCCodes> &m, Call &call);
+
+
+		struct RequestHandler
 		{
 			//! @brief the actual function to call to process the request
-			std::function<Message<RFCCodes>(User &, Message<RFCCodes>)> method;
+			std::function<Message<RFCCodes>(ITCPConnection<RFCCodes> &, Message<RFCCodes>)> method;
 			//! @brief prerequisite of the request
 			bool loginRequired;
 		};
 
-		std::map<RFCCodes, requestHandler> requestsHandlers{
+		std::map<RFCCodes, RequestHandler> requestsHandlers{
 			{RFCCodes::Login, {
-				                  [this](User &u, Message<RFCCodes> m) { return this->login(u, std::move(m)); },
+				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->login(c, std::move(m)); },
 				                  false
 			                  }},
 			{RFCCodes::ListUsers, {
-				                  [this](User &u, Message<RFCCodes> m) { return this->listUsers(u, std::move(m)); },
+				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->listUsers(c, std::move(m)); },
 				                  false
 			                  }},
 			{RFCCodes::Call, {
-				                  [this](User &u, Message<RFCCodes> m) { return this->callUser(u, std::move(m)); },
+				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) { return this->callUser(c, std::move(m)); },
 				                  true
 			                  }},
 			{RFCCodes::Accept, {
-				                  [this](User &u, Message<RFCCodes> m) {
-					                  return this->acceptUserCall(u, std::move(m));
+				                  [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
+					                  return this->acceptUserCall(c, std::move(m));
 				                  },
 				                  true
 			                  }},
 			{RFCCodes::Deny, {
-				                   [this](User &u, Message<RFCCodes> m) {
-					                   return this->denyUserCall(u, std::move(m));
+				                   [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
+					                   return this->denyUserCall(c, std::move(m));
 				                   },
 				                   true
 			                   }}

@@ -8,7 +8,7 @@
 namespace Babel
 {
 
-	Message<RFCCodes> BabelServer::login(User &user, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::login(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
 		std::string requestedUsername;
 		if (!Utils::getString(message, requestedUsername, {3, 10})) {
@@ -20,6 +20,7 @@ namespace Babel
 				return Utils::response(0, "Username already used");
 			}
 		}
+		User &user = this->_users[connection.getId()];
 		user.username = requestedUsername;
 		user.canBeCalled = true;
 		return Utils::response(1, "Login successful");
@@ -35,7 +36,7 @@ namespace Babel
 		}
 		try {
 			this->messageClient(client,
-			                    this->requestsHandlers[msg.header.codeId].method(this->_users[client->getId()], msg));
+			                    this->requestsHandlers[msg.header.codeId].method(*client, msg));
 		} catch (Exception::BabelException &) {
 			this->messageClient(client, Utils::response(0, "request body was ill formed"));
 		}
@@ -52,7 +53,7 @@ namespace Babel
 		this->_users.erase(client->getId());
 	}
 
-	Message<RFCCodes> BabelServer::listUsers(User &user, Message<RFCCodes>)
+	Message<RFCCodes> BabelServer::listUsers(ITCPConnection<RFCCodes> &connection, Message<RFCCodes>)
 	{
 		Message<RFCCodes> r;
 
@@ -67,7 +68,7 @@ namespace Babel
 		return r;
 	}
 
-	Message<RFCCodes> BabelServer::callUser(User &user, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::callUser(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
 		std::string usernameToCall;
 		if (!Utils::getString(message, usernameToCall, {3, 10})) {
@@ -86,7 +87,7 @@ namespace Babel
 		return Utils::response(0, "User not find on the server please recheck the username");
 	}
 
-	Message<RFCCodes> BabelServer::acceptUserCall(User &user, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::acceptUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
 		std::string usernameCalling;
 		if (!Utils::getString(message, usernameCalling, {3, 10})) {
@@ -96,9 +97,19 @@ namespace Babel
 		if (!getUserByUsername(usernameCalling, u)) {
 			return Utils::response(0, "wrong username provided");
 		}
+		Message<RFCCodes> m;
+		m.header.codeId = RFCCodes::Response;
 
-		this->messageClient(this->_connections[u.connectionId], Utils::response(1, u.username + " accepted your call"));
-		return Utils::response(1, "127.0.0.1:34567");
+		m << static_cast<uint16_t>(1);
+		this->appendIpPort(m, connection);
+
+		this->messageClient(this->_connections[u.connectionId], m);
+		m.reset();
+
+		m << static_cast<uint16_t>(1);
+		this->appendIpPort(m, *this->_connections[u.connectionId]);
+
+		return m;
 	}
 
 	bool BabelServer::getUserByUsername(const std::string &username, User &user)
@@ -112,7 +123,7 @@ namespace Babel
 		return false;
 	}
 
-	Message<RFCCodes> BabelServer::denyUserCall(User &user, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::denyUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
 		std::string usernameCalling;
 		if (!Utils::getString(message, usernameCalling, {3, 10})) {
@@ -127,8 +138,24 @@ namespace Babel
 		return Utils::response(1, "OK");
 	}
 
-	Message<RFCCodes> BabelServer::hangUpCall(User &user, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
 		return Message<RFCCodes>();
+	}
+
+	Message<RFCCodes> &BabelServer::appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
+	{
+		std::string address = c.getPeerIp();
+		uint16_t port = c.getPeerPort();
+		m << static_cast<uint16_t>(address.size()) <<  address << port;
+		return m;
+	}
+
+	Message<RFCCodes> &BabelServer::getCallAllIPs(Message<RFCCodes> &m, Call &call)
+	{
+		for (const auto &callParticipantID : call.participantIds) {
+			this->appendIpPort(m, *this->_connections[callParticipantID]);
+		}
+		return m;
 	}
 }
