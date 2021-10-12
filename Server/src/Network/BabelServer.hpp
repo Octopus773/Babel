@@ -47,7 +47,7 @@ namespace Babel
 		Message<RFCCodes> callUser(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
 		Message<RFCCodes> joinCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
-		Message<RFCCodes> denyUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
+		Message<RFCCodes> denyCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 		Message<RFCCodes> hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message);
 
 	private:
@@ -90,7 +90,7 @@ namespace Babel
 			                  }},
 			{RFCCodes::Deny, {
 				                   [this](ITCPConnection<RFCCodes> &c, Message<RFCCodes> m) {
-					                   return this->denyUserCall(c, std::move(m));
+					                   return this->denyCall(c, std::move(m));
 				                   },
 				                   true
 			                   }}

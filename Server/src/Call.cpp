@@ -10,7 +10,7 @@
 namespace Babel
 {
 	Call::Call()
-		: participantIds({})
+		: participants({})
 	{
 	}
 
@@ -19,25 +19,27 @@ namespace Babel
 		std::string address = p.getPeerIp();
 		uint16_t port = p.getPeerPort();
 
-		this->participantIds.emplace_back(Participant{p.getId(), std::move(address), port});
+		this->participants.emplace_back(Participant{p.getId(), std::move(address), port});
 	}
 
 	bool Call::isParticipant(const ITCPConnection<RFCCodes> &p) const
-	{return <#initializer#>;
+	{
 		uint64_t id = p.getId();
-		return std::any_of(this->participantIds.begin(), this->participantIds.end(), [&](const Participant &participant) {
+		return std::any_of(this->participants.begin(), this->participants.end(), [&](const Participant &participant) {
 			return participant.connectionId == id;
 		});
 	}
 
 	void Call::removeParticipant(ITCPConnection<RFCCodes> &p)
 	{
-		auto it = std::find(this->participantIds.begin(), this->participantIds.end(), Participant{p.getId(), p.getPeerIp(), p.getPeerPort()});
+		// vec.erase(std::remove(vec.begin(), vec.end(), 8), vec.end());
+		this->participants.erase(std::remove(this->participants.begin(), this->participants.end(), Participant{p.getId(), p.getPeerIp(), p.getPeerPort()}), this->participants.end());
 	}
 
 	Message<RFCCodes> &Call::appendAllIPs(Message<RFCCodes> &m) const
 	{
-		for (const auto &p : this->participantIds) {
+		m << static_cast<uint16_t>(this->participants.size());
+		for (const auto &p : this->participants) {
 			p.appendIP(m);
 		}
 		return m;

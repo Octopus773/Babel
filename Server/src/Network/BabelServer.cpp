@@ -112,19 +112,8 @@ namespace Babel
 
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Response;
-
-		for (auto &participantId : this->ongoingCalls[callId].participantIds) {
-			Utils::appendIpPort(m, this->_connections[participantId])
-		}
-		m << static_cast<uint16_t>(1);
-		Utils::appendIpPort(m, connection);
-
-		this->messageClient(this->_connections[u.connectionId], m);
-		m.reset();
-
-		m << static_cast<uint16_t>(1);
-		Utils::appendIpPort(m, *this->_connections[u.connectionId]);
-
+		this->ongoingCalls[callId].appendAllIPs(m);
+		this->ongoingCalls[callId].addParticipant(connection);
 		return m;
 	}
 
@@ -139,30 +128,36 @@ namespace Babel
 		return false;
 	}
 
-	Message<RFCCodes> BabelServer::denyUserCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::denyCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
-		std::string usernameCalling;
-		if (!Utils::getString(message, usernameCalling, {3, 10})) {
-			return Utils::response(0, "username_length must be between 3 and 10 characters");
-		}
-		User u;
-		if (!getUserByUsername(usernameCalling, u)) {
-			return Utils::response(0, "wrong username provided");
-		}
+		uint16_t callId;
+		message >> callId;
 
-		this->messageClient(this->_connections[u.connectionId], Utils::response(1, u.username + " denied your call"));
+		bool isCallIdValid = false;
+
+		this->ongoingCalls.forEach([&](Call &c, int idx) {
+			if (idx > callId) {
+				return false;
+			}
+			if (idx == callId) {
+				isCallIdValid = true;
+				return false;
+			}
+			return true;
+		});
+
+		// tell the sender that a refused to join
 		return Utils::response(1, "OK");
 	}
 
 	Message<RFCCodes> BabelServer::hangUpCall(ITCPConnection<RFCCodes> &connection, Message<RFCCodes> message)
 	{
-
 		return Utils::response(1, "OK");
 	}
 
 	Message<RFCCodes> &BabelServer::getCallAllIPs(Message<RFCCodes> &m, Call &call)
 	{
-		for (const auto &callParticipantID : call.participantIds) {
+		for (const auto &callParticipantID : call.participants) {
 			Utils::appendIpPort(m, *this->_connections[callParticipantID]);
 		}
 		return m;

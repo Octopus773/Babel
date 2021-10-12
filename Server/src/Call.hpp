@@ -26,7 +26,7 @@ namespace Babel
 			Message<RFCCodes> &appendIP(Message<RFCCodes> &m) const;
 		};
 
-		std::vector<Participant> participantIds;
+		std::vector<Participant> participants;
 
 		explicit Call();
 
