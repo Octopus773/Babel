@@ -111,26 +111,19 @@ namespace Babel
 		uint16_t udpPort;
 		message >> udpPort;
 
-		bool isCallIdValid = false;
-
-		this->ongoingCalls.forEach([&](Call &, int idx) {
-			if (idx > callId) {
-				return false;
-			}
-			if (idx == callId) {
-				isCallIdValid = true;
-				return false;
-			}
-			return true;
-		});
-
-		if (!isCallIdValid) {
+		if (!this->isValidCallId(callId)) {
 			return Utils::response(0, "The call id provided isn't valid");
 		}
 
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Response;
 		this->ongoingCalls[callId].appendAllIPs(m);
+
+		Message<RFCCodes> announce;
+		announce.header.codeId = RFCCodes::UserJoinedCall;
+		announce << static_cast<uint8_t>(udpAddress.size()) << udpAddress << udpPort;
+		this->messageAllParticipants(this->ongoingCalls[callId], announce);
+
 		this->ongoingCalls[callId].addParticipant(*connection, udpAddress, udpPort);
 		return m;
 	}
@@ -151,18 +144,7 @@ namespace Babel
 		uint16_t callId;
 		message >> callId;
 
-		bool isCallIdValid = false;
-
-		this->ongoingCalls.forEach([&](Call &, int idx) {
-			if (idx > callId) {
-				return false;
-			}
-			if (idx == callId) {
-				isCallIdValid = true;
-				return false;
-			}
-			return true;
-		});
+		// maybe check the callId
 
 		// tell the sender that a refused to join
 		return Utils::response(1, "OK");
@@ -170,13 +152,29 @@ namespace Babel
 
 	Message<RFCCodes> BabelServer::hangUpCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message)
 	{
+		uint16_t callId;
+		message >> callId;
+
+		if (!this->isValidCallId(callId)) {
+			return Utils::response(0, "The call id provided isn't valid");
+		}
+
+		this->ongoingCalls[callId].removeParticipant(*connection);
+
+		Message<RFCCodes> announce;
+		announce.header.codeId = RFCCodes::UserLeftCall;
+		const std::string &username = this->_users[connection->getId()].username;
+		announce << static_cast<uint8_t>(username.size()) << username;
+
+		this->messageAllParticipants(this->ongoingCalls[callId], announce);
+
 		return Utils::response(1, "OK");
 	}
 
 	Message<RFCCodes> &BabelServer::getCallAllIPs(Message<RFCCodes> &m, const Call &call)
 	{
 		for (const auto &callParticipant : call.participants) {
-			Utils::appendIpPort(m, *this->getConnectionById(callParticipant.connectionId));
+			Utils::appendConnectionIpPort(m, *this->getConnectionById(callParticipant.connectionId));
 		}
 		return m;
 	}
@@ -189,5 +187,30 @@ namespace Babel
 			}
 		}
 		throw Exception::BabelException("can't find connection");
+	}
+
+	void BabelServer::messageAllParticipants(Call &call, const Message<RFCCodes> &m)
+	{
+		for (auto &participant : call.participants) {
+			auto client = this->getConnectionById(participant.connectionId);
+			this->messageClient(client, m);
+		}
+	}
+
+	bool BabelServer::isValidCallId(int callId) const
+	{
+		bool isCallIdValid = false;
+
+		this->ongoingCalls.forEach([&](const Call &, int idx) {
+			if (idx > callId) {
+				return false;
+			}
+			if (idx == callId) {
+				isCallIdValid = true;
+				return false;
+			}
+			return true;
+		});
+		return isCallIdValid;
 	}
 }

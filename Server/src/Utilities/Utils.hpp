@@ -9,10 +9,8 @@
 #include "Network/ITCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 
-namespace Babel
+namespace Babel::Utils
 {
-	namespace Utils
-	{
 		//! @brief Create a reply type message, used as a convenient way to quickly construct response description messages
 		inline Message<RFCCodes> response(uint16_t code, std::string description)
 		{
@@ -36,13 +34,12 @@ namespace Babel
 			return true;
 		};
 
-		inline Message<RFCCodes> &appendIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
+		inline Message<RFCCodes> &appendConnectionIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
 		{
 			std::string address = c.getPeerIp();
 			uint16_t port = c.getPeerPort();
-			m << static_cast<uint16_t>(address.size()) <<  address << port;
+			m << static_cast<uint8_t>(address.size()) <<  address << port;
 			return m;
 		}
-	}
 }
 
