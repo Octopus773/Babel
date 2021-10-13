@@ -81,12 +81,12 @@ Table of Contents
    4.  Server -> Client Protocol . . . . . . . . . . . . . . . . . .   6
      4.1.  General purpose response  . . . . . . . . . . . . . . . .   6
      4.2.  Receiving call  . . . . . . . . . . . . . . . . . . . . .   6
-     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   6
+     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   7
      4.4.  User leaving call . . . . . . . . . . . . . . . . . . . .   7
    5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
      5.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     5.2.  Informative References  . . . . . . . . . . . . . . . . .   7
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+     5.2.  Informative References  . . . . . . . . . . . . . . . . .   8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -255,9 +255,12 @@ Internet-Draft               Babel Protocol               September 2021
             username_length: uint8_t
             username: username_length length
 
-        +------------+------------+------------+------------+------------+------------+--
-        |           203           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+        +------------+------------+------------+------------+------------+------------+------------+
+        |           203           |          callId         |          udpAddress_length           | -->
+        +------------+------------+------------+------------+------------+------------+------------+
+        +------------+------------+------------+------------+
+        |        udpAddress       |         updPort         |
+        +------------+------------+------------+------------+
 
 3.5.  Deny a receiving call
 
@@ -267,12 +270,9 @@ Internet-Draft               Babel Protocol               September 2021
 
        * callId : the call Id you want to join : (uint16_t)
 
-        +------------+------------+------------+------------+------------+------------+--
-        |           204           |         callId          |          username ...
-        +------------+------------+------------+------------+------------+------------+--
-
-
-
+           +------------+------------+------------+------------+
+           |           204           |         callId          |
+           +------------+------------+------------+------------+
 
 
 
@@ -290,9 +290,9 @@ Internet-Draft               Babel Protocol               September 2021
 
        * callId : the call Id you want to join : (uint16_t)
 
-        +------------+------------+------------+------------+------------+------------+--
-        |           204           |         callId          |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+           +------------+------------+------------+------------+
+           |           205           |         callId          |
+           +------------+------------+------------+------------+
 
 4.  Server -> Client Protocol
 
@@ -300,13 +300,17 @@ Internet-Draft               Babel Protocol               September 2021
 
    300 - general purpose response
 
-            * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+    * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
 
-            Unless explicitly specified the server responses will always have a description
+    Unless explicitly specified the server responses will always have a description
 
-            * description_length : The length of the description : 2 bytes (uint8_t)
+    * description_length : The length of the description : 2 bytes (uint8_t)
 
-            * description : human readable response (can be displayed to the user) : description_length bytes (char)
+    * description : human readable response (can be displayed to the user) : description_length bytes (char)
+
+    The response_code code meaning is, unless specified otherwise in the request response section:
+    1: True: the request succeeded
+    0: False: The request failed (details are in the description)
 
         +------------+------------+------------+------------+------------+------------+------------+------------+--
         |           300           |      response_code      |    description_length   |       description ...
@@ -316,17 +320,13 @@ Internet-Draft               Babel Protocol               September 2021
 
    301 - Receiving a call from a user
 
-            * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+    * callId : The id of the call, you have to make a request to the joinCall with this id to be in the call
 
-            * username : The username of the user that want to make a call : username_length bytes (char)
+    * username_length : The length of the login of the calling user : 1 byte (uint8_t)
 
-        +------------+------------+------------+------------+------------+------------+--
-        |           301           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+    * username : The username of the user that want to make a call with you : username_length bytes (char)
 
-4.3.  User joining call
 
-   302 - User joining the call
 
 
 
@@ -338,13 +338,33 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
 Internet-Draft               Babel Protocol               September 2021
 
 
+        +------------+------------+------------+------------+------------+------------+--
+        |           301           |          callId         |          username_length ...
+        +------------+------------+------------+------------+------------+------------+--
+        -------+------------+------------+
+        ...    |         username        |
+        -------+------------+------------+
+
+4.3.  User joining call
+
+   302 - User joining the call
+
+            * udpAddress_length : The length of the udpAddress : (uint8_t)
+
+            * udpAddress : the address (in ipv4 format) to receive audio udp packets  : (udpAddress_length length)
+
+            * updPort : the port of the udpAddress to receive audio udp packets : (uint16_t)
+
             * username_length : The length of the login of the user joining the call : 1 byte (uint8_t)
 
             * username : The username of the user that is joining the call : username_length bytes (char)
 
         +------------+------------+------------+------------+------------+------------+--
-        |           302           |     username_length     |          username ...
+        |           302           |     udpAddress_length   |        udpAddress ...
         +------------+------------+------------+------------+------------+------------+--
+        -----+------------+------------+------------+------------+------------+------------+--
+         ... |         udpPort         |     username_length     |          username ...
+        -----+------------+------------+------------+------------+------------+------------+--
 
 4.4.  User leaving call
 
@@ -367,6 +387,13 @@ Internet-Draft               Babel Protocol               September 2021
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 7]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
 5.2.  Informative References
 
    [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
@@ -387,13 +414,6 @@ Authors' Addresses
    Email: adam.djebar@epitech.eu
 
 
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 7]
-
-Internet-Draft               Babel Protocol               September 2021
-
-
    Marius Glo
 
    Email: marius1.glo@epitech.eu
@@ -402,26 +422,6 @@ Internet-Draft               Babel Protocol               September 2021
    Ugo Genereau
 
    Email: ugo.genereau@epitech.eu
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
