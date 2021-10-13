@@ -12,6 +12,7 @@
 #include "Network/QtTCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 
+/*
 int main()
 {
 	std::unique_ptr<Babel::IAudioManager> a = std::make_unique<Babel::PortAudio>();
@@ -45,8 +46,8 @@ int main()
 	a->writeStream(pcm);
 	return (EXIT_SUCCESS);
 }
+*/
 
-/*
 int main(int argc, char *argv[])
 {
 
@@ -57,4 +58,3 @@ int main(int argc, char *argv[])
 	client.show();
 	return app.exec();
 }
- */
