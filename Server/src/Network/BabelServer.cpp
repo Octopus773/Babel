@@ -119,7 +119,13 @@ namespace Babel
 
 		Message<RFCCodes> announce;
 		announce.header.codeId = RFCCodes::UserJoinedCall;
-		announce << static_cast<uint8_t>(udpAddress.size()) << udpAddress << udpPort;
+
+		const std::string &username = this->_users[connection->getId()].username;
+		announce << static_cast<uint8_t>(udpAddress.size())
+		         << udpAddress
+		         << udpPort
+		         << static_cast<uint8_t>(username.size())
+		         << username;
 		this->messageAllParticipants(this->ongoingCalls[callId], announce);
 
 		this->ongoingCalls[callId].addParticipant(*connection, udpAddress, udpPort, this->_users[connection->getId()].username);

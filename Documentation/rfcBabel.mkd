@@ -212,9 +212,12 @@ Joining a call
                 username: username_length length
 
 ~~~~~~~~~~
-        +------------+------------+------------+------------+------------+------------+--
-        |           203           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+        +------------+------------+------------+------------+------------+------------+------------+
+        |           203           |          callId         |          udpAddress_length           | -->
+        +------------+------------+------------+------------+------------+------------+------------+
+        +------------+------------+------------+------------+
+        |        udpAddress       |         updPort         |
+        +------------+------------+------------+------------+
 ~~~~~~~~~~
 
 Deny a receiving call
@@ -227,9 +230,9 @@ Deny a receiving call
         * callId : the call Id you want to join : (uint16_t)
 
 ~~~~~~~~~~
-        +------------+------------+------------+------------+------------+------------+--
-        |           204           |         callId          |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+        +------------+------------+------------+------------+
+        |           204           |         callId          |
+        +------------+------------+------------+------------+
 ~~~~~~~~~~
 
 Hang up a call
@@ -242,9 +245,9 @@ Hang up a call
         * callId : the call Id you want to join : (uint16_t)
 
 ~~~~~~~~~~
-        +------------+------------+------------+------------+------------+------------+--
-        |           204           |         callId          |          username ...
-        +------------+------------+------------+------------+------------+------------+--
+        +------------+------------+------------+------------+
+        |           205           |         callId          |
+        +------------+------------+------------+------------+
 ~~~~~~~~~~
 
 Server -> Client Protocol
@@ -255,13 +258,17 @@ General purpose response
 
 300 - general purpose response
 
-                * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+        * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
 
-                Unless explicitly specified the server responses will always have a description
+        Unless explicitly specified the server responses will always have a description
 
-                * description_length : The length of the description : 2 bytes (uint8_t)
+        * description_length : The length of the description : 2 bytes (uint8_t)
 
-                * description : human readable response (can be displayed to the user) : description_length bytes (char)
+        * description : human readable response (can be displayed to the user) : description_length bytes (char)
+
+        The response_code code meaning is, unless specified otherwise in the request response section:
+        1: True: the request succeeded
+        0: False: The request failed (details are in the description)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+------------+------------+--
@@ -275,14 +282,19 @@ Receiving call
 
 301 - Receiving a call from a user
 
-                * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+        * callId : The id of the call, you have to make a request to the joinCall with this id to be in the call
 
-                * username : The username of the user that want to make a call : username_length bytes (char)
+        * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+
+        * username : The username of the user that want to make a call with you : username_length bytes (char)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
-        |           301           |     username_length     |          username ...
+        |           301           |          callId         |          username_length ...
         +------------+------------+------------+------------+------------+------------+--
+        -------+------------+------------+
+        ...    |         username        |
+        -------+------------+------------+
 ~~~~~~~~~~
 
 User joining call
@@ -290,14 +302,23 @@ User joining call
 
 302 - User joining the call
 
+                * udpAddress_length : The length of the udpAddress : (uint8_t)
+
+                * udpAddress : the address (in ipv4 format) to receive audio udp packets  : (udpAddress_length length)
+
+                * updPort : the port of the udpAddress to receive audio udp packets : (uint16_t)
+
                 * username_length : The length of the login of the user joining the call : 1 byte (uint8_t)
 
                 * username : The username of the user that is joining the call : username_length bytes (char)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+------------+------------+--
-        |           302           |     username_length     |          username ...
+        |           302           |     udpAddress_length   |        udpAddress ...
         +------------+------------+------------+------------+------------+------------+--
+        -----+------------+------------+------------+------------+------------+------------+--
+         ... |         udpPort         |     username_length     |          username ...
+        -----+------------+------------+------------+------------+------------+------------+--
 ~~~~~~~~~~
 
 User leaving call
