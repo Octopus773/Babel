@@ -37,7 +37,7 @@ Babel::Ui::LoginPage::~LoginPage()
     delete this->cancelButton;
 }
 
-Babel::Ui::LoginPage::LoginPage(QDialog* Dialog)
+Babel::Ui::LoginPage::LoginPage(QDialog* Dialog): QObject(), Ui_ConnectWindow()
 {
     this->setupUi(Dialog);
     connect(this->loginButton, SIGNAL(clicked()), this, SLOT(loginButtonCallback()));

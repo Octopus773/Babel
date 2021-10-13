@@ -34,7 +34,7 @@ OngoingCall::~OngoingCall()
     delete this->hangUpButton;
 }
 
-OngoingCall::OngoingCall(QDialog* Dialog)
+OngoingCall::OngoingCall(QDialog* Dialog): QDialog(), Ui_OngoingCall()
 {
     this->setupUi(Dialog);
     connect(this->hangUpButton, SIGNAL(clicked()), this, SLOT(hangUpButtonCallback()));

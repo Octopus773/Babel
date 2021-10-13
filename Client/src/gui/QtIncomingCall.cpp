@@ -38,7 +38,7 @@ Babel::Ui::IncomingCall::~IncomingCall()
 }
 
 
-Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog)
+Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog): QObject(), Ui_IncomingCall()
 {
     this->setupUi(Dialog);
     connect(this->acceptCallButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
