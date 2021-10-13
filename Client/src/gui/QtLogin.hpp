@@ -18,38 +18,13 @@ public:
     QPushButton* cancelButton;
     QPlainTextEdit* userList;
 
-    void setupUi(QDialog* Dialog)
-    {
-        if (Dialog->objectName().isEmpty())
-            Dialog->setObjectName(QStringLiteral("Dialog"));
-        Dialog->resize(341, 144);
-        loginButton = new QPushButton(Dialog);
-        loginButton->setObjectName(QStringLiteral("loginButton"));
-        loginButton->setGeometry(QRect(30, 70, 111, 31));
-        cancelButton = new QPushButton(Dialog);
-        cancelButton->setObjectName(QStringLiteral("cancelButton"));
-        cancelButton->setGeometry(QRect(160, 70, 111, 31));
-        userList = new QPlainTextEdit(Dialog);
-        userList->setObjectName(QStringLiteral("userList"));
-        userList->setGeometry(QRect(30, 10, 241, 41));
-
-        retranslateUi(Dialog);
-
-        QMetaObject::connectSlotsByName(Dialog);
-    } // setupUi
-
-    void retranslateUi(QDialog* Dialog)
-    {
-        Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", nullptr));
-        loginButton->setText(QApplication::translate("Dialog", "Login", nullptr));
-        cancelButton->setText(QApplication::translate("Dialog", "Cancel", nullptr));
-    } // retranslateUi
-
+    void setupUi(QDialog* Dialog);
+    void retranslateUi(QDialog* Dialog);
 };
 
 namespace Babel::Ui {
-    class LoginPage : public QDialog, public Ui_Dialog {
-    Q_OBJECT
+    class LoginPage : public QObject, public Ui_Dialog {
+        Q_OBJECT
 	public:
         LoginPage(QDialog* Dialog);
         ~LoginPage();
@@ -61,36 +36,6 @@ namespace Babel::Ui {
         void cancelButtonCallback();
         void userListCallback();
     };
-
-    LoginPage::~LoginPage()
-    {
-        delete this->userList;
-        delete this->loginButton;
-        delete this->cancelButton;
-    }
-
-    LoginPage::LoginPage(QDialog* Dialog)
-    {
-        this->setupUi(Dialog);
-        QDialog::connect(this->loginButton, SIGNAL(clicked()), this, SLOT(loginButtonCallback()));
-        QDialog::connect(this->cancelButton, SIGNAL(clicked()), this, SLOT(cancelButtonCallback()));
-        QDialog::connect(this->userList, SIGNAL(clicked()), this, SLOT(userListCallback()));
-    }
-
-    void LoginPage::loginButtonCallback()
-    {
-
-    }
-
-    void LoginPage::cancelButtonCallback()
-    {
-
-    }
-
-    void LoginPage::userListCallback()
-    {
-
-    }
 } // namespace Ui
 
 QT_END_NAMESPACE
