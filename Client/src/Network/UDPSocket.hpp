@@ -13,7 +13,7 @@ namespace Babel {
     Q_OBJECT
     public:
         //! @brief ctor
-        UDPSocket(const QHostAddress &address, std::int16_t port);
+        UDPSocket(std::string address, std::int16_t port);
 
         //! @brief dtor
         ~UDPSocket() override;
@@ -22,14 +22,17 @@ namespace Babel {
         void readPending();
 
         //! @brief reads maxSize from socket and writes to data
-        std::int64_t read(char *data, std::int64_t maxSize);
+        std::int64_t read(const std::shared_ptr<char>& data, std::int64_t maxSize);
 
         //! @brief writes data to socket
-        std::int64_t write(char *data, std::int64_t size);
+        std::int64_t write(const std::shared_ptr<char>& data, std::int64_t size);
+
+        //! @brief closes the socket
+        void close();
 
     private:
         std::unique_ptr<QUdpSocket> _socket;
-        QHostAddress _address;
+        std::string _address;
         std::int16_t _port;
     };
 }
