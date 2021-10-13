@@ -7,7 +7,6 @@
 
 #include "PortAudio.hpp"
 #include <iostream>
-#include <exception>
 #include "PortAudioException.hpp"
 
 Babel::PortAudio::PortAudio()
@@ -29,9 +28,7 @@ Babel::PortAudio::PortAudio()
 	outputParameters.device = Pa_GetDefaultOutputDevice();
 	if (outputParameters.device == paNoDevice)
 		throw PortAudioException("No default output device found");
-	const PaDeviceInfo *info_device_in = Pa_GetDeviceInfo(inputParameters.device);
 	this->_inputNumberChannels = 1;//info_device_in->maxInputChannels;
-	const PaDeviceInfo *info_device_out = Pa_GetDeviceInfo(outputParameters.device);
 	this->_outputNumberChannels = 1;//info_device_out->maxOutputChannels;
 }
 
