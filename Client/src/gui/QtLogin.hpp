@@ -6,24 +6,24 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
-class Ui_Dialog
+class Ui_ConnectWindow
 {
 public:
     QPushButton* loginButton;
     QPushButton* cancelButton;
-    QPlainTextEdit* userList;
+    QLineEdit* usernameBox;
 
     void setupUi(QDialog* Dialog);
     void retranslateUi(QDialog* Dialog);
 };
 
 namespace Babel::Ui {
-    class LoginPage : public QObject, public Ui_Dialog {
+    class LoginPage : public QObject, public Ui_ConnectWindow {
         Q_OBJECT
 	public:
         LoginPage(QDialog* Dialog);

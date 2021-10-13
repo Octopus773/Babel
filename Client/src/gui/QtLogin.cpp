@@ -1,61 +1,63 @@
 #include "QtLogin.hpp"
 
-void Ui_Dialog::setupUi(QDialog* Dialog)
+QT_BEGIN_NAMESPACE
+
+void Ui_ConnectWindow::setupUi(QDialog* ConnectWindow)
 {
-    if (Dialog->objectName().isEmpty())
-        Dialog->setObjectName(QStringLiteral("Dialog"));
-    Dialog->resize(341, 144);
-    pushButton = new QPushButton(Dialog);
-    pushButton->setObjectName(QStringLiteral("pushButton"));
-    pushButton->setGeometry(QRect(30, 70, 111, 31));
-    pushButton_2 = new QPushButton(Dialog);
-    pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-    pushButton_2->setGeometry(QRect(160, 70, 111, 31));
-    plainTextEdit = new QPlainTextEdit(Dialog);
-    plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
-    plainTextEdit->setGeometry(QRect(30, 10, 241, 41));
+    if (ConnectWindow->objectName().isEmpty())
+        ConnectWindow->setObjectName(QStringLiteral("ConnectWindow"));
+    ConnectWindow->resize(341, 144);
+    loginButton = new QPushButton(ConnectWindow);
+    loginButton->setObjectName(QStringLiteral("loginButton"));
+    loginButton->setGeometry(QRect(30, 70, 111, 31));
+    cancelButton = new QPushButton(ConnectWindow);
+    cancelButton->setObjectName(QStringLiteral("cancelButton"));
+    cancelButton->setGeometry(QRect(200, 70, 111, 31));
+    usernameBox = new QLineEdit(ConnectWindow);
+    usernameBox->setObjectName(QStringLiteral("usernameBox"));
+    usernameBox->setGeometry(QRect(30, 20, 281, 31));
 
-    retranslateUi(Dialog);
+    retranslateUi(ConnectWindow);
 
-    QMetaObject::connectSlotsByName(Dialog);
+    QMetaObject::connectSlotsByName(ConnectWindow);
 }
 
-void Ui_Dialog::retranslateUi(QDialog* Dialog)
+void Ui_ConnectWindow::retranslateUi(QDialog* ConnectWindow)
 {
-    Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", nullptr));
-    loginButton->setText(QApplication::translate("Dialog", "Login", nullptr));
-    cancelButton->setText(QApplication::translate("Dialog", "Cancel", nullptr));
+    ConnectWindow->setWindowTitle(QApplication::translate("ConnectWindow", "Dialog", nullptr));
+    loginButton->setText(QApplication::translate("ConnectWindow", "Login", nullptr));
+    cancelButton->setText(QApplication::translate("ConnectWindow", "Cancel", nullptr));
+    usernameBox->setText(QApplication::translate("ConnectWindow", "username", nullptr));
 } // retranslateUi
 
-
-using namespace Babel::Ui;
-
-LoginPage::~LoginPage()
+Babel::Ui::LoginPage::~LoginPage()
 {
-    delete this->userList;
+    delete this->usernameBox;
     delete this->loginButton;
     delete this->cancelButton;
 }
 
-LoginPage::LoginPage(QDialog* Dialog)
+Babel::Ui::LoginPage::LoginPage(QDialog* Dialog)
 {
     this->setupUi(Dialog);
     connect(this->loginButton, SIGNAL(clicked()), this, SLOT(loginButtonCallback()));
     connect(this->cancelButton, SIGNAL(clicked()), this, SLOT(cancelButtonCallback()));
-    connect(this->userList, SIGNAL(clicked()), this, SLOT(userListCallback()));
+    //connect(this->usernameBox, SIGNAL(clicked()), this, SLOT(userListCallback()));
 }
 
-void LoginPage::loginButtonCallback()
+void Babel::Ui::LoginPage::loginButtonCallback()
 {
 
 }
 
-void LoginPage::cancelButtonCallback()
+void Babel::Ui::LoginPage::cancelButtonCallback()
 {
 
 }
 
-void LoginPage::userListCallback()
+void Babel::Ui::LoginPage::userListCallback()
 {
 
 }
+
+QT_END_NAMESPACE

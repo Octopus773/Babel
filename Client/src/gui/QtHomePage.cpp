@@ -1,6 +1,8 @@
 #include "QtHomePage.hpp"
 
-void Ui_HomePage::setupUi(QDialog *Dialog)
+QT_BEGIN_NAMESPACE
+
+void Ui_HomePage::setupUi(QDialog *HomePage)
 {
     if (HomePage->objectName().isEmpty())
         HomePage->setObjectName(QStringLiteral("HomePage"));
@@ -23,7 +25,7 @@ void Ui_HomePage::setupUi(QDialog *Dialog)
     QMetaObject::connectSlotsByName(HomePage);
 } // setupUi
 
-void Ui_HomePage::retranslateUi(QDialog *Dialog)
+void Ui_HomePage::retranslateUi(QDialog * HomePage)
 {
     HomePage->setWindowTitle(QApplication::translate("HomePage", "Dialog", nullptr));
     disconnectButton->setText(QApplication::translate("HomePage", "Disconnect", nullptr));
@@ -31,16 +33,14 @@ void Ui_HomePage::retranslateUi(QDialog *Dialog)
     onlineUsersLabel->setText(QApplication::translate("HomePage", "Other users on server", nullptr));
 }
 
-using namespace Babel::Ui
-
-HomePage::HomePage(QDialog* Dialog)
+Babel::Ui::HomePage::HomePage(QDialog* Dialog): QObject(), Ui_HomePage()
 {
     this->setupUi(Dialog);
     connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
     connect(this->callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
 }
 
-HomePage::~HomePage()
+Babel::Ui::HomePage::~HomePage()
 {
     delete this->disconnectButton;
     delete this->callUserButton;
@@ -48,12 +48,14 @@ HomePage::~HomePage()
     delete this->onlineUsersLabel;
 }
 
-void HomePage::disconnectButtonCallback()
+void Babel::Ui::HomePage::disconnectButtonCallback()
 {
 
 }
 
-void HomePage::callUserButtonCallback()
+void Babel::Ui::HomePage::callUserButtonCallback()
 {
 
 }
+
+QT_END_NAMESPACE

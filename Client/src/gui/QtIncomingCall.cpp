@@ -1,5 +1,7 @@
 #include "QtIncomingCall.hpp"
 
+QT_BEGIN_NAMESPACE
+
 void Ui_IncomingCall::setupUi(QDialog *IncomingCall)
 {
     if (IncomingCall->objectName().isEmpty())
@@ -28,9 +30,7 @@ void Ui_IncomingCall::retranslateUi(QDialog* IncomingCall)
     callFromUserLabel->setText(QApplication::translate("IncomingCall", "<user> is calling you", nullptr));
 }
 
-using namespace Babel::Ui
-
-IncomingCall::~IncomingCall()
+Babel::Ui::IncomingCall::~IncomingCall()
 {
     delete this->denyCallButton;
     delete this->acceptCallButton;
@@ -38,19 +38,21 @@ IncomingCall::~IncomingCall()
 }
 
 
-IncomingCall::IncomingCall(QDialog* Dialog)
+Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog)
 {
     this->setupUi(Dialog);
     connect(this->acceptCallButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
     connect(this->denyCallButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
 }
 
-void IncomingCall::denyCallButtonCallback()
+void Babel::Ui::IncomingCall::denyCallButtonCallback()
 {
 
 }
 
-void IncomingCall::acceptCallButtonCallback()
+void Babel::Ui::IncomingCall::acceptCallButtonCallback()
 {
 
 }
+
+QT_END_NAMESPACE

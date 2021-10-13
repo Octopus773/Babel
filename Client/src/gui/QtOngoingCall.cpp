@@ -1,3 +1,7 @@
+#include "QtOngoingCall.hpp"
+
+QT_BEGIN_NAMESPACE
+
 void Ui_OngoingCall::setupUi(QDialog* OngoingCall)
 {
     if (OngoingCall->objectName().isEmpty())
@@ -40,3 +44,5 @@ void OngoingCall::hangUpButtonCallback()
 {
 
 }
+
+QT_END_NAMESPACE
