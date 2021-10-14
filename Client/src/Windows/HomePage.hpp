@@ -30,6 +30,8 @@ namespace Babel
 		QtTCPConnection connection;
 
 
+		void onMessage(Message<RFCCodes> m);
+
 		void doConnect();
 
 		void doLogin();

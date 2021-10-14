@@ -5,6 +5,7 @@
 #include "HomePage.hpp"
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
+#include <iostream>
 #include <QMainWindow>
 #include <QPushButton>
 
@@ -21,6 +22,7 @@ namespace Babel
 
 
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
+		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
 		this->_window->show();
 		//this->_windowLogin->show();
@@ -38,7 +40,15 @@ namespace Babel
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Login;
 		const std::string &username = this->_ui.input_login_username->text().toStdString();
+		//m.header.codeId = Babel::RFCCodes::Debug;
+		//m << "i'm from qT5";
 		m << static_cast<uint8_t>(username.size()) << username;
-		this->connection.send(m);
+		if (!username.empty()) {
+			this->connection.send(m);
+		}
+	}
+
+	void HomePage::onMessage(Message<RFCCodes> m)
+	{
 	}
 }
