@@ -262,7 +262,7 @@ General purpose response
 
         Unless explicitly specified the server responses will always have a description
 
-        * description_length : The length of the description : 2 bytes (uint8_t)
+        * description_length : The length of the description : 1 byte (uint8_t)
 
         * description : human readable response (can be displayed to the user) : description_length bytes (char)
 

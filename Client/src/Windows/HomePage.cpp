@@ -20,6 +20,9 @@ namespace Babel
 		this->_ui.setupUi(this->_window);
 		this->_uiLogin.setupUi(this->_windowLogin);
 
+		this->connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
+			this->onMessage(std::move(m));
+		});
 
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
@@ -50,5 +53,14 @@ namespace Babel
 
 	void HomePage::onMessage(Message<RFCCodes> m)
 	{
+		uint16_t codeId;
+		uint8_t descLength;
+
+		m >> codeId >> descLength;
+
+		std::string desc;
+		Message<RFCCodes>::GetBytes(m, desc, descLength);
+
+		std::cout << "CodeId: " << codeId << " desc: " << desc << std::endl;
 	}
 }

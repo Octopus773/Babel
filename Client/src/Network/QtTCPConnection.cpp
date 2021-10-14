@@ -15,7 +15,7 @@ namespace Babel
 		  _bytesRead(0),
 		  _connectionId(0)
 	{
-		QObject::connect(this->_socket, &QIODevice::readyRead, this, &QtTCPConnection::readMessage);
+		QObject::connect(this->_socket, &QTcpSocket::readyRead, this, &QtTCPConnection::readMessage);
 	}
 
 	void QtTCPConnection::connect(const std::string &hostname, uint16_t port)

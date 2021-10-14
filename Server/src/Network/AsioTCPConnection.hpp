@@ -164,6 +164,7 @@ namespace Babel
 		asio::async_write(this->_socket, asio::buffer(&this->_messagesOut.front().header, sizeof(MessageHeader<T>)),
 		                  [this](std::error_code ec, std::size_t) {
 			                  if (!ec) {
+								  std::cout << "write header done" << std::endl;
 				                  if (this->_messagesOut.front().body.size() > 0) {
 					                  this->writeBody();
 				                  } else {
@@ -187,6 +188,7 @@ namespace Babel
 		                  asio::buffer(this->_messagesOut.front().body.data(), this->_messagesOut.front().body.size()),
 		                  [this](std::error_code ec, std::size_t) {
 			                  if (!ec) {
+				                  std::cout << "write body done" << std::endl;
 				                  this->_messagesOut.popFront();
 
 				                  if (!this->_messagesOut.empty()) {
