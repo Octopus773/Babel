@@ -30,7 +30,9 @@ namespace Babel
 		QtTCPConnection connection;
 
 
-		void connect();
+		void doConnect();
+
+		void doLogin();
 	};
 }
 
