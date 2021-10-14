@@ -1,6 +1,5 @@
 #include "Opus.hpp"
 #include "OpusException.hpp"
-#include <iostream>
 
 Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false), _bitrate(48000),
                       _channel(1), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
@@ -103,7 +102,6 @@ int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32
         } else {
             decodedFrames = opus_decode(this->_decoder, data, dataSize, pcm, this->_frameSize, 0);
         }
-        std::cout << "[OPUS] Decoded " << decodedFrames << " frames" << std::endl;
         if (decodedFrames < 0) {
             throw OpusException("Error when encoding with Opus: " + std::string(opus_strerror(decodedFrames)));
         } else {

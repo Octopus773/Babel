@@ -14,32 +14,43 @@
 #include "Network/UDPSocket.hpp"
 
 
+void audio_reception(const std::shared_ptr<Babel::Opus> &opus, std::mutex &opusMtx, std::mutex &paMtx)
+{
+    auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565, opus, opusMtx);
+}
+
+void audio_record(std::mutex &paMtx)
+{
+    std::vector<unsigned char> decoded;
+    std::vector<int16_t> pcm;
+
+    decoded.reserve(4000);
+    for (long i = 0; i < (a->getRecordTime() * a->getSampleRate()) / a->getFramesPerBuffer(); i++) {
+        try {
+            mtx.lock();
+            std::vector<int16_t> data = a->readStream();
+            auto encodedSize = opus->encode(data.data(), decoded.data());
+            mtx.unlock();
+        }
+        catch (const Babel::PortAudioException &e) {
+            std::cerr << e.what();
+        }
+    }
+}
+
 int main()
 {
-	std::unique_ptr<Babel::IAudioManager> a = std::make_unique<Babel::PortAudio>();
-	std::unique_ptr<Babel::Opus> opus = std::make_unique<Babel::Opus>();
-	std::vector<int16_t> pcm;
-	std::vector<unsigned char> decoded;
-    auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565);
+	auto a = std::make_unique<Babel::PortAudio>();
+	auto opus = std::make_shared<Babel::Opus>();
+    std::mutex opusMtx;
+    std::mutex paMtx;
 
     a->openStream();
 	a->startStream();
 
-	decoded.reserve(4000);
-	for (long i = 0; i < (a->getRecordTime() * a->getSampleRate()) / a->getFramesPerBuffer(); i++) {
-		try {
-			std::vector<int16_t> data = a->readStream();
-			auto encoded = opus->encode(data.data(), decoded.data());
-            std::vector<std::int16_t> decodedData(a->getFramesPerBuffer() * a->getInputChannelsNumber(), 0);
-			opus->decode(decoded.data(), decodedData.data(), encoded);
-            a->writeStream(decodedData);
-		}
-		catch (const Babel::PortAudioException &e) {
-			std::cerr << e.what();
-		}
-	}
-	std::cout << pcm.size() << std::endl;
-	a->writeStream(pcm);
+    std::thread audioThread(audio_reception, opus, std::ref(opusMtx));
+    std::thread audioReadThread(audio_record, std::ref(paMtx));
+
 	return (EXIT_SUCCESS);
 }
 
