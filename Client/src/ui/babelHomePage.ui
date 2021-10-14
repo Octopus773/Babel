@@ -21,7 +21,7 @@
        <bool>true</bool>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page1">
        <attribute name="title">
@@ -114,6 +114,21 @@
           </widget>
          </item>
         </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page3">
+       <attribute name="title">
+        <string>Server</string>
+       </attribute>
+       <widget class="QListWidget" name="output_connected_user_list">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>50</y>
+          <width>381</width>
+          <height>431</height>
+         </rect>
+        </property>
        </widget>
       </widget>
      </widget>

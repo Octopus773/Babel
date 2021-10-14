@@ -27,6 +27,11 @@ namespace Babel
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
+		this->_ui.listWidget->addItem(QString("one"));
+		this->_ui.listWidget->addItem(QString("two"));
+		this->_ui.listWidget->addItem(QString("three"));
+		this->_ui.listWidget->addItem(QString("four"));
+
 		this->_window->show();
 		//this->_windowLogin->show();
 		this->_ui.page2->setDisabled(true);

@@ -1,19 +1,20 @@
 /********************************************************************************
-** Form generated from reading UI file 'babelHomePagewCjYWN.ui'
+** Form generated from reading UI file 'babelHomePageCkOksH.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef BABELHOMEPAGEWCJYWN_H
-#define BABELHOMEPAGEWCJYWN_H
+#ifndef BABELHOMEPAGECKOKSH_H
+#define BABELHOMEPAGECKOKSH_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -45,6 +46,8 @@ public:
 	QLabel *label_3;
 	QLineEdit *input_login_username;
 	QPushButton *button_login;
+	QWidget *page3;
+	QListWidget *listWidget;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
 
@@ -122,6 +125,12 @@ public:
 		gridLayout_2->addWidget(button_login, 1, 1, 1, 1);
 
 		formTabWidget->addTab(page2, QString());
+		page3 = new QWidget();
+		page3->setObjectName(QString::fromUtf8("page3"));
+		listWidget = new QListWidget(page3);
+		listWidget->setObjectName(QString::fromUtf8("listWidget"));
+		listWidget->setGeometry(QRect(30, 50, 381, 431));
+		formTabWidget->addTab(page3, QString());
 
 		verticalLayout->addWidget(formTabWidget);
 
@@ -152,6 +161,7 @@ public:
 		label_3->setText(QCoreApplication::translate("babelHome", "Username", nullptr));
 		button_login->setText(QCoreApplication::translate("babelHome", "login", nullptr));
 		formTabWidget->setTabText(formTabWidget->indexOf(page2), QCoreApplication::translate("babelHome", "Login", nullptr));
+		formTabWidget->setTabText(formTabWidget->indexOf(page3), QCoreApplication::translate("babelHome", "Server", nullptr));
 	} // retranslateUi
 
 };
@@ -162,4 +172,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGEWCJYWN_H
+#endif // BABELHOMEPAGECKOKSH_H
