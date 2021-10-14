@@ -11,7 +11,7 @@ void Ui_HomePage::setupUi(QWidget *HomePage)
     disconnectButton->setObjectName("disconnectButton");
     disconnectButton->setGeometry(QRect(360, 240, 75, 23));
     callUserButton = new QPushButton(HomePage);
-    callUserButton->setObjectName(QStringLiteral("callUserButton"));
+    callUserButton->setObjectName(QString::fromUtf8("callUserButton"));
     callUserButton->setGeometry(QRect(360, 200, 75, 23));
     onlineUsersTextBox = new QPlainTextEdit(HomePage);
     onlineUsersTextBox->setObjectName(QStringLiteral("onlineUsersTextBox"));
@@ -33,19 +33,19 @@ void Ui_HomePage::retranslateUi(QDialog * HomePage)
     onlineUsersLabel->setText(QApplication::translate("HomePage", "Other users on server", nullptr));
 }
 
-Babel::Ui::HomePage::HomePage(QWidget* parent): QWidget(parent), Ui_HomePage()
+Babel::Ui::HomePage::HomePage(QWidget* parent)
+	: window(new QMainWindow),
+	 _ui({})
 {
-    this->setupUi(this);
-    connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
-    connect(this->callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
+    this->_ui.setupUi(this->window);
+    QMainWindow::connect(this->_ui.disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
+    QMainWindow::connect(this->_ui.callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
+	this->window->show();
 }
 
 Babel::Ui::HomePage::~HomePage()
 {
-    delete this->disconnectButton;
-    delete this->callUserButton;
-    delete this->onlineUsersTextBox;
-    delete this->onlineUsersLabel;
+	delete this->window;
 }
 
 void Babel::Ui::HomePage::disconnectButtonCallback()
