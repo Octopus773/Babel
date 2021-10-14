@@ -3,6 +3,7 @@
 //
 
 #include "QtTCPConnection.hpp"
+#include <QHostAddress>
 #include <iostream>
 
 namespace Babel
@@ -100,5 +101,18 @@ namespace Babel
 	void QtTCPConnection::setId(uint64_t id)
 	{
 		this->_connectionId = id;
+	}
+
+	std::string QtTCPConnection::getPeerIp() const
+	{
+		if (!this->_socket->peerAddress().isNull()) {
+			return this->_socket->peerAddress().toString().toStdString();
+		}
+		return "";
+	}
+
+	uint16_t QtTCPConnection::getPeerPort() const
+	{
+		return static_cast<uint16_t>(this->_socket->peerPort());
 	}
 }

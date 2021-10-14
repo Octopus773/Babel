@@ -8,12 +8,13 @@ sequenceDiagram
 
     Lena->>Client1: Call Stephane
     Client1->>+Server: 202 Stephane
-    Server->>-Client1: 300 calling Stephane
+    Server->>-Client1: 300 gives callId for the call
+
+    Client1->>+Server: 203 callId + address + port
 
 
-    loop 3 Give up after 3 tries if no response
-        Server->>Client2: 301 from Lena
-    end
+
+    Server->>Client2: 301 from Lena
     Client2->>Stephane: Incoming call
 
     alt Didn't respond to call
@@ -29,13 +30,13 @@ sequenceDiagram
     else Accept call
         rect rgba(164, 245, 66, .5)
             Stephane->>Client2: Accept call
-            Client2->>+Server: 203 Lena
+            Client2->>+Server: 203 callId + address + port
             par
-                Server->>-Client2: 300 ip Lena + port
+                Server->>-Client2: 300 ip Lena + address + port
                 Client2->>Client1: creation UDP connection
                 Client2->>Stephane: Calling interface
             and
-                Server->>Client1: 300 ip Stephane + port
+                Server->>Client1: 300 ip Stephane + address + port
                 Client1->>Client2: creation UDP connection
                 Client1->>Lena: Calling interface
             end
@@ -45,7 +46,7 @@ sequenceDiagram
     Note over Lena, Stephane: Ongoing Call
 
     Lena->>Client1: Hang up
-    Client1->>+Server: 205 Stephane
+    Client1->>+Server: 205 callId
     Server->>-Client1: OK
     Client1-xClient2: Close UDP connection
     Server->>Client2: 303 Lena

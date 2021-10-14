@@ -68,23 +68,25 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Protocol Definition . . . . . . . . . . . . . . . . . . . . .   2
-     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Endianness  . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.3.  Must know . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Client -> Server Protocol . . . . . . . . . . . . . . . . . .   3
      3.1.  Login . . . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.2.  List users  . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.3.  Call user . . . . . . . . . . . . . . . . . . . . . . . .   3
-     3.4.  Accept a receiving call from a user . . . . . . . . . . .   3
-     3.5.  Deny a receiving call from a user . . . . . . . . . . . .   4
-     3.6.  Hang up a call  . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Server -> Client Protocol . . . . . . . . . . . . . . . . . .   4
-     4.1.  General purpuse response  . . . . . . . . . . . . . . . .   4
-     4.2.  Receiving call  . . . . . . . . . . . . . . . . . . . . .   4
-     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   5
-     4.4.  User leaving call . . . . . . . . . . . . . . . . . . . .   5
-   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     5.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
-     5.2.  Informative References  . . . . . . . . . . . . . . . . .   5
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   6
+     3.2.  List users  . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.3.  Call user . . . . . . . . . . . . . . . . . . . . . . . .   4
+     3.4.  Joining a call  . . . . . . . . . . . . . . . . . . . . .   4
+     3.5.  Deny a receiving call . . . . . . . . . . . . . . . . . .   5
+     3.6.  Hang up a call  . . . . . . . . . . . . . . . . . . . . .   6
+   4.  Server -> Client Protocol . . . . . . . . . . . . . . . . . .   6
+     4.1.  General purpose response  . . . . . . . . . . . . . . . .   6
+     4.2.  Receiving call  . . . . . . . . . . . . . . . . . . . . .   6
+     4.3.  User joining call . . . . . . . . . . . . . . . . . . . .   7
+     4.4.  User leaving call . . . . . . . . . . . . . . . . . . . .   7
+   5.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
+     5.2.  Informative References  . . . . . . . . . . . . . . . . .   8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   8
 
 1.  Introduction
 
@@ -101,11 +103,9 @@ Table of Contents
 
 2.  Protocol Definition
 
-2.1.  Terminology
 
-   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
-   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
-   and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
+
+
 
 
 
@@ -114,8 +114,22 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 2]
 Internet-Draft               Babel Protocol               September 2021
 
 
+2.1.  Terminology
+
+   In this document, the key words "MUST", "MUST NOT", "REQUIRED",
+   "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY",
+   and "OPTIONAL" are to be interpreted as described in BCP 14, RFC 2119
    [RFC2119] and indicate requirement levels for compliant Babel
    implementations.
+
+2.2.  Endianness
+
+   Every variable on the network is in Big Endian
+
+2.3.  Must know
+
+   The first 2 bytes of each message is a code Id and is interpreted as
+   an uint16_t and is used to classify your request
 
 3.  Client -> Server Protocol
 
@@ -123,9 +137,20 @@ Internet-Draft               Babel Protocol               September 2021
 
    200 username_length username - Login a user in the server
 
-            * username_length : The length of the login of the user : 1 byte (uint8_t)
+    * username_length : The length of the login of the user, must be between 3 and 10 : 1 byte (uint8_t)
 
-            * username : The username  : username_length bytes (char)
+    * username : The username  : username_length bytes (char)
+
+
+    Responses from server:
+
+        On error:
+        300 : response_code : 0
+        and the description will explain the error
+
+        On success:
+        300: response_code: 1
+        description is set to a generic login success message
 
         +------------+------------+------------+------------+------------+------------+--
         |           200           |     username_length     |          username ...
@@ -133,33 +158,8 @@ Internet-Draft               Babel Protocol               September 2021
 
               Figure 1: Login Protocol from Client to server
 
-3.2.  List users
 
-   201 - Get the list of server currently active users
 
-           +------------+------------+
-           |           201           |
-           +------------+------------+
-
-3.3.  Call user
-
-   202 - Call a user from it's username
-
-        +------------+------------+------------+------------+------------+------------+--
-        |           202           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
-
-3.4.  Accept a receiving call from a user
-
-   203 - Accept a call from a user
-
-            * username_length : The length of the login of the user : 1 byte (uint8_t)
-
-            * username : The username of the user we're receiving the call : username_length bytes (char)
-
-        +------------+------------+------------+------------+------------+------------+--
-        |           203           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
 
 
 
@@ -170,53 +170,53 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 3]
 Internet-Draft               Babel Protocol               September 2021
 
 
-3.5.  Deny a receiving call from a user
+3.2.  List users
 
-   204 - Deny a call from a user
+   201 - Get the list of server currently active users
 
-            * username_length : The length of the login of the user : 1 byte (uint8_t)
+    Responses from server:
+        300: response_code: 1
 
-            * username : The username of the user we're receiving the call : username_length bytes (char)
+        WARNING no description_length and description in this response
+
+        an array of connected users following the pattern
+        username_length: the length of the username, length: uint8_t
+        username: the connected user username, length: username_length
+        canBeCalled: a boolean set to 1 if he can be called and set to 0 otherwise, length: uint8_t
+
+           +------------+------------+
+           |           201           |
+           +------------+------------+
+
+3.3.  Call user
+
+   202 - Call a user from its username
+
+    You have to be logged in to make this request
+
+    * username_length : The length of the login of the user, must be between 3 and 10 : 1 byte (uint8_t)
+
+    * username : The username  : username_length bytes (char)
+
+    Responses from server:
+        On error:
+            300: response_code: 0
+            description will explain the error
+
+        On success:
+            300: response_code: 1
+            description: will be set to the callId as string (you have to make a request joinCall with this callId)
 
         +------------+------------+------------+------------+------------+------------+--
-        |           204           |     username_length     |          username ...
+        |           202           |     username_length     |          username ...
         +------------+------------+------------+------------+------------+------------+--
 
-3.6.  Hang up a call
+3.4.  Joining a call
 
-   205 - Hang up a call
+   203 - Joining a call
 
-            * username_length : The length of the login of the user : 1 byte (uint8_t)
 
-            * username : The username of the user that we're making the call : username_length bytes (char)
 
-        +------------+------------+------------+------------+------------+------------+--
-        |           205           |     username_length     |          username ...
-        +------------+------------+------------+------------+------------+------------+--
-
-4.  Server -> Client Protocol
-
-4.1.  General purpose response
-
-   300 - general purpuse response
-
-            * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
-
-            * description_length : The length of the description : 2 bytes (uint8_t)
-
-            * description : human readable response (can be displayed to the user) : description_length bytes (char)
-
-        +------------+------------+------------+------------+------------+------------+------------+------------+--
-        |           300           |      response_code      |    description_length   |       description ...
-        +------------+------------+------------+------------+------------+------------+------------+------------+--
-
-4.2.  Receiving call
-
-   301 - Receiving a call from a user
-
-            * username_length : The length of the login of the calling user : 1 byte (uint8_t)
-
-            * username : The username of the user that want to make a call : username_length bytes (char)
 
 
 
@@ -226,21 +226,145 @@ Le Bihan, et al.         Expires March 25, 2022                 [Page 4]
 Internet-Draft               Babel Protocol               September 2021
 
 
+    You have to be logged in to make this request
+
+    * callId : the call Id you want to join : (uint16_t)
+
+    * udpAddress_length : The length of the udpAddress : (uint8_t)
+
+    * udpAddress : the address (in ipv4 format) to receive audio udp packets  : (udpAddress_length length)
+
+    * updPort : the port of the udpAddress to receive audio udp packets : (uint16_t)
+
+
+    Responses from server:
+
+        On error:
+            300: response_code: 0
+            description will be set to the error description
+
+        On success:
+            300: response_code: 1
+
+            WARNING no description_length and description in this response
+
+            an array of call participants following the pattern:
+            udpAddress_length: uint8_t
+            udpAddress: udpAddress_length length
+            udpPort: uint16_t
+            username_length: uint8_t
+            username: username_length length
+
+        +------------+------------+------------+------------+------------+------------+------------+
+        |           203           |          callId         |          udpAddress_length           | -->
+        +------------+------------+------------+------------+------------+------------+------------+
+        +------------+------------+------------+------------+
+        |        udpAddress       |         updPort         |
+        +------------+------------+------------+------------+
+
+3.5.  Deny a receiving call
+
+   204 - Deny a call from a user
+
+       You have to be logged in to make this request
+
+       * callId : the call Id you want to join : (uint16_t)
+
+           +------------+------------+------------+------------+
+           |           204           |         callId          |
+           +------------+------------+------------+------------+
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 5]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
+3.6.  Hang up a call
+
+   205 - Hang up a call
+
+       You have to be logged in to make this request
+
+       * callId : the call Id you want to join : (uint16_t)
+
+           +------------+------------+------------+------------+
+           |           205           |         callId          |
+           +------------+------------+------------+------------+
+
+4.  Server -> Client Protocol
+
+4.1.  General purpose response
+
+   300 - general purpose response
+
+    * response_code (code meaning will be defined in the return response of a request) : 2 bytes (uint16_t)
+
+    Unless explicitly specified the server responses will always have a description
+
+    * description_length : The length of the description : 2 bytes (uint8_t)
+
+    * description : human readable response (can be displayed to the user) : description_length bytes (char)
+
+    The response_code code meaning is, unless specified otherwise in the request response section:
+    1: True: the request succeeded
+    0: False: The request failed (details are in the description)
+
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+        |           300           |      response_code      |    description_length   |       description ...
+        +------------+------------+------------+------------+------------+------------+------------+------------+--
+
+4.2.  Receiving call
+
+   301 - Receiving a call from a user
+
+    * callId : The id of the call, you have to make a request to the joinCall with this id to be in the call
+
+    * username_length : The length of the login of the calling user : 1 byte (uint8_t)
+
+    * username : The username of the user that want to make a call with you : username_length bytes (char)
+
+
+
+
+
+
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
         +------------+------------+------------+------------+------------+------------+--
-        |           301           |     username_length     |          username ...
+        |           301           |          callId         |          username_length ...
         +------------+------------+------------+------------+------------+------------+--
+        -------+------------+------------+
+        ...    |         username        |
+        -------+------------+------------+
 
 4.3.  User joining call
 
    302 - User joining the call
+
+            * udpAddress_length : The length of the udpAddress : (uint8_t)
+
+            * udpAddress : the address (in ipv4 format) to receive audio udp packets  : (udpAddress_length length)
+
+            * updPort : the port of the udpAddress to receive audio udp packets : (uint16_t)
 
             * username_length : The length of the login of the user joining the call : 1 byte (uint8_t)
 
             * username : The username of the user that is joining the call : username_length bytes (char)
 
         +------------+------------+------------+------------+------------+------------+--
-        |           302           |     username_length     |          username ...
+        |           302           |     udpAddress_length   |        udpAddress ...
         +------------+------------+------------+------------+------------+------------+--
+        -----+------------+------------+------------+------------+------------+------------+--
+         ... |         udpPort         |     username_length     |          username ...
+        -----+------------+------------+------------+------------+------------+------------+--
 
 4.4.  User leaving call
 
@@ -263,24 +387,19 @@ Internet-Draft               Babel Protocol               September 2021
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
+
+
+Le Bihan, et al.         Expires March 25, 2022                 [Page 7]
+
+Internet-Draft               Babel Protocol               September 2021
+
+
 5.2.  Informative References
 
    [RFC5389]  Rosenberg, J., Mahy, R., Matthews, P., and D. Wing,
               "Session Traversal Utilities for NAT (STUN)", RFC 5389,
               DOI 10.17487/RFC5389, October 2008,
               <https://www.rfc-editor.org/info/rfc5389>.
-
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 5]
-
-Internet-Draft               Babel Protocol               September 2021
-
 
 Authors' Addresses
 
@@ -326,11 +445,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-
-Le Bihan, et al.         Expires March 25, 2022                 [Page 6]
+Le Bihan, et al.         Expires March 25, 2022                 [Page 8]
