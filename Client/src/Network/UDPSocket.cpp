@@ -12,16 +12,22 @@
 #include "NetworkException.hpp"
 #include "AudioPacket.hpp"
 
+void onError()
+{
+    std::cout << "Error when receiving packet" << std::endl;
+}
+
 Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus, std::mutex &audio_mtx, std::mutex &codec_mtx, std::mutex &udpMtx)
     : _audio_mtx(audio_mtx), _codec_mtx(codec_mtx), _udpMtx(udpMtx),  _audio(audio), _codec(opus), _address(address), _port(port)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
-    if (!this->_socket->bind(QHostAddress::AnyIPv4, _port))
+    _socket->abort();
+    if (!this->_socket->bind(QHostAddress::AnyIPv4, port))
         throw NetworkException("UDPSocket: Cannot bind to port");
     else
         std::cout << "UDP socket bind to " << address << ":" << port << std::endl;
-    //connect(this->_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
-    connect(_socket.get(), SIGNAL(readyRead()), this, SLOT(UDPSocket::readPending()));
+    //connect(_socket.get(), SIGNAL(readyRead()), this, SLOT(readPending()));
+    connect(_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
 }
 
 std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, const std::string &address, int port)
@@ -33,7 +39,7 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, cons
     //_udpMtx.lock();
     std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
     //_udpMtx.unlock();
-    //std::cout << "Sent " << result << " sized packet to " << address << ":" << port << std::endl;
+    std::cout << "Sent " << result << " sized packet to " << address << ":" << port << std::endl;
     return result;
 }
 

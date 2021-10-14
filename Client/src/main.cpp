@@ -30,7 +30,7 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
                 //opusMtx.unlock();
                 //udpMtx.lock();
                 //std::cout << "Sending packet" << std::endl;
-                udpSocket->write(encoded, "10.29.125.231", 25565);
+                udpSocket->write(encoded, "127.0.0.1", 25565);
                 //udpMtx.unlock();
             }
             catch (const Babel::PortAudioException &e) {
@@ -40,7 +40,7 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
     }
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	std::shared_ptr<Babel::IAudioManager> portAudio = std::make_shared<Babel::PortAudio>();
 	std::shared_ptr<Babel::ICodec> opus = std::make_shared<Babel::Opus>();
@@ -48,6 +48,8 @@ int main()
     std::mutex paMtx;
     std::mutex udpMtx;
     std::string address;
+
+    QApplication app(argc, argv);
 
     portAudio->openStream();
 	portAudio->startStream();
@@ -57,10 +59,9 @@ int main()
 
     std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
                                     std::ref(udpMtx));
+    std::cout << "caca" << std::endl;
 
-    audioSendThread.join();
-
-	return (EXIT_SUCCESS);
+    return app.exec();
 }
 
 
