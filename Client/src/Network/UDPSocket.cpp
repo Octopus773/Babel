@@ -30,12 +30,13 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, cons
 {
     AudioPacket packet {};
     std::memcpy(packet.data, data.data(), data.size());
-    auto ms = duration_cast< std::chrono::milliseconds >(
-            std::chrono::system_clock::now().time_since_epoch()
-    );
-    //packet.timestamp = ms;
+    packet.size = data.size();
+    std::int64_t milliseconds_since_epoch = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
+    packet.timestamp = milliseconds_since_epoch;
+    char toSend[sizeof(AudioPacket)];
+    std::memcpy(toSend, &packet, sizeof(packet));
 
-    //return _socket->writeDatagram(data.data(), data.size(), QHostAddress(address.c_str()), port);
+    return _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
 }
 
 void Babel::UDPSocket::readPending()

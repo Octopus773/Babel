@@ -7,8 +7,8 @@
 
 namespace Babel {
     struct AudioPacket {
-        std::int32_t timestamp {};
-        std::int32_t size {};
+        std::uint64_t timestamp {};
+        std::uint64_t size {};
         unsigned char data[4000] {0};
     };
 }
