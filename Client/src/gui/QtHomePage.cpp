@@ -2,7 +2,7 @@
 
 QT_BEGIN_NAMESPACE
 
-void Ui_HomePage::setupUi(QDialog *HomePage)
+void Ui_HomePage::setupUi(QWidget *HomePage)
 {
     if (HomePage->objectName().isEmpty())
         HomePage->setObjectName(QStringLiteral("HomePage"));
@@ -20,7 +20,7 @@ void Ui_HomePage::setupUi(QDialog *HomePage)
     onlineUsersLabel->setObjectName(QStringLiteral("onlineUsersLabel"));
     onlineUsersLabel->setGeometry(QRect(40, 30, 111, 16));
 
-    retranslateUi(HomePage);
+   // retranslateUi(HomePage);
 
     QMetaObject::connectSlotsByName(HomePage);
 } // setupUi
@@ -33,9 +33,9 @@ void Ui_HomePage::retranslateUi(QDialog * HomePage)
     onlineUsersLabel->setText(QApplication::translate("HomePage", "Other users on server", nullptr));
 }
 
-Babel::Ui::HomePage::HomePage(QDialog* Dialog): QObject(), Ui_HomePage()
+Babel::Ui::HomePage::HomePage(QWidget* parent): QMainWindow(parent), Ui_HomePage()
 {
-    this->setupUi(Dialog);
+    this->setupUi(this);
     connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
     connect(this->callUserButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
 }

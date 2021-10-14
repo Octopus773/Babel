@@ -9,6 +9,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
+#include "QMainWindow"
 
 QT_BEGIN_NAMESPACE
 
@@ -20,19 +21,19 @@ public:
     QPlainTextEdit* onlineUsersTextBox;
     QLabel* onlineUsersLabel;
 
-    void setupUi(QDialog* HomePage);
+    void setupUi(QWidget* HomePage);
 
     void retranslateUi(QDialog* HomePage); // retranslateUi
 
 };
 
 namespace Babel::Ui {
-    class HomePage : public QObject, public Ui_HomePage
+    class HomePage : public QMainWindow, public Ui_HomePage
     {
 	Q_OBJECT
     public:
-        HomePage(QDialog*);
-        ~HomePage();
+        explicit HomePage(QWidget *parent = nullptr);
+        ~HomePage() override;
         HomePage(const HomePage&) = delete;
         HomePage &operator=(const HomePage&) = delete;
 

@@ -1,4 +1,4 @@
-/*
+
 #include "QtBabelGui.hpp"
 
 Babel::QtBabelGui::QtBabelGui()
@@ -8,4 +8,4 @@ Babel::QtBabelGui::QtBabelGui()
 	_incomingCallPage(new QDialog)
 {
 	_loginPage.show();
-}*/
+}

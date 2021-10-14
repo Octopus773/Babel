@@ -38,11 +38,11 @@ Babel::Ui::IncomingCall::~IncomingCall()
 }
 
 
-Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog): QObject(), Ui_IncomingCall()
+Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog): QDialog(Dialog), Ui_IncomingCall()
 {
     this->setupUi(Dialog);
-    connect(this->acceptCallButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));
-    connect(this->denyCallButton, SIGNAL(clicked()), this, SLOT(callUserButtonCallback()));
+    connect(this->acceptCallButton, SIGNAL(clicked()), this, SLOT(acceptCallButtonCallback()));
+    connect(this->denyCallButton, SIGNAL(clicked()), this, SLOT(denyCallButtonCallback()));
 }
 
 void Babel::Ui::IncomingCall::denyCallButtonCallback()

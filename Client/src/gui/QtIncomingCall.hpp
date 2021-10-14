@@ -23,13 +23,13 @@ public:
 };
 
 namespace Babel::Ui {
-    class IncomingCall : public QObject, public Ui_IncomingCall {
+    class IncomingCall : public QDialog, public Ui_IncomingCall {
         Q_OBJECT
     public:
 
-	    ~IncomingCall();
+	    ~IncomingCall() override;
 
-	    IncomingCall(QDialog*);
+	    explicit IncomingCall(QDialog* dialog = nullptr);
 
 	    IncomingCall(const IncomingCall&) = delete;
         IncomingCall& operator=(const IncomingCall&) = delete;

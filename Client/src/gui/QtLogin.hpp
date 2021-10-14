@@ -23,11 +23,11 @@ public:
 };
 
 namespace Babel::Ui {
-    class LoginPage : public QObject, public Ui_ConnectWindow {
+    class LoginPage : public QDialog, public Ui_ConnectWindow {
         Q_OBJECT
 	public:
-        LoginPage(QDialog* Dialog);
-        ~LoginPage();
+        explicit LoginPage(QDialog* Dialog = nullptr);
+        ~LoginPage() override;
         LoginPage(const LoginPage&) = delete;
         LoginPage &operator=(const LoginPage&) = delete;
     

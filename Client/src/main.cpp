@@ -11,6 +11,7 @@
 #include "client.hpp"
 #include "Network/QtTCPConnection.hpp"
 #include "gui/QtBabelGui.hpp"
+#include "gui/QtHomePage.hpp"
 #include "Network/RFCCodes.hpp"
 
 //int main()
@@ -48,7 +49,9 @@ int main(int argc, char *argv[])
 
 	QApplication app(argc, argv);
 
-	Babel::QtBabelGui truc;
+	Babel::Ui::HomePage truc;
+
+	truc.show();
 
 	//QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
 
