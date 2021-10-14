@@ -16,12 +16,13 @@ Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_
     : _audio_mtx(audio_mtx), _codec_mtx(codec_mtx), _udpMtx(udpMtx),  _audio(audio), _codec(opus), _address(address), _port(port)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
-    if (!this->_socket->bind(QHostAddress::AnyIPv4, _port))
+    if (!this->_socket->bind(QHostAddress::AnyIPv4, port))
         throw NetworkException("UDPSocket: Cannot bind to port");
     else
         std::cout << "UDP socket bind to " << address << ":" << port << std::endl;
     //connect(this->_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
-    connect(_socket.get(), SIGNAL(readyRead()), this, SLOT(UDPSocket::readPending()));
+    //connect(this->_socket.get(), &QUdpSocket::errorOccurred, this, &UDPSocket::printError);
+    connect(_socket.get(), SIGNAL(readyRead()), this, SLOT(readPending()));
 }
 
 std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, const std::string &address, int port)
@@ -72,4 +73,9 @@ Babel::UDPSocket::~UDPSocket() {
 
 void Babel::UDPSocket::close() {
     this->_socket->close();
+}
+
+void Babel::UDPSocket::printError(int socketError, const QString &message)
+{
+	std::cerr <<  message.toStdString() << std::endl;
 }

@@ -30,7 +30,7 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
                 //opusMtx.unlock();
                 //udpMtx.lock();
                 //std::cout << "Sending packet" << std::endl;
-                udpSocket->write(encoded, "10.29.125.231", 25565);
+                udpSocket->write(encoded, "10.29.125.118", 4467);
                 //udpMtx.unlock();
             }
             catch (const Babel::PortAudioException &e) {
@@ -40,8 +40,22 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
     }
 }
 
-int main()
+void truc(std::shared_ptr<Babel::UDPSocket> udpSock)
 {
+	std::array<unsigned char, 4000> encoded;
+	encoded.fill(1);
+	while (true) {
+		//opusMtx.unlock();
+		//udpMtx.lock();
+		//std::cout << "Sending packet" << std::endl;
+		udpSock->write(encoded, "10.29.125.118", 4467);
+		//udpMtx.unlock();
+	}
+}
+
+int main(int argc, char *argv[])
+{
+	QApplication app(argc, argv);
 	std::shared_ptr<Babel::IAudioManager> portAudio = std::make_shared<Babel::PortAudio>();
 	std::shared_ptr<Babel::ICodec> opus = std::make_shared<Babel::Opus>();
     std::mutex opusMtx;
@@ -52,13 +66,23 @@ int main()
     portAudio->openStream();
 	portAudio->startStream();
 
-    std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("127.0.0.1", 25565, portAudio,
+
+
+    std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("10.29.125.118", 4467, portAudio,
                                                                                        opus, paMtx, opusMtx, udpMtx);
+	std::thread t([&]() {
+		truc(udpSock);
+	});
 
-    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
-                                    std::ref(udpMtx));
 
-    audioSendThread.join();
+
+//
+//    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
+//                                    std::ref(udpMtx));
+
+    //audioSendThread.join();
+
+	app.exec();
 
 	return (EXIT_SUCCESS);
 }
