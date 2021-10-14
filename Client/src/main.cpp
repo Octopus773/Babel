@@ -43,7 +43,7 @@ void audio_record(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex 
 
 int main()
 {
-	auto portAudio = std::make_unique<Babel::PortAudio>();
+	auto portAudio = std::make_shared<Babel::PortAudio>();
 	auto opus = std::make_shared<Babel::Opus>();
     std::mutex opusMtx;
     std::mutex paMtx;
@@ -51,7 +51,7 @@ int main()
     portAudio->openStream();
 	portAudio->startStream();
 
-    //std::thread audioReceptionThread(audio_reception, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
+    std::thread audioReceptionThread(audio_reception, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
     std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
 
 	return (EXIT_SUCCESS);
