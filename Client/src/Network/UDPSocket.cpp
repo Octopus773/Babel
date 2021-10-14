@@ -5,7 +5,6 @@
 #include <QNetworkDatagram>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
-#include <utility>
 #include <cstring>
 #include <memory>
 #include <iostream>
@@ -31,7 +30,7 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, cons
 {
     AudioPacket packet {};
     std::memcpy(packet.data, data.data(), data.size());
-    packet.size = data.size();
+    packet.size = sizeof(data.data());
     std::int64_t milliseconds_since_epoch = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     packet.timestamp = milliseconds_since_epoch;
     char toSend[sizeof(AudioPacket)];
@@ -49,7 +48,7 @@ void Babel::UDPSocket::readPending()
         AudioPacket *packet = (AudioPacket *) (datagram.data().data());
 
         //std::uint64_t timestamp = packet->timestamp;
-        const std::uint64_t size = packet->size;
+        const std::int32_t size = packet->size;
 
         std::vector<unsigned char> encoded (size);
         std::memcpy(encoded.data(), packet->data, size);
@@ -62,7 +61,7 @@ void Babel::UDPSocket::readPending()
             _audio->writeStream(decodedData);
             this->_audio_mtx.unlock();
         } catch (Exception::BabelException &e) {
-            std::cout << "Packet received error when encoding/reading" << std::endl;
+            //std::cout << "Packet received error when encoding/reading" << std::endl;
         }
     }
 }
