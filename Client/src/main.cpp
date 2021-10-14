@@ -33,7 +33,6 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
             opusMtx.lock();
             auto encodedSize = opus->encode(data.data(), decoded.data());
             opusMtx.unlock();
-            // TODO: utilsier writeDatagram
         }
         catch (const Babel::PortAudioException &e) {
             std::cerr << e.what();
@@ -52,7 +51,7 @@ int main()
 	portAudio->startStream();
 
     std::thread audioReceptionThread(audio_reception, portAudio, opus, std::ref(paMtx), std::ref(opusMtx));
-    //std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
+    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
 
 	return (EXIT_SUCCESS);
 }
