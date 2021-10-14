@@ -4,7 +4,7 @@
 
 #include "HomePage.hpp"
 #include <QMainWindow>
-
+#include <QPushButton>
 
 
 namespace Babel
@@ -12,10 +12,20 @@ namespace Babel
 
 	HomePage::HomePage()
 		: _window(new QMainWindow()),
-		  _ui()
+		  _windowLogin(new QMainWindow())
 	{
-
 		this->_ui.setupUi(this->_window);
+		this->_uiLogin.setupUi(this->_windowLogin);
+
+
+		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::connect);
+
 		this->_window->show();
+		//this->_windowLogin->show();
+	}
+
+	void HomePage::connect()
+	{
+		this->connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
 	}
 }

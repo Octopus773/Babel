@@ -1,15 +1,23 @@
-//
-// Created by cbihan on 14/10/2021.
-//
+/********************************************************************************
+** Form generated from reading UI file 'babelHomePageNTymLt.ui'
+**
+** Created by: Qt User Interface Compiler version 5.15.2
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
 
-#ifndef BABELHOMEPAGEYYVLFJ_H
-#define BABELHOMEPAGEYYVLFJ_H
+#ifndef BABELHOMEPAGENTYMLT_H
+#define BABELHOMEPAGENTYMLT_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -24,6 +32,12 @@ public:
 	QVBoxLayout *verticalLayout;
 	QPushButton *button_connect;
 	QPushButton *button_login;
+	QWidget *formLayoutWidget;
+	QFormLayout *formLayout;
+	QLabel *label;
+	QLineEdit *input_address;
+	QLabel *label_2;
+	QSpinBox *input_port;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
 
@@ -50,6 +64,34 @@ public:
 
 		verticalLayout->addWidget(button_login);
 
+		formLayoutWidget = new QWidget(centralwidget);
+		formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
+		formLayoutWidget->setGeometry(QRect(79, 60, 311, 171));
+		formLayout = new QFormLayout(formLayoutWidget);
+		formLayout->setObjectName(QString::fromUtf8("formLayout"));
+		formLayout->setContentsMargins(0, 0, 0, 0);
+		label = new QLabel(formLayoutWidget);
+		label->setObjectName(QString::fromUtf8("label"));
+
+		formLayout->setWidget(0, QFormLayout::LabelRole, label);
+
+		input_address = new QLineEdit(formLayoutWidget);
+		input_address->setObjectName(QString::fromUtf8("input_address"));
+		input_address->setReadOnly(false);
+
+		formLayout->setWidget(0, QFormLayout::FieldRole, input_address);
+
+		label_2 = new QLabel(formLayoutWidget);
+		label_2->setObjectName(QString::fromUtf8("label_2"));
+
+		formLayout->setWidget(1, QFormLayout::LabelRole, label_2);
+
+		input_port = new QSpinBox(formLayoutWidget);
+		input_port->setObjectName(QString::fromUtf8("input_port"));
+		input_port->setMaximum(65535);
+
+		formLayout->setWidget(1, QFormLayout::FieldRole, input_port);
+
 		babelHome->setCentralWidget(centralwidget);
 		menubar = new QMenuBar(babelHome);
 		menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -69,6 +111,8 @@ public:
 		babelHome->setWindowTitle(QCoreApplication::translate("babelHome", "Babel", nullptr));
 		button_connect->setText(QCoreApplication::translate("babelHome", "connect", nullptr));
 		button_login->setText(QCoreApplication::translate("babelHome", "login", nullptr));
+		label->setText(QCoreApplication::translate("babelHome", "Address", nullptr));
+		label_2->setText(QCoreApplication::translate("babelHome", "Port", nullptr));
 	} // retranslateUi
 
 };
@@ -79,5 +123,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGEYYVLFJ_H
-
+#endif // BABELHOMEPAGENTYMLT_H

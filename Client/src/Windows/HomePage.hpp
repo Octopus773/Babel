@@ -5,20 +5,32 @@
 #pragma once
 
 #include "ui/UIHomePage.hpp"
+#include "ui/UiLogin.hpp"
+#include "Network/QtTCPConnection.hpp"
 #include <QMainWindow>
+#include <QObject>
 
 namespace Babel
 {
 
-	class HomePage
+	class HomePage : public QObject
 	{
-
+	Q_OBJECT
 	public:
 		HomePage();
 
 		QMainWindow *_window;
 
-		Ui_babelHome _ui;
+		QMainWindow *_windowLogin;
+
+		Ui_babelHome _ui{};
+
+		Ui_Login _uiLogin{};
+
+		QtTCPConnection connection;
+
+
+		void connect();
 	};
 }
 
