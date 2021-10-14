@@ -44,12 +44,15 @@ void Babel::UDPSocket::readPending()
     while (this->_socket->hasPendingDatagrams()) {
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
-        // TODO: ordre, doublon, decodage puis lecture buffer
+        // TODO: payload to Packet struct
         this->_codec_mtx.lock();
-        // std::vector<std::int16_t> decodedData(a->getFramesPerBuffer() * a->getInputChannelsNumber(), 0);
-        // opus->decode(decoded.data(), decodedData.data(), encodedSize);
-        // a->writeStream(decodedData);
+        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
+        _codec->decode(decoded.data(), decodedData.data(), encodedSize);
         this->_codec_mtx.unlock();
+        this->_audio_mtx.lock();
+        // TODO: play decoded audio
+        // _audio->writeStream(decodedData);
+        this->_audio_mtx.unlock();
     }
 }
 
