@@ -3,14 +3,17 @@
 //
 
 #include <QNetworkDatagram>
+#include "Audio/Opus/ICodec.hpp"
+#include "Audio/IAudioManager.hpp"
 #include <utility>
 #include <cstring>
+#include <memory>
 #include "UDPSocket.hpp"
 #include "NetworkException.hpp"
 #include "AudioPacket.hpp"
 
-Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::Opus> opus, std::mutex &mtx)
-    : _opus(std::move(opus)), _mtx(mtx), _address(std::move(address)), _port(port)
+Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus, std::mutex &audio_mtx, std::mutex &codec_mtx)
+    : _address(address), _port(port), _audio(audio), _codec(opus), _audio_mtx(audio_mtx), _codec_mtx(codec_mtx)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
     if (!this->_socket->bind(QHostAddress(_address.c_str()), _port))
@@ -41,11 +44,11 @@ void Babel::UDPSocket::readPending()
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
         // TODO: ordre, doublon, decodage puis lecture buffer
-        _mtx.lock();
+        this->_codec_mtx.lock();
         // std::vector<std::int16_t> decodedData(a->getFramesPerBuffer() * a->getInputChannelsNumber(), 0);
         // opus->decode(decoded.data(), decodedData.data(), encodedSize);
         // a->writeStream(decodedData);
-        _mtx.unlock();
+        this->_codec_mtx.unlock();
     }
 }
 

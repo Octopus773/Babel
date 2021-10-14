@@ -14,12 +14,12 @@
 #include "Network/UDPSocket.hpp"
 
 
-void audio_reception(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::Opus> opus, std::mutex &opusMtx)
+void audio_reception(const std::shared_ptr<Babel::IAudioManager> portAudio, const std::shared_ptr<Babel::ICodec> codec, std::mutex &audio_mtx, std::mutex &codec_mtx)
 {
-    auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565, opus, opusMtx);
+    auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565, portAudio, codec, audio_mtx, codec_mtx);
 }
 
-void audio_record(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::Opus> opus, std::mutex &opusMtx)
+void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::ICodec> opus, std::mutex &opusMtx)
 {
     std::vector<unsigned char> decoded;
     std::vector<int16_t> pcm;
@@ -43,16 +43,16 @@ void audio_record(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex 
 
 int main()
 {
-	auto portAudio = std::make_shared<Babel::PortAudio>();
-	auto opus = std::make_shared<Babel::Opus>();
+	std::shared_ptr<Babel::IAudioManager> portAudio = std::make_shared<Babel::PortAudio>();
+	std::shared_ptr<Babel::ICodec> opus = std::make_shared<Babel::Opus>();
     std::mutex opusMtx;
     std::mutex paMtx;
 
     portAudio->openStream();
 	portAudio->startStream();
 
-    std::thread audioReceptionThread(audio_reception, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
-    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
+    std::thread audioReceptionThread(audio_reception, portAudio, opus, std::ref(paMtx), std::ref(opusMtx));
+    //std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
 
 	return (EXIT_SUCCESS);
 }

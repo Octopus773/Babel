@@ -6,14 +6,16 @@
 #define BABEL_UDPSOCKET_HPP
 
 #include <QUdpSocket>
-#include "Audio/Opus/Opus.hpp"
+#include "Audio/Opus/ICodec.hpp"
+#include "Audio/IAudioManager.hpp"
+
 namespace Babel {
     //! @class wrappers around Qt UDP socket
     class UDPSocket : public QObject {
     Q_OBJECT
     public:
         //! @brief ctor
-        UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::Opus> opus, std::mutex &mtx);
+        UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::IAudioManager>, std::shared_ptr<Babel::ICodec>, std::mutex &, std::mutex &);
 
         //! @brief dtor
         ~UDPSocket() override;
@@ -32,8 +34,10 @@ namespace Babel {
 
     private:
         std::unique_ptr<QUdpSocket> _socket;
-        std::shared_ptr<Babel::Opus> _opus;
-        std::mutex &_mtx;
+        std::mutex &_audio_mtx;
+        std::mutex &_codec_mtx;
+        std::shared_ptr<Babel::IAudioManager> _audio;
+        std::shared_ptr<Babel::ICodec> _codec;
         std::string _address;
         std::int16_t _port;
     };
