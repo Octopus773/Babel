@@ -12,30 +12,32 @@
 #include "Network/QtTCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 #include "Network/UDPSocket.hpp"
+#include "Network/AudioPacket.hpp"
 
-
-void audio_reception(const std::shared_ptr<Babel::IAudioManager> portAudio, const std::shared_ptr<Babel::ICodec> codec, std::mutex &audio_mtx, std::mutex &codec_mtx)
+void audio_reception(const std::shared_ptr<Babel::UDPSocket> udpSocket)
 {
-    auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565, portAudio, codec, audio_mtx, codec_mtx);
+    udpSocket->initializeConnection();
 }
 
-void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::ICodec> opus, std::mutex &opusMtx)
+void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::ICodec> opus, std::mutex &opusMtx, const std::shared_ptr<Babel::UDPSocket> udpSocket, std::mutex &udpMtx)
 {
-    std::vector<unsigned char> decoded;
+    std::array<unsigned char, 4000> encoded {0};
     std::vector<int16_t> pcm;
 
-    decoded.reserve(4000);
     for (long i = 0; i < (portAudio->getRecordTime() * portAudio->getSampleRate()) / portAudio->getFramesPerBuffer(); i++) {
         try {
             paMtx.lock();
             std::vector<int16_t> data = portAudio->readStream();
             paMtx.unlock();
             opusMtx.lock();
-            auto encodedSize = opus->encode(data.data(), decoded.data());
+            opus->encode(data.data(), encoded.data());
             opusMtx.unlock();
+            udpMtx.lock();
+            udpSocket->write(encoded, "127.0.0.1", 25566);
+            udpMtx.unlock();
         }
         catch (const Babel::PortAudioException &e) {
-            std::cerr << e.what();
+            //std::cerr << e.what();
         }
     }
 }
@@ -46,12 +48,21 @@ int main()
 	std::shared_ptr<Babel::ICodec> opus = std::make_shared<Babel::Opus>();
     std::mutex opusMtx;
     std::mutex paMtx;
+    std::mutex udpMtx;
 
     portAudio->openStream();
 	portAudio->startStream();
 
-    std::thread audioReceptionThread(audio_reception, portAudio, opus, std::ref(paMtx), std::ref(opusMtx));
-    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
+    try {
+        std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("127.0.0.1", 25565, portAudio,
+                                                                                       opus, paMtx, opusMtx, udpMtx);
+
+        std::thread audioReceptionThread(audio_reception, udpSock);
+        std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
+                                    std::ref(udpMtx));
+    } catch (std::exception &e) {
+        return 84;
+    }
 
 	return (EXIT_SUCCESS);
 }
