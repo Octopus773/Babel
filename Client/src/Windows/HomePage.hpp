@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "UItestHomePage.hpp"
+#include "ui/UIHomePage.hpp"
 #include <QMainWindow>
 
 namespace Babel
@@ -19,10 +19,6 @@ namespace Babel
 		QMainWindow *_window;
 
 		Ui_babelHome _ui;
-
-
-
-
 	};
 }
 

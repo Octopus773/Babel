@@ -13,7 +13,7 @@
 #include "gui/QtBabelGui.hpp"
 #include "gui/QtHomePage.hpp"
 #include "Network/RFCCodes.hpp"
-#include "gui/HomePage.hpp"
+#include "Windows/HomePage.hpp"
 
 //int main()
 //{
