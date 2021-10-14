@@ -14,23 +14,26 @@
 #include "Network/UDPSocket.hpp"
 
 
-void audio_reception(const std::shared_ptr<Babel::Opus> &opus, std::mutex &opusMtx, std::mutex &paMtx)
+void audio_reception(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::Opus> opus, std::mutex &opusMtx)
 {
     auto udpSock = std::make_unique<Babel::UDPSocket>("127.0.0.1", 25565, opus, opusMtx);
 }
 
-void audio_record(std::mutex &paMtx)
+void audio_record(const std::shared_ptr<Babel::PortAudio> portAudio, std::mutex &paMtx, const std::shared_ptr<Babel::Opus> opus, std::mutex &opusMtx)
 {
     std::vector<unsigned char> decoded;
     std::vector<int16_t> pcm;
 
     decoded.reserve(4000);
-    for (long i = 0; i < (a->getRecordTime() * a->getSampleRate()) / a->getFramesPerBuffer(); i++) {
+    for (long i = 0; i < (portAudio->getRecordTime() * portAudio->getSampleRate()) / portAudio->getFramesPerBuffer(); i++) {
         try {
-            mtx.lock();
-            std::vector<int16_t> data = a->readStream();
+            paMtx.lock();
+            std::vector<int16_t> data = portAudio->readStream();
+            paMtx.unlock();
+            opusMtx.lock();
             auto encodedSize = opus->encode(data.data(), decoded.data());
-            mtx.unlock();
+            opusMtx.unlock();
+            // TODO: utilsier writeDatagram
         }
         catch (const Babel::PortAudioException &e) {
             std::cerr << e.what();
@@ -40,16 +43,16 @@ void audio_record(std::mutex &paMtx)
 
 int main()
 {
-	auto a = std::make_unique<Babel::PortAudio>();
+	auto portAudio = std::make_unique<Babel::PortAudio>();
 	auto opus = std::make_shared<Babel::Opus>();
     std::mutex opusMtx;
     std::mutex paMtx;
 
-    a->openStream();
-	a->startStream();
+    portAudio->openStream();
+	portAudio->startStream();
 
-    std::thread audioThread(audio_reception, opus, std::ref(opusMtx));
-    std::thread audioReadThread(audio_record, std::ref(paMtx));
+    //std::thread audioReceptionThread(audio_reception, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
+    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx));
 
 	return (EXIT_SUCCESS);
 }
