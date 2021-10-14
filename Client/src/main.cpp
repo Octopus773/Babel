@@ -53,16 +53,15 @@ int main()
     portAudio->openStream();
 	portAudio->startStream();
 
-    try {
-        std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("127.0.0.1", 25565, portAudio,
+    std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("127.0.0.1", 25565, portAudio,
                                                                                        opus, paMtx, opusMtx, udpMtx);
 
-        std::thread audioReceptionThread(audio_reception, udpSock);
-        std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
+    std::thread audioReceptionThread(audio_reception, udpSock);
+    std::thread audioSendThread(audio_record, portAudio, std::ref(paMtx), opus, std::ref(opusMtx), udpSock,
                                     std::ref(udpMtx));
-    } catch (std::exception &e) {
-        return 84;
-    }
+
+    audioReceptionThread.join();
+    audioSendThread.join();
 
 	return (EXIT_SUCCESS);
 }
