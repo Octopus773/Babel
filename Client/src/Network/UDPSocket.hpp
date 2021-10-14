@@ -26,6 +26,9 @@ namespace Babel {
         //! @brief closes the socket
         void close();
 
+
+		void printError(int socketError, const QString &message);
+
     public slots:
         //! @brief reads the incoming datagrams when they arrive
         void readPending();
