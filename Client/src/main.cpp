@@ -24,20 +24,23 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, std::mu
     std::array<unsigned char, 4000> encoded {0};
     std::vector<int16_t> pcm;
 
-    for (long i = 0; i < (portAudio->getRecordTime() * portAudio->getSampleRate()) / portAudio->getFramesPerBuffer(); i++) {
-        try {
-            paMtx.lock();
-            std::vector<int16_t> data = portAudio->readStream();
-            paMtx.unlock();
-            opusMtx.lock();
-            opus->encode(data.data(), encoded.data());
-            opusMtx.unlock();
-            udpMtx.lock();
-            udpSocket->write(encoded, "127.0.0.1", 25566);
-            udpMtx.unlock();
-        }
-        catch (const Babel::PortAudioException &e) {
-            //std::cerr << e.what();
+    while (1) {
+        for (long i = 0;
+             i < (portAudio->getRecordTime() * portAudio->getSampleRate()) / portAudio->getFramesPerBuffer(); i++) {
+            try {
+                paMtx.lock();
+                std::vector<int16_t> data = portAudio->readStream();
+                paMtx.unlock();
+                opusMtx.lock();
+                opus->encode(data.data(), encoded.data());
+                opusMtx.unlock();
+                udpMtx.lock();
+                udpSocket->write(encoded, "10.29.123.75", 25565);
+                udpMtx.unlock();
+            }
+            catch (const Babel::PortAudioException &e) {
+                //std::cerr << e.what();
+            }
         }
     }
 }
@@ -49,6 +52,7 @@ int main()
     std::mutex opusMtx;
     std::mutex paMtx;
     std::mutex udpMtx;
+    std::string address;
 
     portAudio->openStream();
 	portAudio->startStream();

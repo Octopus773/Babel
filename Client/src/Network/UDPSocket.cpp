@@ -16,7 +16,7 @@ Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_
     : _address(address), _port(port), _audio(audio), _codec(opus), _audio_mtx(audio_mtx), _codec_mtx(codec_mtx), _udpMtx(udpMtx)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
-    if (!this->_socket->bind(QHostAddress(_address.c_str()), _port))
+    if (!this->_socket->bind(QHostAddress::AnyIPv4, _port))
         throw NetworkException("UDPSocket: Cannot bind to port");
 }
 
