@@ -20,20 +20,15 @@ namespace Babel {
         //! @brief dtor
         ~UDPSocket() override;
 
-        //! @brief reads the incoming datagrams when they arrive
-        void readPending();
-
-        //! @brief calls the connect() which in turn will enable the datagram reception callback
-        void initializeConnection();
-
-        //! @brief reads maxSize from socket and writes to data
-        std::int64_t read(const std::shared_ptr<char>& data, std::int64_t maxSize);
-
         //! @brief writes data to socket
         std::int64_t write(std::array<unsigned char, 4000> &data, const std::string &address, int port);
 
         //! @brief closes the socket
         void close();
+
+    public slots:
+        //! @brief reads the incoming datagrams when they arrive
+        void readPending();
 
     private:
         std::unique_ptr<QUdpSocket> _socket;
