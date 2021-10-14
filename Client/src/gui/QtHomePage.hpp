@@ -28,7 +28,7 @@ public:
 };
 
 namespace Babel::Ui {
-    class HomePage : public QMainWindow, public Ui_HomePage
+    class HomePage : public QWidget, public Ui_HomePage
     {
 	Q_OBJECT
     public:

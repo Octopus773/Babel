@@ -8,7 +8,7 @@ void Ui_HomePage::setupUi(QWidget *HomePage)
         HomePage->setObjectName(QStringLiteral("HomePage"));
     HomePage->resize(466, 290);
     disconnectButton = new QPushButton(HomePage);
-    disconnectButton->setObjectName(QStringLiteral("disconnectButton"));
+    disconnectButton->setObjectName("disconnectButton");
     disconnectButton->setGeometry(QRect(360, 240, 75, 23));
     callUserButton = new QPushButton(HomePage);
     callUserButton->setObjectName(QStringLiteral("callUserButton"));
@@ -33,7 +33,7 @@ void Ui_HomePage::retranslateUi(QDialog * HomePage)
     onlineUsersLabel->setText(QApplication::translate("HomePage", "Other users on server", nullptr));
 }
 
-Babel::Ui::HomePage::HomePage(QWidget* parent): QMainWindow(parent), Ui_HomePage()
+Babel::Ui::HomePage::HomePage(QWidget* parent): QWidget(parent), Ui_HomePage()
 {
     this->setupUi(this);
     connect(this->disconnectButton, SIGNAL(clicked()), this, SLOT(disconnectButtonCallback()));

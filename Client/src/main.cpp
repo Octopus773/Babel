@@ -13,6 +13,7 @@
 #include "gui/QtBabelGui.hpp"
 #include "gui/QtHomePage.hpp"
 #include "Network/RFCCodes.hpp"
+#include "gui/HomePage.hpp"
 
 //int main()
 //{
@@ -49,9 +50,8 @@ int main(int argc, char *argv[])
 
 	QApplication app(argc, argv);
 
-	Babel::Ui::HomePage truc;
+	Babel::HomePage truc;
 
-	truc.show();
 
 	//QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
 
