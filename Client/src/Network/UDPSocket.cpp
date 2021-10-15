@@ -58,12 +58,19 @@ void Babel::UDPSocket::readPending()
 
         std::cout << milliseconds.count() << std::endl;
 
-        if (abs(milliseconds.count()) >= 200) {
+        if (abs(milliseconds.count()) >= 20) {
             std::cout << "Flushing buffer" << std::endl;
             for (auto &payload : _inputBuffer) {
                 std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-                    _codec->decode(payload.second.data(), decodedData.data(), payload.second.size());
-                    _audio->writeStream(decodedData);
+                    _codec->decode(payload.second.data(), decodedData.data(), decodedData.size());
+                    try
+                    {
+                        _audio->writeStream(decodedData);
+                    }
+                    catch(const std::exception& e)
+                    {
+                        std::cerr << e.what() << '\n';
+                    }
             }
             _inputBuffer.clear();
             _clock = std::chrono::system_clock::now();
