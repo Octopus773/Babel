@@ -72,6 +72,12 @@ namespace Babel
 		//! @brief handler for any simple responses (opens a dialog if error) otherwise do nothing
 		void onBasicResponse(const Message<RFCCodes> &m);
 
+		void handleIncomingCall(const Message<RFCCodes> &m);
+
+		void handleUserJoined(const Message<RFCCodes> &m);
+
+		void handleUserLeft(const Message<RFCCodes> &m);
+
 		//! @brief Update qt interface to display the correct username and infos
 		void updateDisplaySelectedUser();
 

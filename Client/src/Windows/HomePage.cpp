@@ -46,6 +46,21 @@ namespace Babel
 			                    MessageHandler{[this](const Message<RFCCodes> &m) {
 				                    this->onBasicResponse(m);
 			                    }}
+			                   },
+			                   {RFCCodes::Called,
+			                    MessageHandler{[this](const Message<RFCCodes> &m) {
+				                    this->handleIncomingCall(m);
+			                    }}
+			                   },
+			                   {RFCCodes::UserJoinedCall,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->handleUserJoined(m);
+				                   }}
+			                   },
+			                   {RFCCodes::UserLeftCall,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->handleUserLeft(m);
+				                   }}
 			                   }
 		  }),
 		  _currentCallId(CurrentlyNotInCall)
@@ -86,15 +101,19 @@ namespace Babel
 
 	void HomePage::onMessage(Message<RFCCodes> m)
 	{
-		if (this->_requestsMade.empty()
-		|| m.header.codeId == RFCCodes::Called
+		RFCCodes requestType;
+		if (m.header.codeId == RFCCodes::Called
 		|| m.header.codeId == RFCCodes::UserJoinedCall
 		|| m.header.codeId == RFCCodes::UserLeftCall) {
 			std::cout << "receiving event: header codeId: " << static_cast<uint16_t>(m.header.codeId) << std::endl;
+			requestType = m.header.codeId;
+		} else if (this->_requestsMade.empty()) {
+			std::cout << "receiving response but no request left" << std::endl;
 			return;
+		} else {
+			requestType = this->_requestsMade.popFront();
 		}
 
-		const RFCCodes &requestType = this->_requestsMade.popFront();
 		if (!this->_messageHandlers.contains(requestType)) {
 			std::cout << "no handler for this message type: " << static_cast<uint16_t>(requestType) << std::endl;
 			return;
@@ -321,6 +340,80 @@ namespace Babel
 		m << static_cast<uint8_t>(address.size()) << address << port;
 
 		this->sendHandler(m);
+	}
+
+	void HomePage::handleIncomingCall(const Message<RFCCodes> &m)
+	{
+		Message<RFCCodes> message(m);
+
+		uint16_t callId;
+		message >> callId;
+		std::string invitator;
+		Utils::getString(message, invitator);
+
+
+		QMessageBox msgBox;
+		msgBox.setText(QString::fromStdString("You're receiving an incoming from " + invitator + "\nDo you accept it ?"));
+		msgBox.setWindowTitle("Babel");
+		msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+		msgBox.setDefaultButton(QMessageBox::Yes);
+		msgBox.setIcon(QMessageBox::Question);
+		switch (msgBox.exec()) {
+		case QMessageBox::Yes:
+			this->doJoinCall(callId, "127.0.0.1", 46579);
+			break;
+		case QMessageBox::No:
+		default:
+			this->doDenyCall(callId);
+			break;
+		}
+
+	}
+
+	void HomePage::handleUserJoined(const Message<RFCCodes> &m)
+	{
+		if (this->_currentCallId == CurrentlyNotInCall) {
+			return;
+		}
+		Message<RFCCodes> message(m);
+		std::string address;
+		Utils::getString(message, address);
+		uint16_t port;
+		message >> port;
+		std::string username;
+		Utils::getString(message, username);
+
+		this->_usersInfos[username].address = address;
+		this->_usersInfos[username].port = port;
+		this->_usersInfos[username].canBeCalled = false;
+
+		this->_usersInCurrentCall.push_back(username);
+
+		this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
+
+		// todo send our udp data to his socket
+	}
+
+	void HomePage::handleUserLeft(const Message<RFCCodes> &m)
+	{
+		if (this->_currentCallId == CurrentlyNotInCall) {
+			return;
+		}
+		Message<RFCCodes> message(m);
+
+		std::string username;
+		Utils::getString(message, username);
+
+		// todo stop sending our udp data to this username
+
+		this->_usersInCurrentCall.erase(
+			std::remove(this->_usersInCurrentCall.begin(), this->_usersInCurrentCall.end(), username),
+			this->_usersInCurrentCall.end());
+
+		auto namesToRemove = this->_ui.output_connected_user_list->findItems(QString::fromStdString(username), Qt::MatchExactly);
+		for (auto name : namesToRemove) {
+			delete name;
+		}
 	}
 
 	HomePage::UserInfo::UserInfo(bool cBC)
