@@ -21,12 +21,30 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
             try {
                 // Enregistrement du son
                 std::vector<int16_t> data = portAudio->readStream();
-                std::cout << "received data" << std::endl;
+
                 // Compression
-                opus->encode(data.data(), encoded.data());
+                std::int32_t sizeSent = opus->encode(data.data(), encoded.data());
+
+                // on fait un paquet
+                Babel::AudioPacket packetEnvoye(encoded, sizeSent);
+                char toSend[sizeof(Babel::AudioPacket)];
+                std::memcpy(toSend, &packetEnvoye, sizeof(packetEnvoye));
+
+                // on déballe
+                auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (toSend);
+                std::uint64_t timestamp = packetRecu->timestamp;
+                std::int32_t sizeRecu = packetRecu->size;
+                std::vector<unsigned char> encodedReceived(sizeRecu);
+                std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
+                std::cout << "Timestamp = " << timestamp << " & size = " << sizeRecu << std::endl;
+
+                // on décode
+                std::vector<std::int16_t> decodedData(portAudio->getFramesPerBuffer() * portAudio->getInputChannelsNumber(), 0);
+                opus->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
+                portAudio->writeStream(decodedData);
 
                 // Envoi sur network
-                udpSocket->write(encoded, "127.0.0.1", 25565);
+                //udpSocket->write(encoded, size ,"127.0.0.1", 25565);
             } catch (const Babel::PortAudioException &e) {
                 //std::cerr << e.what();
             }

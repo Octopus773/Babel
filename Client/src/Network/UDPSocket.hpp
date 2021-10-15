@@ -22,7 +22,7 @@ namespace Babel {
         ~UDPSocket() override;
 
         //! @brief writes data to socket
-        std::int64_t write(std::array<unsigned char, 4000> &data, const std::string &address, int port);
+        std::int64_t write(std::array<unsigned char, 4000> &data, std::uint32_t size, const std::string &address, int port);
 
         //! @brief closes the socket
         void close();

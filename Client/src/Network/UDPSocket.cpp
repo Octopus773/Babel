@@ -27,9 +27,9 @@ Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioMana
     _clock = std::chrono::system_clock::now();
 }
 
-std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, const std::string &address, int port)
+std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, std::uint32_t size, const std::string &address, int port)
 {
-    AudioPacket packet(data);
+    AudioPacket packet(data, size);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
 
@@ -44,18 +44,26 @@ void Babel::UDPSocket::readPending()
         //std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
-        AudioPacket *packet = (AudioPacket *) (datagram.data().data());
-
+        // Unpack
+        AudioPacket *packet = reinterpret_cast<AudioPacket *> (datagram.data().data());
         std::uint64_t timestamp = packet->timestamp;
+        std::int32_t size = packet->size;
+        std::vector<unsigned char> encoded(size);
+        std::memcpy(encoded.data(), packet->data, size);
+        std::cout << "Timestamp = " << timestamp << " & size = " << size << std::endl;
 
-        std::vector<unsigned char> encoded(4000);
-        std::memcpy(encoded.data(), packet->data, 4000);
+        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
+        _codec->decode(encoded.data(), decodedData.data(), size);
+        try {
+            _audio->writeStream(decodedData);
+        } catch (const std::exception &e) {
 
-        std::cout << "Inserting packet " << packet->timestamp << std::endl;
+        }
+
         //_inputBuffer.insert({timestamp, encoded});
-        _inputBuffer2.push_back(encoded);
+        //_inputBuffer2.push_back(encoded);
 
-        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
+        //auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
 
         /*
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
@@ -71,10 +79,10 @@ void Babel::UDPSocket::readPending()
         }
          */
 
-        std::cout << "Timestamp = " << timestamp << std::endl;
         //std::cout << "Map size = " << _inputBuffer.size() << std::endl;
-        std::cout << "Vector size = " << _inputBuffer2.size() << std::endl;
+        //std::cout << "Vector size = " << _inputBuffer2.size() << std::endl;
 
+        /*
         if (_inputBuffer2.size() >= 10) {
             std::cout << "Flushing buffer" << std::endl;
             for (auto &payload : _inputBuffer2) {
@@ -92,6 +100,7 @@ void Babel::UDPSocket::readPending()
             _inputBuffer2.clear();
             _clock = std::chrono::system_clock::now();
         }
+        */
     }
 }
 
