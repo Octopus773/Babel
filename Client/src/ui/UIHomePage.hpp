@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'babelHomePageStmqUP.ui'
+** Form generated from reading UI file 'babelHomePagepnhSyr.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef BABELHOMEPAGESTMQUP_H
-#define BABELHOMEPAGESTMQUP_H
+#ifndef BABELHOMEPAGEPNHSYR_H
+#define BABELHOMEPAGEPNHSYR_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -18,10 +18,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -58,8 +56,13 @@ public:
 	QCheckBox *output_can_be_called;
 	QLabel *label_6;
 	QPushButton *button_call_user;
-	QMenuBar *menubar;
-	QStatusBar *statusbar;
+	QWidget *page4;
+	QLabel *label_7;
+	QWidget *gridLayoutWidget;
+	QGridLayout *gridLayout;
+	QListWidget *output_list_call_members;
+	QLabel *label_8;
+	QPushButton *button_hang_up;
 
 	void setupUi(QMainWindow *babelHome)
 	{
@@ -73,6 +76,7 @@ public:
 		formTabWidget = new QTabWidget(centralwidget);
 		formTabWidget->setObjectName(QString::fromUtf8("formTabWidget"));
 		formTabWidget->setEnabled(true);
+		formTabWidget->setTabShape(QTabWidget::Rounded);
 		page1 = new QWidget();
 		page1->setObjectName(QString::fromUtf8("page1"));
 		formLayoutWidget_2 = new QWidget(page1);
@@ -188,21 +192,41 @@ public:
 		button_call_user->setEnabled(false);
 		button_call_user->setGeometry(QRect(470, 200, 235, 27));
 		formTabWidget->addTab(page3, QString());
+		page4 = new QWidget();
+		page4->setObjectName(QString::fromUtf8("page4"));
+		label_7 = new QLabel(page4);
+		label_7->setObjectName(QString::fromUtf8("label_7"));
+		label_7->setGeometry(QRect(340, 10, 101, 41));
+		gridLayoutWidget = new QWidget(page4);
+		gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
+		gridLayoutWidget->setGeometry(QRect(160, 60, 461, 321));
+		gridLayout = new QGridLayout(gridLayoutWidget);
+		gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+		gridLayout->setContentsMargins(0, 0, 0, 0);
+		output_list_call_members = new QListWidget(gridLayoutWidget);
+		output_list_call_members->setObjectName(QString::fromUtf8("output_list_call_members"));
+
+		gridLayout->addWidget(output_list_call_members, 1, 0, 1, 1);
+
+		label_8 = new QLabel(gridLayoutWidget);
+		label_8->setObjectName(QString::fromUtf8("label_8"));
+
+		gridLayout->addWidget(label_8, 0, 0, 1, 1);
+
+		button_hang_up = new QPushButton(gridLayoutWidget);
+		button_hang_up->setObjectName(QString::fromUtf8("button_hang_up"));
+
+		gridLayout->addWidget(button_hang_up, 2, 0, 1, 1);
+
+		formTabWidget->addTab(page4, QString());
 
 		verticalLayout->addWidget(formTabWidget);
 
 		babelHome->setCentralWidget(centralwidget);
-		menubar = new QMenuBar(babelHome);
-		menubar->setObjectName(QString::fromUtf8("menubar"));
-		menubar->setGeometry(QRect(0, 0, 800, 24));
-		babelHome->setMenuBar(menubar);
-		statusbar = new QStatusBar(babelHome);
-		statusbar->setObjectName(QString::fromUtf8("statusbar"));
-		babelHome->setStatusBar(statusbar);
 
 		retranslateUi(babelHome);
 
-		formTabWidget->setCurrentIndex(0);
+		formTabWidget->setCurrentIndex(3);
 
 
 		QMetaObject::connectSlotsByName(babelHome);
@@ -225,6 +249,10 @@ public:
 		label_6->setText(QCoreApplication::translate("babelHome", "Can be called", nullptr));
 		button_call_user->setText(QCoreApplication::translate("babelHome", "Call user", nullptr));
 		formTabWidget->setTabText(formTabWidget->indexOf(page3), QCoreApplication::translate("babelHome", "Server", nullptr));
+		label_7->setText(QCoreApplication::translate("babelHome", "Ongoing call", nullptr));
+		label_8->setText(QCoreApplication::translate("babelHome", "Call members", nullptr));
+		button_hang_up->setText(QCoreApplication::translate("babelHome", "Hang Up", nullptr));
+		formTabWidget->setTabText(formTabWidget->indexOf(page4), QCoreApplication::translate("babelHome", "Call", nullptr));
 	} // retranslateUi
 
 };
@@ -235,4 +263,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGESTMQUP_H
+#endif // BABELHOMEPAGEPNHSYR_H

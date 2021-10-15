@@ -23,11 +23,7 @@ namespace Babel
 
 		QMainWindow *_window;
 
-		QMainWindow *_windowLogin;
-
 		Ui_babelHome _ui{};
-
-		Ui_Login _uiLogin{};
 
 		QtTCPConnection connection;
 
@@ -45,11 +41,19 @@ namespace Babel
 
 		void doListUsers();
 
+		void doCallUser();
+
 		//! @brief handler for any responses of the login request
 		void onLoginResponse(const Message<RFCCodes> &m);
 
 		//! @brief handler for any responses of the listuser request
 		void onListUsersResponse(const Message<RFCCodes> &m);
+
+		//! @brief handler for any responses of the callUser request
+		void onCallUserResponse(const Message<RFCCodes> &m);
+
+		//! @brief handler for any responses of the joinCall request
+		void onJoinCall(const Message<RFCCodes> &m);
 
 		//! @brief Update qt interface to display the correct username and infos
 		void updateDisplaySelectedUser();

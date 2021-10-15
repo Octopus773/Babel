@@ -16,8 +16,6 @@ namespace Babel
 
 	HomePage::HomePage()
 		: _window(new QMainWindow()),
-
-		  _windowLogin(new QMainWindow()),
 		  _messageHandlers({
 			                   {RFCCodes::Login,
 								MessageHandler{[this](const Message<RFCCodes> &m) {
@@ -28,11 +26,15 @@ namespace Babel
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
 					                   this->onListUsersResponse(m);
 				                   }}
+			                   },
+			                   {RFCCodes::Call,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onCallUserResponse(m);
+				                   }}
 			                   }
 		  })
 	{
 		this->_ui.setupUi(this->_window);
-		this->_uiLogin.setupUi(this->_windowLogin);
 
 		this->connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
 			this->onMessage(std::move(m));
@@ -44,7 +46,6 @@ namespace Babel
 		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
 
 		this->_window->show();
-		//this->_windowLogin->show();
 		this->_ui.page2->setDisabled(true);
 	}
 
@@ -149,5 +150,56 @@ namespace Babel
 		this->_ui.output_selected_username->setText(value);
 		this->_ui.output_can_be_called->setChecked(userInfo.canBeCalled);
 		this->_ui.button_call_user->setEnabled(userInfo.canBeCalled);
+	}
+
+	void HomePage::doCallUser()
+	{
+		QString value = this->_ui.output_connected_user_list->currentItem()->text();
+		std::string usernameToCall = value.toStdString();
+
+		if (!this->_usersInfos.contains(usernameToCall)) {
+			std::cout << "doCallUser: no corresponding user" << std::endl;
+			return;
+		}
+		UserInfo &userToCall = this->_usersInfos[usernameToCall];
+
+		Message<RFCCodes> m;
+
+		m.header.codeId = RFCCodes::Call;
+		m << static_cast<uint8_t>(usernameToCall.size()) << usernameToCall;
+
+		this->sendHandler(m);
+	}
+
+	void HomePage::onCallUserResponse(const Message<RFCCodes> &m)
+	{
+		uint16_t codeId;
+
+		Message<RFCCodes> message(m);
+		message >> codeId;
+
+		std::string desc;
+		Utils::getString(message, desc);
+
+		if (codeId != 1) {
+			std::cout << "error: callUser" << desc << std::endl;
+			return;
+		}
+
+		uint16_t callId;
+		if (!Utils::tryParse(desc, callId)) {
+			std::cout << "error: callUser callId" << std::endl;
+			return;
+		}
+
+		message.reset();
+		message.header.codeId = RFCCodes::Accept;
+		message << callId;
+		this->sendHandler(message);
+	}
+
+	void HomePage::onJoinCall(const Message<RFCCodes> &m)
+	{
+
 	}
 }
