@@ -78,9 +78,12 @@ namespace Babel
 		                 &HomePage::updateDisplaySelectedUser);
 		QObject::connect(this->_ui.button_call_user, &QPushButton::clicked, this, &HomePage::doCallUser);
 		QObject::connect(this->_ui.button_hang_up, &QPushButton::clicked, this, &HomePage::doHangUp);
+		QObject::connect(this->_ui.button_refresh_connected_user_list, &QPushButton::clicked, this, &HomePage::doListUsers);
 
 		this->_window->show();
 		this->_ui.page_login->setDisabled(true);
+		this->_ui.page_call->setDisabled(true);
+		this->_ui.page_server->setDisabled(true);
 	}
 
 	void HomePage::doConnect()
@@ -141,8 +144,9 @@ namespace Babel
 			                         tr(desc.data()));
 			return;
 		}
-		this->_ui.page_login->setDisabled(false);
+		this->_ui.page_server->setDisabled(false);
 		this->doListUsers();
+		this->changeCurrentUITab("page_server");
 	}
 
 	void HomePage::sendHandler(const Message<RFCCodes> &m)
@@ -161,6 +165,8 @@ namespace Babel
 			std::cout << "error in list users" << std::endl;
 			return;
 		}
+
+		this->_ui.output_connected_user_list->clear();
 
 		uint16_t arrayLength;
 		message >> arrayLength;

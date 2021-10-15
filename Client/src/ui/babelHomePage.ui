@@ -182,7 +182,7 @@
             <bool>false</bool>
            </property>
            <property name="text">
-            <string>   </string>
+            <string/>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -221,6 +221,19 @@
         </property>
         <property name="text">
          <string>Call user</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="button_refresh_connected_user_list">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>490</y>
+          <width>87</width>
+          <height>27</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Refresh</string>
         </property>
        </widget>
       </widget>

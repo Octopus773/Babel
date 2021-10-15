@@ -26,7 +26,7 @@ namespace Babel
 			case QAbstractSocket::ConnectionRefusedError:
 				QMessageBox::information(parent, tr("Babel"),
 				                         tr("The connection was refused by the peer. "
-				                            "Make sure the fortune server is running, "
+				                            "Make sure the Babel server is running, "
 				                            "and check that the host name and port "
 				                            "settings are correct."));
 				break;

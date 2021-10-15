@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'babelHomePagePiDsEW.ui'
+** Form generated from reading UI file 'babelHomePageuxSMrs.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef BABELHOMEPAGEPIDSEW_H
-#define BABELHOMEPAGEPIDSEW_H
+#ifndef BABELHOMEPAGEUXSMRS_H
+#define BABELHOMEPAGEUXSMRS_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -56,6 +56,7 @@ public:
 	QCheckBox *output_can_be_called;
 	QLabel *label_6;
 	QPushButton *button_call_user;
+	QPushButton *button_refresh_connected_user_list;
 	QWidget *page_call;
 	QLabel *label_7;
 	QWidget *gridLayoutWidget;
@@ -191,6 +192,9 @@ public:
 		button_call_user->setObjectName(QString::fromUtf8("button_call_user"));
 		button_call_user->setEnabled(false);
 		button_call_user->setGeometry(QRect(470, 200, 235, 27));
+		button_refresh_connected_user_list = new QPushButton(page_server);
+		button_refresh_connected_user_list->setObjectName(QString::fromUtf8("button_refresh_connected_user_list"));
+		button_refresh_connected_user_list->setGeometry(QRect(30, 490, 87, 27));
 		tab_handler->addTab(page_server, QString());
 		page_call = new QWidget();
 		page_call->setObjectName(QString::fromUtf8("page_call"));
@@ -248,6 +252,7 @@ public:
 		output_can_be_called->setText(QString());
 		label_6->setText(QCoreApplication::translate("babelHome", "Can be called", nullptr));
 		button_call_user->setText(QCoreApplication::translate("babelHome", "Call user", nullptr));
+		button_refresh_connected_user_list->setText(QCoreApplication::translate("babelHome", "Refresh", nullptr));
 		tab_handler->setTabText(tab_handler->indexOf(page_server), QCoreApplication::translate("babelHome", "Server", nullptr));
 		label_7->setText(QCoreApplication::translate("babelHome", "Ongoing call", nullptr));
 		label_8->setText(QCoreApplication::translate("babelHome", "Call members", nullptr));
@@ -263,4 +268,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGEPIDSEW_H
+#endif // BABELHOMEPAGEUXSMRS_H
