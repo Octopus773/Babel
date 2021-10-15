@@ -56,13 +56,24 @@ void Babel::UDPSocket::readPending()
 
         auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
 
-        std::cout << milliseconds.count() << std::endl;
+        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
+        std::cout << "packet data size = " << size << std::endl;
+        _codec->decode(encoded.data(), decodedData.data(), size);
+        try
+        {
+            _audio->writeStream(decodedData);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
 
-        if (abs(milliseconds.count()) >= 20) {
+        /*
+        if (abs(milliseconds.count()) >= 1) {
             std::cout << "Flushing buffer" << std::endl;
             for (auto &payload : _inputBuffer) {
                 std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-                    _codec->decode(payload.second.data(), decodedData.data(), decodedData.size());
+                    _codec->decode(payload.second.data(), decodedData.data(), payload.second.size());
                     try
                     {
                         _audio->writeStream(decodedData);
@@ -75,6 +86,7 @@ void Babel::UDPSocket::readPending()
             _inputBuffer.clear();
             _clock = std::chrono::system_clock::now();
         }
+         */
     }
 }
 
