@@ -18,10 +18,10 @@ namespace Babel
 		: _window(new QMainWindow()),
 		  _messageHandlers({
 			                   {RFCCodes::Login,
-								MessageHandler{[this](const Message<RFCCodes> &m) {
-									this->onLoginResponse(m);
-								}}
-							   },
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onLoginResponse(m);
+				                   }}
+			                   },
 			                   {RFCCodes::ListUsers,
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
 					                   this->onListUsersResponse(m);
@@ -43,14 +43,14 @@ namespace Babel
 				                   }}
 			                   },
 			                   {RFCCodes::DenyCall,
-			                    MessageHandler{[this](const Message<RFCCodes> &m) {
-				                    this->onBasicResponse(m);
-			                    }}
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onBasicResponse(m);
+				                   }}
 			                   },
 			                   {RFCCodes::Called,
-			                    MessageHandler{[this](const Message<RFCCodes> &m) {
-				                    this->handleIncomingCall(m);
-			                    }}
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->handleIncomingCall(m);
+				                   }}
 			                   },
 			                   {RFCCodes::UserJoinedCall,
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
@@ -62,7 +62,7 @@ namespace Babel
 					                   this->handleUserLeft(m);
 				                   }}
 			                   }
-		  }),
+		                   }),
 		  _currentCallId(CurrentlyNotInCall)
 	{
 		this->_ui.setupUi(this->_window);
@@ -74,7 +74,8 @@ namespace Babel
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
-		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
+		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this,
+		                 &HomePage::updateDisplaySelectedUser);
 		QObject::connect(this->_ui.button_call_user, &QPushButton::clicked, this, &HomePage::doCallUser);
 		QObject::connect(this->_ui.button_hang_up, &QPushButton::clicked, this, &HomePage::doHangUp);
 
@@ -103,8 +104,8 @@ namespace Babel
 	{
 		RFCCodes requestType;
 		if (m.header.codeId == RFCCodes::Called
-		|| m.header.codeId == RFCCodes::UserJoinedCall
-		|| m.header.codeId == RFCCodes::UserLeftCall) {
+		    || m.header.codeId == RFCCodes::UserJoinedCall
+		    || m.header.codeId == RFCCodes::UserLeftCall) {
 			std::cout << "receiving event: header codeId: " << static_cast<uint16_t>(m.header.codeId) << std::endl;
 			requestType = m.header.codeId;
 		} else if (this->_requestsMade.empty()) {
@@ -137,11 +138,11 @@ namespace Babel
 
 		if (codeId != 1) {
 			QMessageBox::information(nullptr, tr("Babel"),
-			                         tr(desc.data() ));
+			                         tr(desc.data()));
 			return;
 		}
-			this->_ui.page_login->setDisabled(false);
-			this->doListUsers();
+		this->_ui.page_login->setDisabled(false);
+		this->doListUsers();
 	}
 
 	void HomePage::sendHandler(const Message<RFCCodes> &m)
@@ -353,18 +354,17 @@ namespace Babel
 
 
 		QMessageBox msgBox;
-		msgBox.setText(QString::fromStdString("You're receiving an incoming from " + invitator + "\nDo you accept it ?"));
+		msgBox.setText(
+			QString::fromStdString("You're receiving an incoming from " + invitator + "\nDo you accept it ?"));
 		msgBox.setWindowTitle("Babel");
 		msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 		msgBox.setDefaultButton(QMessageBox::Yes);
 		msgBox.setIcon(QMessageBox::Question);
 		switch (msgBox.exec()) {
-		case QMessageBox::Yes:
-			this->doJoinCall(callId, "127.0.0.1", 46579);
+		case QMessageBox::Yes: this->doJoinCall(callId, "127.0.0.1", 46579);
 			break;
 		case QMessageBox::No:
-		default:
-			this->doDenyCall(callId);
+		default: this->doDenyCall(callId);
 			break;
 		}
 
@@ -410,8 +410,9 @@ namespace Babel
 			std::remove(this->_usersInCurrentCall.begin(), this->_usersInCurrentCall.end(), username),
 			this->_usersInCurrentCall.end());
 
-		auto namesToRemove = this->_ui.output_connected_user_list->findItems(QString::fromStdString(username), Qt::MatchExactly);
-		for (auto name : namesToRemove) {
+		auto namesToRemove = this->_ui.output_connected_user_list->findItems(QString::fromStdString(username),
+		                                                                     Qt::MatchExactly);
+		for (auto name: namesToRemove) {
 			delete name;
 		}
 	}
