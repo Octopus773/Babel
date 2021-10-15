@@ -84,6 +84,7 @@ int32_t Babel::PortAudio::getRecordTime() const
 
 void Babel::PortAudio::openStream()
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	int32_t err = paNoError;
 	PaStreamParameters inputParameters;
 	PaStreamParameters outputParameters;
@@ -111,6 +112,7 @@ void Babel::PortAudio::openStream()
 
 void Babel::PortAudio::startStream()
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	int32_t err = paNoError;
 
 	if (!this->_stream)
@@ -127,6 +129,7 @@ void Babel::PortAudio::startStream()
 
 void Babel::PortAudio::stopStream()
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	if (!this->_stream) {
 		std::cerr << "Error: stream is not set" << std::endl;
 		return;
@@ -142,6 +145,7 @@ void Babel::PortAudio::stopStream()
 
 void Babel::PortAudio::closeStream()
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	if (!this->_stream) {
 		std::cerr << "Error: stream is not set" << std::endl;
 		return;
@@ -154,6 +158,7 @@ void Babel::PortAudio::closeStream()
 
 std::vector<int16_t> Babel::PortAudio::readStream()
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	std::vector<int16_t> data(this->_framesPerBuffer * this->_inputNumberChannels);
 	int32_t err = paNoError;
 
@@ -170,6 +175,7 @@ std::vector<int16_t> Babel::PortAudio::readStream()
 
 void Babel::PortAudio::writeStream(std::vector<int16_t> &data)
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
 	int32_t err = paNoError;
 
 	if (!this->_stream)

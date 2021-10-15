@@ -9,6 +9,7 @@
 
 #include "IAudioManager.hpp"
 #include <portaudio.h>
+#include <mutex>
 
 #define PA_SAMPLE_TYPE paInt16
 
@@ -56,10 +57,10 @@ namespace Babel
 		void startStream() override;
 
 		//! @brief Stop a stream
-		void stopStream() override final;
+		void stopStream() override;
 
 		//! @brief Close current stream
-		void closeStream() override final;
+		void closeStream() override;
 
 		//! @brief Read an array of int16_t from current stream
 		std::vector<int16_t> readStream() override;
@@ -84,5 +85,7 @@ namespace Babel
 		int32_t _samplerate;
 		//@! True if the stream doesn't exist or has not been started
 		bool _streamStopped;
+        //@! class mutex
+        std::mutex _mutex;
 	};
 }

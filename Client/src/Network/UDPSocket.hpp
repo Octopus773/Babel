@@ -15,7 +15,7 @@ namespace Babel {
     Q_OBJECT
     public:
         //! @brief ctor
-        UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::IAudioManager>, std::shared_ptr<Babel::ICodec>, std::mutex &, std::mutex &, std::mutex &);
+        UDPSocket(const std::string &address, std::int16_t port, std::shared_ptr<Babel::IAudioManager>, std::shared_ptr<Babel::ICodec>);
 
         //! @brief dtor
         ~UDPSocket() override;
@@ -26,18 +26,12 @@ namespace Babel {
         //! @brief closes the socket
         void close();
 
-
-		void printError(int socketError, const QString &message);
-
-    public slots:
         //! @brief reads the incoming datagrams when they arrive
         void readPending();
 
     private:
         std::unique_ptr<QUdpSocket> _socket;
-        std::mutex &_audio_mtx;
-        std::mutex &_codec_mtx;
-        std::mutex &_udpMtx;
+        std::mutex _mutex;
         std::shared_ptr<Babel::IAudioManager> _audio;
         std::shared_ptr<Babel::ICodec> _codec;
         std::string _address;

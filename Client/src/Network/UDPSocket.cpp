@@ -17,35 +17,30 @@ void onError()
     std::cout << "Error when receiving packet" << std::endl;
 }
 
-Babel::UDPSocket::UDPSocket(std::string address, std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus, std::mutex &audio_mtx, std::mutex &codec_mtx, std::mutex &udpMtx)
-    : _audio_mtx(audio_mtx), _codec_mtx(codec_mtx), _udpMtx(udpMtx),  _audio(audio), _codec(opus), _address(address), _port(port)
+Babel::UDPSocket::UDPSocket(const std::string &address, std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus)
+    : _audio(audio), _codec(opus), _address(address), _port(port)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
-    _socket->abort();
     if (!this->_socket->bind(QHostAddress::AnyIPv4, port))
         throw NetworkException("UDPSocket: Cannot bind to port");
-    else
-        std::cout << "UDP socket bind to " << address << ":" << port << std::endl;
-    //connect(_socket.get(), SIGNAL(readyRead()), this, SLOT(readPending()));
     connect(_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
 }
 
 std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, const std::string &address, int port)
 {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     AudioPacket packet(data);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
 
-    //_udpMtx.lock();
     std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
-    //_udpMtx.unlock();
     std::cout << "Sent " << result << " sized packet to " << address << ":" << port << std::endl;
     return result;
 }
 
 void Babel::UDPSocket::readPending()
 {
-    std::cout << "Received packets" << std::endl;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     while (this->_socket->hasPendingDatagrams()) {
         std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
@@ -60,12 +55,8 @@ void Babel::UDPSocket::readPending()
         std::memcpy(encoded.data(), packet->data, size);
 
         try {
-            //this->_codec_mtx.lock();
             _codec->decode(encoded.data(), decodedData.data(), size);
-            //this->_codec_mtx.unlock();
-            this->_audio_mtx.lock();
             _audio->writeStream(decodedData);
-            this->_audio_mtx.unlock();
         } catch (Exception::BabelException &e) {
             //std::cout << "Packet received error when encoding/reading" << std::endl;
         }
