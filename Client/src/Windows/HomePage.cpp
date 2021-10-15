@@ -15,7 +15,14 @@ namespace Babel
 
 	HomePage::HomePage()
 		: _window(new QMainWindow()),
-		  _windowLogin(new QMainWindow())
+		  _windowLogin(new QMainWindow()),
+		  _messageHandlers({
+			                   {RFCCodes::Login,
+								MessageHandler{[this](const Message<RFCCodes> &m) {
+									this->onLoginResponse(m);
+								}}
+							   }
+		  })
 	{
 		this->_ui.setupUi(this->_window);
 		this->_uiLogin.setupUi(this->_windowLogin);
@@ -52,20 +59,47 @@ namespace Babel
 		//m << "i'm from qT5";
 		m << static_cast<uint8_t>(username.size()) << username;
 		if (!username.empty()) {
-			this->connection.send(m);
+			this->sendHandler(m);
 		}
 	}
 
 	void HomePage::onMessage(Message<RFCCodes> m)
 	{
+		if (this->_requestsMade.empty()) {
+			std::cout << "receiving event" << std::endl;
+			return;
+		}
+
+		const RFCCodes &requestType = this->_requestsMade.popFront();
+		if (!this->_messageHandlers.contains(requestType)) {
+			std::cout << "no handler for this message type: " << static_cast<uint16_t>(requestType) << std::endl;
+			return;
+		}
+		this->_messageHandlers[requestType].method(m);
+	}
+
+	void HomePage::onLoginResponse(const Message<RFCCodes> &m)
+	{
 		uint16_t codeId;
 		uint8_t descLength;
 
-		m >> codeId >> descLength;
+		Message<RFCCodes> message(m);
+
+		message >> codeId >> descLength;
 
 		std::string desc;
-		Message<RFCCodes>::GetBytes(m, desc, descLength);
+		Message<RFCCodes>::GetBytes(message, desc, descLength);
 
 		std::cout << "CodeId: " << codeId << " desc: " << desc << std::endl;
+
+		if (codeId) {
+			this->_ui.page2->setDisabled(false);
+		}
+	}
+
+	void HomePage::sendHandler(const Message<RFCCodes> &m)
+	{
+		this->_requestsMade.pushBack(m.header.codeId);
+		this->connection.send(m);
 	}
 }
