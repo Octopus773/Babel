@@ -3,6 +3,7 @@
 //
 
 #include "BabelServer.hpp"
+#include "Utilities/Utilities.hpp"
 #include "Utilities/Utils.hpp"
 #include "Call.hpp"
 #include "User.hpp"
@@ -61,6 +62,15 @@ namespace Babel
 
 		r.header.codeId = RFCCodes::Response;
 		r << static_cast<uint16_t>(1);
+		uint16_t size = 0;
+
+		for (const auto &u : this->_users) {
+			if (u.second.isConnected()) {
+				size++;
+			}
+		}
+
+		r << size;
 
 		for (const auto &u : this->_users) {
 			if (u.second.isConnected()) {

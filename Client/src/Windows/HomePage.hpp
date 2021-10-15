@@ -43,7 +43,11 @@ namespace Babel
 
 		void doLogin();
 
+		//! @brief handler for any responses of the login request
 		void onLoginResponse(const Message<RFCCodes> &m);
+
+		//! @brief handler for any responses of the listuser request
+		void onListUsersResponse(const Message<RFCCodes> &m);
 
 
 		struct MessageHandler

@@ -7,6 +7,7 @@
 #include "Network/RFCCodes.hpp"
 #include <iostream>
 #include <QMainWindow>
+#include "Utilities/Utilities.hpp"
 #include <QPushButton>
 
 
@@ -55,8 +56,6 @@ namespace Babel
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::Login;
 		const std::string &username = this->_ui.input_login_username->text().toStdString();
-		//m.header.codeId = Babel::RFCCodes::Debug;
-		//m << "i'm from qT5";
 		m << static_cast<uint8_t>(username.size()) << username;
 		if (!username.empty()) {
 			this->sendHandler(m);
@@ -101,5 +100,33 @@ namespace Babel
 	{
 		this->_requestsMade.pushBack(m.header.codeId);
 		this->connection.send(m);
+	}
+
+	void HomePage::onListUsersResponse(const Message<RFCCodes> &m)
+	{
+		uint16_t codeId;
+		Message<RFCCodes> message(m);
+
+		message >> codeId;
+		if (codeId != 1) {
+			std::cout << "error in list users" << std::endl;
+			return;
+		}
+
+		uint16_t arrayLength;
+		message >> arrayLength;
+
+		for (uint16_t i = 0; i < arrayLength; i++) {
+			uint8_t usernameLength;
+			message >> usernameLength;
+			std::string username;
+			if (!Utils::getString(message, username, {usernameLength, usernameLength})) {
+				std::cout << "error while reading " << i << " user" << std::endl;
+			}
+			uint8_t canBeCalled;
+			message >> canBeCalled;
+
+			this->_ui.listWidget->addItem(QString::fromStdString(username + " " + std::to_string(static_cast<bool>(canBeCalled))));
+		}
 	}
 }
