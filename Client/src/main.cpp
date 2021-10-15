@@ -18,11 +18,10 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
     std::vector<int16_t> pcm;
 
     while (true) {
-        for (long i = 0; i < (portAudio->getRecordTime() * portAudio->getSampleRate()) / portAudio->getFramesPerBuffer(); i++) {
             try {
                 // Enregistrement du son
                 std::vector<int16_t> data = portAudio->readStream();
-
+                std::cout << "received data" << std::endl;
                 // Compression
                 opus->encode(data.data(), encoded.data());
 
@@ -31,7 +30,6 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
             } catch (const Babel::PortAudioException &e) {
                 //std::cerr << e.what();
             }
-        }
     }
 }
 
