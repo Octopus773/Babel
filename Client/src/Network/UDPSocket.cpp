@@ -52,35 +52,18 @@ void Babel::UDPSocket::readPending()
         std::vector<unsigned char> encoded(size);
         std::memcpy(encoded.data(), packet->data, size);
 
-        std::cout << "Inserting packet " << packet->timestamp << std::endl;
-        //_inputBuffer.insert({timestamp, encoded});
-        _inputBuffer2.push_back(encoded);
+        std::cout << "data found" << std::endl;
+        _inputBuffer[timestamp] = encoded;
 
         auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
 
-        /*
-        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-        std::cout << "packet data size = " << size << std::endl;
-        _codec->decode(encoded.data(), decodedData.data(), size);
-        try
-        {
-            _audio->writeStream(decodedData);
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-         */
+        std::cout << milliseconds.count() << std::endl;
 
-        //std::cout << "Timestamp = " << timestamp << " & size = " << size << std::endl;
-        //std::cout << "Map size = " << _inputBuffer.size() << std::endl;
-        std::cout << "Vector size = " << _inputBuffer2.size() << std::endl;
-
-        if (_inputBuffer2.size() >= 10) {
+        if (abs(milliseconds.count()) >= 20) {
             std::cout << "Flushing buffer" << std::endl;
-            for (auto &payload : _inputBuffer2) {
+            for (auto &payload : _inputBuffer) {
                 std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-                    _codec->decode(payload.data(), decodedData.data(), payload.size());
+                    _codec->decode(payload.second.data(), decodedData.data(), decodedData.size());
                     try
                     {
                         _audio->writeStream(decodedData);
@@ -90,7 +73,7 @@ void Babel::UDPSocket::readPending()
                         std::cerr << e.what() << '\n';
                     }
             }
-            _inputBuffer2.clear();
+            _inputBuffer.clear();
             _clock = std::chrono::system_clock::now();
         }
     }
