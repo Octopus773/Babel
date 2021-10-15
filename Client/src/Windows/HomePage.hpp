@@ -33,16 +33,28 @@ namespace Babel
 		//! @note The client should always use this function to send messages to the server
 		void sendHandler(const Message<RFCCodes> &m);
 
+		//! @brief is used to redirect responses from request to the correct handling functions
 		void onMessage(Message<RFCCodes> m);
 
+		//! @brief Connects to the server with tcp
 		void doConnect();
 
+		//! @brief send a login request, look into field inputs for username
 		void doLogin();
 
+		//! @brief send a listUsers request
 		void doListUsers();
 
+		//! @brief Call a specific user look in the list for the selected username
 		void doCallUser();
 
+		//! @brief join the callId given
+		void doJoinCall(int callId, std::string address, uint16_t port);
+
+		//! @brief deny a callId
+		void doDenyCall(int callId);
+
+		//! @brief quit a call
 		void doHangUp();
 
 		//! @brief handler for any responses of the login request
@@ -64,8 +76,10 @@ namespace Babel
 		void updateDisplaySelectedUser();
 
 		//! @brief Change the currently selected tab
-		inline void changeCurrentUITab(const std::string &tabName) {
-			this->_ui.tab_handler->setCurrentWidget(this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
+		inline void changeCurrentUITab(const std::string &tabName)
+		{
+			this->_ui.tab_handler->setCurrentWidget(
+				this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
 		};
 
 

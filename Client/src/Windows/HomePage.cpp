@@ -41,6 +41,11 @@ namespace Babel
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
 					                   this->onBasicResponse(m);
 				                   }}
+			                   },
+			                   {RFCCodes::DenyCall,
+			                    MessageHandler{[this](const Message<RFCCodes> &m) {
+				                    this->onBasicResponse(m);
+			                    }}
 			                   }
 		  }),
 		  _currentCallId(CurrentlyNotInCall)
@@ -224,9 +229,7 @@ namespace Babel
 		// todo set true values
 		std::string address = "127.0.0.1";
 		uint16_t port = 56789;
-
-		message << static_cast<uint8_t>(address.size()) << address << port;
-		this->sendHandler(message);
+		this->doJoinCall(callId, address, port);
 	}
 
 	void HomePage::onJoinCall(const Message<RFCCodes> &m)
@@ -299,6 +302,25 @@ namespace Babel
 			Utils::getString(message, desc);
 			QMessageBox::information(nullptr, tr("Babel"), tr(desc.data()));
 		}
+	}
+
+	void HomePage::doDenyCall(int callId)
+	{
+		Message<RFCCodes> m;
+		m.header.codeId = RFCCodes::DenyCall;
+		m << static_cast<uint16_t>(callId);
+
+		this->sendHandler(m);
+	}
+
+	void HomePage::doJoinCall(int callId, std::string address, uint16_t port)
+	{
+		Message<RFCCodes> m;
+		m.header.codeId = RFCCodes::JoinCall;
+		m << static_cast<uint16_t>(callId);
+		m << static_cast<uint8_t>(address.size()) << address << port;
+
+		this->sendHandler(m);
 	}
 
 	HomePage::UserInfo::UserInfo(bool cBC)
