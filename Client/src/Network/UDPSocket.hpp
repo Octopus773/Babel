@@ -31,7 +31,6 @@ namespace Babel {
 
     private:
         std::unique_ptr<QUdpSocket> _socket;
-        std::mutex _mutex;
         std::shared_ptr<Babel::IAudioManager> _audio;
         std::shared_ptr<Babel::ICodec> _codec;
         std::int16_t _port;

@@ -28,7 +28,6 @@ Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioMana
 
 std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, const std::string &address, int port)
 {
-    std::lock_guard<std::mutex> lockGuard(_mutex);
     AudioPacket packet(data);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
@@ -40,7 +39,6 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, cons
 
 void Babel::UDPSocket::readPending()
 {
-    std::lock_guard<std::mutex> lockGuard(_mutex);
     while (this->_socket->hasPendingDatagrams()) {
         std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
