@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'babelHomePagepnhSyr.ui'
+** Form generated from reading UI file 'babelHomePagePiDsEW.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef BABELHOMEPAGEPNHSYR_H
-#define BABELHOMEPAGEPNHSYR_H
+#ifndef BABELHOMEPAGEPIDSEW_H
+#define BABELHOMEPAGEPIDSEW_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -31,8 +31,8 @@ class Ui_babelHome
 public:
 	QWidget *centralwidget;
 	QVBoxLayout *verticalLayout;
-	QTabWidget *formTabWidget;
-	QWidget *page1;
+	QTabWidget *tab_handler;
+	QWidget *page_connection;
 	QWidget *formLayoutWidget_2;
 	QGridLayout *gridLayout_3;
 	QLabel *label;
@@ -40,13 +40,13 @@ public:
 	QLabel *label_2;
 	QSpinBox *input_port;
 	QPushButton *button_connect;
-	QWidget *page2;
+	QWidget *page_login;
 	QWidget *formLayoutWidget;
 	QGridLayout *gridLayout_2;
 	QLabel *label_3;
 	QLineEdit *input_login_username;
 	QPushButton *button_login;
-	QWidget *page3;
+	QWidget *page_server;
 	QListWidget *output_connected_user_list;
 	QWidget *formLayoutWidget_3;
 	QFormLayout *formLayout;
@@ -56,7 +56,7 @@ public:
 	QCheckBox *output_can_be_called;
 	QLabel *label_6;
 	QPushButton *button_call_user;
-	QWidget *page4;
+	QWidget *page_call;
 	QLabel *label_7;
 	QWidget *gridLayoutWidget;
 	QGridLayout *gridLayout;
@@ -73,13 +73,13 @@ public:
 		centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
 		verticalLayout = new QVBoxLayout(centralwidget);
 		verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-		formTabWidget = new QTabWidget(centralwidget);
-		formTabWidget->setObjectName(QString::fromUtf8("formTabWidget"));
-		formTabWidget->setEnabled(true);
-		formTabWidget->setTabShape(QTabWidget::Rounded);
-		page1 = new QWidget();
-		page1->setObjectName(QString::fromUtf8("page1"));
-		formLayoutWidget_2 = new QWidget(page1);
+		tab_handler = new QTabWidget(centralwidget);
+		tab_handler->setObjectName(QString::fromUtf8("tab_handler"));
+		tab_handler->setEnabled(true);
+		tab_handler->setTabShape(QTabWidget::Rounded);
+		page_connection = new QWidget();
+		page_connection->setObjectName(QString::fromUtf8("page_connection"));
+		formLayoutWidget_2 = new QWidget(page_connection);
 		formLayoutWidget_2->setObjectName(QString::fromUtf8("formLayoutWidget_2"));
 		formLayoutWidget_2->setGeometry(QRect(90, 20, 501, 96));
 		gridLayout_3 = new QGridLayout(formLayoutWidget_2);
@@ -112,11 +112,11 @@ public:
 
 		gridLayout_3->addWidget(button_connect, 2, 1, 1, 1);
 
-		formTabWidget->addTab(page1, QString());
-		page2 = new QWidget();
-		page2->setObjectName(QString::fromUtf8("page2"));
-		page2->setEnabled(true);
-		formLayoutWidget = new QWidget(page2);
+		tab_handler->addTab(page_connection, QString());
+		page_login = new QWidget();
+		page_login->setObjectName(QString::fromUtf8("page_login"));
+		page_login->setEnabled(true);
+		formLayoutWidget = new QWidget(page_login);
 		formLayoutWidget->setObjectName(QString::fromUtf8("formLayoutWidget"));
 		formLayoutWidget->setGeometry(QRect(50, 30, 651, 62));
 		gridLayout_2 = new QGridLayout(formLayoutWidget);
@@ -138,13 +138,13 @@ public:
 
 		gridLayout_2->addWidget(button_login, 1, 1, 1, 1);
 
-		formTabWidget->addTab(page2, QString());
-		page3 = new QWidget();
-		page3->setObjectName(QString::fromUtf8("page3"));
-		output_connected_user_list = new QListWidget(page3);
+		tab_handler->addTab(page_login, QString());
+		page_server = new QWidget();
+		page_server->setObjectName(QString::fromUtf8("page_server"));
+		output_connected_user_list = new QListWidget(page_server);
 		output_connected_user_list->setObjectName(QString::fromUtf8("output_connected_user_list"));
 		output_connected_user_list->setGeometry(QRect(30, 50, 381, 431));
-		formLayoutWidget_3 = new QWidget(page3);
+		formLayoutWidget_3 = new QWidget(page_server);
 		formLayoutWidget_3->setObjectName(QString::fromUtf8("formLayoutWidget_3"));
 		formLayoutWidget_3->setGeometry(QRect(440, 90, 311, 102));
 		formLayout = new QFormLayout(formLayoutWidget_3);
@@ -187,17 +187,17 @@ public:
 
 		formLayout->setWidget(1, QFormLayout::LabelRole, label_6);
 
-		button_call_user = new QPushButton(page3);
+		button_call_user = new QPushButton(page_server);
 		button_call_user->setObjectName(QString::fromUtf8("button_call_user"));
 		button_call_user->setEnabled(false);
 		button_call_user->setGeometry(QRect(470, 200, 235, 27));
-		formTabWidget->addTab(page3, QString());
-		page4 = new QWidget();
-		page4->setObjectName(QString::fromUtf8("page4"));
-		label_7 = new QLabel(page4);
+		tab_handler->addTab(page_server, QString());
+		page_call = new QWidget();
+		page_call->setObjectName(QString::fromUtf8("page_call"));
+		label_7 = new QLabel(page_call);
 		label_7->setObjectName(QString::fromUtf8("label_7"));
 		label_7->setGeometry(QRect(340, 10, 101, 41));
-		gridLayoutWidget = new QWidget(page4);
+		gridLayoutWidget = new QWidget(page_call);
 		gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
 		gridLayoutWidget->setGeometry(QRect(160, 60, 461, 321));
 		gridLayout = new QGridLayout(gridLayoutWidget);
@@ -218,15 +218,15 @@ public:
 
 		gridLayout->addWidget(button_hang_up, 2, 0, 1, 1);
 
-		formTabWidget->addTab(page4, QString());
+		tab_handler->addTab(page_call, QString());
 
-		verticalLayout->addWidget(formTabWidget);
+		verticalLayout->addWidget(tab_handler);
 
 		babelHome->setCentralWidget(centralwidget);
 
 		retranslateUi(babelHome);
 
-		formTabWidget->setCurrentIndex(3);
+		tab_handler->setCurrentIndex(0);
 
 
 		QMetaObject::connectSlotsByName(babelHome);
@@ -238,21 +238,21 @@ public:
 		label->setText(QCoreApplication::translate("babelHome", "Address", nullptr));
 		label_2->setText(QCoreApplication::translate("babelHome", "Port", nullptr));
 		button_connect->setText(QCoreApplication::translate("babelHome", "connect", nullptr));
-		formTabWidget->setTabText(formTabWidget->indexOf(page1), QCoreApplication::translate("babelHome", "Connection", nullptr));
+		tab_handler->setTabText(tab_handler->indexOf(page_connection), QCoreApplication::translate("babelHome", "Connection", nullptr));
 		label_3->setText(QCoreApplication::translate("babelHome", "Username", nullptr));
 		button_login->setText(QCoreApplication::translate("babelHome", "login", nullptr));
-		formTabWidget->setTabText(formTabWidget->indexOf(page2), QCoreApplication::translate("babelHome", "Login", nullptr));
+		tab_handler->setTabText(tab_handler->indexOf(page_login), QCoreApplication::translate("babelHome", "Login", nullptr));
 		label_4->setText(QCoreApplication::translate("babelHome", "Username", nullptr));
 		output_selected_username->setText(QCoreApplication::translate("babelHome", "selected_username", nullptr));
 		label_5->setText(QString());
 		output_can_be_called->setText(QString());
 		label_6->setText(QCoreApplication::translate("babelHome", "Can be called", nullptr));
 		button_call_user->setText(QCoreApplication::translate("babelHome", "Call user", nullptr));
-		formTabWidget->setTabText(formTabWidget->indexOf(page3), QCoreApplication::translate("babelHome", "Server", nullptr));
+		tab_handler->setTabText(tab_handler->indexOf(page_server), QCoreApplication::translate("babelHome", "Server", nullptr));
 		label_7->setText(QCoreApplication::translate("babelHome", "Ongoing call", nullptr));
 		label_8->setText(QCoreApplication::translate("babelHome", "Call members", nullptr));
 		button_hang_up->setText(QCoreApplication::translate("babelHome", "Hang Up", nullptr));
-		formTabWidget->setTabText(formTabWidget->indexOf(page4), QCoreApplication::translate("babelHome", "Call", nullptr));
+		tab_handler->setTabText(tab_handler->indexOf(page_call), QCoreApplication::translate("babelHome", "Call", nullptr));
 	} // retranslateUi
 
 };
@@ -263,4 +263,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGEPNHSYR_H
+#endif // BABELHOMEPAGEPIDSEW_H

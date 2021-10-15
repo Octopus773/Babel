@@ -59,19 +59,37 @@ namespace Babel
 		void updateDisplaySelectedUser();
 
 
+		//! @brief All the necessary information to handle a response
 		struct MessageHandler
 		{
+			//! @brief the function to handle the request response type
 			std::function<void(const Message<RFCCodes> &m)> method;
 		};
 
+		//! @brief Used to call the correct handling function
+		//! @note Expects a response for each type of request, expect FIFO order
 		std::map<RFCCodes, MessageHandler> _messageHandlers;
 
+		//! @brief All the necessary information for a user in call or in the display list
+		//! @note by default address is empty and port is set to 0
 		struct UserInfo
 		{
+			//! @brief The udp address to send our voice to this user
+			std::string address;
+			//! @brief The udp port to send our voice to this user
+			uint16_t port;
+			//! @brief Tell the client if he can call this user
 			bool canBeCalled;
+
+			//! @brief Utility ctor
+			explicit UserInfo(bool canBeCalled);
 		};
 
+		//! @brief Userinfo holder the username is the key
 		std::map<std::string, UserInfo> _usersInfos;
+
+		std::list<std::string> _usersInCurrentCall;
+
 	};
 }
 

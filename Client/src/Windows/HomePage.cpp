@@ -27,9 +27,14 @@ namespace Babel
 					                   this->onListUsersResponse(m);
 				                   }}
 			                   },
-			                   {RFCCodes::Call,
+			                   {RFCCodes::CallUser,
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
 					                   this->onCallUserResponse(m);
+				                   }}
+			                   },
+			                   {RFCCodes::JoinCall,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onJoinCall(m);
 				                   }}
 			                   }
 		  })
@@ -46,13 +51,13 @@ namespace Babel
 		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
 
 		this->_window->show();
-		this->_ui.page2->setDisabled(true);
+		this->_ui.page_login->setDisabled(true);
 	}
 
 	void HomePage::doConnect()
 	{
 		this->connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
-		this->_ui.page2->setDisabled(false);
+		this->_ui.page_login->setDisabled(false);
 	}
 
 	void HomePage::doLogin()
@@ -96,7 +101,7 @@ namespace Babel
 		std::cout << "CodeId: " << codeId << " desc: " << desc << std::endl;
 
 		if (codeId) {
-			this->_ui.page2->setDisabled(false);
+			this->_ui.page_login->setDisabled(false);
 			this->doListUsers();
 		}
 	}
@@ -161,12 +166,11 @@ namespace Babel
 			std::cout << "doCallUser: no corresponding user" << std::endl;
 			return;
 		}
-		UserInfo &userToCall = this->_usersInfos[usernameToCall];
-
 		Message<RFCCodes> m;
 
-		m.header.codeId = RFCCodes::Call;
+		m.header.codeId = RFCCodes::CallUser;
 		m << static_cast<uint8_t>(usernameToCall.size()) << usernameToCall;
+
 
 		this->sendHandler(m);
 	}
@@ -193,13 +197,57 @@ namespace Babel
 		}
 
 		message.reset();
-		message.header.codeId = RFCCodes::Accept;
+		message.header.codeId = RFCCodes::JoinCall;
 		message << callId;
+		std::string address = "127.0.0.1";
+		uint16_t port = 56789;
+
+		message << static_cast<uint8_t>(address.size()) << address << port;
 		this->sendHandler(message);
 	}
 
 	void HomePage::onJoinCall(const Message<RFCCodes> &m)
 	{
+		Message<RFCCodes> message(m);
+		uint16_t codeId;
 
+		message >> codeId;
+
+		if (codeId != 1) {
+			std::string desc;
+			Utils::getString(message, desc);
+			std::cout << "error: onJoinCall: " << desc << std::endl;
+			return;
+		}
+
+		uint16_t arrayLength;
+
+		message >> arrayLength;
+
+		for (uint16_t i = 0; i > arrayLength; i++) {
+			std::string address;
+			Utils::getString(message, address);
+			uint16_t port;
+			message >> port;
+			std::string username;
+			Utils::getString(message, username);
+
+
+			this->_usersInfos[username].port = port;
+			this->_usersInfos[username].address = address;
+			this->_usersInCurrentCall.emplace_back(username);
+			this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
+		}
+
+		this->_ui.tab_handler->setCurrentWidget(this->_ui.tab_handler->findChild<QWidget *>("page_call"));
+		// send audio packets to every address and port
+		// switch to call tab
+	}
+
+	HomePage::UserInfo::UserInfo(bool cBC)
+		: address(),
+		  port(0),
+		  canBeCalled(cBC)
+	{
 	}
 }

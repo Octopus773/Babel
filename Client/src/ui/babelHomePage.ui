@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="formTabWidget">
+     <widget class="QTabWidget" name="tab_handler">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -24,9 +24,9 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
-      <widget class="QWidget" name="page1">
+      <widget class="QWidget" name="page_connection">
        <attribute name="title">
         <string>Connection</string>
        </attribute>
@@ -78,7 +78,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="page2">
+      <widget class="QWidget" name="page_login">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -119,7 +119,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="page3">
+      <widget class="QWidget" name="page_server">
        <attribute name="title">
         <string>Server</string>
        </attribute>
@@ -224,7 +224,7 @@
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="page4">
+      <widget class="QWidget" name="page_call">
        <attribute name="title">
         <string>Call</string>
        </attribute>

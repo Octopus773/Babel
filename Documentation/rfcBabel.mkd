@@ -206,6 +206,8 @@ Joining a call
 
                 WARNING no description_length and description in this response
 
+                array_length: 2 bytes (uint16_t)
+
                 an array of call participants following the pattern:
                 udpAddress_length: uint8_t
                 udpAddress: udpAddress_length length
