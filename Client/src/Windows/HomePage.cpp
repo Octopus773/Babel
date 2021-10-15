@@ -74,7 +74,10 @@ namespace Babel
 
 	void HomePage::onMessage(Message<RFCCodes> m)
 	{
-		if (this->_requestsMade.empty()) {
+		if (this->_requestsMade.empty()
+		|| m.header.codeId == RFCCodes::Called
+		|| m.header.codeId == RFCCodes::UserJoinedCall
+		|| m.header.codeId == RFCCodes::UserLeftCall) {
 			std::cout << "receiving event: header codeId: " << static_cast<uint16_t>(m.header.codeId) << std::endl;
 			return;
 		}
@@ -101,10 +104,13 @@ namespace Babel
 
 		std::cout << "CodeId: " << codeId << " desc: " << desc << std::endl;
 
-		if (codeId) {
+		if (codeId != 1) {
+			QMessageBox::information(nullptr, tr("Babel"),
+			                         tr(desc.data() ));
+			return;
+		}
 			this->_ui.page_login->setDisabled(false);
 			this->doListUsers();
-		}
 	}
 
 	void HomePage::sendHandler(const Message<RFCCodes> &m)

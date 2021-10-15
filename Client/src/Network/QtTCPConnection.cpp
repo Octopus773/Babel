@@ -16,6 +16,25 @@ namespace Babel
 		  _connectionId(0)
 	{
 		QObject::connect(this->_socket, &QTcpSocket::readyRead, this, &QtTCPConnection::readMessage);
+		QObject::connect(this->_socket, &QTcpSocket::errorOccurred, [parent](int socketError) {
+			switch (socketError) {
+			case QAbstractSocket::HostNotFoundError:
+				QMessageBox::information(parent, tr("Babel"),
+				                         tr("The host was not found. Please check the "
+				                            "host and port settings."));
+				break;
+			case QAbstractSocket::ConnectionRefusedError:
+				QMessageBox::information(parent, tr("Babel"),
+				                         tr("The connection was refused by the peer. "
+				                            "Make sure the fortune server is running, "
+				                            "and check that the host name and port "
+				                            "settings are correct."));
+				break;
+			default:
+				QMessageBox::information(parent, tr("Babel"),
+				                         tr("An error occurred"));
+			}
+		});
 	}
 
 	void QtTCPConnection::connect(const std::string &hostname, uint16_t port)
