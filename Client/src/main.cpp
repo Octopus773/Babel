@@ -23,8 +23,9 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
                 std::vector<int16_t> data = portAudio->readStream();
 
                 // Compression
-                std::int32_t sizeSent = opus->encode(data.data(), encoded.data());
+                std::int32_t size = opus->encode(data.data(), encoded.data());
 
+                /*
                 // on fait un paquet
                 Babel::AudioPacket packetEnvoye(encoded, sizeSent);
                 char toSend[sizeof(Babel::AudioPacket)];
@@ -42,9 +43,10 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
                 std::vector<std::int16_t> decodedData(portAudio->getFramesPerBuffer() * portAudio->getInputChannelsNumber(), 0);
                 opus->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
                 portAudio->writeStream(decodedData);
+                */
 
                 // Envoi sur network
-                //udpSocket->write(encoded, size ,"127.0.0.1", 25565);
+                udpSocket->write(encoded, size ,"127.0.0.1", 25565);
             } catch (const Babel::PortAudioException &e) {
                 //std::cerr << e.what();
             }

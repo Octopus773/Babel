@@ -32,6 +32,7 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, std:
     AudioPacket packet(data, size);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
+    std::cout << "Sent " << packet.timestamp << std::endl;
 
     std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
     //std::cout << "Sent " << result << " sized packet to " << address << ":" << port << std::endl;
@@ -50,7 +51,7 @@ void Babel::UDPSocket::readPending()
         std::int32_t size = packet->size;
         std::vector<unsigned char> encoded(size);
         std::memcpy(encoded.data(), packet->data, size);
-        std::cout << "Timestamp = " << timestamp << " & size = " << size << std::endl;
+        std::cout << "Received " << timestamp << " & size = " << size << std::endl;
 
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
         _codec->decode(encoded.data(), decodedData.data(), size);
@@ -86,6 +87,7 @@ void Babel::UDPSocket::readPending()
         if (_inputBuffer2.size() >= 10) {
             std::cout << "Flushing buffer" << std::endl;
             for (auto &payload : _inputBuffer2) {
+
                 std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
                     _codec->decode(payload.data(), decodedData.data(), decodedData.size());
                     try
