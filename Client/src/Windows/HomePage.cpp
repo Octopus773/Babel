@@ -16,6 +16,7 @@ namespace Babel
 
 	HomePage::HomePage()
 		: _window(new QMainWindow()),
+
 		  _windowLogin(new QMainWindow()),
 		  _messageHandlers({
 			                   {RFCCodes::Login,
@@ -40,6 +41,7 @@ namespace Babel
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
+		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
 
 		this->_window->show();
 		//this->_windowLogin->show();
@@ -126,7 +128,8 @@ namespace Babel
 			uint8_t canBeCalled;
 			message >> canBeCalled;
 
-			this->_ui.listWidget->addItem(QString::fromStdString(username + std::to_string(static_cast<bool>(canBeCalled))));
+			this->_usersInfos[username] = UserInfo{static_cast<bool>(canBeCalled)};
+			this->_ui.output_connected_user_list->addItem(QString::fromStdString(username));
 		}
 	}
 
@@ -135,5 +138,16 @@ namespace Babel
 		Message<RFCCodes> m;
 		m.header.codeId = RFCCodes::ListUsers;
 		this->sendHandler(m);
+	}
+
+	void HomePage::updateDisplaySelectedUser()
+	{
+		QString value = this->_ui.output_connected_user_list->currentItem()->text();
+
+		UserInfo &userInfo = this->_usersInfos[value.toStdString()];
+
+		this->_ui.output_selected_username->setText(value);
+		this->_ui.output_can_be_called->setChecked(userInfo.canBeCalled);
+		this->_ui.button_call_user->setEnabled(userInfo.canBeCalled);
 	}
 }

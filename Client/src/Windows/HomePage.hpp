@@ -51,6 +51,9 @@ namespace Babel
 		//! @brief handler for any responses of the listuser request
 		void onListUsersResponse(const Message<RFCCodes> &m);
 
+		//! @brief Update qt interface to display the correct username and infos
+		void updateDisplaySelectedUser();
+
 
 		struct MessageHandler
 		{
@@ -58,6 +61,13 @@ namespace Babel
 		};
 
 		std::map<RFCCodes, MessageHandler> _messageHandlers;
+
+		struct UserInfo
+		{
+			bool canBeCalled;
+		};
+
+		std::map<std::string, UserInfo> _usersInfos;
 	};
 }
 

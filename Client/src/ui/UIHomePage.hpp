@@ -1,16 +1,18 @@
 /********************************************************************************
-** Form generated from reading UI file 'babelHomePageCkOksH.ui'
+** Form generated from reading UI file 'babelHomePageStmqUP.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef BABELHOMEPAGECKOKSH_H
-#define BABELHOMEPAGECKOKSH_H
+#ifndef BABELHOMEPAGESTMQUP_H
+#define BABELHOMEPAGESTMQUP_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -47,7 +49,15 @@ public:
 	QLineEdit *input_login_username;
 	QPushButton *button_login;
 	QWidget *page3;
-	QListWidget *listWidget;
+	QListWidget *output_connected_user_list;
+	QWidget *formLayoutWidget_3;
+	QFormLayout *formLayout;
+	QLabel *label_4;
+	QLabel *output_selected_username;
+	QLabel *label_5;
+	QCheckBox *output_can_be_called;
+	QLabel *label_6;
+	QPushButton *button_call_user;
 	QMenuBar *menubar;
 	QStatusBar *statusbar;
 
@@ -127,9 +137,56 @@ public:
 		formTabWidget->addTab(page2, QString());
 		page3 = new QWidget();
 		page3->setObjectName(QString::fromUtf8("page3"));
-		listWidget = new QListWidget(page3);
-		listWidget->setObjectName(QString::fromUtf8("listWidget"));
-		listWidget->setGeometry(QRect(30, 50, 381, 431));
+		output_connected_user_list = new QListWidget(page3);
+		output_connected_user_list->setObjectName(QString::fromUtf8("output_connected_user_list"));
+		output_connected_user_list->setGeometry(QRect(30, 50, 381, 431));
+		formLayoutWidget_3 = new QWidget(page3);
+		formLayoutWidget_3->setObjectName(QString::fromUtf8("formLayoutWidget_3"));
+		formLayoutWidget_3->setGeometry(QRect(440, 90, 311, 102));
+		formLayout = new QFormLayout(formLayoutWidget_3);
+		formLayout->setObjectName(QString::fromUtf8("formLayout"));
+		formLayout->setContentsMargins(0, 0, 0, 0);
+		label_4 = new QLabel(formLayoutWidget_3);
+		label_4->setObjectName(QString::fromUtf8("label_4"));
+
+		formLayout->setWidget(0, QFormLayout::LabelRole, label_4);
+
+		output_selected_username = new QLabel(formLayoutWidget_3);
+		output_selected_username->setObjectName(QString::fromUtf8("output_selected_username"));
+
+		formLayout->setWidget(0, QFormLayout::FieldRole, output_selected_username);
+
+		label_5 = new QLabel(formLayoutWidget_3);
+		label_5->setObjectName(QString::fromUtf8("label_5"));
+
+		formLayout->setWidget(2, QFormLayout::LabelRole, label_5);
+
+		output_can_be_called = new QCheckBox(formLayoutWidget_3);
+		output_can_be_called->setObjectName(QString::fromUtf8("output_can_be_called"));
+		output_can_be_called->setEnabled(false);
+		QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+		sizePolicy.setHorizontalStretch(0);
+		sizePolicy.setVerticalStretch(0);
+		sizePolicy.setHeightForWidth(output_can_be_called->sizePolicy().hasHeightForWidth());
+		output_can_be_called->setSizePolicy(sizePolicy);
+		output_can_be_called->setLayoutDirection(Qt::LeftToRight);
+		output_can_be_called->setAutoFillBackground(false);
+		output_can_be_called->setCheckable(true);
+		output_can_be_called->setChecked(false);
+		output_can_be_called->setAutoExclusive(false);
+		output_can_be_called->setTristate(false);
+
+		formLayout->setWidget(1, QFormLayout::FieldRole, output_can_be_called);
+
+		label_6 = new QLabel(formLayoutWidget_3);
+		label_6->setObjectName(QString::fromUtf8("label_6"));
+
+		formLayout->setWidget(1, QFormLayout::LabelRole, label_6);
+
+		button_call_user = new QPushButton(page3);
+		button_call_user->setObjectName(QString::fromUtf8("button_call_user"));
+		button_call_user->setEnabled(false);
+		button_call_user->setGeometry(QRect(470, 200, 235, 27));
 		formTabWidget->addTab(page3, QString());
 
 		verticalLayout->addWidget(formTabWidget);
@@ -161,6 +218,12 @@ public:
 		label_3->setText(QCoreApplication::translate("babelHome", "Username", nullptr));
 		button_login->setText(QCoreApplication::translate("babelHome", "login", nullptr));
 		formTabWidget->setTabText(formTabWidget->indexOf(page2), QCoreApplication::translate("babelHome", "Login", nullptr));
+		label_4->setText(QCoreApplication::translate("babelHome", "Username", nullptr));
+		output_selected_username->setText(QCoreApplication::translate("babelHome", "selected_username", nullptr));
+		label_5->setText(QString());
+		output_can_be_called->setText(QString());
+		label_6->setText(QCoreApplication::translate("babelHome", "Can be called", nullptr));
+		button_call_user->setText(QCoreApplication::translate("babelHome", "Call user", nullptr));
 		formTabWidget->setTabText(formTabWidget->indexOf(page3), QCoreApplication::translate("babelHome", "Server", nullptr));
 	} // retranslateUi
 
@@ -172,4 +235,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // BABELHOMEPAGECKOKSH_H
+#endif // BABELHOMEPAGESTMQUP_H
