@@ -246,7 +246,7 @@ Hang up a call
 
         You have to be logged in to make this request
 
-        * callId : the call Id you want to join : (uint16_t)
+        * callId : the call Id you want to leave : (uint16_t)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+

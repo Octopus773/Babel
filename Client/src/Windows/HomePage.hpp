@@ -43,6 +43,8 @@ namespace Babel
 
 		void doCallUser();
 
+		void doHangUp();
+
 		//! @brief handler for any responses of the login request
 		void onLoginResponse(const Message<RFCCodes> &m);
 
@@ -55,8 +57,16 @@ namespace Babel
 		//! @brief handler for any responses of the joinCall request
 		void onJoinCall(const Message<RFCCodes> &m);
 
+		//! @brief handler for any simple responses (opens a dialog if error) otherwise do nothing
+		void onBasicResponse(const Message<RFCCodes> &m);
+
 		//! @brief Update qt interface to display the correct username and infos
 		void updateDisplaySelectedUser();
+
+		//! @brief Change the currently selected tab
+		inline void changeCurrentUITab(const std::string &tabName) {
+			this->_ui.tab_handler->setCurrentWidget(this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
+		};
 
 
 		//! @brief All the necessary information to handle a response
@@ -92,6 +102,10 @@ namespace Babel
 		std::map<std::string, UserInfo> _usersInfos;
 
 		std::list<std::string> _usersInCurrentCall;
+
+		static constexpr int CurrentlyNotInCall = -1;
+
+		int _currentCallId;
 
 	};
 }

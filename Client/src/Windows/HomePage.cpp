@@ -36,8 +36,14 @@ namespace Babel
 				                   MessageHandler{[this](const Message<RFCCodes> &m) {
 					                   this->onJoinCall(m);
 				                   }}
+			                   },
+			                   {RFCCodes::HangUp,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onBasicResponse(m);
+				                   }}
 			                   }
-		  })
+		  }),
+		  _currentCallId(CurrentlyNotInCall)
 	{
 		this->_ui.setupUi(this->_window);
 
@@ -50,6 +56,7 @@ namespace Babel
 
 		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
 		QObject::connect(this->_ui.button_call_user, &QPushButton::clicked, this, &HomePage::doCallUser);
+		QObject::connect(this->_ui.button_hang_up, &QPushButton::clicked, this, &HomePage::doHangUp);
 
 		this->_window->show();
 		this->_ui.page_login->setDisabled(true);
@@ -166,6 +173,12 @@ namespace Babel
 
 	void HomePage::doCallUser()
 	{
+		if (this->_currentCallId != CurrentlyNotInCall) {
+			QMessageBox::information(nullptr, tr("Babel"),
+			                         tr("You must leave your call before starting another one."));
+			return;
+		}
+
 		QString value = this->_ui.output_connected_user_list->currentItem()->text();
 		std::string usernameToCall = value.toStdString();
 
@@ -203,9 +216,12 @@ namespace Babel
 			return;
 		}
 
+		this->_currentCallId = callId;
 		message.reset();
 		message.header.codeId = RFCCodes::JoinCall;
 		message << callId;
+
+		// todo set true values
 		std::string address = "127.0.0.1";
 		uint16_t port = 56789;
 
@@ -246,9 +262,43 @@ namespace Babel
 			this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
 		}
 
-		this->_ui.tab_handler->setCurrentWidget(this->_ui.tab_handler->findChild<QWidget *>("page_call"));
+		this->_ui.page_call->setDisabled(false);
+		this->changeCurrentUITab("page_call");
 		// send audio packets to every address and port
 		// switch to call tab
+	}
+
+	void HomePage::doHangUp()
+	{
+		if (this->_currentCallId == CurrentlyNotInCall) {
+			return;
+		}
+		Message<RFCCodes> m;
+
+		m.header.codeId = RFCCodes::HangUp;
+		m << this->_currentCallId;
+
+		// close all udp sockets from _usersInCurrentCall
+
+		this->_usersInCurrentCall.clear();
+		this->_currentCallId = CurrentlyNotInCall;
+		this->sendHandler(m);
+		this->_ui.page_call->setDisabled(true);
+		this->changeCurrentUITab("page_server");
+	}
+
+	void HomePage::onBasicResponse(const Message<RFCCodes> &m)
+	{
+		uint16_t codeId;
+		Message<RFCCodes> message(m);
+
+		message >> codeId;
+
+		if (codeId != 1) {
+			std::string desc;
+			Utils::getString(message, desc);
+			QMessageBox::information(nullptr, tr("Babel"), tr(desc.data()));
+		}
 	}
 
 	HomePage::UserInfo::UserInfo(bool cBC)
