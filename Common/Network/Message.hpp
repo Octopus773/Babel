@@ -22,7 +22,7 @@ namespace Babel
 		//! @brief The code id of the message to known what it's taking about
 		T codeId;
 		//! @brief The size of the message body in bytes
-		uint32_t bodySize;
+		uint32_t bodySize = 0;
 
 		//! @brief Transform to network endianness the MessageHeader
 		//! @warning Function should not be called by the user (the send function should do it)

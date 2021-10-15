@@ -74,7 +74,7 @@ namespace Babel
 
 		for (const auto &u : this->_users) {
 			if (u.second.isConnected()) {
-				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username << u.second.canBeCalled;
+				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username << static_cast<uint8_t>(u.second.canBeCalled);
 			}
 		}
 		return r;

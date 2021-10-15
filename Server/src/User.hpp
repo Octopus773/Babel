@@ -21,7 +21,7 @@ namespace Babel
 
 		inline bool isConnected() const
 		{
-			return this->username.empty();
+			return !this->username.empty();
 		};
 
 		inline bool isCallable() const

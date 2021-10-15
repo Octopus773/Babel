@@ -22,7 +22,12 @@ namespace Babel
 								MessageHandler{[this](const Message<RFCCodes> &m) {
 									this->onLoginResponse(m);
 								}}
-							   }
+							   },
+			                   {RFCCodes::ListUsers,
+				                   MessageHandler{[this](const Message<RFCCodes> &m) {
+					                   this->onListUsersResponse(m);
+				                   }}
+			                   }
 		  })
 	{
 		this->_ui.setupUi(this->_window);
@@ -35,10 +40,6 @@ namespace Babel
 		QObject::connect(this->_ui.button_connect, &QPushButton::clicked, this, &HomePage::doConnect);
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
-		this->_ui.listWidget->addItem(QString("one"));
-		this->_ui.listWidget->addItem(QString("two"));
-		this->_ui.listWidget->addItem(QString("three"));
-		this->_ui.listWidget->addItem(QString("four"));
 
 		this->_window->show();
 		//this->_windowLogin->show();
@@ -93,6 +94,7 @@ namespace Babel
 
 		if (codeId) {
 			this->_ui.page2->setDisabled(false);
+			this->doListUsers();
 		}
 	}
 
@@ -117,16 +119,21 @@ namespace Babel
 		message >> arrayLength;
 
 		for (uint16_t i = 0; i < arrayLength; i++) {
-			uint8_t usernameLength;
-			message >> usernameLength;
 			std::string username;
-			if (!Utils::getString(message, username, {usernameLength, usernameLength})) {
+			if (!Utils::getString(message, username, {3, 10})) {
 				std::cout << "error while reading " << i << " user" << std::endl;
 			}
 			uint8_t canBeCalled;
 			message >> canBeCalled;
 
-			this->_ui.listWidget->addItem(QString::fromStdString(username + " " + std::to_string(static_cast<bool>(canBeCalled))));
+			this->_ui.listWidget->addItem(QString::fromStdString(username + std::to_string(static_cast<bool>(canBeCalled))));
 		}
+	}
+
+	void HomePage::doListUsers()
+	{
+		Message<RFCCodes> m;
+		m.header.codeId = RFCCodes::ListUsers;
+		this->sendHandler(m);
 	}
 }
