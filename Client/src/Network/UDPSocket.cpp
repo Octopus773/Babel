@@ -47,10 +47,9 @@ void Babel::UDPSocket::readPending()
         AudioPacket *packet = (AudioPacket *) (datagram.data().data());
 
         std::uint64_t timestamp = packet->timestamp;
-        const std::int32_t size = packet->size;
 
-        std::vector<unsigned char> encoded(size);
-        std::memcpy(encoded.data(), packet->data, size);
+        std::vector<unsigned char> encoded(4000);
+        std::memcpy(encoded.data(), packet->data, 4000);
 
         std::cout << "Inserting packet " << packet->timestamp << std::endl;
         //_inputBuffer.insert({timestamp, encoded});
@@ -72,7 +71,7 @@ void Babel::UDPSocket::readPending()
         }
          */
 
-        //std::cout << "Timestamp = " << timestamp << " & size = " << size << std::endl;
+        std::cout << "Timestamp = " << timestamp << std::endl;
         //std::cout << "Map size = " << _inputBuffer.size() << std::endl;
         std::cout << "Vector size = " << _inputBuffer2.size() << std::endl;
 
@@ -80,7 +79,7 @@ void Babel::UDPSocket::readPending()
             std::cout << "Flushing buffer" << std::endl;
             for (auto &payload : _inputBuffer2) {
                 std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-                    _codec->decode(payload.data(), decodedData.data(), payload.size());
+                    _codec->decode(payload.data(), decodedData.data(), decodedData.size());
                     try
                     {
                         _audio->writeStream(decodedData);
