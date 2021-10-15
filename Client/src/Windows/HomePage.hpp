@@ -83,6 +83,9 @@ namespace Babel
 
 			//! @brief Utility ctor
 			explicit UserInfo(bool canBeCalled);
+
+			//! @brief needed ctor without args
+			explicit UserInfo();
 		};
 
 		//! @brief Userinfo holder the username is the key

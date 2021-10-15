@@ -40,7 +40,8 @@ namespace Babel
 		try {
 			this->messageClient(client,
 			                    this->requestsHandlers[msg.header.codeId].method(client, msg));
-		} catch (Exception::BabelException &) {
+		} catch (Exception::BabelException &e) {
+			std::cerr << e.what() << std::endl;
 			this->messageClient(client, Utils::response(0, "request body was ill formed"));
 		}
 	}

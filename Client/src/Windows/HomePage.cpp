@@ -49,6 +49,7 @@ namespace Babel
 		QObject::connect(this->_ui.button_login, &QPushButton::clicked, this, &HomePage::doLogin);
 
 		QObject::connect(this->_ui.output_connected_user_list, &QListWidget::currentItemChanged, this, &HomePage::updateDisplaySelectedUser);
+		QObject::connect(this->_ui.button_call_user, &QPushButton::clicked, this, &HomePage::doCallUser);
 
 		this->_window->show();
 		this->_ui.page_login->setDisabled(true);
@@ -74,7 +75,7 @@ namespace Babel
 	void HomePage::onMessage(Message<RFCCodes> m)
 	{
 		if (this->_requestsMade.empty()) {
-			std::cout << "receiving event" << std::endl;
+			std::cout << "receiving event: header codeId: " << static_cast<uint16_t>(m.header.codeId) << std::endl;
 			return;
 		}
 
@@ -186,7 +187,7 @@ namespace Babel
 		Utils::getString(message, desc);
 
 		if (codeId != 1) {
-			std::cout << "error: callUser" << desc << std::endl;
+			std::cout << "error: callUser " << desc << std::endl;
 			return;
 		}
 
@@ -248,6 +249,11 @@ namespace Babel
 		: address(),
 		  port(0),
 		  canBeCalled(cBC)
+	{
+	}
+
+	HomePage::UserInfo::UserInfo()
+		: UserInfo(false)
 	{
 	}
 }
