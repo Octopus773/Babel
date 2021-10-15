@@ -17,8 +17,8 @@ void onError()
     std::cout << "Error when receiving packet" << std::endl;
 }
 
-Babel::UDPSocket::UDPSocket(const std::string &address, std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus)
-    : _audio(audio), _codec(opus), _address(address), _port(port)
+Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioManager> audio, std::shared_ptr<Babel::ICodec> opus)
+    : _audio(audio), _codec(opus), _port(port)
 {
     this->_socket = std::make_unique<QUdpSocket>(this);
     if (!this->_socket->bind(QHostAddress::AnyIPv4, port))

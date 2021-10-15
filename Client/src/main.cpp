@@ -5,10 +5,8 @@
 #include "Audio/PortAudio.hpp"
 #include "Audio/Opus/Opus.hpp"
 #include "Audio/PortAudioException.hpp"
-#include <iostream>
 #include <memory>
 #include <QApplication>
-#include "client.hpp"
 #include "Network/QtTCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 #include "Network/UDPSocket.hpp"
@@ -29,7 +27,7 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
                 opus->encode(data.data(), encoded.data());
 
                 // Envoi sur network
-                udpSocket->write(encoded, "127.0.0.1", 25565);
+                udpSocket->write(encoded, "10.29.125.179", 25565);
             } catch (const Babel::PortAudioException &e) {
                 //std::cerr << e.what();
             }
@@ -47,7 +45,7 @@ int main(int argc, char **argv)
     portAudio->openStream();
 	portAudio->startStream();
 
-    std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>("127.0.0.1", 25565, portAudio, opus);
+    std::shared_ptr<Babel::UDPSocket> udpSock = std::make_shared<Babel::UDPSocket>(25565, portAudio, opus);
 
     std::thread recordThread(audio_record, portAudio, opus, udpSock);
 
