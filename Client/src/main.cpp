@@ -45,6 +45,7 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
                 portAudio->writeStream(decodedData);
                 */
 
+                 
                 // Envoi sur network
                 udpSocket->write(encoded, size ,"127.0.0.1", 25565);
             } catch (const Babel::PortAudioException &e) {

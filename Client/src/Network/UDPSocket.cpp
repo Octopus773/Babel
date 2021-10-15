@@ -27,9 +27,9 @@ Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioMana
     _clock = std::chrono::system_clock::now();
 }
 
-std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &data, std::uint32_t size, const std::string &address, int port)
+std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, std::int32_t size, const std::string &address, int port)
 {
-    AudioPacket packet(data, size);
+    AudioPacket packet(encoded, size);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
     std::cout << "Sent " << packet.timestamp << std::endl;
@@ -45,6 +45,23 @@ void Babel::UDPSocket::readPending()
         //std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
+        // déballe le paquet
+        auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (datagram.data().data());
+        std::uint64_t timestamp = packetRecu->timestamp;
+        std::int32_t sizeRecu = packetRecu->size;
+        std::vector<unsigned char> encodedReceived(sizeRecu);
+        std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
+        std::cout << "Timestamp = " << timestamp << " & size = " << sizeRecu << std::endl;
+
+        // on décode
+        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
+        _codec->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
+        try {
+            _audio->writeStream(decodedData);
+        } catch (const std::exception &e) {
+        }
+
+        /*
         // Unpack
         AudioPacket *packet = reinterpret_cast<AudioPacket *> (datagram.data().data());
         std::uint64_t timestamp = packet->timestamp;
@@ -65,7 +82,7 @@ void Babel::UDPSocket::readPending()
         //_inputBuffer2.push_back(encoded);
 
         //auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
-
+        */
         /*
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
         std::cout << "packet data size = " << size << std::endl;
