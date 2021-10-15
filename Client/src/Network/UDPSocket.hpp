@@ -6,6 +6,7 @@
 #define BABEL_UDPSOCKET_HPP
 
 #include <QUdpSocket>
+#include <map>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
 
@@ -34,6 +35,8 @@ namespace Babel {
         std::shared_ptr<Babel::IAudioManager> _audio;
         std::shared_ptr<Babel::ICodec> _codec;
         std::int16_t _port;
+        std::map<std::uint64_t, std::vector<unsigned char>> _inputBuffer;
+        std::chrono::time_point<std::chrono::system_clock>  _clock;
     };
 }
 

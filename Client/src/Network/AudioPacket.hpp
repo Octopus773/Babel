@@ -12,7 +12,7 @@ namespace Babel {
 
         explicit AudioPacket(std::array<unsigned char, 4000> &payloadArray) {
             std::memcpy(this->data, payloadArray.data(), payloadArray.size());
-            this->size = sizeof(payloadArray.data());
+            this->size = payloadArray.size();
             std::int64_t milliseconds_since_epoch = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
             this->timestamp = milliseconds_since_epoch;
         }
