@@ -166,7 +166,11 @@ namespace Babel
 			return;
 		}
 
+		this->_ui.output_connected_user_list->blockSignals(true);
+		this->_ui.output_connected_user_list->clearSelection();
+		this->_ui.output_connected_user_list->clearFocus();
 		this->_ui.output_connected_user_list->clear();
+		this->_ui.output_connected_user_list->blockSignals(false);
 
 		uint16_t arrayLength;
 		message >> arrayLength;
