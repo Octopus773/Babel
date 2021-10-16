@@ -31,6 +31,7 @@ namespace Babel {
         void readPending();
 
     private:
+        std::mutex _mutex;
         std::unique_ptr<QUdpSocket> _socket;
         std::shared_ptr<Babel::IAudioManager> _audio;
         std::shared_ptr<Babel::ICodec> _codec;

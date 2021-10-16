@@ -11,7 +11,8 @@
 
 Babel::PortAudio::PortAudio()
 {
-	int err = Pa_Initialize();
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    int err = Pa_Initialize();
 	PaStreamParameters inputParameters;
 	PaStreamParameters outputParameters;
 	this->_streamStopped = true;
@@ -34,12 +35,14 @@ Babel::PortAudio::PortAudio()
 
 void Babel::PortAudio::setOutputChannelsNumber(int32_t nb)
 {
-	this->_outputNumberChannels = nb;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    this->_outputNumberChannels = nb;
 }
 
 void Babel::PortAudio::setInputChannelsNumber(int32_t nb)
 {
-	this->_inputNumberChannels = nb;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    this->_inputNumberChannels = nb;
 }
 
 int32_t Babel::PortAudio::getInputChannelsNumber() const
@@ -54,7 +57,8 @@ int32_t Babel::PortAudio::getOutputChannelsNumber() const
 
 void Babel::PortAudio::setFramesPerBuffer(int32_t nb)
 {
-	this->_framesPerBuffer = nb;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    this->_framesPerBuffer = nb;
 }
 
 int32_t Babel::PortAudio::getFramesPerBuffer() const
@@ -64,7 +68,8 @@ int32_t Babel::PortAudio::getFramesPerBuffer() const
 
 void Babel::PortAudio::setSampleRate(int32_t nb)
 {
-	this->_samplerate = nb;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    this->_samplerate = nb;
 }
 
 int32_t Babel::PortAudio::getSampleRate() const
@@ -74,12 +79,13 @@ int32_t Babel::PortAudio::getSampleRate() const
 
 void Babel::PortAudio::setRecordTime(int32_t nb)
 {
-	this->_recordtime = nb;
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    this->_recordtime = nb;
 }
 
 int32_t Babel::PortAudio::getRecordTime() const
 {
-	return (this->_recordtime);
+    return (this->_recordtime);
 }
 
 void Babel::PortAudio::openStream()
@@ -189,7 +195,8 @@ void Babel::PortAudio::writeStream(std::vector<int16_t> &data)
 
 Babel::PortAudio::~PortAudio()
 {
-	if (this->_stream) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
+    if (this->_stream) {
 		if (!this->_streamStopped)
 			this->stopStream();
 		this->closeStream();

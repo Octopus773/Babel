@@ -3,6 +3,7 @@
 
 Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false), _bitrate(48000),
                       _channel(1), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     int err = 0;
 
     this->_encoder = opus_encoder_create(this->_bitrate, this->_channel, this->_application, &err);
@@ -20,6 +21,7 @@ Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false)
 }
 
 Babel::Opus::~Opus() {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     if (this->_encoderIsInitialized) {
         opus_encoder_destroy(this->_encoder);
     }
@@ -33,6 +35,7 @@ opus_int32 Babel::Opus::getBitrate() const {
 }
 
 void Babel::Opus::setBitrate(std::int32_t bitrate) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_bitrate = bitrate;
 }
 
@@ -41,6 +44,7 @@ int Babel::Opus::getChannel() const {
 }
 
 void Babel::Opus::setChannel(int channel) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_channel = channel;
 }
 
@@ -49,6 +53,7 @@ int Babel::Opus::getApplication() const {
 }
 
 void Babel::Opus::setApplication(int application) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_application = application;
 }
 
@@ -57,6 +62,7 @@ int Babel::Opus::getFrameSize() const {
 }
 
 void Babel::Opus::setFrameSize(int frameSize) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_frameSize = frameSize;
 }
 
@@ -116,6 +122,7 @@ int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32
 }
 
 int Babel::Opus::decode(const unsigned char *data, float *pcm) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {

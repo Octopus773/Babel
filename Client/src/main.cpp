@@ -13,7 +13,7 @@
 #include "Network/AudioPacket.hpp"
 #include "SoundHandler.hpp"
 
-/*void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const std::shared_ptr<Babel::ICodec> opus, const std::shared_ptr<Babel::UDPSocket> udpSocket)
+void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const std::shared_ptr<Babel::ICodec> opus, const std::shared_ptr<Babel::UDPSocket> udpSocket)
 {
     std::array<unsigned char, 4000> encoded {0};
     std::vector<int16_t> pcm;
@@ -24,13 +24,14 @@
                 std::vector<int16_t> data = portAudio->readStream();
 
                 // Compression
-                std::int32_t size = opus->encode(data.data(), encoded.data());
+                std::int32_t sizeSent = opus->encode(data.data(), encoded.data());
 
-                
+
                 // on fait un paquet
                 Babel::AudioPacket packetEnvoye(encoded, sizeSent);
                 char toSend[sizeof(Babel::AudioPacket)];
                 std::memcpy(toSend, &packetEnvoye, sizeof(packetEnvoye));
+
 
                 // on déballe
                 auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (toSend);
@@ -38,24 +39,25 @@
                 std::int32_t sizeRecu = packetRecu->size;
                 std::vector<unsigned char> encodedReceived(sizeRecu);
                 std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
-                std::cout << "Timestamp = " << timestamp << " & size = " << sizeRecu << std::endl;
+                //std::cout << "Timestamp = " << timestamp << " & size = " << sizeRecu << std::endl;
+
 
                 // on décode
                 std::vector<std::int16_t> decodedData(portAudio->getFramesPerBuffer() * portAudio->getInputChannelsNumber(), 0);
-                opus->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
-                portAudio->writeStream(decodedData);
-                
+                //opus->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
+
+                //portAudio->writeStream(decodedData);
 
                  
                 // Envoi sur network
-                udpSocket->write(encoded, size ,"127.0.0.1", 25565);
+                udpSocket->write(encoded, sizeSent ,"127.0.0.1", 25565);
             } catch (const Babel::PortAudioException &e) {
                 //std::cerr << e.what();
             }
     }
 }
-*/
-/*int main(int argc, char **argv)
+
+int main(int argc, char **argv)
 {
 	std::shared_ptr<Babel::IAudioManager> portAudio = std::make_shared<Babel::PortAudio>();
 	std::shared_ptr<Babel::ICodec> opus = std::make_shared<Babel::Opus>();
@@ -70,8 +72,9 @@
     std::thread recordThread(audio_record, portAudio, opus, udpSock);
 
     return QApplication::exec();
-}*/
+}
 
+/*
 int main(int argc, char **argv)
 {
     try
@@ -90,6 +93,7 @@ int main(int argc, char **argv)
 
     return QApplication::exec();
 }
+ */
 
 
 /*
