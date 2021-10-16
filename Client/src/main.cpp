@@ -34,16 +34,16 @@ void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const s
 
 
                 // on déballe
-                auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (toSend);
-                std::uint64_t timestamp = packetRecu->timestamp;
-                std::int32_t sizeRecu = packetRecu->size;
-                std::vector<unsigned char> encodedReceived(sizeRecu);
-                std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
+                //auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (toSend);
+                //std::uint64_t timestamp = packetRecu->timestamp;
+                //std::int32_t sizeRecu = packetRecu->size;
+                //std::vector<unsigned char> encodedReceived(sizeRecu);
+                //std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
                 //std::cout << "Timestamp = " << timestamp << " & size = " << sizeRecu << std::endl;
 
 
                 // on décode
-                std::vector<std::int16_t> decodedData(portAudio->getFramesPerBuffer() * portAudio->getInputChannelsNumber(), 0);
+                //std::vector<std::int16_t> decodedData(portAudio->getFramesPerBuffer() * portAudio->getInputChannelsNumber(), 0);
                 //opus->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
 
                 //portAudio->writeStream(decodedData);

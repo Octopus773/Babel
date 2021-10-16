@@ -30,17 +30,16 @@ Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioMana
 
 std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, std::int32_t size, const std::string &address, int port)
 {
-    std::lock_guard<std::mutex> lockGuard(_mutex);
     AudioPacket packet(encoded, size);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
 
-    std::cout << "[ENVOI] Timestamp = " << packet.timestamp << " & size = " << packet.size << std::endl;
-    std::cout << "A envoyé taille = " << sizeof(packet) << std::endl;
-    for (int i = 0; i < sizeof(toSend); i++) {
-        std::cout << toSend[i];
-    }
-    std::cout << std::endl;
+    //std::cout << "[ENVOI] Timestamp = " << packet.timestamp << " & size = " << packet.size << std::endl;
+    //std::cout << "A envoyé taille = " << sizeof(packet) << std::endl;
+    //for (int i = 0; i < sizeof(toSend); i++) {
+    //    std::cout << toSend[i];
+    //}
+    //std::cout << std::endl;
 
     std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
     return result;
@@ -48,7 +47,6 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, s
 
 void Babel::UDPSocket::readPending()
 {
-    std::lock_guard<std::mutex> lockGuard(_mutex);
     while (this->_socket->hasPendingDatagrams()) {
         //std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
@@ -60,12 +58,12 @@ void Babel::UDPSocket::readPending()
         std::int32_t sizeRecu = packetRecu->size;
         std::vector<unsigned char> encodedReceived(sizeRecu);
         std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
-        std::cout << "[RECU] Timestamp = " << packetRecu->timestamp << " & size = " << packetRecu->size << std::endl;
-        std::cout << "A recu taille = " << sizeof(*packetRecu) << std::endl;
-        for (int i = 0; i < sizeRecu; i++) {
-            std::cout << packetRecu->data[i];
-        }
-        std::cout << std::endl;
+        //std::cout << "[RECU] Timestamp = " << packetRecu->timestamp << " & size = " << packetRecu->size << std::endl;
+        //std::cout << "A recu taille = " << sizeof(*packetRecu) << std::endl;
+        //for (int i = 0; i < sizeRecu; i++) {
+        //    std::cout << packetRecu->data[i];
+        //}
+        //std::cout << std::endl;
 
         // on décode
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
