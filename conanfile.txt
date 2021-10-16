@@ -8,8 +8,8 @@ asio/1.19.2
 
 [generators]
 cmake
-#cmake_find_package
-#cmake_paths
+cmake_find_package
+cmake_paths
 
 [options]
 #opus:shared=True

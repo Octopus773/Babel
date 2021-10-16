@@ -23,7 +23,8 @@ add_executable(babel_server
 
 #find_package(asio 1.19.2 REQUIRED)
 
-target_link_libraries(babel_server PRIVATE ${CONAN_LIBS})
+#target_link_libraries(babel_server PRIVATE asio::asio)
+target_link_libraries(babel_server PRIVATE ${CONAN_LIBS_ASIO})
 
 if (UNIX)
 	target_compile_options(babel_server PUBLIC

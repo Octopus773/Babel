@@ -12,10 +12,18 @@ file(
 set(CONAN_DISABLE_CHECK_COMPILER 1)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup(KEEP_RPATHS)
 
-if (EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
+if (WIN32 AND EXISTS "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake")
+	include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+	conan_basic_setup(KEEP_RPATHS)
+else()
+	message(WARNING "The fileconanbuildinfo.cmake doesn't exist, you may have to run conan install first")
+	list(APPEND CMAKE_MODULE_PATH "${CMAKE_BINARY_DIR}")
+endif()
+
+
+
+if (UNIX AND EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
 	include("${CMAKE_BINARY_DIR}/conan_paths.cmake")
 else()
 	message(WARNING "The file conan_paths.cmake doesn't exist, you may have to run conan install first")

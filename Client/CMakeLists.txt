@@ -24,11 +24,15 @@ add_executable(babel_client
 	${COMMON_SOURCES}
 )
 
-#find_package(Qt5 COMPONENTS Widgets Network Gui Core REQUIRED)
+file(WRITE ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/qt.conf [Paths]\nPrefix=${CONAN_QT_ROOT})
+find_package(Qt5 COMPONENTS Widgets Network Gui Core REQUIRED)
 #find_package(portaudio 19.7.0 REQUIRED)
-#find_package(Opus 1.3.1 REQUIRED)
+#find_package(OPUS 1.3.1 REQUIRED)
 
-target_link_libraries(babel_client ${CONAN_LIBS})
+
+#target_link_libraries(babel_client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network portaudio::portaudio OPUS::Opus)
+target_link_libraries(babel_client ${CONAN_LIBS} Qt5::Widgets Qt5::Network)
+#target_link_libraries(babel_client ${CONAN_LIBS_PORTAUDIO} ${CONAN_LIBS_OPUS} ${CONAN_LIBS_QT5})
 
 if (UNIX)
 	target_compile_options(babel_client PUBLIC
