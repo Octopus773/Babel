@@ -251,7 +251,6 @@ namespace Babel
 			return;
 		}
 
-		this->_currentCallId = callId;
 		message.reset();
 		message.header.codeId = RFCCodes::JoinCall;
 		message << callId;
@@ -273,6 +272,7 @@ namespace Babel
 			std::string desc;
 			Utils::getString(message, desc);
 			std::cout << "error: onJoinCall: " << desc << std::endl;
+			this->_currentCallId = CurrentlyNotInCall;
 			return;
 		}
 
@@ -280,7 +280,7 @@ namespace Babel
 
 		message >> arrayLength;
 
-		for (uint16_t i = 0; i > arrayLength; i++) {
+		for (uint16_t i = 0; i < arrayLength; i++) {
 			std::string address;
 			Utils::getString(message, address);
 			uint16_t port;
@@ -304,6 +304,7 @@ namespace Babel
 	void HomePage::doHangUp()
 	{
 		if (this->_currentCallId == CurrentlyNotInCall) {
+			std::cout << "no callid in hangup" << std::endl;
 			return;
 		}
 		Message<RFCCodes> m;
@@ -311,7 +312,14 @@ namespace Babel
 		m.header.codeId = RFCCodes::HangUp;
 		m << this->_currentCallId;
 
-		// close all udp sockets from _usersInCurrentCall
+		// todo close all udp sockets from _usersInCurrentCall
+
+		this->_ui.output_list_call_members->blockSignals(true);
+		this->_ui.output_list_call_members->clearSelection();
+		this->_ui.output_list_call_members->clearFocus();
+		this->_ui.output_list_call_members->clear();
+		this->_ui.output_list_call_members->blockSignals(false);
+
 
 		this->_usersInCurrentCall.clear();
 		this->_currentCallId = CurrentlyNotInCall;
@@ -346,6 +354,7 @@ namespace Babel
 	void HomePage::doJoinCall(int callId, std::string address, uint16_t port)
 	{
 		Message<RFCCodes> m;
+		this->_currentCallId = callId;
 		m.header.codeId = RFCCodes::JoinCall;
 		m << static_cast<uint16_t>(callId);
 		m << static_cast<uint8_t>(address.size()) << address << port;
@@ -383,6 +392,7 @@ namespace Babel
 	void HomePage::handleUserJoined(const Message<RFCCodes> &m)
 	{
 		if (this->_currentCallId == CurrentlyNotInCall) {
+			std::cout << "no call id in user joined" << std::endl;
 			return;
 		}
 		Message<RFCCodes> message(m);
@@ -407,6 +417,7 @@ namespace Babel
 	void HomePage::handleUserLeft(const Message<RFCCodes> &m)
 	{
 		if (this->_currentCallId == CurrentlyNotInCall) {
+			std::cout << "no call id in user left" << std::endl;
 			return;
 		}
 		Message<RFCCodes> message(m);
@@ -420,9 +431,10 @@ namespace Babel
 			std::remove(this->_usersInCurrentCall.begin(), this->_usersInCurrentCall.end(), username),
 			this->_usersInCurrentCall.end());
 
-		auto namesToRemove = this->_ui.output_connected_user_list->findItems(QString::fromStdString(username),
+		auto namesToRemove = this->_ui.output_list_call_members->findItems(QString::fromStdString(username),
 		                                                                     Qt::MatchExactly);
-		for (auto name: namesToRemove) {
+		for (auto &name : namesToRemove) {
+			this->_ui.output_list_call_members->takeItem(this->_ui.output_list_call_members->row(name));
 			delete name;
 		}
 	}
