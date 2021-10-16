@@ -10,7 +10,8 @@
 namespace Babel {
     using namespace std::chrono;
     #pragma pack(push, 1)
-    struct __attribute__((__packed__)) AudioPacket {
+    // __attribute__((__packed__))
+    struct AudioPacket {
 
         explicit AudioPacket(std::array<unsigned char, 4000> &payloadArray, std::int32_t receivedSize) {
             std::memcpy(this->data, payloadArray.data(), payloadArray.size());

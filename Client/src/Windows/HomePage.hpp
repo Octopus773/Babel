@@ -11,6 +11,7 @@
 #include <functional>
 #include <map>
 #include <QObject>
+#include "SoundHandler.hpp"
 
 namespace Babel
 {
@@ -28,6 +29,7 @@ namespace Babel
 		QtTCPConnection connection;
 
 		TSQueue<RFCCodes> _requestsMade;
+
 
 		//! @brief send the message to the server and add it to the message send queue to handle responses type
 		//! @note The client should always use this function to send messages to the server

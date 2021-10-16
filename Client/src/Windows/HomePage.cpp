@@ -6,6 +6,7 @@
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include <iostream>
+#include <memory>
 #include <QMainWindow>
 #include "Utilities/Utilities.hpp"
 #include <QPushButton>
@@ -257,7 +258,7 @@ namespace Babel
 
 		// todo set true values
 		std::string address = "127.0.0.1";
-		uint16_t port = 56789;
+		uint16_t port = 2456;
 		this->doJoinCall(callId, address, port);
 	}
 
@@ -293,11 +294,13 @@ namespace Babel
 			this->_usersInfos[username].address = address;
 			this->_usersInCurrentCall.emplace_back(username);
 			this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
+			//this->_audio.addClient(username, address, port);
 		}
 
 		this->_ui.page_call->setDisabled(false);
 		this->changeCurrentUITab("page_call");
 		// todo send audio packets to every address and port
+		//this->_audio.startCall();
 		// switch to call tab
 	}
 
@@ -313,6 +316,8 @@ namespace Babel
 		m << static_cast<uint16_t>(this->_currentCallId);
 
 		// todo close all udp sockets from _usersInCurrentCall
+		//this->_audio.stopCall();		
+
 
 		this->_ui.output_list_call_members->blockSignals(true);
 		this->_ui.output_list_call_members->clearSelection();
@@ -412,6 +417,8 @@ namespace Babel
 		this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
 
 		// todo send our udp data to his socket
+		std::cout << port << std::endl;
+		//this->_audio.addClient(username, address, port);
 	}
 
 	void HomePage::handleUserLeft(const Message<RFCCodes> &m)
@@ -426,6 +433,7 @@ namespace Babel
 		Utils::getString(message, username);
 
 		// todo stop sending our udp data to this username
+		//this->_audio.removeClient(username);
 
 		this->_usersInCurrentCall.erase(
 			std::remove(this->_usersInCurrentCall.begin(), this->_usersInCurrentCall.end(), username),

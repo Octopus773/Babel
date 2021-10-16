@@ -9,6 +9,7 @@
 #include <map>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
+#include ".."
 
 namespace Babel {
     //! @class wrappers around Qt UDP socket
@@ -37,7 +38,7 @@ namespace Babel {
         std::int16_t _port;
         std::map<std::uint64_t, std::vector<unsigned char>> _inputBuffer;
         std::chrono::time_point<std::chrono::system_clock>  _clock;
-        //std::vector<std::vector<unsigned char>> _inputBuffer2
+        Babel::TSQueue<std::vector<int16_t>> _queue;
     };
 }
 

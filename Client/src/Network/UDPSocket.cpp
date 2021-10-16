@@ -10,6 +10,7 @@
 #include <iostream>
 #include "UDPSocket.hpp"
 #include "NetworkException.hpp"
+#include "../SoundHandler.hpp"
 #include "AudioPacket.hpp"
 
 void onError()
@@ -32,7 +33,7 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, s
     AudioPacket packet(encoded, size);
     char toSend[sizeof(AudioPacket)];
     std::memcpy(toSend, &packet, sizeof(packet));
-    std::cout << "Sent " << packet.timestamp << std::endl;
+    std::cout << "Sent " << packet.timestamp << "to " << address << ":" << port << std::endl;
 
     std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
     //std::cout << "Sent " << result << " sized packet to " << address << ":" << port << std::endl;
@@ -57,7 +58,8 @@ void Babel::UDPSocket::readPending()
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
         _codec->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
         try {
-            _audio->writeStream(decodedData);
+            //_audio->writeStream(decodedData);
+            _queue.pushBack(decodedData);
         } catch (const std::exception &e) {
         }
 

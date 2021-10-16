@@ -26,21 +26,21 @@ Babel::SoundHandler::SoundHandler(std::int16_t port) : _shouldExit(false), _shou
 
         std::cout << "hello" << std::endl;
         while (true) {
-            std::cout << "Checking exit" << std::endl;
+            //std::cout << "Checking exit" << std::endl;
             this->_exit_mtx.lock();
             if (this->_shouldExit) {
                 this->_exit_mtx.unlock();
-                std::cerr << "Exiting" << std::endl;
+                //std::cerr << "Exiting" << std::endl;
                 return;
             }
-            std::cout << "not exit" << std::endl;
+            //std::cout << "not exit" << std::endl;
             this->_exit_mtx.unlock();
             this->_play_mtx.lock();
             if (!this->_shouldPlay) {
                 this->_play_mtx.unlock();
                 continue;
             }
-            std::cout << "playing sound" << std::endl;
+            //std::cout << "playing sound" << std::endl;
             this->_play_mtx.unlock();
             try
             {
@@ -86,9 +86,10 @@ void Babel::SoundHandler::stopCall(void)
     this->_userlist.clear();
 }
 
-void Babel::SoundHandler::addClient(const std::string userid, const std::string address, std::int16_t port)
+void Babel::SoundHandler::addClient(const std::string userid, const std::string address, std::uint16_t port)
 {
     std::scoped_lock lock(this->_userlist_mtx);
+    std::cout << "adding " << address << ":" << port << std::endl;
     this->_userlist[userid] = std::make_pair(address, port);
 }
 

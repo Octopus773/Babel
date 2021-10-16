@@ -80,9 +80,14 @@ int main(int argc, char **argv)
     try
     {
         QApplication app(argc, argv);
-        Babel::SoundHandler sound(25565);
-        sound.addClient("Moi", "127.0.0.1", 25565);
-        sound.startCall();
+        //Babel::SoundHandler a(5678);
+        //a.addClient("ugo", "127.0.0.1", 5678);
+        //a.startCall();
+        		Babel::SoundHandler _audio(2456);
+       Babel::HomePage hP;
+
+        _audio.addClient("ugo", "127.0.0.1", 2456);
+        _audio.startCall();
         return QApplication::exec();
     }
     catch(const std::runtime_error& e)
