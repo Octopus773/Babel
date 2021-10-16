@@ -6,12 +6,12 @@
 #ifndef SOUNDHANDLER_HPP_
 #define SOUNDHANDLER_HPP_
 
-#include "Audio/Opus/Opus.hpp"
-#include "Audio/PortAudio.hpp"
-#include "Audio/Opus/Opus.hpp"
+#include "Audio/Opus/ICodec.hpp"
+#include "Audio/IAudioManager.hpp"
 #include "Audio/PortAudioException.hpp"
 #include <memory>
 #include <map>
+#include <thread>
 #include <condition_variable>
 #include <QApplication>
 #include "Network/QtTCPConnection.hpp"
@@ -45,8 +45,20 @@ namespace Babel
         std::shared_ptr<Babel::UDPSocket> _socket;
         // @brief list of all users used in current call
         std::map<std::string, std::pair<std::string, std::int16_t>> _userlist;
+        // @brief mutex to access the userlist
+        std::mutex _userlist_mtx;
         // @condition variable for stopping or enabling thread
-        std::condition_variable _blocker;
+        std::condition_variable _blocker; 
+        // @brief boolean to tell when the thread should exit;
+        bool _shouldExit;
+        // @brief mutex for should exit variable
+        std::mutex _exit_mtx;
+        // @brief boolean to tell when the thread should record;
+        bool _shouldPlay;
+        // @brief mutex for should exit variable
+        std::mutex _play_mtx;
+        // @brief thread for broadcasting data from audio library to udp
+        std::thread _execthread;
     };
 }
 
