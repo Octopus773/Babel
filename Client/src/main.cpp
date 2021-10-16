@@ -78,6 +78,7 @@ int main(int argc, char **argv)
     {
         QApplication app(argc, argv);
         Babel::SoundHandler sound(25565);
+        sound.addClient("Moi", "127.0.0.1", 25565);
         sound.startCall();
         return QApplication::exec();
     }

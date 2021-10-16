@@ -40,6 +40,7 @@ Babel::SoundHandler::SoundHandler(std::int16_t port) : _shouldExit(false), _shou
                 this->_play_mtx.unlock();
                 continue;
             }
+            std::cout << "playing sound" << std::endl;
             this->_play_mtx.unlock();
             try
             {
