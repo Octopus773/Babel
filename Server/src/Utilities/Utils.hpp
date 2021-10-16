@@ -22,18 +22,6 @@ namespace Babel::Utils
 			return m;
 		};
 
-		//! @brief get a string from a message the data layout of the message must be uint8 string_length and the string
-		inline bool getString(Message<RFCCodes> &m, std::string &str, std::pair<uint8_t, uint8_t> minMaxSize)
-		{
-			uint8_t stringLength;
-			m >> stringLength;
-			if (stringLength < minMaxSize.first || stringLength > minMaxSize.second) {
-				return false;
-			}
-			Message<RFCCodes>::GetBytes(m, str, stringLength);
-			return true;
-		};
-
 		inline Message<RFCCodes> &appendConnectionIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
 		{
 			std::string address = c.getPeerIp();

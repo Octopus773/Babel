@@ -140,6 +140,8 @@ List users
 
             WARNING no description_length and description in this response
 
+            array_length: uint16_t (2 bytes)
+
             an array of connected users following the pattern
             username_length: the length of the username, length: uint8_t
             username: the connected user username, length: username_length
@@ -204,6 +206,8 @@ Joining a call
 
                 WARNING no description_length and description in this response
 
+                array_length: 2 bytes (uint16_t)
+
                 an array of call participants following the pattern:
                 udpAddress_length: uint8_t
                 udpAddress: udpAddress_length length
@@ -242,7 +246,7 @@ Hang up a call
 
         You have to be logged in to make this request
 
-        * callId : the call Id you want to join : (uint16_t)
+        * callId : the call Id you want to leave : (uint16_t)
 
 ~~~~~~~~~~
         +------------+------------+------------+------------+
@@ -262,7 +266,7 @@ General purpose response
 
         Unless explicitly specified the server responses will always have a description
 
-        * description_length : The length of the description : 2 bytes (uint8_t)
+        * description_length : The length of the description : 1 byte (uint8_t)
 
         * description : human readable response (can be displayed to the user) : description_length bytes (char)
 

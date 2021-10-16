@@ -127,20 +127,20 @@ namespace Babel
 					             },
 					             false
 				             }},
-			{RFCCodes::Call, {
+			{RFCCodes::CallUser, {
 					             [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) {
 						             return this->callUser(std::move(c), std::move(m));
 					             },
 					             true
 				             }},
-			{RFCCodes::Accept,
+			{RFCCodes::JoinCall,
 				             {
 					             [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) {
 						             return this->joinCall(std::move(c), std::move(m));
 					             },
 					             true
 				             }},
-			{RFCCodes::Deny,
+			{RFCCodes::DenyCall,
 				             {
 					             [this](std::shared_ptr<ITCPConnection<RFCCodes>> c, Message<RFCCodes> m) {
 						             return this->denyCall(std::move(c), std::move(m));

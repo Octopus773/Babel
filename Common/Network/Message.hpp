@@ -22,7 +22,7 @@ namespace Babel
 		//! @brief The code id of the message to known what it's taking about
 		T codeId;
 		//! @brief The size of the message body in bytes
-		uint32_t bodySize;
+		uint32_t bodySize = 0;
 
 		//! @brief Transform to network endianness the MessageHeader
 		//! @warning Function should not be called by the user (the send function should do it)
@@ -55,15 +55,25 @@ namespace Babel
 
 		//! @brief Get size bytes from the message and put it in data, useful for strings (no compile time size)
 		template<typename DataType>
-		static Message<T> &GetBytes(Message<T> &message, DataType &data, uint64_t size);
+		static Message<T> &GetBytes(Message<T> &msg, DataType &data, uint64_t size);
 
-		static Message<T> &GetBytes(Message<T> &message, std::string &data, uint64_t size);
+		static Message<T> &GetBytes(Message<T> &msg, std::string &data, uint64_t size);
 
 		//! @brief Reset this message, this message will be totally empty
 		//! @note Te message header id won't be changed
 		void reset();
 
+		//! @brief ctor
 		explicit Message();
+
+		//! @brief copy ctor
+		Message(const Message<T> &m) = default;
+
+		//! @brief dtor
+		~Message() = default;
+
+		//! @brief assignment ctor
+		Message &operator=(const Message<T> &) = default;
 	};
 
 

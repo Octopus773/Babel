@@ -107,13 +107,14 @@ jobs:
         shell: bash
         if: matrix.name == 'Linux'
         run: |
-          ./build/Client/client_unit_tests
+          ./build/bin/client_unit_tests
       
       - name: Run Client tests Windows
         shell: bash
         if: matrix.name == 'Windows'
         run: |
-          build/Client/Debug/client_unit_tests.exe
+          mv build/bin/Debug/client_unit_tests.exe build/bin/
+          build/bin/client_unit_tests.exe
       
       - name: Build Server Test Binary
         env:
@@ -129,10 +130,11 @@ jobs:
         shell: bash
         if: matrix.name == 'Linux'
         run: |
-          ./build/Server/server_unit_tests
+          ./build/bin/server_unit_tests
       
       - name: Run Server tests Windows
         shell: bash
         if: matrix.name == 'Windows'
         run: |
-          build/Server/Debug/server_unit_tests.exe
+          mv build/bin/Debug/server_unit_tests.exe build/bin/
+          build/bin/server_unit_tests.exe
