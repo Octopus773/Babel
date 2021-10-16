@@ -21,9 +21,9 @@ add_executable(babel_server
 )
 
 
-find_package(asio 1.19.2 REQUIRED)
+#find_package(asio 1.19.2 REQUIRED)
 
-target_link_libraries(babel_server PRIVATE asio::asio)
+target_link_libraries(babel_server PRIVATE ${CONAN_LIBS})
 
 if (UNIX)
 	target_compile_options(babel_server PUBLIC
@@ -50,4 +50,4 @@ if (NOT Catch2_FOUND)
 	list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/lib/catch2")
 	find_package(Catch2 REQUIRED)
 endif ()
-target_link_libraries(server_unit_tests PRIVATE Catch2::Catch2 asio::asio)
+#target_link_libraries(server_unit_tests PRIVATE Catch2::Catch2 asio::asio)
