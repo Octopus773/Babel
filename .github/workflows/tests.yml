@@ -113,7 +113,7 @@ jobs:
         shell: bash
         if: matrix.name == 'Windows'
         run: |
-          mv build/bin/client_unit_tests.exe build/bin/
+          mv build/bin/Debug/client_unit_tests.exe build/bin/
           build/bin/client_unit_tests.exe
       
       - name: Build Server Test Binary
@@ -136,5 +136,5 @@ jobs:
         shell: bash
         if: matrix.name == 'Windows'
         run: |
-          mv build/bin/server_unit_tests.exe build/bin/
+          mv build/bin/Debug/server_unit_tests.exe build/bin/
           build/bin/server_unit_tests.exe
