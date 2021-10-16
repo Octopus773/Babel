@@ -107,7 +107,7 @@ jobs:
         shell: bash
         if: matrix.name == 'Linux'
         run: |
-          test -f build/Client/babel_client && test -f build/Server/babel_server
+          test -f build/bin/babel_client && test -f build/bin/babel_server
       
 #      - name: Archive production artifact for Windows binary
 #        if: matrix.name == 'Windows'

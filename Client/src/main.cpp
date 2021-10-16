@@ -8,10 +8,13 @@
 #include <memory>
 #include <QApplication>
 #include "Network/QtTCPConnection.hpp"
+#include "gui/QtBabelGui.hpp"
+#include "gui/QtHomePage.hpp"
 #include "Network/RFCCodes.hpp"
 #include "Network/UDPSocket.hpp"
 #include "Network/AudioPacket.hpp"
 #include "SoundHandler.hpp"
+#include "Windows/HomePage.hpp"
 
 /*void audio_record(const std::shared_ptr<Babel::IAudioManager> portAudio, const std::shared_ptr<Babel::ICodec> opus, const std::shared_ptr<Babel::UDPSocket> udpSocket)
 {
@@ -97,9 +100,13 @@ int main(int argc, char *argv[])
 {
 
 	QApplication app(argc, argv);
-	QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
 
-	Client client;
-	client.show();
+	Babel::HomePage truc;
+
+
+	//QApplication::setApplicationDisplayName(Client::tr("Fortune Client"));
+
+	//Client client;
+	//client.show();
 	return app.exec();
 }*/

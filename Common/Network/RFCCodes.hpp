@@ -22,11 +22,11 @@ namespace Babel
 		//! @brief Get the list of server currently active users
 		ListUsers = 201,
 		//! @brief Call a user from it's username
-		Call = 202,
+		CallUser = 202,
 		//! @brief Accept a call from a user
-		Accept = 203,
+		JoinCall = 203,
 		//! @brief Deny a receiving call from a user
-		Deny = 204,
+		DenyCall = 204,
 		//! @brief Hang up a call
 		HangUp = 205,
 

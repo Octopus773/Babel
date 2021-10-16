@@ -140,7 +140,7 @@ namespace Babel
 			bool isMessageBeingSend = this->_messagesOut.empty();
 
 			this->_messagesOut.pushBack(message);
-			if (!isMessageBeingSend) {
+			if (isMessageBeingSend) {
 				this->writeHeader();
 			}
 		});
