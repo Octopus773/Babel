@@ -297,7 +297,7 @@ namespace Babel
 
 		this->_ui.page_call->setDisabled(false);
 		this->changeCurrentUITab("page_call");
-		// send audio packets to every address and port
+		// todo send audio packets to every address and port
 		// switch to call tab
 	}
 
@@ -310,7 +310,7 @@ namespace Babel
 		Message<RFCCodes> m;
 
 		m.header.codeId = RFCCodes::HangUp;
-		m << this->_currentCallId;
+		m << static_cast<uint16_t>(this->_currentCallId);
 
 		// todo close all udp sockets from _usersInCurrentCall
 
