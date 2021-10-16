@@ -30,8 +30,8 @@ find_package(Qt5 COMPONENTS Widgets Network Gui Core REQUIRED)
 #find_package(OPUS 1.3.1 REQUIRED)
 
 
-#target_link_libraries(babel_client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network portaudio::portaudio OPUS::Opus)
-target_link_libraries(babel_client ${CONAN_LIBS} Qt5::Widgets Qt5::Network)
+target_link_libraries(babel_client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network ${CONAN_LIBS_PORTAUDIO} ${CONAN_LIBS_OPUS})
+#target_link_libraries(babel_client ${CONAN_LIBS} Qt5::Widgets Qt5::Network)
 #target_link_libraries(babel_client ${CONAN_LIBS_PORTAUDIO} ${CONAN_LIBS_OPUS} ${CONAN_LIBS_QT5})
 
 if (UNIX)

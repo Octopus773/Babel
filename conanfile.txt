@@ -13,5 +13,6 @@ qt:qtx11extras=True
 cmake
 
 [imports]
+lib, *.so* -> ./bin
 bin, *.dll -> ./bin
 lib, *.dylib* -> ./bin
