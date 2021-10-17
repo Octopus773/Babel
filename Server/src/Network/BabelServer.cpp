@@ -107,10 +107,10 @@ namespace Babel
 
 		User calledUser;
 		if (!this->getUserByUsername(usernameToCall, calledUser)) {
-			return Utils::response(0, "User not find on the server please recheck the username");
+			return Utils::response(0, "User not found on the server please recheck the username");
 		}
 		if (!calledUser.isCallable()) {
-			return Utils::response(0, "This is user is not currently able to receive calls");
+			return Utils::response(0, "This user is not currently able to receive calls");
 		}
 
 		int idx = this->ongoingCalls.insert(Call());

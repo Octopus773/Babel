@@ -61,3 +61,8 @@ void Babel::UDPSocket::close() {
     std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_socket->close();
 }
+
+uint16_t Babel::UDPSocket::getLocalPort() const
+{
+	return this->_socket->localPort();
+}

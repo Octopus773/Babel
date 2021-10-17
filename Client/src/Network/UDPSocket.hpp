@@ -32,6 +32,9 @@ namespace Babel {
         //! @brief reads the incoming datagrams when they arrive
         void readPending();
 
+	    //! @brief get the port that the UDPSocket is listening
+		uint16_t getLocalPort() const;
+
     private:
 		//! @brief mutex for closing the socket
         std::mutex _mutex;

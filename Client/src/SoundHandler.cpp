@@ -90,3 +90,8 @@ void Babel::SoundHandler::removeClient(const std::string &userid) {
     std::scoped_lock lock(this->_userlist_mtx);
     this->_userlist.erase(userid);
 }
+
+uint16_t Babel::SoundHandler::getLocalPort() const
+{
+    return this->_socket->getLocalPort();
+}

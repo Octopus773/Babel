@@ -20,7 +20,7 @@ namespace Babel {
 	              this->_ui.page_login->setDisabled(false);
 	              this->changeCurrentUITab(this->_ui.page_login);
               }),
-              _audio(this->udpPort),
+              _audio(this->startUdpPort),
               _messageHandlers({
                                        {RFCCodes::Login,
                                                MessageHandler{[this](const Message<RFCCodes> &m) {
@@ -96,6 +96,7 @@ namespace Babel {
         this->_ui.page_login->setDisabled(true);
         this->_ui.page_call->setDisabled(true);
         this->_ui.page_server->setDisabled(true);
+		std::cout << this->_audio.getLocalPort() << std::endl;
     }
 
     void HomePage::doConnect() {
@@ -244,6 +245,7 @@ namespace Babel {
 
         if (codeId != 1) {
             std::cout << "error: callUser " << desc << std::endl;
+	        QMessageBox::warning(nullptr, tr("Babel"), tr(desc.data()));
             return;
         }
 
@@ -257,9 +259,7 @@ namespace Babel {
         message.header.codeId = RFCCodes::JoinCall;
         message << callId;
 
-        std::string address = this->_address;
-        uint16_t port = this->udpPort;
-        this->doJoinCall(callId, address, port);
+        this->doJoinCall(callId, this->_address, this->_audio.getLocalPort());
     }
 
     void HomePage::onJoinCall(const Message<RFCCodes> &m) {
@@ -378,7 +378,7 @@ namespace Babel {
         msgBox.setIcon(QMessageBox::Question);
         switch (msgBox.exec()) {
             case QMessageBox::Yes:
-                this->doJoinCall(callId, this->_address, this->udpPort);
+                this->doJoinCall(callId, this->_address, this->_audio.getLocalPort());
                 break;
             case QMessageBox::No:
             default:

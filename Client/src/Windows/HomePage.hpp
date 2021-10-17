@@ -26,7 +26,8 @@ namespace Babel
 		~HomePage() override= default;
 
 		//! @brief The port to receive udp audio packets
-		const uint16_t udpPort = 23476;
+		//! @note setting it to zero will let the OS choose a random available port
+		const uint16_t startUdpPort = 0;
 
 	private:
 		//! @brief The display window
