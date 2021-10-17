@@ -9,8 +9,10 @@
 #include <map>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
+#include "Network/AudioPacket.hpp"
 
 namespace Babel {
+    using namespace std::chrono;
     //! @class wrappers around Qt UDP socket
     class UDPSocket : public QObject {
     Q_OBJECT
@@ -30,6 +32,8 @@ namespace Babel {
 
         //! @brief reads the incoming datagrams when they arrive
         void readPending();
+
+        template <typename T> T get(QDataStream & str);
 
     private:
         std::mutex _mutex;

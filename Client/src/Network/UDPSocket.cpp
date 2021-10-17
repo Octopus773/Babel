@@ -5,6 +5,7 @@
 #include <QNetworkDatagram>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
+#include <QDataStream>
 #include <cstring>
 #include <memory>
 #include "UDPSocket.hpp"
@@ -22,29 +23,46 @@ Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioMana
     _clock = std::chrono::system_clock::now();
 }
 
+QDataStream &operator <<(QDataStream& out, Babel::AudioPacket& data);
+
 std::int64_t
 Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, std::int32_t size, const std::string &address,
                         int port) {
-    AudioPacket packet(encoded, size);
-    char toSend[sizeof(AudioPacket)];
-    std::memcpy(toSend, &packet, sizeof(packet));
+    AudioPacket packet;
 
-    std::int64_t result = _socket->writeDatagram(toSend, sizeof(toSend), QHostAddress(address.c_str()), port);
+    packet.data = QByteArray(reinterpret_cast<char *>(encoded.data()), size);
+    milliseconds ms = duration_cast<milliseconds>(system_clock::now().time_since_epoch());
+    packet.timestamp = (qint32) (ms.count() % 100000);
+    packet.size = (qint32) size;
+
+    QByteArray buf;
+    QDataStream str(&buf, QIODevice::WriteOnly);
+
+    str << packet.timestamp << packet.size << packet.data;
+
+    std::int64_t result = _socket->writeDatagram(buf, QHostAddress(address.c_str()), port);
     return result;
 }
 
 void Babel::UDPSocket::readPending() {
     if (this->_socket->hasPendingDatagrams()) {
+        QHostAddress sender;
+        quint16 senderPort;
+        AudioPacket packet;
+
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
-        auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (datagram.data().data());
-        std::uint64_t timestamp = packetRecu->timestamp;
-        std::int32_t sizeRecu = packetRecu->size;
-        std::vector<unsigned char> encodedReceived(sizeRecu);
-        std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
+        QByteArray buf(this->_socket->pendingDatagramSize(), Qt::Uninitialized);
+        QDataStream str(&buf, QIODevice::ReadOnly);
+
+        this->_socket->readDatagram(buf.data(), buf.size(), &sender, &senderPort);
+
+        packet.timestamp = get<qint32>(str);
+        packet.size = get<qint32>(str);
+        packet.data = get<QByteArray>(str);
 
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-        _codec->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
+        _codec->decode(reinterpret_cast<const unsigned char *>(packet.data.data()), decodedData.data(), packet.size);
         try {
             _audio->writeStream(decodedData);
         } catch (const std::exception &e) {
@@ -60,4 +78,11 @@ Babel::UDPSocket::~UDPSocket() {
 void Babel::UDPSocket::close() {
     std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_socket->close();
+}
+
+template<typename T>
+T Babel::UDPSocket::get(QDataStream &str) {
+        T value;
+        str >> value;
+        return value;
 }
