@@ -170,14 +170,10 @@ namespace Babel
 		return false;
 	}
 
-	Message<RFCCodes> BabelServer::denyCall(std::shared_ptr<ITCPConnection<RFCCodes>> connection, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::denyCall(std::shared_ptr<ITCPConnection<RFCCodes>>, Message<RFCCodes>)
 	{
-		uint16_t callId;
-		message >> callId;
-
 		// maybe check the callId
-
-		// tell the sender that a refused to join
+		// tell the sender that the user refused to join
 		return Utils::response(1, "OK");
 	}
 
