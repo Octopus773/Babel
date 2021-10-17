@@ -6,37 +6,41 @@
 #ifndef SOUNDHANDLER_HPP_
 #define SOUNDHANDLER_HPP_
 
-#include "Audio/Opus/ICodec.hpp"
-#include "Audio/IAudioManager.hpp"
-#include "Audio/PortAudioException.hpp"
 #include <memory>
 #include <map>
 #include <thread>
 #include <condition_variable>
 #include <QApplication>
+#include "Audio/Opus/ICodec.hpp"
+#include "Audio/IAudioManager.hpp"
+#include "Audio/PortAudioException.hpp"
 #include "Network/QtTCPConnection.hpp"
 #include "Network/RFCCodes.hpp"
 #include "Network/UDPSocket.hpp"
 #include "Network/AudioPacket.hpp"
 
-namespace Babel
-{
-    class SoundHandler
-    {
-        public:
+namespace Babel {
+    class SoundHandler {
+    public:
         // @brief sound handler constructor 
-        SoundHandler(std::int16_t port);
+        explicit SoundHandler(std::int16_t port);
+
         // @brief sound handler destructor
         ~SoundHandler();
+
         // @brief notify the sound handler to start to send data and to receive it
-        void startCall(void);
+        void startCall();
+
         // @brief notify the sound handler to stop
-        void stopCall(void);
+        void stopCall();
+
         // @brief add a client to the current call
         void addClient(const std::string userid, const std::string ipadddres, std::uint16_t port);
+
         // @brief remove a client to the current call
         void removeClient(const std::string userid);
-        private:
+
+    private:
         // @brief pointer to audio input and outputs
         std::shared_ptr<Babel::IAudioManager> _audio;
         // @brief pointer to the codec
@@ -48,7 +52,7 @@ namespace Babel
         // @brief mutex to access the userlist
         std::mutex _userlist_mtx;
         // @condition variable for stopping or enabling thread
-        std::condition_variable _blocker; 
+        std::condition_variable _blocker;
         // @brief boolean to tell when the thread should exit;
         bool _shouldExit;
         // @brief mutex for should exit variable

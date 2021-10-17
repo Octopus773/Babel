@@ -9,13 +9,13 @@
 
 namespace Babel {
     using namespace std::chrono;
-    #pragma pack(push, 1)
-    // __attribute__((__packed__))
+#pragma pack(push, 1)
+
     struct AudioPacket {
 
         explicit AudioPacket(std::array<unsigned char, 4000> &payloadArray, std::int32_t receivedSize) {
             std::memcpy(this->data, payloadArray.data(), receivedSize);
-            milliseconds ms = duration_cast< milliseconds >(
+            milliseconds ms = duration_cast<milliseconds>(
                     system_clock::now().time_since_epoch()
             );
             this->timestamp = ms.count() % 1000;
@@ -24,9 +24,10 @@ namespace Babel {
 
         std::uint64_t timestamp;
         std::int32_t size;
-        unsigned char data[4000] {0};
+        unsigned char data[4000]{0};
     };
-    #pragma pack(pop)
+
+#pragma pack(pop)
 
 }
 

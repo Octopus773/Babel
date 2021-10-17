@@ -2,8 +2,7 @@
 
 QT_BEGIN_NAMESPACE
 
-void Ui_OngoingCall::setupUi(QDialog* OngoingCall)
-{
+void Ui_OngoingCall::setupUi(QDialog *OngoingCall) {
     if (OngoingCall->objectName().isEmpty())
         OngoingCall->setObjectName(QStringLiteral("OngoingCall"));
     OngoingCall->resize(342, 126);
@@ -19,8 +18,7 @@ void Ui_OngoingCall::setupUi(QDialog* OngoingCall)
     QMetaObject::connectSlotsByName(OngoingCall);
 } // setupUi
 
-void Ui_OngoingCall::retranslateUi(QDialog* OngoingCall)
-{
+void Ui_OngoingCall::retranslateUi(QDialog *OngoingCall) const {
     OngoingCall->setWindowTitle(QApplication::translate("OngoingCall", "Dialog", nullptr));
     hangUpButton->setText(QApplication::translate("OngoingCall", "Hang Up", nullptr));
     label->setText(QApplication::translate("OngoingCall", "You are in a call with <user>", nullptr));
@@ -28,20 +26,17 @@ void Ui_OngoingCall::retranslateUi(QDialog* OngoingCall)
 
 using namespace Babel::Ui;
 
-OngoingCall::~OngoingCall()
-{
+OngoingCall::~OngoingCall() {
     delete this->label;
     delete this->hangUpButton;
 }
 
-OngoingCall::OngoingCall(QDialog* Dialog): QDialog(), Ui_OngoingCall()
-{
+OngoingCall::OngoingCall(QDialog *Dialog) : QDialog(), Ui_OngoingCall() {
     this->setupUi(Dialog);
     connect(this->hangUpButton, SIGNAL(clicked()), this, SLOT(hangUpButtonCallback()));
 }
 
-void OngoingCall::hangUpButtonCallback()
-{
+void OngoingCall::hangUpButtonCallback() {
 
 }
 
