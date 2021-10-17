@@ -28,7 +28,7 @@ find_package(Qt5 COMPONENTS Widgets Network Gui Core REQUIRED)
 find_package(portaudio 19.7.0 REQUIRED)
 find_package(Opus 1.3.1 REQUIRED)
 
-target_link_libraries(babel_client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network pthread portaudio Opus::opus)
+target_link_libraries(babel_client Qt5::Core Qt5::Gui Qt5::Widgets Qt5::Network pthread portaudio::portaudio Opus::opus)
 
 if (UNIX)
 	target_compile_options(babel_client PUBLIC
