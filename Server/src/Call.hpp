@@ -12,9 +12,10 @@
 
 namespace Babel
 {
-
+	//! @brief struct to handle all Call related data
 	struct Call
 	{
+		//! @brief struct to handle all Call related data
 		struct Participant
 		{
 			uint64_t connectionId;

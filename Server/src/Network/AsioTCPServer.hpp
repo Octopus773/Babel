@@ -17,6 +17,7 @@
 
 namespace Babel
 {
+	//! @brief Implementation of ITCPServer using ASIO
 	template<typename T>
 	class AsioTCPServer : public ITCPServer<T>
 	{
