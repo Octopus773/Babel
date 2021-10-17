@@ -1,0 +1,376 @@
+\hypertarget{classBabel_1_1BabelServer}{}\doxysection{Babel\+::Babel\+Server Class Reference}
+\label{classBabel_1_1BabelServer}\index{Babel::BabelServer@{Babel::BabelServer}}
+
+
+Main server class contains almost all the logic for the server.  
+
+
+
+
+{\ttfamily \#include $<$Babel\+Server.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::Babel\+Server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1BabelServer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::Babel\+Server\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1BabelServer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1BabelServer_1_1RequestHandler}{Request\+Handler}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{namespaceBabel_1_1Utils}{Utils}} struct to store requests information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1BabelServer_ab77a4c34c64e4b8e11ff087c4c459abb}{on\+Message}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ client, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&msg) override
+\begin{DoxyCompactList}\small\item\em Called when we received a message from a client. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1BabelServer_a9dfbbd90ca1221a5d56c6e149582941e}{on\+Client\+Connect}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ client) override
+\begin{DoxyCompactList}\small\item\em Called when a client connect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1BabelServer_aab6d092ca283be49ee38ad2f8323bcb2}{on\+Client\+Disconnect}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ client) override
+\begin{DoxyCompactList}\small\item\em Called when a client disconnect. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_adc4c004e8a9eef071908f2c0fdeac5bd}{login}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a login request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a46ea80c7826e92b76e215c2391c5b55f}{list\+Users}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a list\+User request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a19b40e5b44460ad5980a13775f26f510}{call\+User}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a call\+User request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a3f41cdbeb3ea38e1e98191d359b148cd}{join\+Call}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a join\+Call request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_acff270c311799a2258d83e51fcdd7ebd}{deny\+Call}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a deny\+Call request. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a9e4e882131f0feb024cd369ae31624c8}{hang\+Up\+Call}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$ connection, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message)
+\begin{DoxyCompactList}\small\item\em The function to call to manage a hang\+Up request. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{classBabel_1_1BabelServer_a92c3accc1a29a63baf6a3ac44a9610e7}{get\+User\+By\+Username}} (const std\+::string \&username, \mbox{\hyperlink{structBabel_1_1User}{User}} \&user)
+\begin{DoxyCompactList}\small\item\em Utility function to get the \mbox{\hyperlink{structBabel_1_1User}{User}} from it\textquotesingle{}s username. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1BabelServer_a226c1285f67dac758df61b854f12cd53}{is\+Valid\+Call\+Id}} (int call\+Id) const
+\begin{DoxyCompactList}\small\item\em Tells if a given call\+Id is currently pointing to an active call. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \& \mbox{\hyperlink{classBabel_1_1BabelServer_a0daf8eb3ee9853e43ac4597c62d7f629}{get\+Call\+All\+I\+Ps}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m, const \mbox{\hyperlink{structBabel_1_1Call}{Call}} \&call)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a6d19e9dee9dc4c2fdaad0543005816ee}{get\+Connection\+By\+Id}} (uint64\+\_\+t id) const
+\begin{DoxyCompactList}\small\item\em Get the connection from it\textquotesingle{}s Id. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1BabelServer_a2e64db335d5f38d5ef28657de92c9599}{message\+All\+Participants}} (\mbox{\hyperlink{structBabel_1_1Call}{Call}} \&call, const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em Send a message to all current call participants. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1BabelServer_a4a050dd3ab6d68643ddf0341244cf102}{announce\+User\+Left\+Call}} (\mbox{\hyperlink{structBabel_1_1Call}{Call}} \&call, const \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&connection\+Leaving)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ uint64\+\_\+t, \mbox{\hyperlink{structBabel_1_1User}{User}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a5ac9447d63c3c045d37dda0d35403cee}{\+\_\+users}}
+\begin{DoxyCompactList}\small\item\em All the connected user. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1FreeList}{Free\+List}}$<$ \mbox{\hyperlink{structBabel_1_1Call}{Call}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_ac8a9ff3b17d1f50b5c7a493e71e67699}{ongoing\+Calls}}
+\begin{DoxyCompactList}\small\item\em The list of all ongoing calls. \end{DoxyCompactList}\item 
+std\+::map$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}, \mbox{\hyperlink{structBabel_1_1BabelServer_1_1RequestHandler}{Request\+Handler}} $>$ \mbox{\hyperlink{classBabel_1_1BabelServer_a23d6007183ac05338b3642bcbf629107}{requests\+Handlers}}
+\begin{DoxyCompactList}\small\item\em map that map a R\+F\+C\+Code to an request\+Handler \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Main server class contains almost all the logic for the server. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a4a050dd3ab6d68643ddf0341244cf102}\label{classBabel_1_1BabelServer_a4a050dd3ab6d68643ddf0341244cf102}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!announceUserLeftCall@{announceUserLeftCall}}
+\index{announceUserLeftCall@{announceUserLeftCall}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{announceUserLeftCall()}{announceUserLeftCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Babel\+Server\+::announce\+User\+Left\+Call (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Call}{Call}} \&}]{call,  }\item[{const \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{connection\+Leaving }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a19b40e5b44460ad5980a13775f26f510}\label{classBabel_1_1BabelServer_a19b40e5b44460ad5980a13775f26f510}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!callUser@{callUser}}
+\index{callUser@{callUser}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{callUser()}{callUser()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::call\+User (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a call\+User request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_acff270c311799a2258d83e51fcdd7ebd}\label{classBabel_1_1BabelServer_acff270c311799a2258d83e51fcdd7ebd}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!denyCall@{denyCall}}
+\index{denyCall@{denyCall}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{denyCall()}{denyCall()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::deny\+Call (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a deny\+Call request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a0daf8eb3ee9853e43ac4597c62d7f629}\label{classBabel_1_1BabelServer_a0daf8eb3ee9853e43ac4597c62d7f629}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!getCallAllIPs@{getCallAllIPs}}
+\index{getCallAllIPs@{getCallAllIPs}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{getCallAllIPs()}{getCallAllIPs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \& Babel\+::\+Babel\+Server\+::get\+Call\+All\+I\+Ps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m,  }\item[{const \mbox{\hyperlink{structBabel_1_1Call}{Call}} \&}]{call }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a6d19e9dee9dc4c2fdaad0543005816ee}\label{classBabel_1_1BabelServer_a6d19e9dee9dc4c2fdaad0543005816ee}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!getConnectionById@{getConnectionById}}
+\index{getConnectionById@{getConnectionById}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{getConnectionById()}{getConnectionById()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ $>$ Babel\+::\+Babel\+Server\+::get\+Connection\+By\+Id (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Get the connection from it\textquotesingle{}s Id. 
+
+\begin{DoxyWarning}{Warning}
+the connection id isn\textquotesingle{}t it\textquotesingle{}s index you should use this function to get the connection 
+\end{DoxyWarning}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The connection id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A shared\+\_\+ptr of the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a92c3accc1a29a63baf6a3ac44a9610e7}\label{classBabel_1_1BabelServer_a92c3accc1a29a63baf6a3ac44a9610e7}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!getUserByUsername@{getUserByUsername}}
+\index{getUserByUsername@{getUserByUsername}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{getUserByUsername()}{getUserByUsername()}}
+{\footnotesize\ttfamily bool Babel\+::\+Babel\+Server\+::get\+User\+By\+Username (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{username,  }\item[{\mbox{\hyperlink{structBabel_1_1User}{User}} \&}]{user }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Utility function to get the \mbox{\hyperlink{structBabel_1_1User}{User}} from it\textquotesingle{}s username. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & The username of the wanted \mbox{\hyperlink{structBabel_1_1User}{User}} \\
+\hline
+{\em user} & Param out the reference is assigned to the correct user if the function return true \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the user was found and the user is set to the corresponding user otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a9e4e882131f0feb024cd369ae31624c8}\label{classBabel_1_1BabelServer_a9e4e882131f0feb024cd369ae31624c8}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!hangUpCall@{hangUpCall}}
+\index{hangUpCall@{hangUpCall}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{hangUpCall()}{hangUpCall()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::hang\+Up\+Call (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a hang\+Up request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a226c1285f67dac758df61b854f12cd53}\label{classBabel_1_1BabelServer_a226c1285f67dac758df61b854f12cd53}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!isValidCallId@{isValidCallId}}
+\index{isValidCallId@{isValidCallId}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{isValidCallId()}{isValidCallId()}}
+{\footnotesize\ttfamily bool Babel\+::\+Babel\+Server\+::is\+Valid\+Call\+Id (\begin{DoxyParamCaption}\item[{int}]{call\+Id }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Tells if a given call\+Id is currently pointing to an active call. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em call\+Id} & The wanted call Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if it\textquotesingle{}s valid otherwise false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a3f41cdbeb3ea38e1e98191d359b148cd}\label{classBabel_1_1BabelServer_a3f41cdbeb3ea38e1e98191d359b148cd}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!joinCall@{joinCall}}
+\index{joinCall@{joinCall}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{joinCall()}{joinCall()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::join\+Call (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a join\+Call request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a46ea80c7826e92b76e215c2391c5b55f}\label{classBabel_1_1BabelServer_a46ea80c7826e92b76e215c2391c5b55f}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!listUsers@{listUsers}}
+\index{listUsers@{listUsers}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{listUsers()}{listUsers()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::list\+Users (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a list\+User request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_adc4c004e8a9eef071908f2c0fdeac5bd}\label{classBabel_1_1BabelServer_adc4c004e8a9eef071908f2c0fdeac5bd}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!login@{login}}
+\index{login@{login}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{login()}{login()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ Babel\+::\+Babel\+Server\+::login (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{connection,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})}
+
+
+
+The function to call to manage a login request. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection} & The connection who made the request \\
+\hline
+{\em message} & The request message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The response for the connection 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a2e64db335d5f38d5ef28657de92c9599}\label{classBabel_1_1BabelServer_a2e64db335d5f38d5ef28657de92c9599}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!messageAllParticipants@{messageAllParticipants}}
+\index{messageAllParticipants@{messageAllParticipants}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{messageAllParticipants()}{messageAllParticipants()}}
+{\footnotesize\ttfamily void Babel\+::\+Babel\+Server\+::message\+All\+Participants (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Call}{Call}} \&}]{call,  }\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Send a message to all current call participants. 
+
+\begin{DoxyNote}{Note}
+useful to send user\+Joined\+Call or User\+Left\+Call 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a9dfbbd90ca1221a5d56c6e149582941e}\label{classBabel_1_1BabelServer_a9dfbbd90ca1221a5d56c6e149582941e}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!onClientConnect@{onClientConnect}}
+\index{onClientConnect@{onClientConnect}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{onClientConnect()}{onClientConnect()}}
+{\footnotesize\ttfamily bool Babel\+::\+Babel\+Server\+::on\+Client\+Connect (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Called when a client connect. 
+
+\begin{DoxyNote}{Note}
+You can refuse the connection by returning false 
+\end{DoxyNote}
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPServer_accd9baf6ff90700da3fbf542cc1ca4d8}{Babel\+::\+I\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_aab6d092ca283be49ee38ad2f8323bcb2}\label{classBabel_1_1BabelServer_aab6d092ca283be49ee38ad2f8323bcb2}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!onClientDisconnect@{onClientDisconnect}}
+\index{onClientDisconnect@{onClientDisconnect}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{onClientDisconnect()}{onClientDisconnect()}}
+{\footnotesize\ttfamily void Babel\+::\+Babel\+Server\+::on\+Client\+Disconnect (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Called when a client disconnect. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPServer_aed5adc24951be413b69dea8baa438f95}{Babel\+::\+I\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_ab77a4c34c64e4b8e11ff087c4c459abb}\label{classBabel_1_1BabelServer_ab77a4c34c64e4b8e11ff087c4c459abb}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!onMessage@{onMessage}}
+\index{onMessage@{onMessage}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{onMessage()}{onMessage()}}
+{\footnotesize\ttfamily void Babel\+::\+Babel\+Server\+::on\+Message (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$$>$}]{client,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Called when we received a message from a client. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPServer_ac7d6674aab6603667744f5d413cdc1f6}{Babel\+::\+I\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a5ac9447d63c3c045d37dda0d35403cee}\label{classBabel_1_1BabelServer_a5ac9447d63c3c045d37dda0d35403cee}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!\_users@{\_users}}
+\index{\_users@{\_users}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{\_users}{\_users}}
+{\footnotesize\ttfamily std\+::map$<$uint64\+\_\+t, \mbox{\hyperlink{structBabel_1_1User}{User}}$>$ Babel\+::\+Babel\+Server\+::\+\_\+users\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+All the connected user. 
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_ac8a9ff3b17d1f50b5c7a493e71e67699}\label{classBabel_1_1BabelServer_ac8a9ff3b17d1f50b5c7a493e71e67699}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!ongoingCalls@{ongoingCalls}}
+\index{ongoingCalls@{ongoingCalls}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{ongoingCalls}{ongoingCalls}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBabel_1_1FreeList}{Free\+List}}$<$\mbox{\hyperlink{structBabel_1_1Call}{Call}}$>$ Babel\+::\+Babel\+Server\+::ongoing\+Calls\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The list of all ongoing calls. 
+
+\mbox{\Hypertarget{classBabel_1_1BabelServer_a23d6007183ac05338b3642bcbf629107}\label{classBabel_1_1BabelServer_a23d6007183ac05338b3642bcbf629107}} 
+\index{Babel::BabelServer@{Babel::BabelServer}!requestsHandlers@{requestsHandlers}}
+\index{requestsHandlers@{requestsHandlers}!Babel::BabelServer@{Babel::BabelServer}}
+\doxysubsubsection{\texorpdfstring{requestsHandlers}{requestsHandlers}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}, \mbox{\hyperlink{structBabel_1_1BabelServer_1_1RequestHandler}{Request\+Handler}}$>$ Babel\+::\+Babel\+Server\+::requests\+Handlers\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+map that map a R\+F\+C\+Code to an request\+Handler 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server/src/\+Network/\mbox{\hyperlink{BabelServer_8hpp}{Babel\+Server.\+hpp}}\item 
+Server/src/\+Network/\mbox{\hyperlink{BabelServer_8cpp}{Babel\+Server.\+cpp}}\end{DoxyCompactItemize}

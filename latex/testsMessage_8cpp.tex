@@ -1,0 +1,94 @@
+\hypertarget{testsMessage_8cpp}{}\doxysection{Server/tests/\+Network/tests\+Message.cpp File Reference}
+\label{testsMessage_8cpp}\index{Server/tests/Network/testsMessage.cpp@{Server/tests/Network/testsMessage.cpp}}
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$bit$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$catch2/catch.\+hpp$>$}\newline
+{\ttfamily \#include \char`\"{}Network/\+R\+F\+C\+Codes.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Network/\+Message.\+hpp\char`\"{}}\newline
+Include dependency graph for tests\+Message.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{testsMessage_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_ac0d4631ab1f006b344953de4d07d95a9}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding char\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_a81ed8fee6dc92fa3f189ad76d60d273b}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding int checking endianness\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_ae18289b56e6f2ec56e5b4a8ec7a12d15}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding multiples chars\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_ac081e5c5f0b8c6f231d614ec8549354e}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding misc types\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_ac47787091ee458ce12e8a71d339c7b0d}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding string\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_ae4fa0b441c304408baa36a6e579c415c}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding multiple strings\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_afa8a004cfb9b746d5697127d6b5f9bc7}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message adding rodata string\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_acf830d74961f158a2db880713b46686e}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message using handle\+Endianness\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\item 
+\mbox{\hyperlink{testsMessage_8cpp_a784cef0e3e5df6abbdfe6ec574fffff9}{T\+E\+S\+T\+\_\+\+C\+A\+SE}} (\char`\"{}Message checking copy ctor\char`\"{}, \char`\"{}\mbox{[}Babel\mbox{]}\mbox{[}Network\mbox{]}\char`\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{testsMessage_8cpp_ac0d4631ab1f006b344953de4d07d95a9}\label{testsMessage_8cpp_ac0d4631ab1f006b344953de4d07d95a9}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [1/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding char\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_a81ed8fee6dc92fa3f189ad76d60d273b}\label{testsMessage_8cpp_a81ed8fee6dc92fa3f189ad76d60d273b}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [2/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding int checking endianness\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_ac081e5c5f0b8c6f231d614ec8549354e}\label{testsMessage_8cpp_ac081e5c5f0b8c6f231d614ec8549354e}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [3/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding misc types\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_ae4fa0b441c304408baa36a6e579c415c}\label{testsMessage_8cpp_ae4fa0b441c304408baa36a6e579c415c}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [4/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding multiple strings\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_ae18289b56e6f2ec56e5b4a8ec7a12d15}\label{testsMessage_8cpp_ae18289b56e6f2ec56e5b4a8ec7a12d15}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [5/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding multiples chars\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_afa8a004cfb9b746d5697127d6b5f9bc7}\label{testsMessage_8cpp_afa8a004cfb9b746d5697127d6b5f9bc7}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [6/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding rodata string\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_ac47787091ee458ce12e8a71d339c7b0d}\label{testsMessage_8cpp_ac47787091ee458ce12e8a71d339c7b0d}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [7/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message adding string\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_a784cef0e3e5df6abbdfe6ec574fffff9}\label{testsMessage_8cpp_a784cef0e3e5df6abbdfe6ec574fffff9}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [8/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message checking copy ctor\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{testsMessage_8cpp_acf830d74961f158a2db880713b46686e}\label{testsMessage_8cpp_acf830d74961f158a2db880713b46686e}} 
+\index{testsMessage.cpp@{testsMessage.cpp}!TEST\_CASE@{TEST\_CASE}}
+\index{TEST\_CASE@{TEST\_CASE}!testsMessage.cpp@{testsMessage.cpp}}
+\doxysubsubsection{\texorpdfstring{TEST\_CASE()}{TEST\_CASE()}\hspace{0.1cm}{\footnotesize\ttfamily [9/9]}}
+{\footnotesize\ttfamily T\+E\+S\+T\+\_\+\+C\+A\+SE (\begin{DoxyParamCaption}\item[{\char`\"{}Message using handle\+Endianness\char`\"{}}]{,  }\item[{\char`\"{}\char`\"{}}]{\mbox{[}\+Babel\mbox{]}\mbox{[}\+Network\mbox{]} }\end{DoxyParamCaption})}
+

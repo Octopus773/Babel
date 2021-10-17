@@ -1,0 +1,257 @@
+\hypertarget{classBabel_1_1ICodec}{}\doxysection{Babel\+::I\+Codec Class Reference}
+\label{classBabel_1_1ICodec}\index{Babel::ICodec@{Babel::ICodec}}
+
+
+{\ttfamily \#include $<$I\+Codec.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::I\+Codec\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1ICodec__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::I\+Codec\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{classBabel_1_1ICodec__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classBabel_1_1ICodec_ac618c52224f52b71385f768ef9ad45ab}{$\sim$\+I\+Codec}} ()=default
+\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_a6a896104ac639191436b5dd75cb5cd8b}{encode}} (const std\+::int16\+\_\+t $\ast$pcm, unsigned char $\ast$data)=0
+\begin{DoxyCompactList}\small\item\em Encodes exactly one frame of audio data. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_a7b167714398792614dbf2888fdc86267}{encode}} (const float $\ast$pcm, unsigned char $\ast$data)=0
+\begin{DoxyCompactList}\small\item\em same as Encode() with floats \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_ad641a18e0e4b3b94f86f6b5a7bc74456}{decode}} (const unsigned char $\ast$data, std\+::int16\+\_\+t $\ast$pcm, std\+::int32\+\_\+t data\+Size)=0
+\begin{DoxyCompactList}\small\item\em Decodes exactly one frame of audio data. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_aad1900a6eea706c0f43040a06e6879c3}{decode}} (const unsigned char $\ast$data, float $\ast$pcm)=0
+\begin{DoxyCompactList}\small\item\em Same as Decode() with floats. \end{DoxyCompactList}\item 
+virtual std\+::int32\+\_\+t \mbox{\hyperlink{classBabel_1_1ICodec_a1380f29724905ace3e12f4035a143f39}{get\+Bitrate}} () const =0
+\begin{DoxyCompactList}\small\item\em get the bitrate \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ICodec_aa89b46d63a02e6d6d036b421da8a9fad}{set\+Bitrate}} (std\+::int32\+\_\+t bitrate)=0
+\begin{DoxyCompactList}\small\item\em Sets the bitrate. \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_ad61cab789b5d1f3ffd50267c889f364b}{get\+Channel}} () const =0
+\begin{DoxyCompactList}\small\item\em get the channels \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ICodec_a91979c8f5fa77af94af24c38231db1f0}{set\+Channel}} (int channel)=0
+\begin{DoxyCompactList}\small\item\em sets the channel \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_a0aa1a86cd80f5f64bbd49ee9e4d067ee}{get\+Application}} () const =0
+\begin{DoxyCompactList}\small\item\em get the application type \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ICodec_aa849ec315cc350796bc08139312c003e}{set\+Application}} (int application)=0
+\begin{DoxyCompactList}\small\item\em sets the \mbox{\hyperlink{classBabel_1_1Opus}{Opus}} application mode Possible values are O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+A\+U\+D\+IO (default) O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+V\+O\+IP O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+R\+E\+S\+T\+R\+I\+C\+T\+E\+D\+\_\+\+L\+O\+W\+D\+E\+L\+AY \end{DoxyCompactList}\item 
+virtual int \mbox{\hyperlink{classBabel_1_1ICodec_a76bd056c195f8d8cd39b81c82937ef67}{get\+Frame\+Size}} () const =0
+\begin{DoxyCompactList}\small\item\em get the frame size \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ICodec_a491debd780ffefb860d7a06fa2837063}{set\+Frame\+Size}} (int frame\+Size)=0
+\begin{DoxyCompactList}\small\item\em sets the number of samples per channel Possible values are 120/480/960 (default)/1920/2880 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1ICodec_ac618c52224f52b71385f768ef9ad45ab}\label{classBabel_1_1ICodec_ac618c52224f52b71385f768ef9ad45ab}} 
+\index{Babel::ICodec@{Babel::ICodec}!````~ICodec@{$\sim$ICodec}}
+\index{````~ICodec@{$\sim$ICodec}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{$\sim$ICodec()}{~ICodec()}}
+{\footnotesize\ttfamily virtual Babel\+::\+I\+Codec\+::$\sim$\+I\+Codec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1ICodec_aad1900a6eea706c0f43040a06e6879c3}\label{classBabel_1_1ICodec_aad1900a6eea706c0f43040a06e6879c3}} 
+\index{Babel::ICodec@{Babel::ICodec}!decode@{decode}}
+\index{decode@{decode}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::decode (\begin{DoxyParamCaption}\item[{const unsigned char $\ast$}]{data,  }\item[{float $\ast$}]{pcm }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Same as Decode() with floats. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a4cfd66f683d25df647735edaa42af806}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_ad641a18e0e4b3b94f86f6b5a7bc74456}\label{classBabel_1_1ICodec_ad641a18e0e4b3b94f86f6b5a7bc74456}} 
+\index{Babel::ICodec@{Babel::ICodec}!decode@{decode}}
+\index{decode@{decode}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{decode()}{decode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::decode (\begin{DoxyParamCaption}\item[{const unsigned char $\ast$}]{data,  }\item[{std\+::int16\+\_\+t $\ast$}]{pcm,  }\item[{std\+::int32\+\_\+t}]{data\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Decodes exactly one frame of audio data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & the frame to decode, can be nullptr in case of packet loss \\
+\hline
+{\em pcm} & decoded data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+number of samples decoded 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a7351b1238b33f77320b5dab8998227c3}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a7b167714398792614dbf2888fdc86267}\label{classBabel_1_1ICodec_a7b167714398792614dbf2888fdc86267}} 
+\index{Babel::ICodec@{Babel::ICodec}!encode@{encode}}
+\index{encode@{encode}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::encode (\begin{DoxyParamCaption}\item[{const float $\ast$}]{pcm,  }\item[{unsigned char $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+same as Encode() with floats 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a47b388e74ab47072c535de0692e10ce3}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a6a896104ac639191436b5dd75cb5cd8b}\label{classBabel_1_1ICodec_a6a896104ac639191436b5dd75cb5cd8b}} 
+\index{Babel::ICodec@{Babel::ICodec}!encode@{encode}}
+\index{encode@{encode}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{encode()}{encode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::encode (\begin{DoxyParamCaption}\item[{const std\+::int16\+\_\+t $\ast$}]{pcm,  }\item[{unsigned char $\ast$}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Encodes exactly one frame of audio data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pcm} & the frame to encode \\
+\hline
+{\em data} & encoded output \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_af9eb3a33ac7e21f0a3c35dee8b3a084c}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a0aa1a86cd80f5f64bbd49ee9e4d067ee}\label{classBabel_1_1ICodec_a0aa1a86cd80f5f64bbd49ee9e4d067ee}} 
+\index{Babel::ICodec@{Babel::ICodec}!getApplication@{getApplication}}
+\index{getApplication@{getApplication}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{getApplication()}{getApplication()}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::get\+Application (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the application type 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a9d87d4698721b56441791522d4c6dfe3}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a1380f29724905ace3e12f4035a143f39}\label{classBabel_1_1ICodec_a1380f29724905ace3e12f4035a143f39}} 
+\index{Babel::ICodec@{Babel::ICodec}!getBitrate@{getBitrate}}
+\index{getBitrate@{getBitrate}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{getBitrate()}{getBitrate()}}
+{\footnotesize\ttfamily virtual std\+::int32\+\_\+t Babel\+::\+I\+Codec\+::get\+Bitrate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the bitrate 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_ac3de80b89b791d7399927e6d49bb87ef}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_ad61cab789b5d1f3ffd50267c889f364b}\label{classBabel_1_1ICodec_ad61cab789b5d1f3ffd50267c889f364b}} 
+\index{Babel::ICodec@{Babel::ICodec}!getChannel@{getChannel}}
+\index{getChannel@{getChannel}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{getChannel()}{getChannel()}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::get\+Channel (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the channels 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a5c448cf7e4f9904b9008c66ae252ea52}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a76bd056c195f8d8cd39b81c82937ef67}\label{classBabel_1_1ICodec_a76bd056c195f8d8cd39b81c82937ef67}} 
+\index{Babel::ICodec@{Babel::ICodec}!getFrameSize@{getFrameSize}}
+\index{getFrameSize@{getFrameSize}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{getFrameSize()}{getFrameSize()}}
+{\footnotesize\ttfamily virtual int Babel\+::\+I\+Codec\+::get\+Frame\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the frame size 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a982026104097754355c6e06f968ac333}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_aa849ec315cc350796bc08139312c003e}\label{classBabel_1_1ICodec_aa849ec315cc350796bc08139312c003e}} 
+\index{Babel::ICodec@{Babel::ICodec}!setApplication@{setApplication}}
+\index{setApplication@{setApplication}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{setApplication()}{setApplication()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Codec\+::set\+Application (\begin{DoxyParamCaption}\item[{int}]{application }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+sets the \mbox{\hyperlink{classBabel_1_1Opus}{Opus}} application mode Possible values are O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+A\+U\+D\+IO (default) O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+V\+O\+IP O\+P\+U\+S\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+O\+N\+\_\+\+R\+E\+S\+T\+R\+I\+C\+T\+E\+D\+\_\+\+L\+O\+W\+D\+E\+L\+AY 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a967b7c8f472cd765aa31c5191a22afc5}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_aa89b46d63a02e6d6d036b421da8a9fad}\label{classBabel_1_1ICodec_aa89b46d63a02e6d6d036b421da8a9fad}} 
+\index{Babel::ICodec@{Babel::ICodec}!setBitrate@{setBitrate}}
+\index{setBitrate@{setBitrate}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{setBitrate()}{setBitrate()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Codec\+::set\+Bitrate (\begin{DoxyParamCaption}\item[{std\+::int32\+\_\+t}]{bitrate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Sets the bitrate. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a642dcdeb1f1ed79f2b852c91ac021023}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a91979c8f5fa77af94af24c38231db1f0}\label{classBabel_1_1ICodec_a91979c8f5fa77af94af24c38231db1f0}} 
+\index{Babel::ICodec@{Babel::ICodec}!setChannel@{setChannel}}
+\index{setChannel@{setChannel}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{setChannel()}{setChannel()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Codec\+::set\+Channel (\begin{DoxyParamCaption}\item[{int}]{channel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+sets the channel 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a177a5f85eb3641bec4a8b41bb66b3c91}{Babel\+::\+Opus}}.
+
+\mbox{\Hypertarget{classBabel_1_1ICodec_a491debd780ffefb860d7a06fa2837063}\label{classBabel_1_1ICodec_a491debd780ffefb860d7a06fa2837063}} 
+\index{Babel::ICodec@{Babel::ICodec}!setFrameSize@{setFrameSize}}
+\index{setFrameSize@{setFrameSize}!Babel::ICodec@{Babel::ICodec}}
+\doxysubsubsection{\texorpdfstring{setFrameSize()}{setFrameSize()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Codec\+::set\+Frame\+Size (\begin{DoxyParamCaption}\item[{int}]{frame\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+sets the number of samples per channel Possible values are 120/480/960 (default)/1920/2880 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1Opus_a5d400d526b1deaab61c87462c44b5a1a}{Babel\+::\+Opus}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\+Audio/\+Opus/\mbox{\hyperlink{ICodec_8hpp}{I\+Codec.\+hpp}}\end{DoxyCompactItemize}

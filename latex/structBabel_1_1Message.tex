@@ -1,0 +1,169 @@
+\hypertarget{structBabel_1_1Message}{}\doxysection{Babel\+::Message$<$ T $>$ Struct Template Reference}
+\label{structBabel_1_1Message}\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Message.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::Message$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{structBabel_1_1Message__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t \mbox{\hyperlink{structBabel_1_1Message_a49232223ec45fb71e1c9af33cebf31b1}{size}} () const
+\begin{DoxyCompactList}\small\item\em Returns the message body size. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structBabel_1_1Message_a58fa078d6e3fcf0ab077e8ccae3b65dd}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Reset this message, this message will be totally empty. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message_a2eaf1810d6e1bcc6cdde17e10dad59fa}{Message}} ()
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message_aa4cd55568a8e935934c6fb8bb6efa30a}{Message}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&m)=default
+\begin{DoxyCompactList}\small\item\em copy ctor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message_a3a3459f1f5accaa398f8ff90b0d22368}{$\sim$\+Message}} ()=default
+\begin{DoxyCompactList}\small\item\em dtor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}} \& \mbox{\hyperlink{structBabel_1_1Message_afa5cb89ba8e3f61345dd806ebc3b45cc}{operator=}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&)=default
+\begin{DoxyCompactList}\small\item\em assignment ctor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename Data\+Type $>$ }\\static \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{structBabel_1_1Message_a8212d51adf0074954d552f733b2aea2b}{Get\+Bytes}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, Data\+Type \&data, uint64\+\_\+t \mbox{\hyperlink{structBabel_1_1Message_a49232223ec45fb71e1c9af33cebf31b1}{size}})
+\begin{DoxyCompactList}\small\item\em Get size bytes from the message and put it in data, useful for strings (no compile time size) \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{structBabel_1_1Message_ad941b69c50f04f1a26cc540fde0b9c7a}{Get\+Bytes}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, std\+::string \&data, uint64\+\_\+t \mbox{\hyperlink{structBabel_1_1Message_a49232223ec45fb71e1c9af33cebf31b1}{size}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structBabel_1_1MessageHeader}{Message\+Header}}$<$ T $>$ \mbox{\hyperlink{structBabel_1_1Message_ab0be9dc609ac813589592f3af224efec}{header}}
+\begin{DoxyCompactList}\small\item\em The message metadata. \end{DoxyCompactList}\item 
+std\+::vector$<$ uint8\+\_\+t $>$ \mbox{\hyperlink{structBabel_1_1Message_aac304451f559d584f719b300af8bc8ab}{body}}
+\begin{DoxyCompactList}\small\item\em The payload of the message look at the header to know it\textquotesingle{}s size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structBabel_1_1Message_a2eaf1810d6e1bcc6cdde17e10dad59fa}\label{structBabel_1_1Message_a2eaf1810d6e1bcc6cdde17e10dad59fa}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!Message@{Message}}
+\index{Message@{Message}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Message()}{Message()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::\mbox{\hyperlink{structBabel_1_1Message}{Message}}\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+ctor 
+
+\mbox{\Hypertarget{structBabel_1_1Message_aa4cd55568a8e935934c6fb8bb6efa30a}\label{structBabel_1_1Message_aa4cd55568a8e935934c6fb8bb6efa30a}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!Message@{Message}}
+\index{Message@{Message}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Message()}{Message()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::\mbox{\hyperlink{structBabel_1_1Message}{Message}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+copy ctor 
+
+\mbox{\Hypertarget{structBabel_1_1Message_a3a3459f1f5accaa398f8ff90b0d22368}\label{structBabel_1_1Message_a3a3459f1f5accaa398f8ff90b0d22368}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!````~Message@{$\sim$Message}}
+\index{````~Message@{$\sim$Message}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$Message()}{~Message()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{structBabel_1_1Message}{Message}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+dtor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structBabel_1_1Message_a8212d51adf0074954d552f733b2aea2b}\label{structBabel_1_1Message_a8212d51adf0074954d552f733b2aea2b}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!GetBytes@{GetBytes}}
+\index{GetBytes@{GetBytes}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetBytes()}{GetBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename Data\+Type $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::Get\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{Data\+Type \&}]{data,  }\item[{uint64\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get size bytes from the message and put it in data, useful for strings (no compile time size) 
+
+\mbox{\Hypertarget{structBabel_1_1Message_ad941b69c50f04f1a26cc540fde0b9c7a}\label{structBabel_1_1Message_ad941b69c50f04f1a26cc540fde0b9c7a}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!GetBytes@{GetBytes}}
+\index{GetBytes@{GetBytes}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetBytes()}{GetBytes()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::Get\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{std\+::string \&}]{data,  }\item[{uint64\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{structBabel_1_1Message_afa5cb89ba8e3f61345dd806ebc3b45cc}\label{structBabel_1_1Message_afa5cb89ba8e3f61345dd806ebc3b45cc}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}\& \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+assignment ctor 
+
+\mbox{\Hypertarget{structBabel_1_1Message_a58fa078d6e3fcf0ab077e8ccae3b65dd}\label{structBabel_1_1Message_a58fa078d6e3fcf0ab077e8ccae3b65dd}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!reset@{reset}}
+\index{reset@{reset}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::reset}
+
+
+
+Reset this message, this message will be totally empty. 
+
+\begin{DoxyNote}{Note}
+Te message header id won\textquotesingle{}t be changed 
+\end{DoxyNote}
+\mbox{\Hypertarget{structBabel_1_1Message_a49232223ec45fb71e1c9af33cebf31b1}\label{structBabel_1_1Message_a49232223ec45fb71e1c9af33cebf31b1}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!size@{size}}
+\index{size@{size}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::size}
+
+
+
+Returns the message body size. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structBabel_1_1Message_aac304451f559d584f719b300af8bc8ab}\label{structBabel_1_1Message_aac304451f559d584f719b300af8bc8ab}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!body@{body}}
+\index{body@{body}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{body}{body}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::vector$<$uint8\+\_\+t$>$ \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::body}
+
+
+
+The payload of the message look at the header to know it\textquotesingle{}s size. 
+
+\mbox{\Hypertarget{structBabel_1_1Message_ab0be9dc609ac813589592f3af224efec}\label{structBabel_1_1Message_ab0be9dc609ac813589592f3af224efec}} 
+\index{Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}!header@{header}}
+\index{header@{header}!Babel::Message$<$ T $>$@{Babel::Message$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{header}{header}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1MessageHeader}{Message\+Header}}$<$T$>$ \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message}}$<$ T $>$\+::header}
+
+
+
+The message metadata. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Network/\mbox{\hyperlink{Message_8hpp}{Message.\+hpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,98 @@
+\hypertarget{structBabel_1_1Call}{}\doxysection{Babel\+::Call Struct Reference}
+\label{structBabel_1_1Call}\index{Babel::Call@{Babel::Call}}
+
+
+struct to handle all \mbox{\hyperlink{structBabel_1_1Call}{Call}} related data  
+
+
+
+
+{\ttfamily \#include $<$Call.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::Call\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=205pt]{structBabel_1_1Call__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1Call_1_1Participant}{Participant}}
+\begin{DoxyCompactList}\small\item\em struct to handle all \mbox{\hyperlink{structBabel_1_1Call}{Call}} related data \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structBabel_1_1Call_a68aa4dfbdbb80d90ca90442228151d0b}{Call}} ()
+\item 
+void \mbox{\hyperlink{structBabel_1_1Call_a3422fdc16d32c25f3c1738b918ee3db1}{add\+Participant}} (\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&p, std\+::string udp\+Address, uint16\+\_\+t udp\+Port, std\+::string username)
+\item 
+bool \mbox{\hyperlink{structBabel_1_1Call_accdf7f3128f90e46c37ae74f0e493d22}{is\+Participant}} (const \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&p) const
+\item 
+void \mbox{\hyperlink{structBabel_1_1Call_a25e1bd119eeaa0bbccc85a813d8a93cc}{remove\+Participant}} (\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&p)
+\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \& \mbox{\hyperlink{structBabel_1_1Call_a8a37f80b2a4d90fdf705e936552a17d8}{append\+All\+I\+Ps}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{structBabel_1_1Call_1_1Participant}{Participant}} $>$ \mbox{\hyperlink{structBabel_1_1Call_af9ff0d566fd29c25b7588f143d41aab3}{participants}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+struct to handle all \mbox{\hyperlink{structBabel_1_1Call}{Call}} related data 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structBabel_1_1Call_a68aa4dfbdbb80d90ca90442228151d0b}\label{structBabel_1_1Call_a68aa4dfbdbb80d90ca90442228151d0b}} 
+\index{Babel::Call@{Babel::Call}!Call@{Call}}
+\index{Call@{Call}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{Call()}{Call()}}
+{\footnotesize\ttfamily Babel\+::\+Call\+::\+Call (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structBabel_1_1Call_a3422fdc16d32c25f3c1738b918ee3db1}\label{structBabel_1_1Call_a3422fdc16d32c25f3c1738b918ee3db1}} 
+\index{Babel::Call@{Babel::Call}!addParticipant@{addParticipant}}
+\index{addParticipant@{addParticipant}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{addParticipant()}{addParticipant()}}
+{\footnotesize\ttfamily void Babel\+::\+Call\+::add\+Participant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{p,  }\item[{std\+::string}]{udp\+Address,  }\item[{uint16\+\_\+t}]{udp\+Port,  }\item[{std\+::string}]{username }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{structBabel_1_1Call_a8a37f80b2a4d90fdf705e936552a17d8}\label{structBabel_1_1Call_a8a37f80b2a4d90fdf705e936552a17d8}} 
+\index{Babel::Call@{Babel::Call}!appendAllIPs@{appendAllIPs}}
+\index{appendAllIPs@{appendAllIPs}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{appendAllIPs()}{appendAllIPs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \& Babel\+::\+Call\+::append\+All\+I\+Ps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structBabel_1_1Call_accdf7f3128f90e46c37ae74f0e493d22}\label{structBabel_1_1Call_accdf7f3128f90e46c37ae74f0e493d22}} 
+\index{Babel::Call@{Babel::Call}!isParticipant@{isParticipant}}
+\index{isParticipant@{isParticipant}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{isParticipant()}{isParticipant()}}
+{\footnotesize\ttfamily bool Babel\+::\+Call\+::is\+Participant (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{p }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{structBabel_1_1Call_a25e1bd119eeaa0bbccc85a813d8a93cc}\label{structBabel_1_1Call_a25e1bd119eeaa0bbccc85a813d8a93cc}} 
+\index{Babel::Call@{Babel::Call}!removeParticipant@{removeParticipant}}
+\index{removeParticipant@{removeParticipant}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{removeParticipant()}{removeParticipant()}}
+{\footnotesize\ttfamily void Babel\+::\+Call\+::remove\+Participant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{p }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structBabel_1_1Call_af9ff0d566fd29c25b7588f143d41aab3}\label{structBabel_1_1Call_af9ff0d566fd29c25b7588f143d41aab3}} 
+\index{Babel::Call@{Babel::Call}!participants@{participants}}
+\index{participants@{participants}!Babel::Call@{Babel::Call}}
+\doxysubsubsection{\texorpdfstring{participants}{participants}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{structBabel_1_1Call_1_1Participant}{Participant}}$>$ Babel\+::\+Call\+::participants}
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Server/src/\mbox{\hyperlink{Call_8hpp}{Call.\+hpp}}\item 
+Server/src/\mbox{\hyperlink{Call_8cpp}{Call.\+cpp}}\end{DoxyCompactItemize}

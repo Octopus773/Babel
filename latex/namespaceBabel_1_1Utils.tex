@@ -1,0 +1,69 @@
+\hypertarget{namespaceBabel_1_1Utils}{}\doxysection{Babel\+::Utils Namespace Reference}
+\label{namespaceBabel_1_1Utils}\index{Babel::Utils@{Babel::Utils}}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceBabel_1_1Utils_aa8a3d2b747fbaac81603e158627c18a6}{get\+String}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m, std\+::string \&str, std\+::pair$<$ uint8\+\_\+t, uint8\+\_\+t $>$ min\+Max\+Size)
+\begin{DoxyCompactList}\small\item\em get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceBabel_1_1Utils_a2b8a7a94d9effaa2de5b65c6ffebe0a3}{get\+String}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m, std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static bool \mbox{\hyperlink{namespaceBabel_1_1Utils_a0d72e1b0b0c2e4da76548399bfd2db0b}{try\+Parse}} (const std\+::string \&s, T \&f)
+\begin{DoxyCompactList}\small\item\em return true if parsing has been successful result ill be in i \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{namespaceBabel_1_1Utils_afad48cc68dc97c21a5f49038d562e149}{response}} (uint16\+\_\+t code, std\+::string description)
+\begin{DoxyCompactList}\small\item\em Create a reply type message, used as a convenient way to quickly construct response description messages. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \& \mbox{\hyperlink{namespaceBabel_1_1Utils_ac670d3da843a71d9703e36d457a6d35c}{append\+Connection\+Ip\+Port}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m, \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&c)
+\begin{DoxyCompactList}\small\item\em add the address and port of a tcp connection to a message \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceBabel_1_1Utils_ac670d3da843a71d9703e36d457a6d35c}\label{namespaceBabel_1_1Utils_ac670d3da843a71d9703e36d457a6d35c}} 
+\index{Babel::Utils@{Babel::Utils}!appendConnectionIpPort@{appendConnectionIpPort}}
+\index{appendConnectionIpPort@{appendConnectionIpPort}!Babel::Utils@{Babel::Utils}}
+\doxysubsubsection{\texorpdfstring{appendConnectionIpPort()}{appendConnectionIpPort()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$\& Babel\+::\+Utils\+::append\+Connection\+Ip\+Port (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m,  }\item[{\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+add the address and port of a tcp connection to a message 
+
+\mbox{\Hypertarget{namespaceBabel_1_1Utils_a2b8a7a94d9effaa2de5b65c6ffebe0a3}\label{namespaceBabel_1_1Utils_a2b8a7a94d9effaa2de5b65c6ffebe0a3}} 
+\index{Babel::Utils@{Babel::Utils}!getString@{getString}}
+\index{getString@{getString}!Babel::Utils@{Babel::Utils}}
+\doxysubsubsection{\texorpdfstring{getString()}{getString()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Babel\+::\+Utils\+::get\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m,  }\item[{std\+::string \&}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string 
+
+\mbox{\Hypertarget{namespaceBabel_1_1Utils_aa8a3d2b747fbaac81603e158627c18a6}\label{namespaceBabel_1_1Utils_aa8a3d2b747fbaac81603e158627c18a6}} 
+\index{Babel::Utils@{Babel::Utils}!getString@{getString}}
+\index{getString@{getString}!Babel::Utils@{Babel::Utils}}
+\doxysubsubsection{\texorpdfstring{getString()}{getString()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Babel\+::\+Utils\+::get\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m,  }\item[{std\+::string \&}]{str,  }\item[{std\+::pair$<$ uint8\+\_\+t, uint8\+\_\+t $>$}]{min\+Max\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string 
+
+\mbox{\Hypertarget{namespaceBabel_1_1Utils_afad48cc68dc97c21a5f49038d562e149}\label{namespaceBabel_1_1Utils_afad48cc68dc97c21a5f49038d562e149}} 
+\index{Babel::Utils@{Babel::Utils}!response@{response}}
+\index{response@{response}!Babel::Utils@{Babel::Utils}}
+\doxysubsubsection{\texorpdfstring{response()}{response()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$ Babel\+::\+Utils\+::response (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{code,  }\item[{std\+::string}]{description }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Create a reply type message, used as a convenient way to quickly construct response description messages. 
+
+\mbox{\Hypertarget{namespaceBabel_1_1Utils_a0d72e1b0b0c2e4da76548399bfd2db0b}\label{namespaceBabel_1_1Utils_a0d72e1b0b0c2e4da76548399bfd2db0b}} 
+\index{Babel::Utils@{Babel::Utils}!tryParse@{tryParse}}
+\index{tryParse@{tryParse}!Babel::Utils@{Babel::Utils}}
+\doxysubsubsection{\texorpdfstring{tryParse()}{tryParse()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+static bool Babel\+::\+Utils\+::try\+Parse (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{s,  }\item[{T \&}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+return true if parsing has been successful result ill be in i 
+

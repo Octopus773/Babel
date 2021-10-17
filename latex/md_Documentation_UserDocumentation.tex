@@ -1,0 +1,71 @@
+\hypertarget{md_Documentation_UserDocumentation_autotoc_md1}{}\doxysection{Introduction}\label{md_Documentation_UserDocumentation_autotoc_md1}
+Hi dear reader.
+
+The \mbox{\hyperlink{namespaceBabel}{Babel}} is a project aiming to create a Vo\+IP application. Vo\+IP stands for Voice over Internet Protocol.
+
+You may already know some applications that use this technique (Discord, Skype, or Team\+Speak to name a few).
+
+The \mbox{\hyperlink{namespaceBabel}{Babel}} consists of a client and a server, clients connect to the server to find other clients and start a call. Calls are made between clients following a Peer-\/to-\/\+Peer architecture.\hypertarget{md_Documentation_UserDocumentation_autotoc_md2}{}\doxysection{Getting Started}\label{md_Documentation_UserDocumentation_autotoc_md2}
+\hypertarget{md_Documentation_UserDocumentation_autotoc_md3}{}\doxysubsection{Installation}\label{md_Documentation_UserDocumentation_autotoc_md3}
+\hypertarget{md_Documentation_UserDocumentation_autotoc_md4}{}\doxysubsubsection{Build from sources}\label{md_Documentation_UserDocumentation_autotoc_md4}
+Sources are hosted on Git\+Hub You can clone the repository with the following command
+
+\begin{DoxyVerb}git clone https://github.com/Octopus773/Babel.git
+\end{DoxyVerb}
+
+
+The project is using \href{https://conan.io/}{\texttt{ conan}} to handle it\textquotesingle{}s dependancies You may have to create a profile and add remotes to conan if it\textquotesingle{}s your first time with it
+
+Projects conan needed remotes\+:
+\begin{DoxyItemize}
+\item conancenter\+: \href{https://center.conan.io}{\texttt{ https\+://center.\+conan.\+io}}
+\item bincrafters\+: \href{https://bincrafters.jfrog.io/artifactory/api/conan/public-conan}{\texttt{ https\+://bincrafters.\+jfrog.\+io/artifactory/api/conan/public-\/conan}}
+
+mkdir build cd build conan install .. --build missing
+\end{DoxyItemize}
+
+It may takes time for conan to download sources and build them
+
+We\textquotesingle{}re using \href{https://cmake.org/}{\texttt{ C\+Make}} to build the project in the build folder\+: \begin{DoxyVerb}cmake ..
+cmake --build .
+\end{DoxyVerb}
+ Binaries will be located in build/bin\hypertarget{md_Documentation_UserDocumentation_autotoc_md5}{}\doxysection{How to use}\label{md_Documentation_UserDocumentation_autotoc_md5}
+Here you go you got the \mbox{\hyperlink{namespaceBabel}{Babel}} but how to use it ???
+
+First, you got 2 programs \+:
+\begin{DoxyItemize}
+\item babel\+\_\+client
+\item babel\+\_\+server
+\end{DoxyItemize}
+
+To start the babel\+\_\+server you need to use a C\+LI and give the port as argument Here I\textquotesingle{}m starting the server on the port 4245 \begin{DoxyVerb}./bin/babel_server 4245
+\end{DoxyVerb}
+
+
+The client has a G\+UI, you can launch it like any other program
+
+// T\+O\+DO set client images\hypertarget{md_Documentation_UserDocumentation_autotoc_md6}{}\doxysection{Connection to server}\label{md_Documentation_UserDocumentation_autotoc_md6}
+In order to connect to a \mbox{\hyperlink{namespaceBabel}{Babel}} server, you have to fill the address and port of the running server
+
+
+
+If the connection is achieved you won\textquotesingle{}t get any message, just go to the login tab
+
+When the client can\textquotesingle{}t connect to the server, you may see messages like this
+
+\hypertarget{md_Documentation_UserDocumentation_autotoc_md7}{}\doxysection{Login}\label{md_Documentation_UserDocumentation_autotoc_md7}
+Here you will be asked to give the username to represent you on the server, 
+
+Our server doesn\textquotesingle{}t accept multiple connected users with the same username.\hypertarget{md_Documentation_UserDocumentation_autotoc_md8}{}\doxysection{Home Page}\label{md_Documentation_UserDocumentation_autotoc_md8}
+Here you can see all the connected users with their usernames 
+
+You can call a user by selecting its username and click on the call user button\hypertarget{md_Documentation_UserDocumentation_autotoc_md9}{}\doxysection{Call}\label{md_Documentation_UserDocumentation_autotoc_md9}
+When a user want\textquotesingle{}s to call you, you will be asked if you want to join or not
+
+
+
+During a call every user in the call will be displayed
+
+
+
+You\textquotesingle{}re now able to use all the features of our \mbox{\hyperlink{namespaceBabel}{Babel}}. Congrats ! 

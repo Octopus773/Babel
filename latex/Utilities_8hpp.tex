@@ -1,0 +1,38 @@
+\hypertarget{Utilities_8hpp}{}\doxysection{Common/\+Utilities/\+Utilities.hpp File Reference}
+\label{Utilities_8hpp}\index{Common/Utilities/Utilities.hpp@{Common/Utilities/Utilities.hpp}}
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include \char`\"{}Network/\+Message.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Network/\+R\+F\+C\+Codes.\+hpp\char`\"{}}\newline
+Include dependency graph for Utilities.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Utilities_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Utilities_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceBabel}{Babel}}
+\item 
+ \mbox{\hyperlink{namespaceBabel_1_1Utils}{Babel\+::\+Utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceBabel_1_1Utils_aa8a3d2b747fbaac81603e158627c18a6}{Babel\+::\+Utils\+::get\+String}} (Message$<$ R\+F\+C\+Codes $>$ \&m, std\+::string \&str, std\+::pair$<$ uint8\+\_\+t, uint8\+\_\+t $>$ min\+Max\+Size)
+\begin{DoxyCompactList}\small\item\em get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{namespaceBabel_1_1Utils_a2b8a7a94d9effaa2de5b65c6ffebe0a3}{Babel\+::\+Utils\+::get\+String}} (Message$<$ R\+F\+C\+Codes $>$ \&m, std\+::string \&str)
+\begin{DoxyCompactList}\small\item\em get a string from a message the data layout of the message must be uint8 string\+\_\+length and the string \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\static bool \mbox{\hyperlink{namespaceBabel_1_1Utils_a0d72e1b0b0c2e4da76548399bfd2db0b}{Babel\+::\+Utils\+::try\+Parse}} (const std\+::string \&s, T \&f)
+\begin{DoxyCompactList}\small\item\em return true if parsing has been successful result ill be in i \end{DoxyCompactList}\end{DoxyCompactItemize}

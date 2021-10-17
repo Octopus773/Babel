@@ -1,0 +1,5 @@
+<map id="Babel::BabelServer" name="Babel::BabelServer">
+<area shape="rect" id="node1" title="Main server class contains almost all the logic for the server." alt="" coords="15,623,209,935"/>
+<area shape="rect" id="node2" href="$classBabel_1_1AsioTCPServer.html" title=" " alt="" coords="5,263,219,575"/>
+<area shape="rect" id="node3" href="$classBabel_1_1ITCPServer.html" title=" " alt="" coords="25,5,199,215"/>
+</map>

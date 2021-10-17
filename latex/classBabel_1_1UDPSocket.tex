@@ -1,0 +1,175 @@
+\hypertarget{classBabel_1_1UDPSocket}{}\doxysection{Babel\+::U\+D\+P\+Socket Class Reference}
+\label{classBabel_1_1UDPSocket}\index{Babel::UDPSocket@{Babel::UDPSocket}}
+
+
+wrapper around Qt U\+DP socket, \mbox{\hyperlink{classBabel_1_1ICodec}{I\+Codec}} and Portaudio  
+
+
+
+
+{\ttfamily \#include $<$U\+D\+P\+Socket.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::U\+D\+P\+Socket\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classBabel_1_1UDPSocket__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::U\+D\+P\+Socket\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classBabel_1_1UDPSocket__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBabel_1_1UDPSocket_ae8413dec5383fa46c2236131f0679e8e}{U\+D\+P\+Socket}} (std\+::int16\+\_\+t port, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}} $>$ \&, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}} $>$ \&)
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1UDPSocket_a829514200f8b2903dbf10921236f9cd9}{$\sim$\+U\+D\+P\+Socket}} () override
+\begin{DoxyCompactList}\small\item\em dtor \end{DoxyCompactList}\item 
+std\+::int64\+\_\+t \mbox{\hyperlink{classBabel_1_1UDPSocket_afd56157e06fdd7fd9abe39d2181ed3fc}{write}} (std\+::array$<$ unsigned char, 4000 $>$ \&data, std\+::int32\+\_\+t size, const std\+::string \&address, int port)
+\begin{DoxyCompactList}\small\item\em writes data to socket \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1UDPSocket_a2c0ed150e99537a81d563803a7aebae3}{close}} ()
+\begin{DoxyCompactList}\small\item\em closes the socket \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1UDPSocket_ae2ae2404ad50d21093c53902ba5cba45}{read\+Pending}} ()
+\begin{DoxyCompactList}\small\item\em reads the incoming datagrams when they arrive \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1UDPSocket_aaca8e88065c95b80001d3b3c7f8d12ca}{get\+Local\+Port}} () const
+\begin{DoxyCompactList}\small\item\em get the port that the \mbox{\hyperlink{classBabel_1_1UDPSocket}{U\+D\+P\+Socket}} is listening \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1UDPSocket_a8efecc5d3ada518f9092cd1bded854f9}{\+\_\+mutex}}
+\begin{DoxyCompactList}\small\item\em mutex for closing the socket \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ Q\+Udp\+Socket $>$ \mbox{\hyperlink{classBabel_1_1UDPSocket_a0504a65f0196596fdc0ae36b335004cb}{\+\_\+socket}}
+\begin{DoxyCompactList}\small\item\em Qt\textquotesingle{}s U\+DP socket. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}} $>$ \mbox{\hyperlink{classBabel_1_1UDPSocket_a01b7330a5e1180fb847aa3d33881bb61}{\+\_\+audio}}
+\begin{DoxyCompactList}\small\item\em audio interface to play sound \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}} $>$ \mbox{\hyperlink{classBabel_1_1UDPSocket_a3177c84ec64b0b07f8994ee288634db9}{\+\_\+codec}}
+\begin{DoxyCompactList}\small\item\em codec interface to encode and decode sound \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+wrapper around Qt U\+DP socket, \mbox{\hyperlink{classBabel_1_1ICodec}{I\+Codec}} and Portaudio 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_ae8413dec5383fa46c2236131f0679e8e}\label{classBabel_1_1UDPSocket_ae8413dec5383fa46c2236131f0679e8e}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!UDPSocket@{UDPSocket}}
+\index{UDPSocket@{UDPSocket}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{UDPSocket()}{UDPSocket()}}
+{\footnotesize\ttfamily Babel\+::\+U\+D\+P\+Socket\+::\+U\+D\+P\+Socket (\begin{DoxyParamCaption}\item[{std\+::int16\+\_\+t}]{port,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}} $>$ \&}]{audio,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}} $>$ \&}]{opus }\end{DoxyParamCaption})}
+
+
+
+ctor 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a829514200f8b2903dbf10921236f9cd9}\label{classBabel_1_1UDPSocket_a829514200f8b2903dbf10921236f9cd9}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!````~UDPSocket@{$\sim$UDPSocket}}
+\index{````~UDPSocket@{$\sim$UDPSocket}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{$\sim$UDPSocket()}{~UDPSocket()}}
+{\footnotesize\ttfamily Babel\+::\+U\+D\+P\+Socket\+::$\sim$\+U\+D\+P\+Socket (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+dtor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a2c0ed150e99537a81d563803a7aebae3}\label{classBabel_1_1UDPSocket_a2c0ed150e99537a81d563803a7aebae3}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!close@{close}}
+\index{close@{close}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{close()}{close()}}
+{\footnotesize\ttfamily void Babel\+::\+U\+D\+P\+Socket\+::close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+closes the socket 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_aaca8e88065c95b80001d3b3c7f8d12ca}\label{classBabel_1_1UDPSocket_aaca8e88065c95b80001d3b3c7f8d12ca}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!getLocalPort@{getLocalPort}}
+\index{getLocalPort@{getLocalPort}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{getLocalPort()}{getLocalPort()}}
+{\footnotesize\ttfamily uint16\+\_\+t Babel\+::\+U\+D\+P\+Socket\+::get\+Local\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get the port that the \mbox{\hyperlink{classBabel_1_1UDPSocket}{U\+D\+P\+Socket}} is listening 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_ae2ae2404ad50d21093c53902ba5cba45}\label{classBabel_1_1UDPSocket_ae2ae2404ad50d21093c53902ba5cba45}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!readPending@{readPending}}
+\index{readPending@{readPending}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{readPending()}{readPending()}}
+{\footnotesize\ttfamily void Babel\+::\+U\+D\+P\+Socket\+::read\+Pending (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+reads the incoming datagrams when they arrive 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_afd56157e06fdd7fd9abe39d2181ed3fc}\label{classBabel_1_1UDPSocket_afd56157e06fdd7fd9abe39d2181ed3fc}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!write@{write}}
+\index{write@{write}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily std\+::int64\+\_\+t Babel\+::\+U\+D\+P\+Socket\+::write (\begin{DoxyParamCaption}\item[{std\+::array$<$ unsigned char, 4000 $>$ \&}]{data,  }\item[{std\+::int32\+\_\+t}]{size,  }\item[{const std\+::string \&}]{address,  }\item[{int}]{port }\end{DoxyParamCaption})}
+
+
+
+writes data to socket 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a01b7330a5e1180fb847aa3d33881bb61}\label{classBabel_1_1UDPSocket_a01b7330a5e1180fb847aa3d33881bb61}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!\_audio@{\_audio}}
+\index{\_audio@{\_audio}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{\_audio}{\_audio}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}}$>$ Babel\+::\+U\+D\+P\+Socket\+::\+\_\+audio\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+audio interface to play sound 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a3177c84ec64b0b07f8994ee288634db9}\label{classBabel_1_1UDPSocket_a3177c84ec64b0b07f8994ee288634db9}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!\_codec@{\_codec}}
+\index{\_codec@{\_codec}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{\_codec}{\_codec}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}}$>$ Babel\+::\+U\+D\+P\+Socket\+::\+\_\+codec\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+codec interface to encode and decode sound 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a8efecc5d3ada518f9092cd1bded854f9}\label{classBabel_1_1UDPSocket_a8efecc5d3ada518f9092cd1bded854f9}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!\_mutex@{\_mutex}}
+\index{\_mutex@{\_mutex}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{\_mutex}{\_mutex}}
+{\footnotesize\ttfamily std\+::mutex Babel\+::\+U\+D\+P\+Socket\+::\+\_\+mutex\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+mutex for closing the socket 
+
+\mbox{\Hypertarget{classBabel_1_1UDPSocket_a0504a65f0196596fdc0ae36b335004cb}\label{classBabel_1_1UDPSocket_a0504a65f0196596fdc0ae36b335004cb}} 
+\index{Babel::UDPSocket@{Babel::UDPSocket}!\_socket@{\_socket}}
+\index{\_socket@{\_socket}!Babel::UDPSocket@{Babel::UDPSocket}}
+\doxysubsubsection{\texorpdfstring{\_socket}{\_socket}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$Q\+Udp\+Socket$>$ Babel\+::\+U\+D\+P\+Socket\+::\+\_\+socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Qt\textquotesingle{}s U\+DP socket. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\+Network/\mbox{\hyperlink{UDPSocket_8hpp}{U\+D\+P\+Socket.\+hpp}}\item 
+Client/src/\+Network/\mbox{\hyperlink{UDPSocket_8cpp}{U\+D\+P\+Socket.\+cpp}}\end{DoxyCompactItemize}

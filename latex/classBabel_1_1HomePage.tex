@@ -1,0 +1,500 @@
+\hypertarget{classBabel_1_1HomePage}{}\doxysection{Babel\+::Home\+Page Class Reference}
+\label{classBabel_1_1HomePage}\index{Babel::HomePage@{Babel::HomePage}}
+
+
+Main client Class.  
+
+
+
+
+{\ttfamily \#include $<$Home\+Page.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::Home\+Page\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classBabel_1_1HomePage__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::Home\+Page\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classBabel_1_1HomePage__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1HomePage_1_1MessageHandler}{Message\+Handler}}
+\begin{DoxyCompactList}\small\item\em All the necessary information to handle a response. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structBabel_1_1HomePage_1_1UserInfo}{User\+Info}}
+\begin{DoxyCompactList}\small\item\em All the necessary information for a user in call or in the display list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBabel_1_1HomePage_a9abcddf8e2e8f19e8fa68d017461fff0}{Home\+Page}} ()
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1HomePage_a48827a4c301c705ac994665614de01ee}{$\sim$\+Home\+Page}} () override=default
+\begin{DoxyCompactList}\small\item\em dtor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1HomePage_a14d2a8d558b438bb862bb0f005680877}{start\+Udp\+Port}} = 0
+\begin{DoxyCompactList}\small\item\em The port to receive udp audio packets. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a7449385933a97e884107d9f8eed2420b}{send\+Handler}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em send the message to the server and add it to the message send queue to handle responses type \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a4080b7008be6ac09dcbc088808f4e896}{on\+Message}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ m)
+\begin{DoxyCompactList}\small\item\em is used to redirect responses from request to the correct handling functions \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a3389b9ac7944025196087f962e818fec}{do\+Connect}} ()
+\begin{DoxyCompactList}\small\item\em Connects to the server with tcp. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a8aa2760cf70ceb66306e1767a1ebcaa9}{do\+Login}} ()
+\begin{DoxyCompactList}\small\item\em send a login request, look into field inputs for username \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a4eb2ba5c3e21ec26843b1d76b5770356}{do\+List\+Users}} ()
+\begin{DoxyCompactList}\small\item\em send a list\+Users request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a49de9c6dfc3ef209b5110f84c5435ae6}{do\+Call\+User}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structBabel_1_1Call}{Call}} a specific user look in the list for the selected username. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a1d6e43291e21de14608c65c91ccb0bfb}{do\+Join\+Call}} (int call\+Id, std\+::string \&address, uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em join the call\+Id given \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a19aff75b897b869d62578abd863d1378}{do\+Deny\+Call}} (int call\+Id)
+\begin{DoxyCompactList}\small\item\em deny a call\+Id \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a81f329db7eab56d65865ff34ef1950ae}{do\+Hang\+Up}} ()
+\begin{DoxyCompactList}\small\item\em quit a call \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_aadc240c4705137422299210d27c2b65f}{on\+Login\+Response}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handler for any responses of the login request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_af22009b6f0bdc68225655ed2d755f4b6}{on\+List\+Users\+Response}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handler for any responses of the listuser request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_ae83ce9fe7c65be9a7e7d3c12c0234ff8}{on\+Call\+User\+Response}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handler for any responses of the call\+User request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a57129c81cc7c5dcc348cd32d7bf44cd7}{on\+Join\+Call}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handler for any responses of the join\+Call request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a4a9874ace7082d46e6a3217cf8e5dbd8}{handle\+Incoming\+Call}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handle incoming call request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a9814e4ff28479f7b4cc4cf68b09acb4a}{handle\+User\+Joined}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handle user joined request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_a3ae828529c0f81461bcf70390a11420f}{handle\+User\+Left}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handle user left request \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_af2669092730b361fb348a8e5a5db9b57}{update\+Display\+Selected\+User}} ()
+\begin{DoxyCompactList}\small\item\em Update qt interface to display the correct username and infos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1HomePage_ab1698651c3513772158fe5979de5ef16}{change\+Current\+U\+I\+Tab}} (Q\+Widget $\ast$tab)
+\begin{DoxyCompactList}\small\item\em Change the currently selected tab. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classBabel_1_1HomePage_ac72a8b0b2646643ca911fee0ae524fee}{on\+Basic\+Response}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&m)
+\begin{DoxyCompactList}\small\item\em handler for any simple responses (opens a dialog if error) otherwise do nothing \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Main\+Window $\ast$ \mbox{\hyperlink{classBabel_1_1HomePage_a90136890a66cf933492e536235c0cf82}{\+\_\+window}}
+\begin{DoxyCompactList}\small\item\em The display window. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classUi_1_1babelHome}{Ui\+::babel\+Home}} \mbox{\hyperlink{classBabel_1_1HomePage_ab2be595a6ecf85c6522a2efaa2ff84b3}{\+\_\+ui}} \{\}
+\begin{DoxyCompactList}\small\item\em The UI Class. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1QtTCPConnection}{Qt\+T\+C\+P\+Connection}} \mbox{\hyperlink{classBabel_1_1HomePage_ae710e260e41674ca9ece8cfa91fbc92d}{\+\_\+connection}}
+\begin{DoxyCompactList}\small\item\em tcp connection handler \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1HomePage_aba41c48a8672d6d5af5258449a5959af}{\+\_\+requests\+Made}}
+\begin{DoxyCompactList}\small\item\em all the request made by the client (expecting a response) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1SoundHandler}{Sound\+Handler}} \mbox{\hyperlink{classBabel_1_1HomePage_a3dfdc08b81b06b69c10c25c80f1709d7}{\+\_\+audio}}
+\begin{DoxyCompactList}\small\item\em Audio call manager. \end{DoxyCompactList}\item 
+std\+::map$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}, \mbox{\hyperlink{structBabel_1_1HomePage_1_1MessageHandler}{Message\+Handler}} $>$ \mbox{\hyperlink{classBabel_1_1HomePage_a6fed2a84e810feaf91830048c163cf9d}{\+\_\+message\+Handlers}}
+\begin{DoxyCompactList}\small\item\em Used to call the correct handling function. \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, \mbox{\hyperlink{structBabel_1_1HomePage_1_1UserInfo}{User\+Info}} $>$ \mbox{\hyperlink{classBabel_1_1HomePage_ae06e92c9b45a1bab2f22e213c6f18105}{\+\_\+users\+Infos}}
+\begin{DoxyCompactList}\small\item\em Userinfo holder the username is the key. \end{DoxyCompactList}\item 
+std\+::list$<$ std\+::string $>$ \mbox{\hyperlink{classBabel_1_1HomePage_a739c27ee61390762e305cad31a7f7c5a}{\+\_\+users\+In\+Current\+Call}}
+\begin{DoxyCompactList}\small\item\em a list containing all users in the current\+Call \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBabel_1_1HomePage_ae17de15f64ae35c9884f102428e779b7}{\+\_\+current\+Call\+Id}}
+\begin{DoxyCompactList}\small\item\em handling the call\+Id of the current call (to be able to hang up, ...) \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classBabel_1_1HomePage_a6fb9f76d854924c01d7889e0290945f5}{\+\_\+address}}
+\begin{DoxyCompactList}\small\item\em The local ip. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classBabel_1_1HomePage_a086e5f12a8cbc5065ac4dd4df66dd935}{\+\_\+username}}
+\begin{DoxyCompactList}\small\item\em The username of the connected user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{classBabel_1_1HomePage_aa4b6d665635c358b0534ea6b038718d2}{Currently\+Not\+In\+Call}} = -\/1
+\begin{DoxyCompactList}\small\item\em Used to set and verify the \+\_\+current\+Call\+Id if a call is ongoing. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main client Class. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1HomePage_a9abcddf8e2e8f19e8fa68d017461fff0}\label{classBabel_1_1HomePage_a9abcddf8e2e8f19e8fa68d017461fff0}} 
+\index{Babel::HomePage@{Babel::HomePage}!HomePage@{HomePage}}
+\index{HomePage@{HomePage}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{HomePage()}{HomePage()}}
+{\footnotesize\ttfamily Babel\+::\+Home\+Page\+::\+Home\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ctor 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a48827a4c301c705ac994665614de01ee}\label{classBabel_1_1HomePage_a48827a4c301c705ac994665614de01ee}} 
+\index{Babel::HomePage@{Babel::HomePage}!````~HomePage@{$\sim$HomePage}}
+\index{````~HomePage@{$\sim$HomePage}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{$\sim$HomePage()}{~HomePage()}}
+{\footnotesize\ttfamily Babel\+::\+Home\+Page\+::$\sim$\+Home\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}
+
+
+
+dtor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1HomePage_ab1698651c3513772158fe5979de5ef16}\label{classBabel_1_1HomePage_ab1698651c3513772158fe5979de5ef16}} 
+\index{Babel::HomePage@{Babel::HomePage}!changeCurrentUITab@{changeCurrentUITab}}
+\index{changeCurrentUITab@{changeCurrentUITab}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{changeCurrentUITab()}{changeCurrentUITab()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::change\+Current\+U\+I\+Tab (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{tab }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Change the currently selected tab. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a49de9c6dfc3ef209b5110f84c5435ae6}\label{classBabel_1_1HomePage_a49de9c6dfc3ef209b5110f84c5435ae6}} 
+\index{Babel::HomePage@{Babel::HomePage}!doCallUser@{doCallUser}}
+\index{doCallUser@{doCallUser}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doCallUser()}{doCallUser()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Call\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{structBabel_1_1Call}{Call}} a specific user look in the list for the selected username. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a3389b9ac7944025196087f962e818fec}\label{classBabel_1_1HomePage_a3389b9ac7944025196087f962e818fec}} 
+\index{Babel::HomePage@{Babel::HomePage}!doConnect@{doConnect}}
+\index{doConnect@{doConnect}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doConnect()}{doConnect()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Connect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Connects to the server with tcp. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a19aff75b897b869d62578abd863d1378}\label{classBabel_1_1HomePage_a19aff75b897b869d62578abd863d1378}} 
+\index{Babel::HomePage@{Babel::HomePage}!doDenyCall@{doDenyCall}}
+\index{doDenyCall@{doDenyCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doDenyCall()}{doDenyCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Deny\+Call (\begin{DoxyParamCaption}\item[{int}]{call\+Id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+deny a call\+Id 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a81f329db7eab56d65865ff34ef1950ae}\label{classBabel_1_1HomePage_a81f329db7eab56d65865ff34ef1950ae}} 
+\index{Babel::HomePage@{Babel::HomePage}!doHangUp@{doHangUp}}
+\index{doHangUp@{doHangUp}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doHangUp()}{doHangUp()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Hang\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+quit a call 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a1d6e43291e21de14608c65c91ccb0bfb}\label{classBabel_1_1HomePage_a1d6e43291e21de14608c65c91ccb0bfb}} 
+\index{Babel::HomePage@{Babel::HomePage}!doJoinCall@{doJoinCall}}
+\index{doJoinCall@{doJoinCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doJoinCall()}{doJoinCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Join\+Call (\begin{DoxyParamCaption}\item[{int}]{call\+Id,  }\item[{std\+::string \&}]{address,  }\item[{uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+join the call\+Id given 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a4eb2ba5c3e21ec26843b1d76b5770356}\label{classBabel_1_1HomePage_a4eb2ba5c3e21ec26843b1d76b5770356}} 
+\index{Babel::HomePage@{Babel::HomePage}!doListUsers@{doListUsers}}
+\index{doListUsers@{doListUsers}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doListUsers()}{doListUsers()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+List\+Users (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+send a list\+Users request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a8aa2760cf70ceb66306e1767a1ebcaa9}\label{classBabel_1_1HomePage_a8aa2760cf70ceb66306e1767a1ebcaa9}} 
+\index{Babel::HomePage@{Babel::HomePage}!doLogin@{doLogin}}
+\index{doLogin@{doLogin}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{doLogin()}{doLogin()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::do\+Login (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+send a login request, look into field inputs for username 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a4a9874ace7082d46e6a3217cf8e5dbd8}\label{classBabel_1_1HomePage_a4a9874ace7082d46e6a3217cf8e5dbd8}} 
+\index{Babel::HomePage@{Babel::HomePage}!handleIncomingCall@{handleIncomingCall}}
+\index{handleIncomingCall@{handleIncomingCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{handleIncomingCall()}{handleIncomingCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::handle\+Incoming\+Call (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handle incoming call request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a9814e4ff28479f7b4cc4cf68b09acb4a}\label{classBabel_1_1HomePage_a9814e4ff28479f7b4cc4cf68b09acb4a}} 
+\index{Babel::HomePage@{Babel::HomePage}!handleUserJoined@{handleUserJoined}}
+\index{handleUserJoined@{handleUserJoined}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{handleUserJoined()}{handleUserJoined()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::handle\+User\+Joined (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handle user joined request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a3ae828529c0f81461bcf70390a11420f}\label{classBabel_1_1HomePage_a3ae828529c0f81461bcf70390a11420f}} 
+\index{Babel::HomePage@{Babel::HomePage}!handleUserLeft@{handleUserLeft}}
+\index{handleUserLeft@{handleUserLeft}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{handleUserLeft()}{handleUserLeft()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::handle\+User\+Left (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handle user left request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ac72a8b0b2646643ca911fee0ae524fee}\label{classBabel_1_1HomePage_ac72a8b0b2646643ca911fee0ae524fee}} 
+\index{Babel::HomePage@{Babel::HomePage}!onBasicResponse@{onBasicResponse}}
+\index{onBasicResponse@{onBasicResponse}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onBasicResponse()}{onBasicResponse()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+Basic\+Response (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+handler for any simple responses (opens a dialog if error) otherwise do nothing 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ae83ce9fe7c65be9a7e7d3c12c0234ff8}\label{classBabel_1_1HomePage_ae83ce9fe7c65be9a7e7d3c12c0234ff8}} 
+\index{Babel::HomePage@{Babel::HomePage}!onCallUserResponse@{onCallUserResponse}}
+\index{onCallUserResponse@{onCallUserResponse}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onCallUserResponse()}{onCallUserResponse()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+Call\+User\+Response (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handler for any responses of the call\+User request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a57129c81cc7c5dcc348cd32d7bf44cd7}\label{classBabel_1_1HomePage_a57129c81cc7c5dcc348cd32d7bf44cd7}} 
+\index{Babel::HomePage@{Babel::HomePage}!onJoinCall@{onJoinCall}}
+\index{onJoinCall@{onJoinCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onJoinCall()}{onJoinCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+Join\+Call (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handler for any responses of the join\+Call request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_af22009b6f0bdc68225655ed2d755f4b6}\label{classBabel_1_1HomePage_af22009b6f0bdc68225655ed2d755f4b6}} 
+\index{Babel::HomePage@{Babel::HomePage}!onListUsersResponse@{onListUsersResponse}}
+\index{onListUsersResponse@{onListUsersResponse}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onListUsersResponse()}{onListUsersResponse()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+List\+Users\+Response (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handler for any responses of the listuser request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_aadc240c4705137422299210d27c2b65f}\label{classBabel_1_1HomePage_aadc240c4705137422299210d27c2b65f}} 
+\index{Babel::HomePage@{Babel::HomePage}!onLoginResponse@{onLoginResponse}}
+\index{onLoginResponse@{onLoginResponse}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onLoginResponse()}{onLoginResponse()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+Login\+Response (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handler for any responses of the login request 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a4080b7008be6ac09dcbc088808f4e896}\label{classBabel_1_1HomePage_a4080b7008be6ac09dcbc088808f4e896}} 
+\index{Babel::HomePage@{Babel::HomePage}!onMessage@{onMessage}}
+\index{onMessage@{onMessage}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{onMessage()}{onMessage()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::on\+Message (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+is used to redirect responses from request to the correct handling functions 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a7449385933a97e884107d9f8eed2420b}\label{classBabel_1_1HomePage_a7449385933a97e884107d9f8eed2420b}} 
+\index{Babel::HomePage@{Babel::HomePage}!sendHandler@{sendHandler}}
+\index{sendHandler@{sendHandler}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{sendHandler()}{sendHandler()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::send\+Handler (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+send the message to the server and add it to the message send queue to handle responses type 
+
+\begin{DoxyNote}{Note}
+The client should always use this function to send messages to the server 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1HomePage_af2669092730b361fb348a8e5a5db9b57}\label{classBabel_1_1HomePage_af2669092730b361fb348a8e5a5db9b57}} 
+\index{Babel::HomePage@{Babel::HomePage}!updateDisplaySelectedUser@{updateDisplaySelectedUser}}
+\index{updateDisplaySelectedUser@{updateDisplaySelectedUser}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{updateDisplaySelectedUser()}{updateDisplaySelectedUser()}}
+{\footnotesize\ttfamily void Babel\+::\+Home\+Page\+::update\+Display\+Selected\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Update qt interface to display the correct username and infos. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1HomePage_a6fb9f76d854924c01d7889e0290945f5}\label{classBabel_1_1HomePage_a6fb9f76d854924c01d7889e0290945f5}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_address@{\_address}}
+\index{\_address@{\_address}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_address}{\_address}}
+{\footnotesize\ttfamily std\+::string Babel\+::\+Home\+Page\+::\+\_\+address\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The local ip. 
+
+\begin{DoxyNote}{Note}
+the address to receive udp audio packets 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1HomePage_a3dfdc08b81b06b69c10c25c80f1709d7}\label{classBabel_1_1HomePage_a3dfdc08b81b06b69c10c25c80f1709d7}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_audio@{\_audio}}
+\index{\_audio@{\_audio}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_audio}{\_audio}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBabel_1_1SoundHandler}{Sound\+Handler}} Babel\+::\+Home\+Page\+::\+\_\+audio\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Audio call manager. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ae710e260e41674ca9ece8cfa91fbc92d}\label{classBabel_1_1HomePage_ae710e260e41674ca9ece8cfa91fbc92d}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_connection@{\_connection}}
+\index{\_connection@{\_connection}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_connection}{\_connection}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBabel_1_1QtTCPConnection}{Qt\+T\+C\+P\+Connection}} Babel\+::\+Home\+Page\+::\+\_\+connection\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+tcp connection handler 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ae17de15f64ae35c9884f102428e779b7}\label{classBabel_1_1HomePage_ae17de15f64ae35c9884f102428e779b7}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_currentCallId@{\_currentCallId}}
+\index{\_currentCallId@{\_currentCallId}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_currentCallId}{\_currentCallId}}
+{\footnotesize\ttfamily int Babel\+::\+Home\+Page\+::\+\_\+current\+Call\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+handling the call\+Id of the current call (to be able to hang up, ...) 
+
+\begin{DoxyNote}{Note}
+when set to Currently\+Not\+In\+Call no call is happening 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1HomePage_a6fed2a84e810feaf91830048c163cf9d}\label{classBabel_1_1HomePage_a6fed2a84e810feaf91830048c163cf9d}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_messageHandlers@{\_messageHandlers}}
+\index{\_messageHandlers@{\_messageHandlers}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_messageHandlers}{\_messageHandlers}}
+{\footnotesize\ttfamily std\+::map$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}, \mbox{\hyperlink{structBabel_1_1HomePage_1_1MessageHandler}{Message\+Handler}}$>$ Babel\+::\+Home\+Page\+::\+\_\+message\+Handlers\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Used to call the correct handling function. 
+
+\begin{DoxyNote}{Note}
+Expects a response for each type of request, expect F\+I\+FO order 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1HomePage_aba41c48a8672d6d5af5258449a5959af}\label{classBabel_1_1HomePage_aba41c48a8672d6d5af5258449a5959af}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_requestsMade@{\_requestsMade}}
+\index{\_requestsMade@{\_requestsMade}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_requestsMade}{\_requestsMade}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$ Babel\+::\+Home\+Page\+::\+\_\+requests\+Made\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+all the request made by the client (expecting a response) 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ab2be595a6ecf85c6522a2efaa2ff84b3}\label{classBabel_1_1HomePage_ab2be595a6ecf85c6522a2efaa2ff84b3}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_ui@{\_ui}}
+\index{\_ui@{\_ui}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_ui}{\_ui}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classUi_1_1babelHome}{Ui\+::babel\+Home}} Babel\+::\+Home\+Page\+::\+\_\+ui \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The UI Class. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a086e5f12a8cbc5065ac4dd4df66dd935}\label{classBabel_1_1HomePage_a086e5f12a8cbc5065ac4dd4df66dd935}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_username@{\_username}}
+\index{\_username@{\_username}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_username}{\_username}}
+{\footnotesize\ttfamily std\+::string Babel\+::\+Home\+Page\+::\+\_\+username\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The username of the connected user. 
+
+\begin{DoxyNote}{Note}
+set to an empty string when not connected 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1HomePage_a739c27ee61390762e305cad31a7f7c5a}\label{classBabel_1_1HomePage_a739c27ee61390762e305cad31a7f7c5a}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_usersInCurrentCall@{\_usersInCurrentCall}}
+\index{\_usersInCurrentCall@{\_usersInCurrentCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_usersInCurrentCall}{\_usersInCurrentCall}}
+{\footnotesize\ttfamily std\+::list$<$std\+::string$>$ Babel\+::\+Home\+Page\+::\+\_\+users\+In\+Current\+Call\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+a list containing all users in the current\+Call 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_ae06e92c9b45a1bab2f22e213c6f18105}\label{classBabel_1_1HomePage_ae06e92c9b45a1bab2f22e213c6f18105}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_usersInfos@{\_usersInfos}}
+\index{\_usersInfos@{\_usersInfos}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_usersInfos}{\_usersInfos}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, \mbox{\hyperlink{structBabel_1_1HomePage_1_1UserInfo}{User\+Info}}$>$ Babel\+::\+Home\+Page\+::\+\_\+users\+Infos\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Userinfo holder the username is the key. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a90136890a66cf933492e536235c0cf82}\label{classBabel_1_1HomePage_a90136890a66cf933492e536235c0cf82}} 
+\index{Babel::HomePage@{Babel::HomePage}!\_window@{\_window}}
+\index{\_window@{\_window}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{\_window}{\_window}}
+{\footnotesize\ttfamily Q\+Main\+Window$\ast$ Babel\+::\+Home\+Page\+::\+\_\+window\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The display window. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_aa4b6d665635c358b0534ea6b038718d2}\label{classBabel_1_1HomePage_aa4b6d665635c358b0534ea6b038718d2}} 
+\index{Babel::HomePage@{Babel::HomePage}!CurrentlyNotInCall@{CurrentlyNotInCall}}
+\index{CurrentlyNotInCall@{CurrentlyNotInCall}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{CurrentlyNotInCall}{CurrentlyNotInCall}}
+{\footnotesize\ttfamily constexpr int Babel\+::\+Home\+Page\+::\+Currently\+Not\+In\+Call = -\/1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}, {\ttfamily [private]}}
+
+
+
+Used to set and verify the \+\_\+current\+Call\+Id if a call is ongoing. 
+
+\mbox{\Hypertarget{classBabel_1_1HomePage_a14d2a8d558b438bb862bb0f005680877}\label{classBabel_1_1HomePage_a14d2a8d558b438bb862bb0f005680877}} 
+\index{Babel::HomePage@{Babel::HomePage}!startUdpPort@{startUdpPort}}
+\index{startUdpPort@{startUdpPort}!Babel::HomePage@{Babel::HomePage}}
+\doxysubsubsection{\texorpdfstring{startUdpPort}{startUdpPort}}
+{\footnotesize\ttfamily const uint16\+\_\+t Babel\+::\+Home\+Page\+::start\+Udp\+Port = 0}
+
+
+
+The port to receive udp audio packets. 
+
+\begin{DoxyNote}{Note}
+setting it to zero will let the OS choose a random available port 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\+Windows/\mbox{\hyperlink{HomePage_8hpp}{Home\+Page.\+hpp}}\item 
+Client/src/\+Windows/\mbox{\hyperlink{HomePage_8cpp}{Home\+Page.\+cpp}}\end{DoxyCompactItemize}

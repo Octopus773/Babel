@@ -1,0 +1,235 @@
+\hypertarget{classBabel_1_1ITCPConnection}{}\doxysection{Babel\+::I\+T\+C\+P\+Connection$<$ T $>$ Class Template Reference}
+\label{classBabel_1_1ITCPConnection}\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+
+
+{\ttfamily \#include $<$I\+T\+C\+P\+Connection.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::I\+T\+C\+P\+Connection$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1ITCPConnection__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::I\+T\+C\+P\+Connection$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classBabel_1_1ITCPConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_adc58ce1d2e3f58f90db677a073189232}{connect}} (const std\+::string \&hostname, uint16\+\_\+t port)=0
+\begin{DoxyCompactList}\small\item\em connect to a hostname and a port \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_a21eb7b3273b711915a15a71c0d471d9b}{disconnect}} ()=0
+\begin{DoxyCompactList}\small\item\em disconnect the connection \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPConnection_a71495c8ae7841977e679f56c482846e2}{is\+Connected}} () const =0
+\begin{DoxyCompactList}\small\item\em Tells if the connection is up. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_a01e2c547b49364b4534554c79da47af9}{send}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ message)=0
+\begin{DoxyCompactList}\small\item\em Send the message. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_a62c59276d8dbe92a37fc25545968c13f}{read\+For\+Messages}} ()=0
+\begin{DoxyCompactList}\small\item\em listen for new messages \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_a10ceaaca891b01146421950e89c06a90}{set\+Callback\+On\+Message}} (std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$)$>$ call\+Message\+Received)=0
+\begin{DoxyCompactList}\small\item\em Called when we received a message. \end{DoxyCompactList}\item 
+virtual uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1ITCPConnection_a4b92730528f5d31ccf9658e3febd1f27}{get\+Id}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the id of this connection. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection_a6fc5681f5a00be4a21bd0354efb65d2f}{set\+Id}} (uint64\+\_\+t id)=0
+\begin{DoxyCompactList}\small\item\em set the id of the connection \end{DoxyCompactList}\item 
+virtual std\+::string \mbox{\hyperlink{classBabel_1_1ITCPConnection_ad5f05599fa11a04565023a86d819216a}{get\+Peer\+Ip}} () const =0
+\begin{DoxyCompactList}\small\item\em Get the connected pair address. \end{DoxyCompactList}\item 
+virtual uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1ITCPConnection_afcd63cbc6f2aa10664e3bc548fa64002}{get\+Peer\+Port}} () const =0
+\begin{DoxyCompactList}\small\item\em get the connected pair port \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classBabel_1_1ITCPConnection_a4ea49d8661a6542e98724922f6aa621b}{$\sim$\+I\+T\+C\+P\+Connection}} ()=default
+\begin{DoxyCompactList}\small\item\em default dtor \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a4ea49d8661a6542e98724922f6aa621b}\label{classBabel_1_1ITCPConnection_a4ea49d8661a6542e98724922f6aa621b}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!````~ITCPConnection@{$\sim$ITCPConnection}}
+\index{````~ITCPConnection@{$\sim$ITCPConnection}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$ITCPConnection()}{~ITCPConnection()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+default dtor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_adc58ce1d2e3f58f90db677a073189232}\label{classBabel_1_1ITCPConnection_adc58ce1d2e3f58f90db677a073189232}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!connect@{connect}}
+\index{connect@{connect}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::connect (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{hostname,  }\item[{uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+connect to a hostname and a port 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & The ip you want to connect \\
+\hline
+{\em port} & The port belonging to the hostname you want to connect \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1QtTCPConnection_abdc89897b7bb42cb01f7e66b9bac1205}{Babel\+::\+Qt\+T\+C\+P\+Connection}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a0142fe786862ad1510318a5509970cb4}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a21eb7b3273b711915a15a71c0d471d9b}\label{classBabel_1_1ITCPConnection_a21eb7b3273b711915a15a71c0d471d9b}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+disconnect the connection 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ae76183448a50cea0247cd1eb44008678}{Babel\+::\+Qt\+T\+C\+P\+Connection}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a2578341e53e8d5978a07dbda57ae4cc3}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a4b92730528f5d31ccf9658e3febd1f27}\label{classBabel_1_1ITCPConnection_a4b92730528f5d31ccf9658e3febd1f27}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!getId@{getId}}
+\index{getId@{getId}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the id of this connection. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ab143d235d71cf8b7652807c433c5dbfb}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_ad5f05599fa11a04565023a86d819216a}\label{classBabel_1_1ITCPConnection_ad5f05599fa11a04565023a86d819216a}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!getPeerIp@{getPeerIp}}
+\index{getPeerIp@{getPeerIp}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getPeerIp()}{getPeerIp()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual std\+::string \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Peer\+Ip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Get the connected pair address. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_aa68a03e69a681ea77c7a88729ad63fae}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_afcd63cbc6f2aa10664e3bc548fa64002}\label{classBabel_1_1ITCPConnection_afcd63cbc6f2aa10664e3bc548fa64002}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!getPeerPort@{getPeerPort}}
+\index{getPeerPort@{getPeerPort}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getPeerPort()}{getPeerPort()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Peer\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the connected pair port 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a67190b1d637fe0e03c44065bd659470f}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a71495c8ae7841977e679f56c482846e2}\label{classBabel_1_1ITCPConnection_a71495c8ae7841977e679f56c482846e2}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::is\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Tells if the connection is up. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_afe24c143810baf3cea83f604f3266271}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a62c59276d8dbe92a37fc25545968c13f}\label{classBabel_1_1ITCPConnection_a62c59276d8dbe92a37fc25545968c13f}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!readForMessages@{readForMessages}}
+\index{readForMessages@{readForMessages}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{readForMessages()}{readForMessages()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::read\+For\+Messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+listen for new messages 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ac38d57cda8de880be4a88094b89e66ff}{Babel\+::\+Qt\+T\+C\+P\+Connection}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a01d78e5d53f11403cb167daf189efa4f}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a01e2c547b49364b4534554c79da47af9}\label{classBabel_1_1ITCPConnection_a01e2c547b49364b4534554c79da47af9}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!send@{send}}
+\index{send@{send}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Send the message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to send \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_abd3bb2afbc0e5b9f37d5546785e7b07f}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a396ea6076cc31c231467dd86b12366e4}{Babel\+::\+Qt\+T\+C\+P\+Connection}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a10ceaaca891b01146421950e89c06a90}\label{classBabel_1_1ITCPConnection_a10ceaaca891b01146421950e89c06a90}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!setCallbackOnMessage@{setCallbackOnMessage}}
+\index{setCallbackOnMessage@{setCallbackOnMessage}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setCallbackOnMessage()}{setCallbackOnMessage()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::set\+Callback\+On\+Message (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$)$>$}]{call\+Message\+Received }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Called when we received a message. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a5867587d0e88d225464ad260b3d9a409}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a6d60a0bb69fdc7c3811571d2235bf5c1}{Babel\+::\+Qt\+T\+C\+P\+Connection}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPConnection_a6fc5681f5a00be4a21bd0354efb65d2f}\label{classBabel_1_1ITCPConnection_a6fc5681f5a00be4a21bd0354efb65d2f}} 
+\index{Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}!setId@{setId}}
+\index{setId@{setId}!Babel::ITCPConnection$<$ T $>$@{Babel::ITCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPConnection}{Babel\+::\+I\+T\+C\+P\+Connection}}$<$ T $>$\+::set\+Id (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+set the id of the connection 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a78110b13523968084024f2b4dd98ef51}{Babel\+::\+Qt\+T\+C\+P\+Connection}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ad06d54a29b55c365548d3a4845408b04}{Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Network/\mbox{\hyperlink{ITCPConnection_8hpp}{I\+T\+C\+P\+Connection.\+hpp}}\end{DoxyCompactItemize}

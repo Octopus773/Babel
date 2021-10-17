@@ -1,0 +1,316 @@
+\hypertarget{classBabel_1_1IAudioManager}{}\doxysection{Babel\+::I\+Audio\+Manager Class Reference}
+\label{classBabel_1_1IAudioManager}\index{Babel::IAudioManager@{Babel::IAudioManager}}
+
+
+Audio Module Interface.  
+
+
+
+
+{\ttfamily \#include $<$I\+Audio\+Manager.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::I\+Audio\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classBabel_1_1IAudioManager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::I\+Audio\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classBabel_1_1IAudioManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classBabel_1_1IAudioManager_a472de0a59318bb9fe4b8d01d0beab9ca}{get\+Input\+Channels\+Number}} () const =0
+\begin{DoxyCompactList}\small\item\em get the number of channels of Input Device for future streams \end{DoxyCompactList}\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classBabel_1_1IAudioManager_a3a1f27b23c35913c74a80e9af6232696}{get\+Output\+Channels\+Number}} () const =0
+\begin{DoxyCompactList}\small\item\em get the number of channels of Output Device for future streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a493ebcaaa9073aeb8435f249daeb5740}{set\+Output\+Channels\+Number}} (int32\+\_\+t)=0
+\begin{DoxyCompactList}\small\item\em set the number of channels of Output for future streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_ad52f489345c1c5f1cfb726a021b82448}{set\+Input\+Channels\+Number}} (int32\+\_\+t)=0
+\begin{DoxyCompactList}\small\item\em set the number of channels of Output for future streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a70b8e8b0c069e757f45c59bc56fa6048}{set\+Sample\+Rate}} (int32\+\_\+t)=0
+\begin{DoxyCompactList}\small\item\em set the samplerate for future streams \end{DoxyCompactList}\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classBabel_1_1IAudioManager_aae1d841873d819c477a092f071111618}{get\+Sample\+Rate}} () const =0
+\begin{DoxyCompactList}\small\item\em get the current samplerate \end{DoxyCompactList}\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classBabel_1_1IAudioManager_ace7e56a39b4d149d24585ce6b568944b}{get\+Record\+Time}} () const =0
+\begin{DoxyCompactList}\small\item\em get the record time for read\+Streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_acb6c814a4d532c6fc249333862a71554}{set\+Record\+Time}} (int32\+\_\+t)=0
+\begin{DoxyCompactList}\small\item\em get the record time for read\+Streams \end{DoxyCompactList}\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classBabel_1_1IAudioManager_acdc2040888d8afa398a2206d9fa74578}{get\+Frames\+Per\+Buffer}} () const =0
+\begin{DoxyCompactList}\small\item\em get the frame per buffer value for read\+Streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_adb2bab76698d6f4bd7fa86113f3b543f}{set\+Frames\+Per\+Buffer}} (int32\+\_\+t)=0
+\begin{DoxyCompactList}\small\item\em get the frame per buffer for read\+Streams \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a502eb4f00edbe4f1d9c2c6e746ae997e}{open\+Stream}} ()=0
+\begin{DoxyCompactList}\small\item\em Open stream to input and output sounds. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a04538e13c2d2e14355a9a4909cedc451}{start\+Stream}} ()=0
+\begin{DoxyCompactList}\small\item\em Start a stream. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a041a79f7927c3cb2298fa072995d874a}{stop\+Stream}} ()=0
+\begin{DoxyCompactList}\small\item\em Stop a stream. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a6976c190e497aef27c1ce9528489807c}{close\+Stream}} ()=0
+\begin{DoxyCompactList}\small\item\em Close current stream. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ int16\+\_\+t $>$ \mbox{\hyperlink{classBabel_1_1IAudioManager_ac99ba3f2df0f39309932bf4c318cc1e7}{read\+Stream}} ()=0
+\begin{DoxyCompactList}\small\item\em Read an array of int16\+\_\+t from current stream. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1IAudioManager_a7c18d2a3724713a6ea7c43f82a097c8c}{write\+Stream}} (std\+::vector$<$ int16\+\_\+t $>$ \&)=0
+\begin{DoxyCompactList}\small\item\em Write an array of int16\+\_\+t to current stream. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classBabel_1_1IAudioManager_af289d90fbfbb05058b4caa2e73cebd50}{$\sim$\+I\+Audio\+Manager}} ()=default
+\begin{DoxyCompactList}\small\item\em virtual destructor \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Audio Module Interface. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_af289d90fbfbb05058b4caa2e73cebd50}\label{classBabel_1_1IAudioManager_af289d90fbfbb05058b4caa2e73cebd50}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!````~IAudioManager@{$\sim$IAudioManager}}
+\index{````~IAudioManager@{$\sim$IAudioManager}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{$\sim$IAudioManager()}{~IAudioManager()}}
+{\footnotesize\ttfamily virtual Babel\+::\+I\+Audio\+Manager\+::$\sim$\+I\+Audio\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+virtual destructor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a6976c190e497aef27c1ce9528489807c}\label{classBabel_1_1IAudioManager_a6976c190e497aef27c1ce9528489807c}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!closeStream@{closeStream}}
+\index{closeStream@{closeStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{closeStream()}{closeStream()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::close\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Close current stream. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_af2a9ebac18bdb124bd743e26c5e89f20}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_acdc2040888d8afa398a2206d9fa74578}\label{classBabel_1_1IAudioManager_acdc2040888d8afa398a2206d9fa74578}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!getFramesPerBuffer@{getFramesPerBuffer}}
+\index{getFramesPerBuffer@{getFramesPerBuffer}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{getFramesPerBuffer()}{getFramesPerBuffer()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Babel\+::\+I\+Audio\+Manager\+::get\+Frames\+Per\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the frame per buffer value for read\+Streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a985ddd423a0620a37931cfe59721e312}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a472de0a59318bb9fe4b8d01d0beab9ca}\label{classBabel_1_1IAudioManager_a472de0a59318bb9fe4b8d01d0beab9ca}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!getInputChannelsNumber@{getInputChannelsNumber}}
+\index{getInputChannelsNumber@{getInputChannelsNumber}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{getInputChannelsNumber()}{getInputChannelsNumber()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Babel\+::\+I\+Audio\+Manager\+::get\+Input\+Channels\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the number of channels of Input Device for future streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a967298f65adcf7498d8e2f990b54499a}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a3a1f27b23c35913c74a80e9af6232696}\label{classBabel_1_1IAudioManager_a3a1f27b23c35913c74a80e9af6232696}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!getOutputChannelsNumber@{getOutputChannelsNumber}}
+\index{getOutputChannelsNumber@{getOutputChannelsNumber}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{getOutputChannelsNumber()}{getOutputChannelsNumber()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Babel\+::\+I\+Audio\+Manager\+::get\+Output\+Channels\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the number of channels of Output Device for future streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_ab493265dd8e69fddee661e22a787e1f8}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_ace7e56a39b4d149d24585ce6b568944b}\label{classBabel_1_1IAudioManager_ace7e56a39b4d149d24585ce6b568944b}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!getRecordTime@{getRecordTime}}
+\index{getRecordTime@{getRecordTime}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{getRecordTime()}{getRecordTime()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Babel\+::\+I\+Audio\+Manager\+::get\+Record\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the record time for read\+Streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a848f43b46a11930e919a05b8bb99d227}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_aae1d841873d819c477a092f071111618}\label{classBabel_1_1IAudioManager_aae1d841873d819c477a092f071111618}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!getSampleRate@{getSampleRate}}
+\index{getSampleRate@{getSampleRate}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{getSampleRate()}{getSampleRate()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Babel\+::\+I\+Audio\+Manager\+::get\+Sample\+Rate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the current samplerate 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_ae601bc3d69f2b3e3c6aadb118e8e9833}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a502eb4f00edbe4f1d9c2c6e746ae997e}\label{classBabel_1_1IAudioManager_a502eb4f00edbe4f1d9c2c6e746ae997e}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!openStream@{openStream}}
+\index{openStream@{openStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{openStream()}{openStream()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::open\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Open stream to input and output sounds. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_ab7b4de05fc909192e097f0bcdeea4345}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_ac99ba3f2df0f39309932bf4c318cc1e7}\label{classBabel_1_1IAudioManager_ac99ba3f2df0f39309932bf4c318cc1e7}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!readStream@{readStream}}
+\index{readStream@{readStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{readStream()}{readStream()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$int16\+\_\+t$>$ Babel\+::\+I\+Audio\+Manager\+::read\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Read an array of int16\+\_\+t from current stream. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a415b7181bf5783c6826284303c1da529}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_adb2bab76698d6f4bd7fa86113f3b543f}\label{classBabel_1_1IAudioManager_adb2bab76698d6f4bd7fa86113f3b543f}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!setFramesPerBuffer@{setFramesPerBuffer}}
+\index{setFramesPerBuffer@{setFramesPerBuffer}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{setFramesPerBuffer()}{setFramesPerBuffer()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::set\+Frames\+Per\+Buffer (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the frame per buffer for read\+Streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a081dd86141ced1689fbb54cb1bfb47c3}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_ad52f489345c1c5f1cfb726a021b82448}\label{classBabel_1_1IAudioManager_ad52f489345c1c5f1cfb726a021b82448}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!setInputChannelsNumber@{setInputChannelsNumber}}
+\index{setInputChannelsNumber@{setInputChannelsNumber}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{setInputChannelsNumber()}{setInputChannelsNumber()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::set\+Input\+Channels\+Number (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+set the number of channels of Output for future streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_ac89dfebd404322fce54c86ecb3fa7f35}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a493ebcaaa9073aeb8435f249daeb5740}\label{classBabel_1_1IAudioManager_a493ebcaaa9073aeb8435f249daeb5740}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!setOutputChannelsNumber@{setOutputChannelsNumber}}
+\index{setOutputChannelsNumber@{setOutputChannelsNumber}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{setOutputChannelsNumber()}{setOutputChannelsNumber()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::set\+Output\+Channels\+Number (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+set the number of channels of Output for future streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a28679504cae758f80eef076703cc0d6b}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_acb6c814a4d532c6fc249333862a71554}\label{classBabel_1_1IAudioManager_acb6c814a4d532c6fc249333862a71554}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!setRecordTime@{setRecordTime}}
+\index{setRecordTime@{setRecordTime}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{setRecordTime()}{setRecordTime()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::set\+Record\+Time (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+get the record time for read\+Streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_adaffefac046403d062c369b51aac1976}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a70b8e8b0c069e757f45c59bc56fa6048}\label{classBabel_1_1IAudioManager_a70b8e8b0c069e757f45c59bc56fa6048}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!setSampleRate@{setSampleRate}}
+\index{setSampleRate@{setSampleRate}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{setSampleRate()}{setSampleRate()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::set\+Sample\+Rate (\begin{DoxyParamCaption}\item[{int32\+\_\+t}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+set the samplerate for future streams 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a06b1a94f0ef0c66cd95257f4d2339b41}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a04538e13c2d2e14355a9a4909cedc451}\label{classBabel_1_1IAudioManager_a04538e13c2d2e14355a9a4909cedc451}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!startStream@{startStream}}
+\index{startStream@{startStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{startStream()}{startStream()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::start\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Start a stream. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a6362fb2175336ba977ba2c5348a65f8e}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a041a79f7927c3cb2298fa072995d874a}\label{classBabel_1_1IAudioManager_a041a79f7927c3cb2298fa072995d874a}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!stopStream@{stopStream}}
+\index{stopStream@{stopStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{stopStream()}{stopStream()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::stop\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Stop a stream. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_a5d639ba1042f6f20fd5facf7d1abf068}{Babel\+::\+Port\+Audio}}.
+
+\mbox{\Hypertarget{classBabel_1_1IAudioManager_a7c18d2a3724713a6ea7c43f82a097c8c}\label{classBabel_1_1IAudioManager_a7c18d2a3724713a6ea7c43f82a097c8c}} 
+\index{Babel::IAudioManager@{Babel::IAudioManager}!writeStream@{writeStream}}
+\index{writeStream@{writeStream}!Babel::IAudioManager@{Babel::IAudioManager}}
+\doxysubsubsection{\texorpdfstring{writeStream()}{writeStream()}}
+{\footnotesize\ttfamily virtual void Babel\+::\+I\+Audio\+Manager\+::write\+Stream (\begin{DoxyParamCaption}\item[{std\+::vector$<$ int16\+\_\+t $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Write an array of int16\+\_\+t to current stream. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1PortAudio_ab5d54a284ad960fdd37766f2eada008f}{Babel\+::\+Port\+Audio}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\+Audio/\mbox{\hyperlink{IAudioManager_8hpp}{I\+Audio\+Manager.\+hpp}}\end{DoxyCompactItemize}

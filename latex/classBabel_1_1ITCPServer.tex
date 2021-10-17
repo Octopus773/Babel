@@ -1,0 +1,192 @@
+\hypertarget{classBabel_1_1ITCPServer}{}\doxysection{Babel\+::I\+T\+C\+P\+Server$<$ T $>$ Class Template Reference}
+\label{classBabel_1_1ITCPServer}\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+
+
+{\ttfamily \#include $<$I\+T\+C\+P\+Server.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::I\+T\+C\+P\+Server$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{classBabel_1_1ITCPServer__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::I\+T\+C\+P\+Server$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classBabel_1_1ITCPServer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPServer_a781dabaf38313ba1c00f03a1dc9e3b2d}{start}} (uint16\+\_\+t port)=0
+\begin{DoxyCompactList}\small\item\em Starts the server on indicated port. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_a4e975f6f5adc092d7192648e4c1e0153}{stop}} ()=0
+\begin{DoxyCompactList}\small\item\em Stop the server. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_a06b3f27f2e3c7131189b5115913114c4}{message\+Client}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$ client, const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg)=0
+\begin{DoxyCompactList}\small\item\em Send a message to the specified client. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_a3bbaf182af9f8578b9484717bad8a8c0}{message\+All\+Clients}} (const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg)=0
+\begin{DoxyCompactList}\small\item\em Send a message to all connected clients. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_a64df81abc4f4de92686ebbbca1fd2a8e}{update}} (uint64\+\_\+t nb\+Messages\+To\+Process, bool wait)=0
+\begin{DoxyCompactList}\small\item\em Forces the server to call callbacks. \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPServer_accd9baf6ff90700da3fbf542cc1ca4d8}{on\+Client\+Connect}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$ client)=0
+\begin{DoxyCompactList}\small\item\em Called when a client connect. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_aed5adc24951be413b69dea8baa438f95}{on\+Client\+Disconnect}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$ client)=0
+\begin{DoxyCompactList}\small\item\em Called when a client disconnect. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer_ac7d6674aab6603667744f5d413cdc1f6}{on\+Message}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$ client, \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg)=0
+\begin{DoxyCompactList}\small\item\em Called when we received a message from a client. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classBabel_1_1ITCPServer_a64d17c43c63875111a5854f0c993717a}{$\sim$\+I\+T\+C\+P\+Server}} ()=default
+\begin{DoxyCompactList}\small\item\em default dtor \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a64d17c43c63875111a5854f0c993717a}\label{classBabel_1_1ITCPServer_a64d17c43c63875111a5854f0c993717a}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!````~ITCPServer@{$\sim$ITCPServer}}
+\index{````~ITCPServer@{$\sim$ITCPServer}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$ITCPServer()}{~ITCPServer()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classBabel_1_1ITCPServer}{I\+T\+C\+P\+Server}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+default dtor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a3bbaf182af9f8578b9484717bad8a8c0}\label{classBabel_1_1ITCPServer_a3bbaf182af9f8578b9484717bad8a8c0}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!messageAllClients@{messageAllClients}}
+\index{messageAllClients@{messageAllClients}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{messageAllClients()}{messageAllClients()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::message\+All\+Clients (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Send a message to all connected clients. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a67ae1c308526e7b251698d5c35791bdf}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a67ae1c308526e7b251698d5c35791bdf}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a06b3f27f2e3c7131189b5115913114c4}\label{classBabel_1_1ITCPServer_a06b3f27f2e3c7131189b5115913114c4}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!messageClient@{messageClient}}
+\index{messageClient@{messageClient}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{messageClient()}{messageClient()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::message\+Client (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$}]{client,  }\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Send a message to the specified client. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a87896616cfc9e26f92398132f7f6839b}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a87896616cfc9e26f92398132f7f6839b}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_accd9baf6ff90700da3fbf542cc1ca4d8}\label{classBabel_1_1ITCPServer_accd9baf6ff90700da3fbf542cc1ca4d8}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!onClientConnect@{onClientConnect}}
+\index{onClientConnect@{onClientConnect}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{onClientConnect()}{onClientConnect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::on\+Client\+Connect (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Called when a client connect. 
+
+\begin{DoxyNote}{Note}
+You can refuse the connection by returning false 
+\end{DoxyNote}
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_af82350a4694103c10daf92c9b2d899a3}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, \mbox{\hyperlink{classBabel_1_1AsioTCPServer_af82350a4694103c10daf92c9b2d899a3}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}, and \mbox{\hyperlink{classBabel_1_1BabelServer_a9dfbbd90ca1221a5d56c6e149582941e}{Babel\+::\+Babel\+Server}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_aed5adc24951be413b69dea8baa438f95}\label{classBabel_1_1ITCPServer_aed5adc24951be413b69dea8baa438f95}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!onClientDisconnect@{onClientDisconnect}}
+\index{onClientDisconnect@{onClientDisconnect}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{onClientDisconnect()}{onClientDisconnect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::on\+Client\+Disconnect (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Called when a client disconnect. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a74efcf42f46bee5bd4f331fffb7aafb2}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a74efcf42f46bee5bd4f331fffb7aafb2}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}, and \mbox{\hyperlink{classBabel_1_1BabelServer_aab6d092ca283be49ee38ad2f8323bcb2}{Babel\+::\+Babel\+Server}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_ac7d6674aab6603667744f5d413cdc1f6}\label{classBabel_1_1ITCPServer_ac7d6674aab6603667744f5d413cdc1f6}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!onMessage@{onMessage}}
+\index{onMessage@{onMessage}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{onMessage()}{onMessage()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::on\+Message (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}$<$ T $>$$>$}]{client,  }\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Called when we received a message from a client. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_aa9b90a80cc1d5c74f0385a1b7fc0b285}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, \mbox{\hyperlink{classBabel_1_1AsioTCPServer_aa9b90a80cc1d5c74f0385a1b7fc0b285}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}, and \mbox{\hyperlink{classBabel_1_1BabelServer_ab77a4c34c64e4b8e11ff087c4c459abb}{Babel\+::\+Babel\+Server}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a781dabaf38313ba1c00f03a1dc9e3b2d}\label{classBabel_1_1ITCPServer_a781dabaf38313ba1c00f03a1dc9e3b2d}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!start@{start}}
+\index{start@{start}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual bool \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::start (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Starts the server on indicated port. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a9c868cee9a1e9572d638c122bd356fd0}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a9c868cee9a1e9572d638c122bd356fd0}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a4e975f6f5adc092d7192648e4c1e0153}\label{classBabel_1_1ITCPServer_a4e975f6f5adc092d7192648e4c1e0153}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!stop@{stop}}
+\index{stop@{stop}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{stop()}{stop()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Stop the server. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a772d14d2e1136425b0801cc44f4498ab}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a772d14d2e1136425b0801cc44f4498ab}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1ITCPServer_a64df81abc4f4de92686ebbbca1fd2a8e}\label{classBabel_1_1ITCPServer_a64df81abc4f4de92686ebbbca1fd2a8e}} 
+\index{Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}!update@{update}}
+\index{update@{update}!Babel::ITCPServer$<$ T $>$@{Babel::ITCPServer$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+virtual void \mbox{\hyperlink{classBabel_1_1ITCPServer}{Babel\+::\+I\+T\+C\+P\+Server}}$<$ T $>$\+::update (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{nb\+Messages\+To\+Process,  }\item[{bool}]{wait }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Forces the server to call callbacks. 
+
+
+
+Implemented in \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a97a42875695053cc4f8a23022eb86563}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ T $>$}}, and \mbox{\hyperlink{classBabel_1_1AsioTCPServer_a97a42875695053cc4f8a23022eb86563}{Babel\+::\+Asio\+T\+C\+P\+Server$<$ R\+F\+C\+Codes $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Network/\mbox{\hyperlink{ITCPServer_8hpp}{I\+T\+C\+P\+Server.\+hpp}}\end{DoxyCompactItemize}

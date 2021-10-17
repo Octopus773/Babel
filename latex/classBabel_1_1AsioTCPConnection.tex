@@ -1,0 +1,391 @@
+\hypertarget{classBabel_1_1AsioTCPConnection}{}\doxysection{Babel\+::Asio\+T\+C\+P\+Connection$<$ T $>$ Class Template Reference}
+\label{classBabel_1_1AsioTCPConnection}\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+
+
+Asio implementation of a tcp communication.  
+
+
+
+
+{\ttfamily \#include $<$Asio\+T\+C\+P\+Connection.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::Asio\+T\+C\+P\+Connection$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1AsioTCPConnection__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::Asio\+T\+C\+P\+Connection$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classBabel_1_1AsioTCPConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a0142fe786862ad1510318a5509970cb4}{connect}} (const std\+::string \&hostname, uint16\+\_\+t port) override
+\begin{DoxyCompactList}\small\item\em connect to a hostname and a port \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a2578341e53e8d5978a07dbda57ae4cc3}{disconnect}} () override
+\begin{DoxyCompactList}\small\item\em disconnect the connection \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_afe24c143810baf3cea83f604f3266271}{is\+Connected}} () const override
+\begin{DoxyCompactList}\small\item\em Tells if the connection is up. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_abd3bb2afbc0e5b9f37d5546785e7b07f}{send}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ message) override
+\begin{DoxyCompactList}\small\item\em Send the message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a01d78e5d53f11403cb167daf189efa4f}{read\+For\+Messages}} () override
+\begin{DoxyCompactList}\small\item\em listen for new messages \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ab143d235d71cf8b7652807c433c5dbfb}{get\+Id}} () const override
+\begin{DoxyCompactList}\small\item\em Get the id of this connection. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_aa68a03e69a681ea77c7a88729ad63fae}{get\+Peer\+Ip}} () const override
+\begin{DoxyCompactList}\small\item\em Get the connected pair address. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a67190b1d637fe0e03c44065bd659470f}{get\+Peer\+Port}} () const override
+\begin{DoxyCompactList}\small\item\em get the connected pair port \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ad06d54a29b55c365548d3a4845408b04}{set\+Id}} (uint64\+\_\+t id) override
+\begin{DoxyCompactList}\small\item\em set the id of the connection \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a5867587d0e88d225464ad260b3d9a409}{set\+Callback\+On\+Message}} (std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$)$>$ call\+Message\+Received) override
+\begin{DoxyCompactList}\small\item\em set the callback to be called when a message is received \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1AsioTCPConnection_af20b086073b8b4a57a7dc083af2e19a8}{Asio\+T\+C\+P\+Connection}} (asio\+::io\+\_\+context \&io\+Context, asio\+::ip\+::tcp\+::socket socket)
+\item 
+\mbox{\hyperlink{classBabel_1_1AsioTCPConnection_aaeb2d0210e9b3790cab9aed8a568c355}{$\sim$\+Asio\+T\+C\+P\+Connection}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a643f323a6c8f969e4f736ba59bae0693}{write\+Header}} ()
+\begin{DoxyCompactList}\small\item\em write a message header \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a473a3828a1ae035ade6bd7845975cfa1}{write\+Body}} ()
+\begin{DoxyCompactList}\small\item\em write a message body \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a590d679053b1e876b35e982af5f43a33}{read\+Header}} ()
+\begin{DoxyCompactList}\small\item\em read a message header \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ad90578e7cb55d4e563fa9fa54918c251}{read\+Body}} ()
+\begin{DoxyCompactList}\small\item\em read a message body \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+asio\+::io\+\_\+context \& \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a1f64c24c559faff64629ca97003ac3a5}{\+\_\+io\+Context}}
+\begin{DoxyCompactList}\small\item\em The asio context to link everything. \end{DoxyCompactList}\item 
+asio\+::ip\+::tcp\+::socket \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a3137736e5cd9e3f00c433c932d559b87}{\+\_\+socket}}
+\begin{DoxyCompactList}\small\item\em The connection\textquotesingle{}s socket. \end{DoxyCompactList}\item 
+std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$)$>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a6c5ee56ec25219f2b12d5a7f6e547485}{\+\_\+callback\+Message\+Received}}
+\begin{DoxyCompactList}\small\item\em The function called when a message has been fully received. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ $>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a03d0aa0e552348fbee765de9610a126b}{\+\_\+messages\+In}}
+\begin{DoxyCompactList}\small\item\em All the received messages. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ $>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_ae800b81c22cf7e8d66e2db09d0bc398a}{\+\_\+messages\+Out}}
+\begin{DoxyCompactList}\small\item\em All the messages that need to be sent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a2ad3560d607a4cb1c920d0b94c8a086c}{\+\_\+tmp\+Message}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structBabel_1_1Message}{Message}} used when reading a message. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection_a231ecd6f979b61403aa4a4ceea6a308c}{\+\_\+id}}
+\begin{DoxyCompactList}\small\item\em id used to identify the connection \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Babel\+::\+Asio\+T\+C\+P\+Connection$<$ T $>$}
+
+Asio implementation of a tcp communication. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_af20b086073b8b4a57a7dc083af2e19a8}\label{classBabel_1_1AsioTCPConnection_af20b086073b8b4a57a7dc083af2e19a8}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!AsioTCPConnection@{AsioTCPConnection}}
+\index{AsioTCPConnection@{AsioTCPConnection}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AsioTCPConnection()}{AsioTCPConnection()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Asio\+T\+C\+P\+Connection}} (\begin{DoxyParamCaption}\item[{asio\+::io\+\_\+context \&}]{io\+Context,  }\item[{asio\+::ip\+::tcp\+::socket}]{socket }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_aaeb2d0210e9b3790cab9aed8a568c355}\label{classBabel_1_1AsioTCPConnection_aaeb2d0210e9b3790cab9aed8a568c355}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!````~AsioTCPConnection@{$\sim$AsioTCPConnection}}
+\index{````~AsioTCPConnection@{$\sim$AsioTCPConnection}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$AsioTCPConnection()}{~AsioTCPConnection()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Asio\+T\+C\+P\+Connection}}\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a0142fe786862ad1510318a5509970cb4}\label{classBabel_1_1AsioTCPConnection_a0142fe786862ad1510318a5509970cb4}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!connect@{connect}}
+\index{connect@{connect}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::connect (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{hostname,  }\item[{uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+connect to a hostname and a port 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_adc58ce1d2e3f58f90db677a073189232}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a2578341e53e8d5978a07dbda57ae4cc3}\label{classBabel_1_1AsioTCPConnection_a2578341e53e8d5978a07dbda57ae4cc3}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::disconnect\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+disconnect the connection 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a21eb7b3273b711915a15a71c0d471d9b}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_ab143d235d71cf8b7652807c433c5dbfb}\label{classBabel_1_1AsioTCPConnection_ab143d235d71cf8b7652807c433c5dbfb}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!getId@{getId}}
+\index{getId@{getId}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Id\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the id of this connection. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a4b92730528f5d31ccf9658e3febd1f27}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_aa68a03e69a681ea77c7a88729ad63fae}\label{classBabel_1_1AsioTCPConnection_aa68a03e69a681ea77c7a88729ad63fae}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!getPeerIp@{getPeerIp}}
+\index{getPeerIp@{getPeerIp}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getPeerIp()}{getPeerIp()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::string \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Peer\+Ip\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Get the connected pair address. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_ad5f05599fa11a04565023a86d819216a}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a67190b1d637fe0e03c44065bd659470f}\label{classBabel_1_1AsioTCPConnection_a67190b1d637fe0e03c44065bd659470f}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!getPeerPort@{getPeerPort}}
+\index{getPeerPort@{getPeerPort}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{getPeerPort()}{getPeerPort()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::get\+Peer\+Port\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+get the connected pair port 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_afcd63cbc6f2aa10664e3bc548fa64002}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_afe24c143810baf3cea83f604f3266271}\label{classBabel_1_1AsioTCPConnection_afe24c143810baf3cea83f604f3266271}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::is\+Connected\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Tells if the connection is up. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a71495c8ae7841977e679f56c482846e2}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_ad90578e7cb55d4e563fa9fa54918c251}\label{classBabel_1_1AsioTCPConnection_ad90578e7cb55d4e563fa9fa54918c251}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!readBody@{readBody}}
+\index{readBody@{readBody}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{readBody()}{readBody()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::read\+Body\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+read a message body 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a01d78e5d53f11403cb167daf189efa4f}\label{classBabel_1_1AsioTCPConnection_a01d78e5d53f11403cb167daf189efa4f}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!readForMessages@{readForMessages}}
+\index{readForMessages@{readForMessages}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{readForMessages()}{readForMessages()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::read\+For\+Messages\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+listen for new messages 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a62c59276d8dbe92a37fc25545968c13f}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a590d679053b1e876b35e982af5f43a33}\label{classBabel_1_1AsioTCPConnection_a590d679053b1e876b35e982af5f43a33}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!readHeader@{readHeader}}
+\index{readHeader@{readHeader}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{readHeader()}{readHeader()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::read\+Header\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+read a message header 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_abd3bb2afbc0e5b9f37d5546785e7b07f}\label{classBabel_1_1AsioTCPConnection_abd3bb2afbc0e5b9f37d5546785e7b07f}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!send@{send}}
+\index{send@{send}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Send the message. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a01e2c547b49364b4534554c79da47af9}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a5867587d0e88d225464ad260b3d9a409}\label{classBabel_1_1AsioTCPConnection_a5867587d0e88d225464ad260b3d9a409}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!setCallbackOnMessage@{setCallbackOnMessage}}
+\index{setCallbackOnMessage@{setCallbackOnMessage}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setCallbackOnMessage()}{setCallbackOnMessage()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::set\+Callback\+On\+Message (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$)$>$}]{call\+Message\+Received }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+set the callback to be called when a message is received 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a10ceaaca891b01146421950e89c06a90}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_ad06d54a29b55c365548d3a4845408b04}\label{classBabel_1_1AsioTCPConnection_ad06d54a29b55c365548d3a4845408b04}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!setId@{setId}}
+\index{setId@{setId}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::set\+Id (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+set the id of the connection 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a6fc5681f5a00be4a21bd0354efb65d2f}{Babel\+::\+I\+T\+C\+P\+Connection$<$ T $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a473a3828a1ae035ade6bd7845975cfa1}\label{classBabel_1_1AsioTCPConnection_a473a3828a1ae035ade6bd7845975cfa1}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!writeBody@{writeBody}}
+\index{writeBody@{writeBody}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{writeBody()}{writeBody()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::write\+Body\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+write a message body 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a643f323a6c8f969e4f736ba59bae0693}\label{classBabel_1_1AsioTCPConnection_a643f323a6c8f969e4f736ba59bae0693}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!writeHeader@{writeHeader}}
+\index{writeHeader@{writeHeader}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{writeHeader()}{writeHeader()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::write\+Header\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+write a message header 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a6c5ee56ec25219f2b12d5a7f6e547485}\label{classBabel_1_1AsioTCPConnection_a6c5ee56ec25219f2b12d5a7f6e547485}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_callbackMessageReceived@{\_callbackMessageReceived}}
+\index{\_callbackMessageReceived@{\_callbackMessageReceived}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_callbackMessageReceived}{\_callbackMessageReceived}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::function$<$void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$)$>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+callback\+Message\+Received\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The function called when a message has been fully received. 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a231ecd6f979b61403aa4a4ceea6a308c}\label{classBabel_1_1AsioTCPConnection_a231ecd6f979b61403aa4a4ceea6a308c}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_id@{\_id}}
+\index{\_id@{\_id}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_id}{\_id}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+id\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+id used to identify the connection 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a1f64c24c559faff64629ca97003ac3a5}\label{classBabel_1_1AsioTCPConnection_a1f64c24c559faff64629ca97003ac3a5}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_ioContext@{\_ioContext}}
+\index{\_ioContext@{\_ioContext}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_ioContext}{\_ioContext}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+asio\+::io\+\_\+context\& \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+io\+Context\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The asio context to link everything. 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a03d0aa0e552348fbee765de9610a126b}\label{classBabel_1_1AsioTCPConnection_a03d0aa0e552348fbee765de9610a126b}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_messagesIn@{\_messagesIn}}
+\index{\_messagesIn@{\_messagesIn}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_messagesIn}{\_messagesIn}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$ $>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+messages\+In\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+All the received messages. 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_ae800b81c22cf7e8d66e2db09d0bc398a}\label{classBabel_1_1AsioTCPConnection_ae800b81c22cf7e8d66e2db09d0bc398a}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_messagesOut@{\_messagesOut}}
+\index{\_messagesOut@{\_messagesOut}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_messagesOut}{\_messagesOut}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$ $>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+messages\+Out\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+All the messages that need to be sent. 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a3137736e5cd9e3f00c433c932d559b87}\label{classBabel_1_1AsioTCPConnection_a3137736e5cd9e3f00c433c932d559b87}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_socket@{\_socket}}
+\index{\_socket@{\_socket}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_socket}{\_socket}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+asio\+::ip\+::tcp\+::socket \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The connection\textquotesingle{}s socket. 
+
+\mbox{\Hypertarget{classBabel_1_1AsioTCPConnection_a2ad3560d607a4cb1c920d0b94c8a086c}\label{classBabel_1_1AsioTCPConnection_a2ad3560d607a4cb1c920d0b94c8a086c}} 
+\index{Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}!\_tmpMessage@{\_tmpMessage}}
+\index{\_tmpMessage@{\_tmpMessage}!Babel::AsioTCPConnection$<$ T $>$@{Babel::AsioTCPConnection$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_tmpMessage}{\_tmpMessage}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$ \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Babel\+::\+Asio\+T\+C\+P\+Connection}}$<$ T $>$\+::\+\_\+tmp\+Message\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{structBabel_1_1Message}{Message}} used when reading a message. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Server/src/\+Network/\mbox{\hyperlink{AsioTCPConnection_8hpp}{Asio\+T\+C\+P\+Connection.\+hpp}}\end{DoxyCompactItemize}

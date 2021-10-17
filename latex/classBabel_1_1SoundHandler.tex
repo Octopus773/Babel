@@ -1,0 +1,265 @@
+\hypertarget{classBabel_1_1SoundHandler}{}\doxysection{Babel\+::Sound\+Handler Class Reference}
+\label{classBabel_1_1SoundHandler}\index{Babel::SoundHandler@{Babel::SoundHandler}}
+
+
+{\ttfamily \#include $<$Sound\+Handler.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::Sound\+Handler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classBabel_1_1SoundHandler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBabel_1_1SoundHandler_a93feec2726f443838bab112ab19e690b}{Sound\+Handler}} (std\+::uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em sound handler constructor \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1SoundHandler_a2ce4f9f6e6f6330b2e6b2f64cba64b8d}{$\sim$\+Sound\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em sound handler destructor \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1SoundHandler_ae9dfe0e39f1796a2525aeb732a3946eb}{start\+Call}} ()
+\begin{DoxyCompactList}\small\item\em notify the sound handler to start to send data and to receive it \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1SoundHandler_aea39dd21c032844060ca4cb74812a071}{stop\+Call}} ()
+\begin{DoxyCompactList}\small\item\em notify the sound handler to stop \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1SoundHandler_abc0b8d13a7c57997dcc58823c43ff888}{add\+Client}} (const std\+::string \&userid, const std\+::string \&ip\+Addres, std\+::uint16\+\_\+t port)
+\begin{DoxyCompactList}\small\item\em add a client to the current call \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1SoundHandler_a777e001155e7ed4bc07ec2e528c3d4c1}{remove\+Client}} (const std\+::string \&userid)
+\begin{DoxyCompactList}\small\item\em remove a client to the current call \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1SoundHandler_aa0bb490818dee088bf7b78c0ec7d159b}{get\+Local\+Port}} () const
+\begin{DoxyCompactList}\small\item\em get the port that the sound\+Handler is listening \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}} $>$ \mbox{\hyperlink{classBabel_1_1SoundHandler_a27f647de05574432badb9c803fb605a6}{\+\_\+audio}}
+\begin{DoxyCompactList}\small\item\em pointer to audio input and outputs \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}} $>$ \mbox{\hyperlink{classBabel_1_1SoundHandler_aee24e594620216202e9708e81ee5a580}{\+\_\+codec}}
+\begin{DoxyCompactList}\small\item\em pointer to the codec \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classBabel_1_1UDPSocket}{Babel\+::\+U\+D\+P\+Socket}} $>$ \mbox{\hyperlink{classBabel_1_1SoundHandler_a8e26fd744c104127b5d2737c27b586f6}{\+\_\+socket}}
+\begin{DoxyCompactList}\small\item\em pointer to the udp socket for input and output on network \end{DoxyCompactList}\item 
+std\+::map$<$ std\+::string, std\+::pair$<$ std\+::string, std\+::uint16\+\_\+t $>$ $>$ \mbox{\hyperlink{classBabel_1_1SoundHandler_a23e793a34cd516b9f2559d0741bf090a}{\+\_\+userlist}}
+\begin{DoxyCompactList}\small\item\em list of all users used in current call \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1SoundHandler_af214ae54501cfb7cc903c27d0b5e16a3}{\+\_\+userlist\+\_\+mtx}}
+\begin{DoxyCompactList}\small\item\em mutex to access the userlist \end{DoxyCompactList}\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classBabel_1_1SoundHandler_a2b89939406c962ffbe196f0edbba42c8}{\+\_\+blocker}}
+\begin{DoxyCompactList}\small\item\em @condition variable for stopping or enabling thread \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1SoundHandler_abb2d75f0ba9cb35bd0723c9b63f0f748}{\+\_\+should\+Exit}}
+\begin{DoxyCompactList}\small\item\em boolean to tell when the thread should exit; \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1SoundHandler_a08ee6ff0f0235eab157b60052446d89b}{\+\_\+exit\+\_\+mtx}}
+\begin{DoxyCompactList}\small\item\em mutex for should exit variable \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1SoundHandler_a42ebfafcbed80fb77f9e87ac17bb8cbc}{\+\_\+should\+Play}}
+\begin{DoxyCompactList}\small\item\em boolean to tell when the thread should record; \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1SoundHandler_a89ae73086bce8196679b325553647309}{\+\_\+play\+\_\+mtx}}
+\begin{DoxyCompactList}\small\item\em mutex for should exit variable \end{DoxyCompactList}\item 
+std\+::thread \mbox{\hyperlink{classBabel_1_1SoundHandler_ab8de1c241740569a11d26623d2286cf2}{\+\_\+execthread}}
+\begin{DoxyCompactList}\small\item\em thread for broadcasting data from audio library to udp \end{DoxyCompactList}\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1SoundHandler_a18c6ac600a92b6bd73afcb083234a487}{\+\_\+cond\+Var\+Mutex}}
+\begin{DoxyCompactList}\small\item\em mutex used for the condition variable \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a93feec2726f443838bab112ab19e690b}\label{classBabel_1_1SoundHandler_a93feec2726f443838bab112ab19e690b}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!SoundHandler@{SoundHandler}}
+\index{SoundHandler@{SoundHandler}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{SoundHandler()}{SoundHandler()}}
+{\footnotesize\ttfamily Babel\+::\+Sound\+Handler\+::\+Sound\+Handler (\begin{DoxyParamCaption}\item[{std\+::uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+sound handler constructor 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a2ce4f9f6e6f6330b2e6b2f64cba64b8d}\label{classBabel_1_1SoundHandler_a2ce4f9f6e6f6330b2e6b2f64cba64b8d}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!````~SoundHandler@{$\sim$SoundHandler}}
+\index{````~SoundHandler@{$\sim$SoundHandler}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{$\sim$SoundHandler()}{~SoundHandler()}}
+{\footnotesize\ttfamily Babel\+::\+Sound\+Handler\+::$\sim$\+Sound\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+sound handler destructor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_abc0b8d13a7c57997dcc58823c43ff888}\label{classBabel_1_1SoundHandler_abc0b8d13a7c57997dcc58823c43ff888}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!addClient@{addClient}}
+\index{addClient@{addClient}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{addClient()}{addClient()}}
+{\footnotesize\ttfamily void Babel\+::\+Sound\+Handler\+::add\+Client (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{userid,  }\item[{const std\+::string \&}]{ip\+Addres,  }\item[{std\+::uint16\+\_\+t}]{port }\end{DoxyParamCaption})}
+
+
+
+add a client to the current call 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_aa0bb490818dee088bf7b78c0ec7d159b}\label{classBabel_1_1SoundHandler_aa0bb490818dee088bf7b78c0ec7d159b}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!getLocalPort@{getLocalPort}}
+\index{getLocalPort@{getLocalPort}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{getLocalPort()}{getLocalPort()}}
+{\footnotesize\ttfamily uint16\+\_\+t Babel\+::\+Sound\+Handler\+::get\+Local\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+get the port that the sound\+Handler is listening 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a777e001155e7ed4bc07ec2e528c3d4c1}\label{classBabel_1_1SoundHandler_a777e001155e7ed4bc07ec2e528c3d4c1}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!removeClient@{removeClient}}
+\index{removeClient@{removeClient}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{removeClient()}{removeClient()}}
+{\footnotesize\ttfamily void Babel\+::\+Sound\+Handler\+::remove\+Client (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{userid }\end{DoxyParamCaption})}
+
+
+
+remove a client to the current call 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_ae9dfe0e39f1796a2525aeb732a3946eb}\label{classBabel_1_1SoundHandler_ae9dfe0e39f1796a2525aeb732a3946eb}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!startCall@{startCall}}
+\index{startCall@{startCall}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{startCall()}{startCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Sound\+Handler\+::start\+Call (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+notify the sound handler to start to send data and to receive it 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_aea39dd21c032844060ca4cb74812a071}\label{classBabel_1_1SoundHandler_aea39dd21c032844060ca4cb74812a071}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!stopCall@{stopCall}}
+\index{stopCall@{stopCall}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{stopCall()}{stopCall()}}
+{\footnotesize\ttfamily void Babel\+::\+Sound\+Handler\+::stop\+Call (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+notify the sound handler to stop 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a27f647de05574432badb9c803fb605a6}\label{classBabel_1_1SoundHandler_a27f647de05574432badb9c803fb605a6}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_audio@{\_audio}}
+\index{\_audio@{\_audio}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_audio}{\_audio}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBabel_1_1IAudioManager}{Babel\+::\+I\+Audio\+Manager}}$>$ Babel\+::\+Sound\+Handler\+::\+\_\+audio\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+pointer to audio input and outputs 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a2b89939406c962ffbe196f0edbba42c8}\label{classBabel_1_1SoundHandler_a2b89939406c962ffbe196f0edbba42c8}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_blocker@{\_blocker}}
+\index{\_blocker@{\_blocker}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_blocker}{\_blocker}}
+{\footnotesize\ttfamily std\+::condition\+\_\+variable Babel\+::\+Sound\+Handler\+::\+\_\+blocker\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+@condition variable for stopping or enabling thread 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_aee24e594620216202e9708e81ee5a580}\label{classBabel_1_1SoundHandler_aee24e594620216202e9708e81ee5a580}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_codec@{\_codec}}
+\index{\_codec@{\_codec}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_codec}{\_codec}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBabel_1_1ICodec}{Babel\+::\+I\+Codec}}$>$ Babel\+::\+Sound\+Handler\+::\+\_\+codec\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+pointer to the codec 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a18c6ac600a92b6bd73afcb083234a487}\label{classBabel_1_1SoundHandler_a18c6ac600a92b6bd73afcb083234a487}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_condVarMutex@{\_condVarMutex}}
+\index{\_condVarMutex@{\_condVarMutex}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_condVarMutex}{\_condVarMutex}}
+{\footnotesize\ttfamily std\+::mutex Babel\+::\+Sound\+Handler\+::\+\_\+cond\+Var\+Mutex\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+mutex used for the condition variable 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_ab8de1c241740569a11d26623d2286cf2}\label{classBabel_1_1SoundHandler_ab8de1c241740569a11d26623d2286cf2}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_execthread@{\_execthread}}
+\index{\_execthread@{\_execthread}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_execthread}{\_execthread}}
+{\footnotesize\ttfamily std\+::thread Babel\+::\+Sound\+Handler\+::\+\_\+execthread\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+thread for broadcasting data from audio library to udp 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a08ee6ff0f0235eab157b60052446d89b}\label{classBabel_1_1SoundHandler_a08ee6ff0f0235eab157b60052446d89b}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_exit\_mtx@{\_exit\_mtx}}
+\index{\_exit\_mtx@{\_exit\_mtx}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_exit\_mtx}{\_exit\_mtx}}
+{\footnotesize\ttfamily std\+::mutex Babel\+::\+Sound\+Handler\+::\+\_\+exit\+\_\+mtx\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+mutex for should exit variable 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a89ae73086bce8196679b325553647309}\label{classBabel_1_1SoundHandler_a89ae73086bce8196679b325553647309}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_play\_mtx@{\_play\_mtx}}
+\index{\_play\_mtx@{\_play\_mtx}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_play\_mtx}{\_play\_mtx}}
+{\footnotesize\ttfamily std\+::mutex Babel\+::\+Sound\+Handler\+::\+\_\+play\+\_\+mtx\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+mutex for should exit variable 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_abb2d75f0ba9cb35bd0723c9b63f0f748}\label{classBabel_1_1SoundHandler_abb2d75f0ba9cb35bd0723c9b63f0f748}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_shouldExit@{\_shouldExit}}
+\index{\_shouldExit@{\_shouldExit}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_shouldExit}{\_shouldExit}}
+{\footnotesize\ttfamily bool Babel\+::\+Sound\+Handler\+::\+\_\+should\+Exit\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+boolean to tell when the thread should exit; 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a42ebfafcbed80fb77f9e87ac17bb8cbc}\label{classBabel_1_1SoundHandler_a42ebfafcbed80fb77f9e87ac17bb8cbc}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_shouldPlay@{\_shouldPlay}}
+\index{\_shouldPlay@{\_shouldPlay}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_shouldPlay}{\_shouldPlay}}
+{\footnotesize\ttfamily bool Babel\+::\+Sound\+Handler\+::\+\_\+should\+Play\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+boolean to tell when the thread should record; 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a8e26fd744c104127b5d2737c27b586f6}\label{classBabel_1_1SoundHandler_a8e26fd744c104127b5d2737c27b586f6}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_socket@{\_socket}}
+\index{\_socket@{\_socket}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_socket}{\_socket}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{classBabel_1_1UDPSocket}{Babel\+::\+U\+D\+P\+Socket}}$>$ Babel\+::\+Sound\+Handler\+::\+\_\+socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+pointer to the udp socket for input and output on network 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_a23e793a34cd516b9f2559d0741bf090a}\label{classBabel_1_1SoundHandler_a23e793a34cd516b9f2559d0741bf090a}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_userlist@{\_userlist}}
+\index{\_userlist@{\_userlist}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_userlist}{\_userlist}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, std\+::pair$<$std\+::string, std\+::uint16\+\_\+t$>$ $>$ Babel\+::\+Sound\+Handler\+::\+\_\+userlist\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+list of all users used in current call 
+
+\mbox{\Hypertarget{classBabel_1_1SoundHandler_af214ae54501cfb7cc903c27d0b5e16a3}\label{classBabel_1_1SoundHandler_af214ae54501cfb7cc903c27d0b5e16a3}} 
+\index{Babel::SoundHandler@{Babel::SoundHandler}!\_userlist\_mtx@{\_userlist\_mtx}}
+\index{\_userlist\_mtx@{\_userlist\_mtx}!Babel::SoundHandler@{Babel::SoundHandler}}
+\doxysubsubsection{\texorpdfstring{\_userlist\_mtx}{\_userlist\_mtx}}
+{\footnotesize\ttfamily std\+::mutex Babel\+::\+Sound\+Handler\+::\+\_\+userlist\+\_\+mtx\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+mutex to access the userlist 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\mbox{\hyperlink{SoundHandler_8hpp}{Sound\+Handler.\+hpp}}\item 
+Client/src/\mbox{\hyperlink{SoundHandler_8cpp}{Sound\+Handler.\+cpp}}\end{DoxyCompactItemize}

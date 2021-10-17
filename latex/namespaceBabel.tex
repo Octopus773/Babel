@@ -1,0 +1,199 @@
+\hypertarget{namespaceBabel}{}\doxysection{Babel Namespace Reference}
+\label{namespaceBabel}\index{Babel@{Babel}}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceBabel_1_1Exception}{Exception}}
+\item 
+ \mbox{\hyperlink{namespaceBabel_1_1Utils}{Utils}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classBabel_1_1AsioTCPConnection}{Asio\+T\+C\+P\+Connection}}
+\begin{DoxyCompactList}\small\item\em Asio implementation of a tcp communication. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1AsioTCPServer}{Asio\+T\+C\+P\+Server}}
+\begin{DoxyCompactList}\small\item\em Implementation of \mbox{\hyperlink{classBabel_1_1ITCPServer}{I\+T\+C\+P\+Server}} using A\+S\+IO. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structBabel_1_1AudioPacket}{Audio\+Packet}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1BabelServer}{Babel\+Server}}
+\begin{DoxyCompactList}\small\item\em Main server class contains almost all the logic for the server. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structBabel_1_1Call}{Call}}
+\begin{DoxyCompactList}\small\item\em struct to handle all \mbox{\hyperlink{structBabel_1_1Call}{Call}} related data \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1FreeList}{Free\+List}}
+\begin{DoxyCompactList}\small\item\em Provides an indexed free list with constant-\/time removals from anywhere in the list without invalidating indices. T must be trivially constructible and destructible. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1HomePage}{Home\+Page}}
+\begin{DoxyCompactList}\small\item\em Main client Class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1IAudioManager}{I\+Audio\+Manager}}
+\begin{DoxyCompactList}\small\item\em Audio Module Interface. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1ICodec}{I\+Codec}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1ITCPConnection}{I\+T\+C\+P\+Connection}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1ITCPServer}{I\+T\+C\+P\+Server}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1IUDPClient}{I\+U\+D\+P\+Client}}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1Message}{Message}}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1MessageHeader}{Message\+Header}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1NetworkException}{Network\+Exception}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1Opus}{Opus}}
+\begin{DoxyCompactList}\small\item\em Class containing \mbox{\hyperlink{classBabel_1_1Opus}{Opus}} encoder and decoder. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1OpusException}{Opus\+Exception}}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1OwnedMessage}{Owned\+Message}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1PortAudio}{Port\+Audio}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1PortAudioException}{Port\+Audio\+Exception}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1QtTCPConnection}{Qt\+T\+C\+P\+Connection}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1SoundHandler}{Sound\+Handler}}
+\item 
+class \mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}
+\begin{DoxyCompactList}\small\item\em Thread Safe queue. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classBabel_1_1UDPSocket}{U\+D\+P\+Socket}}
+\begin{DoxyCompactList}\small\item\em wrapper around Qt U\+DP socket, \mbox{\hyperlink{classBabel_1_1ICodec}{I\+Codec}} and Portaudio \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structBabel_1_1User}{User}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} \+: uint16\+\_\+t \{ \newline
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2aa603905470e2a5b8c13e96b579ef0dba}{R\+F\+C\+Codes\+::\+Debug}} = 0b0100000000101111, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a99dea78007133396a7b8ed70578ac6ae}{R\+F\+C\+Codes\+::\+Login}} = 200, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9e8d77e8ee42fa154adc1ac93a67f780}{R\+F\+C\+Codes\+::\+List\+Users}} = 201, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9f6bb3dedc7582380a3a146c102cc3ea}{R\+F\+C\+Codes\+::\+Call\+User}} = 202, 
+\newline
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a773bf52be022c96b592fde989f914eac}{R\+F\+C\+Codes\+::\+Join\+Call}} = 203, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2acbe8fefc72052d9fad60bf76a94e36aa}{R\+F\+C\+Codes\+::\+Deny\+Call}} = 204, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a309b44553da8392565081bbf3c28208f}{R\+F\+C\+Codes\+::\+Hang\+Up}} = 205, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2ad64ed3e9c10229648e069f56e32f4c8e}{R\+F\+C\+Codes\+::\+Response}} = 300, 
+\newline
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a2df6aaba505b042f6a29b5e56a154e35}{R\+F\+C\+Codes\+::\+Called}} = 301, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a7419d21fd1a240d4deb6ee083ce8ea4b}{R\+F\+C\+Codes\+::\+User\+Joined\+Call}} = 302, 
+\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2a42bef8386c7588f8c5e306f18fe72306}{R\+F\+C\+Codes\+::\+User\+Left\+Call}} = 303
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceBabel_a91290201ca88d861c0af1ee71864d175}{operator$<$$<$}} (std\+::ostream \&os, const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg)
+\item 
+{\footnotesize template$<$typename T , typename Data\+Type $>$ }\\\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a76f95c7df87177a233650d777d72ed20}{operator$<$$<$}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, Data\+Type data)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a2c36a21d21da525a61cc84fd86f9105d}{operator$<$$<$}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, std\+::string data)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a9abb0c84157ea2a95ce93169153fde91}{operator$<$$<$}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, const char data\mbox{[}$\,$\mbox{]})
+\item 
+{\footnotesize template$<$typename T , typename Data\+Type $>$ }\\\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a049654496a2847453fe689873f93ab8a}{operator$>$$>$}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&msg, Data\+Type \&data)
+\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{namespaceBabel_a8185eda20b6f822db79b4b4656be07c5}{swap\+Endian}} (T value)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2}} 
+\index{Babel@{Babel}!RFCCodes@{RFCCodes}}
+\index{RFCCodes@{RFCCodes}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{RFCCodes}{RFCCodes}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{Babel\+::\+R\+F\+C\+Codes}} \+: uint16\+\_\+t\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Debug@{Debug}!Babel@{Babel}}\index{Babel@{Babel}!Debug@{Debug}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2aa603905470e2a5b8c13e96b579ef0dba}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2aa603905470e2a5b8c13e96b579ef0dba}} 
+Debug&Code used as debug purposes only. \begin{DoxyWarning}{Warning}
+This code should never be send as a real message 
+\end{DoxyWarning}
+\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Login@{Login}!Babel@{Babel}}\index{Babel@{Babel}!Login@{Login}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a99dea78007133396a7b8ed70578ac6ae}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a99dea78007133396a7b8ed70578ac6ae}} 
+Login&Login a user in the server. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ListUsers@{ListUsers}!Babel@{Babel}}\index{Babel@{Babel}!ListUsers@{ListUsers}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9e8d77e8ee42fa154adc1ac93a67f780}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9e8d77e8ee42fa154adc1ac93a67f780}} 
+List\+Users&Get the list of server currently active users. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CallUser@{CallUser}!Babel@{Babel}}\index{Babel@{Babel}!CallUser@{CallUser}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9f6bb3dedc7582380a3a146c102cc3ea}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a9f6bb3dedc7582380a3a146c102cc3ea}} 
+Call\+User&\mbox{\hyperlink{structBabel_1_1Call}{Call}} a user from it\textquotesingle{}s username. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JoinCall@{JoinCall}!Babel@{Babel}}\index{Babel@{Babel}!JoinCall@{JoinCall}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a773bf52be022c96b592fde989f914eac}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a773bf52be022c96b592fde989f914eac}} 
+Join\+Call&Accept a call from a user. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DenyCall@{DenyCall}!Babel@{Babel}}\index{Babel@{Babel}!DenyCall@{DenyCall}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2acbe8fefc72052d9fad60bf76a94e36aa}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2acbe8fefc72052d9fad60bf76a94e36aa}} 
+Deny\+Call&Deny a receiving call from a user. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HangUp@{HangUp}!Babel@{Babel}}\index{Babel@{Babel}!HangUp@{HangUp}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a309b44553da8392565081bbf3c28208f}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a309b44553da8392565081bbf3c28208f}} 
+Hang\+Up&Hang up a call. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Response@{Response}!Babel@{Babel}}\index{Babel@{Babel}!Response@{Response}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2ad64ed3e9c10229648e069f56e32f4c8e}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2ad64ed3e9c10229648e069f56e32f4c8e}} 
+Response&General purpose response. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Called@{Called}!Babel@{Babel}}\index{Babel@{Babel}!Called@{Called}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a2df6aaba505b042f6a29b5e56a154e35}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a2df6aaba505b042f6a29b5e56a154e35}} 
+Called&Receiving a call from a user. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UserJoinedCall@{UserJoinedCall}!Babel@{Babel}}\index{Babel@{Babel}!UserJoinedCall@{UserJoinedCall}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a7419d21fd1a240d4deb6ee083ce8ea4b}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a7419d21fd1a240d4deb6ee083ce8ea4b}} 
+User\+Joined\+Call&\mbox{\hyperlink{structBabel_1_1User}{User}} joining call. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UserLeftCall@{UserLeftCall}!Babel@{Babel}}\index{Babel@{Babel}!UserLeftCall@{UserLeftCall}}}\mbox{\Hypertarget{namespaceBabel_a799379d7a10243e54ed7432100c266c2a42bef8386c7588f8c5e306f18fe72306}\label{namespaceBabel_a799379d7a10243e54ed7432100c266c2a42bef8386c7588f8c5e306f18fe72306}} 
+User\+Left\+Call&\mbox{\hyperlink{structBabel_1_1User}{User}} left call. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceBabel_a9abb0c84157ea2a95ce93169153fde91}\label{namespaceBabel_a9abb0c84157ea2a95ce93169153fde91}} 
+\index{Babel@{Babel}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$\& Babel\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{const char}]{data\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceBabel_a76f95c7df87177a233650d777d72ed20}\label{namespaceBabel_a76f95c7df87177a233650d777d72ed20}} 
+\index{Babel@{Babel}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$typename T , typename Data\+Type $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$\& Babel\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{Data\+Type}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceBabel_a2c36a21d21da525a61cc84fd86f9105d}\label{namespaceBabel_a2c36a21d21da525a61cc84fd86f9105d}} 
+\index{Babel@{Babel}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$\& Babel\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{std\+::string}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceBabel_a91290201ca88d861c0af1ee71864d175}\label{namespaceBabel_a91290201ca88d861c0af1ee71864d175}} 
+\index{Babel@{Babel}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::ostream\& Babel\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{os,  }\item[{const \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceBabel_a049654496a2847453fe689873f93ab8a}\label{namespaceBabel_a049654496a2847453fe689873f93ab8a}} 
+\index{Babel@{Babel}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily template$<$typename T , typename Data\+Type $>$ \\
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$T$>$\& Babel\+::operator$>$$>$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ T $>$ \&}]{msg,  }\item[{Data\+Type \&}]{data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespaceBabel_a8185eda20b6f822db79b4b4656be07c5}\label{namespaceBabel_a8185eda20b6f822db79b4b4656be07c5}} 
+\index{Babel@{Babel}!swapEndian@{swapEndian}}
+\index{swapEndian@{swapEndian}!Babel@{Babel}}
+\doxysubsubsection{\texorpdfstring{swapEndian()}{swapEndian()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T Babel\+::swap\+Endian (\begin{DoxyParamCaption}\item[{T}]{value }\end{DoxyParamCaption})}
+

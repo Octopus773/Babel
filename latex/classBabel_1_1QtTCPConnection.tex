@@ -1,0 +1,302 @@
+\hypertarget{classBabel_1_1QtTCPConnection}{}\doxysection{Babel\+::Qt\+T\+C\+P\+Connection Class Reference}
+\label{classBabel_1_1QtTCPConnection}\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+
+
+{\ttfamily \#include $<$Qt\+T\+C\+P\+Connection.\+hpp$>$}
+
+
+
+Inheritance diagram for Babel\+::Qt\+T\+C\+P\+Connection\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{classBabel_1_1QtTCPConnection__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Babel\+::Qt\+T\+C\+P\+Connection\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classBabel_1_1QtTCPConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_abdc89897b7bb42cb01f7e66b9bac1205}{connect}} (const std\+::string \&hostname, uint16\+\_\+t port) override
+\begin{DoxyCompactList}\small\item\em connect to a hostname and a port \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ae76183448a50cea0247cd1eb44008678}{disconnect}} () override
+\begin{DoxyCompactList}\small\item\em disconnect the connection \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a7e5ccd7bac28b07d168d4fa576c14bee}{is\+Connected}} () const override
+\begin{DoxyCompactList}\small\item\em Tells if the connection is up. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a396ea6076cc31c231467dd86b12366e4}{send}} (\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ message) override
+\begin{DoxyCompactList}\small\item\em Send the message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ac38d57cda8de880be4a88094b89e66ff}{read\+For\+Messages}} () override
+\begin{DoxyCompactList}\small\item\em listen for new messages \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a6d60a0bb69fdc7c3811571d2235bf5c1}{set\+Callback\+On\+Message}} (std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$)$>$ call\+Message\+Received) override
+\begin{DoxyCompactList}\small\item\em Called when we received a message. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a6aa078f487e0a47ba672c188a543ac2f}{get\+Id}} () const override
+\begin{DoxyCompactList}\small\item\em Get the id of this connection. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a78110b13523968084024f2b4dd98ef51}{set\+Id}} (uint64\+\_\+t id) override
+\begin{DoxyCompactList}\small\item\em set the id of the connection \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a0bccbd88c4fe04f30dc608e99e52d642}{get\+Peer\+Ip}} () const override
+\begin{DoxyCompactList}\small\item\em Get the connected pair address. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a655987be83bbcb138d654d764dd6d4db}{get\+Peer\+Port}} () const override
+\begin{DoxyCompactList}\small\item\em get the connected pair port \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1QtTCPConnection_ab5f67e8a89bfb30779b99226a1a653ae}{Qt\+T\+C\+P\+Connection}} (Q\+Widget $\ast$parent=nullptr, std\+::function$<$ void(void)$>$ on\+Connect=\mbox{[}$\,$\mbox{]}()\{\})
+\begin{DoxyCompactList}\small\item\em ctor \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBabel_1_1QtTCPConnection_aa121a6ec5fc58abfa1dddde38baea2a7}{read\+Message}} ()
+\begin{DoxyCompactList}\small\item\em Read a Message$<$\+T$>$ from the socket when a message is read \+\_\+callback\+Message\+Received is called. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Tcp\+Socket $\ast$ \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a46ea92c41ff27ab3ecc3188a4f3d7401}{\+\_\+socket}}
+\begin{DoxyCompactList}\small\item\em The socket internally used. \end{DoxyCompactList}\item 
+std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$)$>$ \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a6f6813f3baa37f085bbbc7bb2753064b}{\+\_\+callback\+Message\+Received}}
+\begin{DoxyCompactList}\small\item\em The function called when a message has been fully received. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ $>$ \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a6b47f16506e2399ddaa585225b0f5d4e}{\+\_\+messages\+Out}}
+\begin{DoxyCompactList}\small\item\em All the messages that need to be sent. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$ \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ac84c48fb73253029d038905210fc287d}{\+\_\+tmp\+Message}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{structBabel_1_1Message}{Message}} used when reading a message. \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1QtTCPConnection_ae722430c91883e1d5ad3ea3f86562898}{\+\_\+bytes\+Read}}
+\begin{DoxyCompactList}\small\item\em used to track how much bytes of a message had been read \end{DoxyCompactList}\item 
+uint64\+\_\+t \mbox{\hyperlink{classBabel_1_1QtTCPConnection_a55bb54bcbfa227fee579834febc9c835}{\+\_\+connection\+Id}}
+\begin{DoxyCompactList}\small\item\em id used to identify the connection \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_ab5f67e8a89bfb30779b99226a1a653ae}\label{classBabel_1_1QtTCPConnection_ab5f67e8a89bfb30779b99226a1a653ae}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!QtTCPConnection@{QtTCPConnection}}
+\index{QtTCPConnection@{QtTCPConnection}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{QtTCPConnection()}{QtTCPConnection()}}
+{\footnotesize\ttfamily Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+Qt\+T\+C\+P\+Connection (\begin{DoxyParamCaption}\item[{Q\+Widget $\ast$}]{parent = {\ttfamily nullptr},  }\item[{std\+::function$<$ void(void)$>$}]{on\+Connect = {\ttfamily \mbox{[}\mbox{]}()\{\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+ctor 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_abdc89897b7bb42cb01f7e66b9bac1205}\label{classBabel_1_1QtTCPConnection_abdc89897b7bb42cb01f7e66b9bac1205}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!connect@{connect}}
+\index{connect@{connect}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{connect()}{connect()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::connect (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{hostname,  }\item[{uint16\+\_\+t}]{port }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+connect to a hostname and a port 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & The ip you want to connect \\
+\hline
+{\em port} & The port belonging to the hostname you want to connect \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_adc58ce1d2e3f58f90db677a073189232}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_ae76183448a50cea0247cd1eb44008678}\label{classBabel_1_1QtTCPConnection_ae76183448a50cea0247cd1eb44008678}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{disconnect()}{disconnect()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::disconnect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+disconnect the connection 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a21eb7b3273b711915a15a71c0d471d9b}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a6aa078f487e0a47ba672c188a543ac2f}\label{classBabel_1_1QtTCPConnection_a6aa078f487e0a47ba672c188a543ac2f}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!getId@{getId}}
+\index{getId@{getId}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily uint64\+\_\+t Babel\+::\+Qt\+T\+C\+P\+Connection\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Get the id of this connection. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a0bccbd88c4fe04f30dc608e99e52d642}\label{classBabel_1_1QtTCPConnection_a0bccbd88c4fe04f30dc608e99e52d642}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!getPeerIp@{getPeerIp}}
+\index{getPeerIp@{getPeerIp}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{getPeerIp()}{getPeerIp()}}
+{\footnotesize\ttfamily std\+::string Babel\+::\+Qt\+T\+C\+P\+Connection\+::get\+Peer\+Ip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Get the connected pair address. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a655987be83bbcb138d654d764dd6d4db}\label{classBabel_1_1QtTCPConnection_a655987be83bbcb138d654d764dd6d4db}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!getPeerPort@{getPeerPort}}
+\index{getPeerPort@{getPeerPort}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{getPeerPort()}{getPeerPort()}}
+{\footnotesize\ttfamily uint16\+\_\+t Babel\+::\+Qt\+T\+C\+P\+Connection\+::get\+Peer\+Port (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+get the connected pair port 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a7e5ccd7bac28b07d168d4fa576c14bee}\label{classBabel_1_1QtTCPConnection_a7e5ccd7bac28b07d168d4fa576c14bee}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily bool Babel\+::\+Qt\+T\+C\+P\+Connection\+::is\+Connected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Tells if the connection is up. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_ac38d57cda8de880be4a88094b89e66ff}\label{classBabel_1_1QtTCPConnection_ac38d57cda8de880be4a88094b89e66ff}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!readForMessages@{readForMessages}}
+\index{readForMessages@{readForMessages}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{readForMessages()}{readForMessages()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::read\+For\+Messages (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+listen for new messages 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a62c59276d8dbe92a37fc25545968c13f}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_aa121a6ec5fc58abfa1dddde38baea2a7}\label{classBabel_1_1QtTCPConnection_aa121a6ec5fc58abfa1dddde38baea2a7}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!readMessage@{readMessage}}
+\index{readMessage@{readMessage}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{readMessage()}{readMessage()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::read\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Read a Message$<$\+T$>$ from the socket when a message is read \+\_\+callback\+Message\+Received is called. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a396ea6076cc31c231467dd86b12366e4}\label{classBabel_1_1QtTCPConnection_a396ea6076cc31c231467dd86b12366e4}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!send@{send}}
+\index{send@{send}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Send the message. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to send \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a01e2c547b49364b4534554c79da47af9}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a6d60a0bb69fdc7c3811571d2235bf5c1}\label{classBabel_1_1QtTCPConnection_a6d60a0bb69fdc7c3811571d2235bf5c1}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!setCallbackOnMessage@{setCallbackOnMessage}}
+\index{setCallbackOnMessage@{setCallbackOnMessage}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{setCallbackOnMessage()}{setCallbackOnMessage()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::set\+Callback\+On\+Message (\begin{DoxyParamCaption}\item[{std\+::function$<$ void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$ \mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}} $>$)$>$}]{call\+Message\+Received }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Called when we received a message. 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a10ceaaca891b01146421950e89c06a90}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a78110b13523968084024f2b4dd98ef51}\label{classBabel_1_1QtTCPConnection_a78110b13523968084024f2b4dd98ef51}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!setId@{setId}}
+\index{setId@{setId}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{setId()}{setId()}}
+{\footnotesize\ttfamily void Babel\+::\+Qt\+T\+C\+P\+Connection\+::set\+Id (\begin{DoxyParamCaption}\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+set the id of the connection 
+
+
+
+Implements \mbox{\hyperlink{classBabel_1_1ITCPConnection_a6fc5681f5a00be4a21bd0354efb65d2f}{Babel\+::\+I\+T\+C\+P\+Connection$<$ R\+F\+C\+Codes $>$}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_ae722430c91883e1d5ad3ea3f86562898}\label{classBabel_1_1QtTCPConnection_ae722430c91883e1d5ad3ea3f86562898}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_bytesRead@{\_bytesRead}}
+\index{\_bytesRead@{\_bytesRead}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_bytesRead}{\_bytesRead}}
+{\footnotesize\ttfamily uint64\+\_\+t Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+bytes\+Read\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+used to track how much bytes of a message had been read 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a6f6813f3baa37f085bbbc7bb2753064b}\label{classBabel_1_1QtTCPConnection_a6f6813f3baa37f085bbbc7bb2753064b}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_callbackMessageReceived@{\_callbackMessageReceived}}
+\index{\_callbackMessageReceived@{\_callbackMessageReceived}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_callbackMessageReceived}{\_callbackMessageReceived}}
+{\footnotesize\ttfamily std\+::function$<$void(\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$)$>$ Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+callback\+Message\+Received\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The function called when a message has been fully received. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a55bb54bcbfa227fee579834febc9c835}\label{classBabel_1_1QtTCPConnection_a55bb54bcbfa227fee579834febc9c835}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_connectionId@{\_connectionId}}
+\index{\_connectionId@{\_connectionId}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_connectionId}{\_connectionId}}
+{\footnotesize\ttfamily uint64\+\_\+t Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+connection\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+id used to identify the connection 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a6b47f16506e2399ddaa585225b0f5d4e}\label{classBabel_1_1QtTCPConnection_a6b47f16506e2399ddaa585225b0f5d4e}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_messagesOut@{\_messagesOut}}
+\index{\_messagesOut@{\_messagesOut}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_messagesOut}{\_messagesOut}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$\mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$ $>$ Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+messages\+Out\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+All the messages that need to be sent. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_a46ea92c41ff27ab3ecc3188a4f3d7401}\label{classBabel_1_1QtTCPConnection_a46ea92c41ff27ab3ecc3188a4f3d7401}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_socket@{\_socket}}
+\index{\_socket@{\_socket}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_socket}{\_socket}}
+{\footnotesize\ttfamily Q\+Tcp\+Socket$\ast$ Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The socket internally used. 
+
+\mbox{\Hypertarget{classBabel_1_1QtTCPConnection_ac84c48fb73253029d038905210fc287d}\label{classBabel_1_1QtTCPConnection_ac84c48fb73253029d038905210fc287d}} 
+\index{Babel::QtTCPConnection@{Babel::QtTCPConnection}!\_tmpMessage@{\_tmpMessage}}
+\index{\_tmpMessage@{\_tmpMessage}!Babel::QtTCPConnection@{Babel::QtTCPConnection}}
+\doxysubsubsection{\texorpdfstring{\_tmpMessage}{\_tmpMessage}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structBabel_1_1Message}{Message}}$<$\mbox{\hyperlink{namespaceBabel_a799379d7a10243e54ed7432100c266c2}{R\+F\+C\+Codes}}$>$ Babel\+::\+Qt\+T\+C\+P\+Connection\+::\+\_\+tmp\+Message\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{\hyperlink{structBabel_1_1Message}{Message}} used when reading a message. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Client/src/\+Network/\mbox{\hyperlink{QtTCPConnection_8hpp}{Qt\+T\+C\+P\+Connection.\+hpp}}\item 
+Client/src/\+Network/\mbox{\hyperlink{QtTCPConnection_8cpp}{Qt\+T\+C\+P\+Connection.\+cpp}}\end{DoxyCompactItemize}

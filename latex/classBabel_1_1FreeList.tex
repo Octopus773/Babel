@@ -1,0 +1,307 @@
+\hypertarget{classBabel_1_1FreeList}{}\doxysection{Babel\+::Free\+List$<$ T $>$ Class Template Reference}
+\label{classBabel_1_1FreeList}\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+
+
+Provides an indexed free list with constant-\/time removals from anywhere in the list without invalidating indices. T must be trivially constructible and destructible.  
+
+
+
+
+{\ttfamily \#include $<$Free\+List.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::Free\+List$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classBabel_1_1FreeList__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBabel_1_1FreeList_a1c0dd5de9e02ceda82dee5d870950da7}{Free\+List}} ()
+\begin{DoxyCompactList}\small\item\em Creates a new free list. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBabel_1_1FreeList_aafbd7afda4b5d30cb0595f9a4c883360}{insert}} (T element)
+\begin{DoxyCompactList}\small\item\em Inserts an element to the free list and returns an index to it. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_ae23fc462d00a6fc0b364710356c4db26}{remove}} (int n)
+\begin{DoxyCompactList}\small\item\em Removes the nth element from the free list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_a3a755dfccd1f011fb4c4cf65712c5489}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Removes all elements from the free list and free the memory. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classBabel_1_1FreeList_aa9eed60f2dcdcd3adcc15d993d5cb496}{size}} () const
+\begin{DoxyCompactList}\small\item\em The number of active elements in the list. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_a3f44631b910450d814b873f1f030a1d7}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Removes all elements from the list but doesn\textquotesingle{}t free the memory. \end{DoxyCompactList}\item 
+std\+::vector$<$ T $>$ \mbox{\hyperlink{classBabel_1_1FreeList_a0e0ffb4f399070ca881e5ef14020ab8e}{to\+Vector}} () const
+\begin{DoxyCompactList}\small\item\em Create a vector with all the values of the list. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBabel_1_1FreeList_ac4b641f9e9eb4804197295e6af9af22f}{range}} () const
+\begin{DoxyCompactList}\small\item\em Returns the range of valid indices. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBabel_1_1FreeList_a54de3cc94753490922839160162c1f1a}{find\+Index}} (T element) const
+\begin{DoxyCompactList}\small\item\em Gives the index of an element, if not found returns -\/1. \end{DoxyCompactList}\item 
+T \& \mbox{\hyperlink{classBabel_1_1FreeList_a76c8075b14e467f4fb81540d16f10a89}{operator\mbox{[}$\,$\mbox{]}}} (int n)
+\begin{DoxyCompactList}\small\item\em Returns the nth element. \end{DoxyCompactList}\item 
+const T \& \mbox{\hyperlink{classBabel_1_1FreeList_af462a8a57c49363d642d0fa0eb6b8f38}{operator\mbox{[}$\,$\mbox{]}}} (int n) const
+\begin{DoxyCompactList}\small\item\em Returns the nth element. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_acb79e2058ef15dee048a8a561bbf52c4}{for\+Each}} (std\+::function$<$ bool(T \&, int)$>$ pred)
+\begin{DoxyCompactList}\small\item\em call pred with all the active elements \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_ac82e749e2b6a64903616a847d058befa}{for\+Each}} (std\+::function$<$ bool(T \&)$>$ pred)
+\begin{DoxyCompactList}\small\item\em call pred with all the active elements \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_a00b0d5973a65568596eb28c9ba3c4988}{for\+Each}} (std\+::function$<$ bool(const T \&, int)$>$ pred) const
+\begin{DoxyCompactList}\small\item\em call pred with all the active elements \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1FreeList_a165e42b0bf366a1e4e0cbff3771d3d9f}{for\+Each}} (std\+::function$<$ bool(const T \&)$>$ pred) const
+\begin{DoxyCompactList}\small\item\em call pred with all the active elements \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{classBabel_1_1FreeList_a07be99d1687fa3b603e802e886d5b7b1}{End\+Of\+List}} = -\/1
+\begin{DoxyCompactList}\small\item\em When this value is encountered in traversing a singly list it means it\textquotesingle{}s the end of the list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::pair$<$ T, int $>$ $>$ \mbox{\hyperlink{classBabel_1_1FreeList_ad1a58b95169e54ce0bb07c256d6bef9d}{\+\_\+data}} \{\}
+\begin{DoxyCompactList}\small\item\em The internal vector. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classBabel_1_1FreeList_aad65094d2b1b4c592f30ff1fd19fe956}{\+\_\+first\+Free}}
+\begin{DoxyCompactList}\small\item\em first free index \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Babel\+::\+Free\+List$<$ T $>$}
+
+Provides an indexed free list with constant-\/time removals from anywhere in the list without invalidating indices. T must be trivially constructible and destructible. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1FreeList_a1c0dd5de9e02ceda82dee5d870950da7}\label{classBabel_1_1FreeList_a1c0dd5de9e02ceda82dee5d870950da7}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!FreeList@{FreeList}}
+\index{FreeList@{FreeList}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{FreeList()}{FreeList()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::\mbox{\hyperlink{classBabel_1_1FreeList}{Free\+List}}}
+
+
+
+Creates a new free list. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1FreeList_a3a755dfccd1f011fb4c4cf65712c5489}\label{classBabel_1_1FreeList_a3a755dfccd1f011fb4c4cf65712c5489}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!clear@{clear}}
+\index{clear@{clear}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::clear}
+
+
+
+Removes all elements from the free list and free the memory. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a54de3cc94753490922839160162c1f1a}\label{classBabel_1_1FreeList_a54de3cc94753490922839160162c1f1a}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!findIndex@{findIndex}}
+\index{findIndex@{findIndex}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{findIndex()}{findIndex()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::find\+Index (\begin{DoxyParamCaption}\item[{T}]{element }\end{DoxyParamCaption}) const}
+
+
+
+Gives the index of an element, if not found returns -\/1. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a165e42b0bf366a1e4e0cbff3771d3d9f}\label{classBabel_1_1FreeList_a165e42b0bf366a1e4e0cbff3771d3d9f}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!forEach@{forEach}}
+\index{forEach@{forEach}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forEach()}{forEach()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::for\+Each (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(const T \&)$>$}]{pred }\end{DoxyParamCaption}) const}
+
+
+
+call pred with all the active elements 
+
+\begin{DoxyNote}{Note}
+pred argument element const ref 
+
+if the pred return false the for\+Each stop iterating and returns 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1FreeList_a00b0d5973a65568596eb28c9ba3c4988}\label{classBabel_1_1FreeList_a00b0d5973a65568596eb28c9ba3c4988}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!forEach@{forEach}}
+\index{forEach@{forEach}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forEach()}{forEach()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::for\+Each (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(const T \&, int)$>$}]{pred }\end{DoxyParamCaption}) const}
+
+
+
+call pred with all the active elements 
+
+\begin{DoxyNote}{Note}
+pred arguments 1\+: element ref, 2\+: index of the element 
+
+if the pred return false the for\+Each stop iterating and returns 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1FreeList_ac82e749e2b6a64903616a847d058befa}\label{classBabel_1_1FreeList_ac82e749e2b6a64903616a847d058befa}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!forEach@{forEach}}
+\index{forEach@{forEach}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forEach()}{forEach()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::for\+Each (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(T \&)$>$}]{pred }\end{DoxyParamCaption})}
+
+
+
+call pred with all the active elements 
+
+\begin{DoxyNote}{Note}
+pred argument element const ref 
+
+if the pred return false the for\+Each stop iterating and returns 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1FreeList_acb79e2058ef15dee048a8a561bbf52c4}\label{classBabel_1_1FreeList_acb79e2058ef15dee048a8a561bbf52c4}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!forEach@{forEach}}
+\index{forEach@{forEach}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forEach()}{forEach()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::for\+Each (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(T \&, int)$>$}]{pred }\end{DoxyParamCaption})}
+
+
+
+call pred with all the active elements 
+
+\begin{DoxyNote}{Note}
+pred arguments 1\+: element ref, 2\+: index of the element 
+
+if the pred return false the for\+Each stop iterating and returns 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1FreeList_aafbd7afda4b5d30cb0595f9a4c883360}\label{classBabel_1_1FreeList_aafbd7afda4b5d30cb0595f9a4c883360}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!insert@{insert}}
+\index{insert@{insert}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::insert (\begin{DoxyParamCaption}\item[{T}]{element }\end{DoxyParamCaption})}
+
+
+
+Inserts an element to the free list and returns an index to it. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a76c8075b14e467f4fb81540d16f10a89}\label{classBabel_1_1FreeList_a76c8075b14e467f4fb81540d16f10a89}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T \& \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Returns the nth element. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_af462a8a57c49363d642d0fa0eb6b8f38}\label{classBabel_1_1FreeList_af462a8a57c49363d642d0fa0eb6b8f38}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+const T \& \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const}
+
+
+
+Returns the nth element. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_ac4b641f9e9eb4804197295e6af9af22f}\label{classBabel_1_1FreeList_ac4b641f9e9eb4804197295e6af9af22f}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!range@{range}}
+\index{range@{range}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{range()}{range()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::range}
+
+
+
+Returns the range of valid indices. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_ae23fc462d00a6fc0b364710356c4db26}\label{classBabel_1_1FreeList_ae23fc462d00a6fc0b364710356c4db26}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!remove@{remove}}
+\index{remove@{remove}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{remove()}{remove()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::remove (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Removes the nth element from the free list. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a3f44631b910450d814b873f1f030a1d7}\label{classBabel_1_1FreeList_a3f44631b910450d814b873f1f030a1d7}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!reset@{reset}}
+\index{reset@{reset}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::reset}
+
+
+
+Removes all elements from the list but doesn\textquotesingle{}t free the memory. 
+
+\begin{DoxyNote}{Note}
+Function used to clear and quickly refill the list 
+\end{DoxyNote}
+\mbox{\Hypertarget{classBabel_1_1FreeList_aa9eed60f2dcdcd3adcc15d993d5cb496}\label{classBabel_1_1FreeList_aa9eed60f2dcdcd3adcc15d993d5cb496}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!size@{size}}
+\index{size@{size}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::size}
+
+
+
+The number of active elements in the list. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a0e0ffb4f399070ca881e5ef14020ab8e}\label{classBabel_1_1FreeList_a0e0ffb4f399070ca881e5ef14020ab8e}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!toVector@{toVector}}
+\index{toVector@{toVector}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{toVector()}{toVector()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::vector$<$ T $>$ \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::to\+Vector}
+
+
+
+Create a vector with all the values of the list. 
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1FreeList_ad1a58b95169e54ce0bb07c256d6bef9d}\label{classBabel_1_1FreeList_ad1a58b95169e54ce0bb07c256d6bef9d}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!\_data@{\_data}}
+\index{\_data@{\_data}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_data}{\_data}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::vector$<$std\+::pair$<$T, int$>$ $>$ \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::\+\_\+data \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The internal vector. 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_aad65094d2b1b4c592f30ff1fd19fe956}\label{classBabel_1_1FreeList_aad65094d2b1b4c592f30ff1fd19fe956}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!\_firstFree@{\_firstFree}}
+\index{\_firstFree@{\_firstFree}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_firstFree}{\_firstFree}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::\+\_\+first\+Free\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+first free index 
+
+\mbox{\Hypertarget{classBabel_1_1FreeList_a07be99d1687fa3b603e802e886d5b7b1}\label{classBabel_1_1FreeList_a07be99d1687fa3b603e802e886d5b7b1}} 
+\index{Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}!EndOfList@{EndOfList}}
+\index{EndOfList@{EndOfList}!Babel::FreeList$<$ T $>$@{Babel::FreeList$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{EndOfList}{EndOfList}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+constexpr int \mbox{\hyperlink{classBabel_1_1FreeList}{Babel\+::\+Free\+List}}$<$ T $>$\+::End\+Of\+List = -\/1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+When this value is encountered in traversing a singly list it means it\textquotesingle{}s the end of the list. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Utilities/\mbox{\hyperlink{FreeList_8hpp}{Free\+List.\+hpp}}\end{DoxyCompactItemize}

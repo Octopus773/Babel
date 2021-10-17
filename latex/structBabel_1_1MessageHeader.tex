@@ -1,0 +1,75 @@
+\hypertarget{structBabel_1_1MessageHeader}{}\doxysection{Babel\+::Message\+Header$<$ T $>$ Struct Template Reference}
+\label{structBabel_1_1MessageHeader}\index{Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}}
+
+
+{\ttfamily \#include $<$Message.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::Message\+Header$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{structBabel_1_1MessageHeader__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structBabel_1_1MessageHeader_af7c5ff88ee340d2f6076b34f6521d470}{handle\+Endianness}} ()
+\begin{DoxyCompactList}\small\item\em Transform to network endianness the \mbox{\hyperlink{structBabel_1_1MessageHeader}{Message\+Header}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+T \mbox{\hyperlink{structBabel_1_1MessageHeader_a81316167cca7a29c9161015f6484734f}{code\+Id}}
+\begin{DoxyCompactList}\small\item\em The code id of the message to known what it\textquotesingle{}s taking about. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{structBabel_1_1MessageHeader_ae3f0fc29e4768ee98ee986b589fd187e}{body\+Size}} = 0
+\begin{DoxyCompactList}\small\item\em The size of the message body in bytes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structBabel_1_1MessageHeader_af7c5ff88ee340d2f6076b34f6521d470}\label{structBabel_1_1MessageHeader_af7c5ff88ee340d2f6076b34f6521d470}} 
+\index{Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}!handleEndianness@{handleEndianness}}
+\index{handleEndianness@{handleEndianness}!Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{handleEndianness()}{handleEndianness()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{structBabel_1_1MessageHeader}{Babel\+::\+Message\+Header}}$<$ T $>$\+::handle\+Endianness}
+
+
+
+Transform to network endianness the \mbox{\hyperlink{structBabel_1_1MessageHeader}{Message\+Header}}. 
+
+\begin{DoxyWarning}{Warning}
+Function should not be called by the user (the send function should do it) 
+\end{DoxyWarning}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structBabel_1_1MessageHeader_ae3f0fc29e4768ee98ee986b589fd187e}\label{structBabel_1_1MessageHeader_ae3f0fc29e4768ee98ee986b589fd187e}} 
+\index{Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}!bodySize@{bodySize}}
+\index{bodySize@{bodySize}!Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{bodySize}{bodySize}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+uint32\+\_\+t \mbox{\hyperlink{structBabel_1_1MessageHeader}{Babel\+::\+Message\+Header}}$<$ T $>$\+::body\+Size = 0}
+
+
+
+The size of the message body in bytes. 
+
+\mbox{\Hypertarget{structBabel_1_1MessageHeader_a81316167cca7a29c9161015f6484734f}\label{structBabel_1_1MessageHeader_a81316167cca7a29c9161015f6484734f}} 
+\index{Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}!codeId@{codeId}}
+\index{codeId@{codeId}!Babel::MessageHeader$<$ T $>$@{Babel::MessageHeader$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{codeId}{codeId}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{structBabel_1_1MessageHeader}{Babel\+::\+Message\+Header}}$<$ T $>$\+::code\+Id}
+
+
+
+The code id of the message to known what it\textquotesingle{}s taking about. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Network/\mbox{\hyperlink{Message_8hpp}{Message.\+hpp}}\end{DoxyCompactItemize}

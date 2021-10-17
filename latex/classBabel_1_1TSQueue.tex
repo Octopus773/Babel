@@ -1,0 +1,251 @@
+\hypertarget{classBabel_1_1TSQueue}{}\doxysection{Babel\+::T\+S\+Queue$<$ T $>$ Class Template Reference}
+\label{classBabel_1_1TSQueue}\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+
+
+Thread Safe queue.  
+
+
+
+
+{\ttfamily \#include $<$T\+S\+Queue.\+hpp$>$}
+
+
+
+Collaboration diagram for Babel\+::T\+S\+Queue$<$ T $>$\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classBabel_1_1TSQueue__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue_a6f71b6464da84d683fc2fb3aa8e4507a}{T\+S\+Queue}} ()=default
+\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue_a38a85c06ba025a48129dbae1060aff85}{T\+S\+Queue}} (const \mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ T $>$ \&)=delete
+\item 
+\mbox{\hyperlink{classBabel_1_1TSQueue_a7ff7caca67b862160ee6ad4e564cb5f0}{$\sim$\+T\+S\+Queue}} ()
+\item 
+const T \& \mbox{\hyperlink{classBabel_1_1TSQueue_aad5e3af842e4558b242cd0f1547947db}{front}} ()
+\begin{DoxyCompactList}\small\item\em Returns a constant reference to the first element of the queue. \end{DoxyCompactList}\item 
+const T \& \mbox{\hyperlink{classBabel_1_1TSQueue_ad74945c93b41037bd68c4edeba5cbc5a}{back}} ()
+\begin{DoxyCompactList}\small\item\em Returns a constant reference to the last element of the queue. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classBabel_1_1TSQueue_a7a95732dcf63931ed740cc0d5edf8169}{pop\+Front}} ()
+\begin{DoxyCompactList}\small\item\em Removes and returns the first element of the queue. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classBabel_1_1TSQueue_adc27898065db22851c725f5705fcdf0f}{pop\+Back}} ()
+\begin{DoxyCompactList}\small\item\em Removes and returns the last element of the queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1TSQueue_a06fbd41bd465b408877533100e8d5aff}{push\+Front}} (const T \&t)
+\begin{DoxyCompactList}\small\item\em Adds an element to the beginning of the queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1TSQueue_a4c741f99206a162ba2a9e12882c17c73}{push\+Back}} (const T \&t)
+\begin{DoxyCompactList}\small\item\em Adds an element to the beginning of the queue. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBabel_1_1TSQueue_adc880c2cab3836defa2b94defac0dfdd}{empty}} ()
+\begin{DoxyCompactList}\small\item\em Returns true if the queue is empty, false otherwise. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{classBabel_1_1TSQueue_ac1b6b98d4d962b521dda4bdce020065a}{count}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of elements in the queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBabel_1_1TSQueue_ab5fdf409faf0c6909f49585d63619a24}{clear}} ()
+\begin{DoxyCompactList}\small\item\em Removes every elements in the queue. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Time\+Type $>$ }\\void \mbox{\hyperlink{classBabel_1_1TSQueue_af775e481559419584e902e0f3874297e}{wait\+For}} (std\+::chrono\+::duration$<$ Time\+Type $>$ time)
+\begin{DoxyCompactList}\small\item\em Block a thread until the queue is non empty or the timeout is reached. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1TSQueue_a005a90f1b0a097d000f808374ee1fb3c}{\+\_\+mutex}}
+\item 
+std\+::deque$<$ T $>$ \mbox{\hyperlink{classBabel_1_1TSQueue_a81b82370a4adbb3115c48dfc36339389}{\+\_\+queue}}
+\item 
+std\+::condition\+\_\+variable \mbox{\hyperlink{classBabel_1_1TSQueue_a9498f31fd51589dc65e3a3d3b27a1d21}{\+\_\+blocker}}
+\item 
+std\+::mutex \mbox{\hyperlink{classBabel_1_1TSQueue_ad3576519f35e9ca3f9a9dbc5a0c00fa7}{\+\_\+wait\+Mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class Babel\+::\+T\+S\+Queue$<$ T $>$}
+
+Thread Safe queue. 
+
+\begin{DoxyNote}{Note}
+Should be the same functionality as std\+::queue 
+\end{DoxyNote}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a6f71b6464da84d683fc2fb3aa8e4507a}\label{classBabel_1_1TSQueue_a6f71b6464da84d683fc2fb3aa8e4507a}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!TSQueue@{TSQueue}}
+\index{TSQueue@{TSQueue}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{TSQueue()}{TSQueue()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a38a85c06ba025a48129dbae1060aff85}\label{classBabel_1_1TSQueue_a38a85c06ba025a48129dbae1060aff85}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!TSQueue@{TSQueue}}
+\index{TSQueue@{TSQueue}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{TSQueue()}{TSQueue()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}}$<$ T $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a7ff7caca67b862160ee6ad4e564cb5f0}\label{classBabel_1_1TSQueue_a7ff7caca67b862160ee6ad4e564cb5f0}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!````~TSQueue@{$\sim$TSQueue}}
+\index{````~TSQueue@{$\sim$TSQueue}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{$\sim$TSQueue()}{~TSQueue()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{classBabel_1_1TSQueue}{T\+S\+Queue}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBabel_1_1TSQueue_ad74945c93b41037bd68c4edeba5cbc5a}\label{classBabel_1_1TSQueue_ad74945c93b41037bd68c4edeba5cbc5a}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!back@{back}}
+\index{back@{back}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const T\& \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a constant reference to the last element of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_ab5fdf409faf0c6909f49585d63619a24}\label{classBabel_1_1TSQueue_ab5fdf409faf0c6909f49585d63619a24}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!clear@{clear}}
+\index{clear@{clear}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Removes every elements in the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_ac1b6b98d4d962b521dda4bdce020065a}\label{classBabel_1_1TSQueue_ac1b6b98d4d962b521dda4bdce020065a}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!count@{count}}
+\index{count@{count}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{count()}{count()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+size\+\_\+t \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns the number of elements in the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_adc880c2cab3836defa2b94defac0dfdd}\label{classBabel_1_1TSQueue_adc880c2cab3836defa2b94defac0dfdd}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!empty@{empty}}
+\index{empty@{empty}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns true if the queue is empty, false otherwise. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_aad5e3af842e4558b242cd0f1547947db}\label{classBabel_1_1TSQueue_aad5e3af842e4558b242cd0f1547947db}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!front@{front}}
+\index{front@{front}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const T\& \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Returns a constant reference to the first element of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_adc27898065db22851c725f5705fcdf0f}\label{classBabel_1_1TSQueue_adc27898065db22851c725f5705fcdf0f}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!popBack@{popBack}}
+\index{popBack@{popBack}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{popBack()}{popBack()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::pop\+Back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Removes and returns the last element of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a7a95732dcf63931ed740cc0d5edf8169}\label{classBabel_1_1TSQueue_a7a95732dcf63931ed740cc0d5edf8169}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!popFront@{popFront}}
+\index{popFront@{popFront}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{popFront()}{popFront()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::pop\+Front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Removes and returns the first element of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a4c741f99206a162ba2a9e12882c17c73}\label{classBabel_1_1TSQueue_a4c741f99206a162ba2a9e12882c17c73}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!pushBack@{pushBack}}
+\index{pushBack@{pushBack}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{pushBack()}{pushBack()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::push\+Back (\begin{DoxyParamCaption}\item[{const T \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an element to the beginning of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a06fbd41bd465b408877533100e8d5aff}\label{classBabel_1_1TSQueue_a06fbd41bd465b408877533100e8d5aff}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!pushFront@{pushFront}}
+\index{pushFront@{pushFront}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{pushFront()}{pushFront()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::push\+Front (\begin{DoxyParamCaption}\item[{const T \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Adds an element to the beginning of the queue. 
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_af775e481559419584e902e0f3874297e}\label{classBabel_1_1TSQueue_af775e481559419584e902e0f3874297e}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!waitFor@{waitFor}}
+\index{waitFor@{waitFor}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{waitFor()}{waitFor()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename Time\+Type $>$ \\
+void \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::wait\+For (\begin{DoxyParamCaption}\item[{std\+::chrono\+::duration$<$ Time\+Type $>$}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Block a thread until the queue is non empty or the timeout is reached. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & The number time before release \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a9498f31fd51589dc65e3a3d3b27a1d21}\label{classBabel_1_1TSQueue_a9498f31fd51589dc65e3a3d3b27a1d21}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!\_blocker@{\_blocker}}
+\index{\_blocker@{\_blocker}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_blocker}{\_blocker}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::condition\+\_\+variable \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\+\_\+blocker\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a005a90f1b0a097d000f808374ee1fb3c}\label{classBabel_1_1TSQueue_a005a90f1b0a097d000f808374ee1fb3c}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!\_mutex@{\_mutex}}
+\index{\_mutex@{\_mutex}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_mutex}{\_mutex}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::mutex \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\+\_\+mutex\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_a81b82370a4adbb3115c48dfc36339389}\label{classBabel_1_1TSQueue_a81b82370a4adbb3115c48dfc36339389}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!\_queue@{\_queue}}
+\index{\_queue@{\_queue}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_queue}{\_queue}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::deque$<$T$>$ \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\+\_\+queue\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classBabel_1_1TSQueue_ad3576519f35e9ca3f9a9dbc5a0c00fa7}\label{classBabel_1_1TSQueue_ad3576519f35e9ca3f9a9dbc5a0c00fa7}} 
+\index{Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}!\_waitMutex@{\_waitMutex}}
+\index{\_waitMutex@{\_waitMutex}!Babel::TSQueue$<$ T $>$@{Babel::TSQueue$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{\_waitMutex}{\_waitMutex}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::mutex \mbox{\hyperlink{classBabel_1_1TSQueue}{Babel\+::\+T\+S\+Queue}}$<$ T $>$\+::\+\_\+wait\+Mutex\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Common/\+Utilities/\mbox{\hyperlink{TSQueue_8hpp}{T\+S\+Queue.\+hpp}}\end{DoxyCompactItemize}

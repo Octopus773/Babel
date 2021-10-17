@@ -1,0 +1,51 @@
+\hypertarget{Message_8hpp}{}\doxysection{Common/\+Network/\+Message.hpp File Reference}
+\label{Message_8hpp}\index{Common/Network/Message.hpp@{Common/Network/Message.hpp}}
+{\ttfamily \#include \char`\"{}Exceptions/\+Babel\+Exception.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Utilities/\+Swap\+Endian.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$bit$>$}\newline
+Include dependency graph for Message.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Message_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Message_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1MessageHeader}{Babel\+::\+Message\+Header$<$ T $>$}}
+\item 
+struct \mbox{\hyperlink{structBabel_1_1Message}{Babel\+::\+Message$<$ T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \mbox{\hyperlink{namespaceBabel}{Babel}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::ostream \& \mbox{\hyperlink{namespaceBabel_a91290201ca88d861c0af1ee71864d175}{Babel\+::operator$<$$<$}} (std\+::ostream \&os, const Message$<$ T $>$ \&msg)
+\item 
+{\footnotesize template$<$typename T , typename Data\+Type $>$ }\\Message$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a76f95c7df87177a233650d777d72ed20}{Babel\+::operator$<$$<$}} (Message$<$ T $>$ \&msg, Data\+Type data)
+\item 
+{\footnotesize template$<$typename T $>$ }\\Message$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a2c36a21d21da525a61cc84fd86f9105d}{Babel\+::operator$<$$<$}} (Message$<$ T $>$ \&msg, std\+::string data)
+\item 
+{\footnotesize template$<$typename T $>$ }\\Message$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a9abb0c84157ea2a95ce93169153fde91}{Babel\+::operator$<$$<$}} (Message$<$ T $>$ \&msg, const char data\mbox{[}$\,$\mbox{]})
+\item 
+{\footnotesize template$<$typename T , typename Data\+Type $>$ }\\Message$<$ T $>$ \& \mbox{\hyperlink{namespaceBabel_a049654496a2847453fe689873f93ab8a}{Babel\+::operator$>$$>$}} (Message$<$ T $>$ \&msg, Data\+Type \&data)
+\end{DoxyCompactItemize}
