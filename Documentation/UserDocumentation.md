@@ -1,8 +1,5 @@
 # Babel User Documentation!
 
-Hi! I'm your first Markdown file in **StackEdit**. If you want to learn about StackEdit, you can read me. If you want to play with Markdown, you can edit me. Once you have finished with me, you can create new files by opening the **file explorer** on the left corner of the navigation bar.
-
-
 # Introduction
 
 Hi dear reader.
@@ -67,23 +64,34 @@ The client has a GUI, you can launch it like any other program
 
 In order to connect to a Babel server, you have to fill the address and port of the running server
 
-// success
+![Connetion Page](Ressources/ConnectionPage.png)
 
-When the client can't connect to the server, you may see this messages
+If the connection is achieved you won't get any message, just go to the login tab
 
-// error messages
+When the client can't connect to the server, you may see messages like this
 
+![Connection error](Ressources/ConnectionError.png)
 
 # Login
 
+Here you will be asked to give the username to represent you on the server,
+![Login Page](Ressources/LoginPage.png)
+
 Our server doesn't accept multiple connected users with the same username.
+
 
 # Home Page
 
 Here you can see all the connected users with their usernames
+![Home Page](Ressources/HomePage.png)
 
-You can call a user by selecting its username and click on the call button
+You can call a user by selecting its username and click on the call user button
 
 # Call
 
 All the current members of call 
+
+![Call Interface](Ressources/CallPage.png)
+
+
+You're now able to use all the features of our Babel. Congrats !
