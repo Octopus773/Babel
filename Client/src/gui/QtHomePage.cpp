@@ -24,7 +24,7 @@ void Ui_HomePage::setupUi(QWidget *HomePage) {
     QMetaObject::connectSlotsByName(HomePage);
 } // setupUi
 
-Babel::Ui::HomePage::HomePage(QWidget *parent)
+Babel::Ui::HomePage::HomePage(QWidget *)
         : window(new QMainWindow),
           _ui({}) {
     this->_ui.setupUi(this->window);
