@@ -12,7 +12,7 @@
 #include "Audio/IAudioManager.hpp"
 
 namespace Babel {
-    //! @class wrappers around Qt UDP socket, ICodec and Portaudio
+    //! @brief wrapper around Qt UDP socket, ICodec and Portaudio
     class UDPSocket : public QObject {
     Q_OBJECT
     public:
