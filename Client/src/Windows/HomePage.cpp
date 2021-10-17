@@ -68,7 +68,7 @@ namespace Babel {
               _currentCallId(CurrentlyNotInCall) {
         this->_ui.setupUi(this->_window);
 
-        this->connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
+        this->_connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
             this->onMessage(std::move(m));
         });
 
@@ -95,7 +95,7 @@ namespace Babel {
     }
 
     void HomePage::doConnect() {
-        this->connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
+        this->_connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
         this->_ui.page_login->setDisabled(false);
     }
 
@@ -157,7 +157,7 @@ namespace Babel {
 
     void HomePage::sendHandler(const Message<RFCCodes> &m) {
         this->_requestsMade.pushBack(m.header.codeId);
-        this->connection.send(m);
+        this->_connection.send(m);
     }
 
     void HomePage::onListUsersResponse(const Message<RFCCodes> &m) {
