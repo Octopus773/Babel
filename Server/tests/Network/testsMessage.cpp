@@ -218,3 +218,30 @@ TEST_CASE("Message using handleEndianness", "[Babel][Network]")
 //		REQUIRE(m.header.codeId == code);
 	}
 }
+
+TEST_CASE("Message checking copy ctor", "[Babel][Network]")
+{
+	Babel::Message<Babel::RFCCodes> m;
+
+	int i = 1;
+
+
+	m << i;
+	REQUIRE(m.header.bodySize == 4);
+	REQUIRE(m.body == std::vector<uint8_t>{0, 0, 0, 1});
+
+	Babel::Message<Babel::RFCCodes> m2(m);
+
+	REQUIRE(m.header.bodySize == 4);
+	REQUIRE(m.body == std::vector<uint8_t>{0, 0, 0, 1});
+
+
+	int j;
+
+	m2 >> j;
+
+	REQUIRE(j == 1);
+	REQUIRE(m2.header.bodySize == 0);
+	REQUIRE(m2.body.empty());
+}
+

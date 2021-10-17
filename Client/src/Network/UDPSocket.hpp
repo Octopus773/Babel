@@ -38,7 +38,6 @@ namespace Babel {
         std::int16_t _port;
         std::map<std::uint64_t, std::vector<unsigned char>> _inputBuffer;
         std::chrono::time_point<std::chrono::system_clock>  _clock;
-        //std::vector<std::vector<unsigned char>> _inputBuffer2
     };
 }
 

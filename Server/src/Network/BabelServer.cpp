@@ -3,8 +3,10 @@
 //
 
 #include "BabelServer.hpp"
+#include "Utilities/Utilities.hpp"
 #include "Utilities/Utils.hpp"
 #include "Call.hpp"
+#include <list>
 #include "User.hpp"
 
 namespace Babel
@@ -39,19 +41,35 @@ namespace Babel
 		try {
 			this->messageClient(client,
 			                    this->requestsHandlers[msg.header.codeId].method(client, msg));
-		} catch (Exception::BabelException &) {
+		} catch (Exception::BabelException &e) {
+			std::cerr << e.what() << std::endl;
 			this->messageClient(client, Utils::response(0, "request body was ill formed"));
 		}
 	}
 
 	bool BabelServer::onClientConnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
 	{
-		this->_users[client->getId()];
+		this->_users[client->getId()] = {"", client->getId(), false};
 		return true;
 	}
 
 	void BabelServer::onClientDisconnect(std::shared_ptr<ITCPConnection<RFCCodes>> client)
 	{
+		std::cout << "[SERVER] client : " << client->getId() << " disconnected" << std::endl;
+		std::list<int> callsToClose;
+
+		this->ongoingCalls.forEach([&](Call &c, int idx) {
+			if (c.isParticipant(*client)) {
+				c.removeParticipant(*client);
+			}
+			if (c.participants.empty()) {
+				callsToClose.push_back(idx);
+			}
+			return true;
+		});
+		for (auto &callToClose : callsToClose) {
+			this->ongoingCalls.remove(callToClose);
+		}
 		this->_users.erase(client->getId());
 	}
 
@@ -61,10 +79,19 @@ namespace Babel
 
 		r.header.codeId = RFCCodes::Response;
 		r << static_cast<uint16_t>(1);
+		uint16_t size = 0;
 
 		for (const auto &u : this->_users) {
 			if (u.second.isConnected()) {
-				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username << u.second.canBeCalled;
+				size++;
+			}
+		}
+
+		r << size;
+
+		for (const auto &u : this->_users) {
+			if (u.second.isConnected()) {
+				r << static_cast<uint8_t>(u.second.username.size()) << u.second.username << static_cast<uint8_t>(u.second.canBeCalled);
 			}
 		}
 		return r;

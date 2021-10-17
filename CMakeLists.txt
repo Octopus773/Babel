@@ -10,6 +10,7 @@ file(
 )
 
 set(CONAN_DISABLE_CHECK_COMPILER 1)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if (EXISTS "${CMAKE_BINARY_DIR}/conan_paths.cmake")
 	include("${CMAKE_BINARY_DIR}/conan_paths.cmake")

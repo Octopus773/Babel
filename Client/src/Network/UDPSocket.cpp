@@ -10,6 +10,7 @@
 #include <iostream>
 #include "UDPSocket.hpp"
 #include "NetworkException.hpp"
+#include "SoundHandler.hpp"
 #include "AudioPacket.hpp"
 
 void onError()
@@ -47,7 +48,7 @@ std::int64_t Babel::UDPSocket::write(std::array<unsigned char, 4000> &encoded, s
 
 void Babel::UDPSocket::readPending()
 {
-    while (this->_socket->hasPendingDatagrams()) {
+    if (this->_socket->hasPendingDatagrams()) {
         //std::cout << "Received packets" << std::endl;
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 

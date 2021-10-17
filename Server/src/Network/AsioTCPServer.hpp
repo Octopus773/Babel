@@ -216,12 +216,12 @@ namespace Babel
 					std::shared_ptr<AsioTCPConnection<T>> newConnection = std::make_shared<AsioTCPConnection<T>>(
 						this->_ioContext, std::move(socket));
 
+					newConnection->setId(this->_idCounter++);
 					if (this->onClientConnect(newConnection)) {
 						newConnection->setCallbackOnMessage([this, newConnection](Message<T> msg) {
 							this->_messagesIn.pushBack(OwnedMessage<T>{newConnection, msg});
 						});
 						this->_connections.push_back(std::move(newConnection));
-						this->_connections.back()->setId(this->_idCounter++);
 						this->_connections.back()->readForMessages();
 
 						std::cout << "[" << this->_connections.back()->getId() << "] Connection Approved" << std::endl;

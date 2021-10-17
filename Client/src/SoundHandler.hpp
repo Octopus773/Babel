@@ -33,7 +33,7 @@ namespace Babel
         // @brief notify the sound handler to stop
         void stopCall(void);
         // @brief add a client to the current call
-        void addClient(const std::string userid, const std::string ipadddres, std::int16_t port);
+        void addClient(const std::string userid, const std::string ipadddres, std::uint16_t port);
         // @brief remove a client to the current call
         void removeClient(const std::string userid);
         private:
@@ -44,7 +44,7 @@ namespace Babel
         // @brief pointer to the udp socket for input and output on network
         std::shared_ptr<Babel::UDPSocket> _socket;
         // @brief list of all users used in current call
-        std::map<std::string, std::pair<std::string, std::int16_t>> _userlist;
+        std::map<std::string, std::pair<std::string, std::uint16_t>> _userlist;
         // @brief mutex to access the userlist
         std::mutex _userlist_mtx;
         // @condition variable for stopping or enabling thread
