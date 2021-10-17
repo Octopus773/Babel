@@ -77,13 +77,13 @@ namespace Babel {
         int32_t _inputNumberChannels;
         //! @brief number of channels for default output device
         int32_t _outputNumberChannels;
-        //@! brief record number in seconds for one frame
+        //! @brief record number in seconds for one frame
         int32_t _recordtime;
-        //@! sample rate for input and output streams
+        //! @brief sample rate for input and output streams
         int32_t _samplerate;
-        //@! True if the stream doesn't exist or has not been started
+        //! @brief True if the stream doesn't exist or has not been started
         bool _streamStopped;
-        //@! class mutex
+        //! @brief class mutex
         std::mutex _mutex;
     };
 }
