@@ -6,7 +6,6 @@
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include <iostream>
-#include <memory>
 #include <QMainWindow>
 #include "Utilities/Utilities.hpp"
 #include <QPushButton>
@@ -17,6 +16,10 @@ namespace Babel {
 
     HomePage::HomePage()
             : _window(new QMainWindow()),
+              _connection(nullptr, [this]() {
+	              this->_ui.page_login->setDisabled(false);
+	              this->changeCurrentUITab(this->_ui.page_login);
+              }),
               _audio(this->udpPort),
               _messageHandlers({
                                        {RFCCodes::Login,
@@ -65,11 +68,7 @@ namespace Babel {
                                                }}
                                        }
                                }),
-              _currentCallId(CurrentlyNotInCall),
-              _connection(nullptr, [this]() {
-					this->_ui.page_login->setDisabled(false);
-					this->changeCurrentUITab("page_login");
-			  })
+              _currentCallId(CurrentlyNotInCall)
 	  {
         this->_ui.setupUi(this->_window);
 
@@ -156,7 +155,7 @@ namespace Babel {
         }
         this->_ui.page_server->setDisabled(false);
         this->doListUsers();
-        this->changeCurrentUITab("page_server");
+        this->changeCurrentUITab(this->_ui.page_server);
     }
 
     void HomePage::sendHandler(const Message<RFCCodes> &m) {
@@ -299,7 +298,7 @@ namespace Babel {
         }
 
         this->_ui.page_call->setDisabled(false);
-        this->changeCurrentUITab("page_call");
+        this->changeCurrentUITab(this->_ui.page_call);
         this->_audio.startCall();
         // switch to call tab
     }
@@ -327,7 +326,7 @@ namespace Babel {
         this->_currentCallId = CurrentlyNotInCall;
         this->sendHandler(m);
         this->_ui.page_call->setDisabled(true);
-        this->changeCurrentUITab("page_server");
+        this->changeCurrentUITab(this->_ui.page_server);
     }
 
     void HomePage::onBasicResponse(const Message<RFCCodes> &m) {

@@ -22,6 +22,9 @@ namespace Babel
 		//! @brief ctor
 		HomePage();
 
+		//! @brief dtor
+		~HomePage() override= default;
+
 		//! @brief The port to receive udp audio packets
 		const uint16_t udpPort = 23476;
 
@@ -97,10 +100,9 @@ namespace Babel
 		void updateDisplaySelectedUser();
 
 		//! @brief Change the currently selected tab
-		inline void changeCurrentUITab(const std::string &tabName)
+		inline void changeCurrentUITab(QWidget *tab)
 		{
-			this->_ui.tab_handler->setCurrentWidget(
-				this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
+			this->_ui.tab_handler->setCurrentWidget(tab);
 		};
 
 		//! @brief All the necessary information to handle a response
