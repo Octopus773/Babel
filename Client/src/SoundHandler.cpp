@@ -22,7 +22,6 @@ Babel::SoundHandler::SoundHandler(std::int16_t port) : _shouldExit(false), _shou
         std::array<unsigned char, 4000> encoded{0};
         std::vector<int16_t> pcm;
 
-        std::cout << "hello" << std::endl;
         while (true) {
             //std::cout << "Checking exit" << std::endl;
             this->_exit_mtx.lock();
@@ -67,7 +66,6 @@ Babel::SoundHandler::~SoundHandler() {
         this->_execthread.join();
     }
     this->_audio->closeStream();
-    std::cout << "killed" << std::endl;
 }
 
 void Babel::SoundHandler::startCall(void) {
@@ -86,7 +84,6 @@ void Babel::SoundHandler::stopCall(void) {
 
 void Babel::SoundHandler::addClient(const std::string userid, const std::string address, std::uint16_t port) {
     std::scoped_lock lock(this->_userlist_mtx);
-    std::cout << "adding " << address << ":" << port << std::endl;
     this->_userlist[userid] = std::make_pair(address, port);
 }
 

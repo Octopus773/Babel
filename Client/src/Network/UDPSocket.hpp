@@ -37,7 +37,7 @@ namespace Babel {
         std::shared_ptr<Babel::IAudioManager> _audio;
         std::shared_ptr<Babel::ICodec> _codec;
         std::int16_t _port;
-        std::map<std::uint64_t, std::vector<unsigned char>> _inputBuffer;
+        std::map<std::uint64_t, std::vector<int16_t>> _inputBuffer;
         std::chrono::time_point<std::chrono::system_clock> _clock;
     };
 }
