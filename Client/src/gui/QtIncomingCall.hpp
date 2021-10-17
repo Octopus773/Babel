@@ -11,31 +11,34 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_IncomingCall
-{
+class Ui_IncomingCall {
 public:
-    QPushButton* denyCallButton;
-    QPushButton* acceptCallButton;
-    QLabel* callFromUserLabel;
+    QPushButton *denyCallButton;
+    QPushButton *acceptCallButton;
+    QLabel *callFromUserLabel;
 
-    void setupUi(QDialog* IncomingCall);
-    void retranslateUi(QDialog* IncomingCall);
+    void setupUi(QDialog *IncomingCall);
+
+    void retranslateUi(QDialog *IncomingCall);
 };
 
 namespace Babel::Ui {
     class IncomingCall : public QDialog, public Ui_IncomingCall {
-        Q_OBJECT
+    Q_OBJECT
     public:
 
-	    ~IncomingCall() override;
+        ~IncomingCall() override;
 
-	    explicit IncomingCall(QDialog* dialog = nullptr);
+        explicit IncomingCall(QDialog *dialog = nullptr);
 
-	    IncomingCall(const IncomingCall&) = delete;
-        IncomingCall& operator=(const IncomingCall&) = delete;
+        IncomingCall(const IncomingCall &) = delete;
+
+        IncomingCall &operator=(const IncomingCall &) = delete;
 
     public slots:
+
         void denyCallButtonCallback();
+
         void acceptCallButtonCallback();
     };
 

@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <opus/opus.h>
+#include <mutex>
 #include "ICodec.hpp"
 
 namespace Babel {
@@ -72,5 +73,6 @@ namespace Babel {
         int _application; //!< Encoder application mode (default OPUS_APPLICATION_VOIP)
         int _frameSize; //!< Number of samples per channel in the input signal (default 960)
         std::int32_t _dataSize; //!< Max duration of the frame in samples (per channel) that can fit into the decoded_frame array
+        std::mutex _mutex; //!< Class mutex
     };
 }

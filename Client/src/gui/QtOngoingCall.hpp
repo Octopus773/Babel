@@ -11,29 +11,31 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_OngoingCall
-{
+class Ui_OngoingCall {
 public:
-    QPushButton* hangUpButton;
-    QLabel* label;
-    
-    void setupUi(QDialog* OngoingCall);
-    
-    void retranslateUi(QDialog* OngoingCall);
+    QPushButton *hangUpButton;
+    QLabel *label;
+
+    void setupUi(QDialog *OngoingCall);
+
+    void retranslateUi(QDialog *OngoingCall) const;
 
 };
 
 namespace Babel::Ui {
-    class OngoingCall : public QDialog, public Ui_OngoingCall
-    {
-		Q_OBJECT
+    class OngoingCall : public QDialog, public Ui_OngoingCall {
+    Q_OBJECT
     public:
-        OngoingCall(QDialog*);
+        OngoingCall(QDialog *);
+
         ~OngoingCall();
-        OngoingCall(const OngoingCall&) = delete;
-        OngoingCall& operator=(const OngoingCall&) = delete;
+
+        OngoingCall(const OngoingCall &) = delete;
+
+        OngoingCall &operator=(const OngoingCall &) = delete;
 
     public slots:
+
         void hangUpButtonCallback();
     };
 } // namespace Ui

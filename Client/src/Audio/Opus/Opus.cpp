@@ -1,6 +1,5 @@
 #include "Opus.hpp"
 #include "OpusException.hpp"
-#include <iostream>
 
 Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false), _bitrate(48000),
                       _channel(1), _application(OPUS_APPLICATION_VOIP), _frameSize(960), _dataSize(4000) {
@@ -21,6 +20,7 @@ Babel::Opus::Opus() : _encoderIsInitialized(false), _decoderIsInitialized(false)
 }
 
 Babel::Opus::~Opus() {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     if (this->_encoderIsInitialized) {
         opus_encoder_destroy(this->_encoder);
     }
@@ -34,6 +34,7 @@ opus_int32 Babel::Opus::getBitrate() const {
 }
 
 void Babel::Opus::setBitrate(std::int32_t bitrate) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_bitrate = bitrate;
 }
 
@@ -42,6 +43,7 @@ int Babel::Opus::getChannel() const {
 }
 
 void Babel::Opus::setChannel(int channel) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_channel = channel;
 }
 
@@ -50,6 +52,7 @@ int Babel::Opus::getApplication() const {
 }
 
 void Babel::Opus::setApplication(int application) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_application = application;
 }
 
@@ -58,6 +61,7 @@ int Babel::Opus::getFrameSize() const {
 }
 
 void Babel::Opus::setFrameSize(int frameSize) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     this->_frameSize = frameSize;
 }
 
@@ -71,6 +75,7 @@ bool Babel::Opus::isDecoderInitialized() const {
 
 
 int Babel::Opus::encode(const std::int16_t *pcm, unsigned char *data) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     if (this->_encoderIsInitialized) {
         std::int32_t bytesRead = opus_encode(this->_encoder, pcm, this->_frameSize, data, this->_dataSize);
         if (bytesRead < 0) {
@@ -83,6 +88,7 @@ int Babel::Opus::encode(const std::int16_t *pcm, unsigned char *data) {
 }
 
 int Babel::Opus::encode(const float *pcm, unsigned char *data) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     if (this->_encoderIsInitialized) {
         std::int32_t bytesRead = opus_encode_float(this->_encoder, pcm, this->_frameSize, data, this->_dataSize);
         if (bytesRead < 0) {
@@ -95,6 +101,7 @@ int Babel::Opus::encode(const float *pcm, unsigned char *data) {
 }
 
 int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32_t dataSize) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {
@@ -103,7 +110,6 @@ int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32
         } else {
             decodedFrames = opus_decode(this->_decoder, data, dataSize, pcm, this->_frameSize, 0);
         }
-        std::cout << "[OPUS] Decoded " << decodedFrames << " frames" << std::endl;
         if (decodedFrames < 0) {
             throw OpusException("Error when encoding with Opus: " + std::string(opus_strerror(decodedFrames)));
         } else {
@@ -115,6 +121,7 @@ int Babel::Opus::decode(const unsigned char *data, std::int16_t *pcm, std::int32
 }
 
 int Babel::Opus::decode(const unsigned char *data, float *pcm) {
+    std::lock_guard<std::mutex> lockGuard(_mutex);
     int decodedFrames;
 
     if (this->_decoderIsInitialized) {

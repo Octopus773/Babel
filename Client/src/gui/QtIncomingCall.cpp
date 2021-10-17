@@ -2,8 +2,7 @@
 
 QT_BEGIN_NAMESPACE
 
-void Ui_IncomingCall::setupUi(QDialog *IncomingCall)
-{
+void Ui_IncomingCall::setupUi(QDialog *IncomingCall) {
     if (IncomingCall->objectName().isEmpty())
         IncomingCall->setObjectName(QStringLiteral("IncomingCall"));
     IncomingCall->resize(400, 134);
@@ -22,36 +21,31 @@ void Ui_IncomingCall::setupUi(QDialog *IncomingCall)
     QMetaObject::connectSlotsByName(IncomingCall);
 } // setupUi
 
-void Ui_IncomingCall::retranslateUi(QDialog* IncomingCall)
-{
+void Ui_IncomingCall::retranslateUi(QDialog *IncomingCall) {
     IncomingCall->setWindowTitle(QApplication::translate("IncomingCall", "Dialog", nullptr));
     denyCallButton->setText(QApplication::translate("IncomingCall", "Deny Call", nullptr));
     acceptCallButton->setText(QApplication::translate("IncomingCall", "Accept Call", nullptr));
     callFromUserLabel->setText(QApplication::translate("IncomingCall", "<user> is calling you", nullptr));
 }
 
-Babel::Ui::IncomingCall::~IncomingCall()
-{
+Babel::Ui::IncomingCall::~IncomingCall() {
     delete this->denyCallButton;
     delete this->acceptCallButton;
     delete this->callFromUserLabel;
 }
 
 
-Babel::Ui::IncomingCall::IncomingCall(QDialog* Dialog): QDialog(Dialog), Ui_IncomingCall()
-{
+Babel::Ui::IncomingCall::IncomingCall(QDialog *Dialog) : QDialog(Dialog), Ui_IncomingCall() {
     this->setupUi(Dialog);
     connect(this->acceptCallButton, SIGNAL(clicked()), this, SLOT(acceptCallButtonCallback()));
     connect(this->denyCallButton, SIGNAL(clicked()), this, SLOT(denyCallButtonCallback()));
 }
 
-void Babel::Ui::IncomingCall::denyCallButtonCallback()
-{
+void Babel::Ui::IncomingCall::denyCallButtonCallback() {
 
 }
 
-void Babel::Ui::IncomingCall::acceptCallButtonCallback()
-{
+void Babel::Ui::IncomingCall::acceptCallButtonCallback() {
 
 }
 
