@@ -9,6 +9,7 @@
 #include "Network/RFCCodes.hpp"
 #include <QTcpSocket>
 #include <QtWidgets>
+#include <functional>
 #include <QString>
 #include <QObject>
 
@@ -51,7 +52,7 @@ namespace Babel {
         uint16_t getPeerPort() const override;
 
         //! @brief ctor
-        explicit QtTCPConnection(QWidget *parent = nullptr);
+        explicit QtTCPConnection(QWidget *parent = nullptr, std::function<void(void)> onConnect = [](){});
 
     private:
 

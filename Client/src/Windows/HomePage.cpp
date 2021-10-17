@@ -65,7 +65,12 @@ namespace Babel {
                                                }}
                                        }
                                }),
-              _currentCallId(CurrentlyNotInCall) {
+              _currentCallId(CurrentlyNotInCall),
+              _connection(nullptr, [this]() {
+					this->_ui.page_login->setDisabled(false);
+					this->changeCurrentUITab("page_login");
+			  })
+	  {
         this->_ui.setupUi(this->_window);
 
         this->_connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
@@ -96,7 +101,6 @@ namespace Babel {
 
     void HomePage::doConnect() {
         this->_connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
-        this->_ui.page_login->setDisabled(false);
     }
 
     void HomePage::doLogin() {
