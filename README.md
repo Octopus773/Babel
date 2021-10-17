@@ -25,6 +25,7 @@ cmake --build .
 ### User documentation
 
 You can find it in `Documentation/UserDocumentation.md`
+[link to user documentation](Documentation/UserDocumentation.md)
 
 ### Doxygen
 [Here our doxygen documentation](https://octopus773.github.io/babel)
