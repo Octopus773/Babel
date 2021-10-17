@@ -63,6 +63,8 @@ namespace Babel {
         std::mutex _play_mtx;
         // @brief thread for broadcasting data from audio library to udp
         std::thread _execthread;
+        //! @brief mutex used for the condition variable
+        std::mutex _condVarMutex;
     };
 }
 
