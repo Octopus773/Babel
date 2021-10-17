@@ -16,7 +16,7 @@ namespace Babel
 		  _connectionId(0)
 	{
 		QObject::connect(this->_socket, &QTcpSocket::readyRead, this, &QtTCPConnection::readMessage);
-		QObject::connect(this->_socket, &QTcpSocket::errorOccurred, [parent](int socketError) {
+		QObject::connect(this->_socket, &QTcpSocket::errorOccurred, [parent, this](int socketError) {
 			switch (socketError) {
 			case QAbstractSocket::HostNotFoundError:
 				QMessageBox::information(parent, tr("Babel"),
@@ -32,7 +32,7 @@ namespace Babel
 				break;
 			default:
 				QMessageBox::information(parent, tr("Babel"),
-				                         tr("An error occurred"));
+				                         tr(this->_socket->errorString().toStdString().data()));
 			}
 		});
 	}

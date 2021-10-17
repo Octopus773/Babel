@@ -10,6 +10,7 @@
 #include <QMainWindow>
 #include "Utilities/Utilities.hpp"
 #include <QPushButton>
+#include <QNetworkInterface>
 #include "SoundHandler.hpp"
 
 namespace Babel
@@ -81,6 +82,12 @@ namespace Babel
 		QObject::connect(this->_ui.button_call_user, &QPushButton::clicked, this, &HomePage::doCallUser);
 		QObject::connect(this->_ui.button_hang_up, &QPushButton::clicked, this, &HomePage::doHangUp);
 		QObject::connect(this->_ui.button_refresh_connected_user_list, &QPushButton::clicked, this, &HomePage::doListUsers);
+
+		const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
+		for (const QHostAddress &address: QNetworkInterface::allAddresses()) {
+			if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost)
+				std::cout << address.toString().toStdString() << std::endl;
+		}
 
 		this->_window->show();
 		this->_ui.page_login->setDisabled(true);
