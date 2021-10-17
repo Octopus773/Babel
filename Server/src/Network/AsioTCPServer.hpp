@@ -17,6 +17,7 @@
 
 namespace Babel
 {
+	//! @brief Implementation of ITCPServer using ASIO
 	template<typename T>
 	class AsioTCPServer : public ITCPServer<T>
 	{
@@ -59,7 +60,7 @@ namespace Babel
 		TSQueue<OwnedMessage<T>> _messagesIn;
 		//! @brief All the active connections
 		//! @note cleaning is done lazily with send messages functions, so check if the client is still connected
-		std::deque<std::shared_ptr<AsioTCPConnection<T>>> _connections;
+		std::deque<std::shared_ptr<ITCPConnection<T>>> _connections;
 		//! @brief Server's asio context
 		asio::io_context _ioContext;
 		//! @brief Thread running the asio context

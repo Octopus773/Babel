@@ -22,6 +22,7 @@ namespace Babel::Utils
 			return m;
 		};
 
+		//! @brief add the address and port of a tcp connection to a message
 		inline Message<RFCCodes> &appendConnectionIpPort(Message<RFCCodes> &m, ITCPConnection<RFCCodes> &c)
 		{
 			std::string address = c.getPeerIp();

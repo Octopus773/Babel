@@ -6,7 +6,6 @@
 #include "Network/Message.hpp"
 #include "Network/RFCCodes.hpp"
 #include <iostream>
-#include <memory>
 #include <QMainWindow>
 #include "Utilities/Utilities.hpp"
 #include <QPushButton>
@@ -17,7 +16,11 @@ namespace Babel {
 
     HomePage::HomePage()
             : _window(new QMainWindow()),
-              _audio(this->udpPort),
+              _connection(nullptr, [this]() {
+	              this->_ui.page_login->setDisabled(false);
+	              this->changeCurrentUITab(this->_ui.page_login);
+              }),
+              _audio(this->startUdpPort),
               _messageHandlers({
                                        {RFCCodes::Login,
                                                MessageHandler{[this](const Message<RFCCodes> &m) {
@@ -65,7 +68,8 @@ namespace Babel {
                                                }}
                                        }
                                }),
-              _currentCallId(CurrentlyNotInCall) {
+              _currentCallId(CurrentlyNotInCall)
+	  {
         this->_ui.setupUi(this->_window);
 
         this->_connection.setCallbackOnMessage([this](Message<RFCCodes> m) {
@@ -92,11 +96,11 @@ namespace Babel {
         this->_ui.page_login->setDisabled(true);
         this->_ui.page_call->setDisabled(true);
         this->_ui.page_server->setDisabled(true);
+		std::cout << this->_audio.getLocalPort() << std::endl;
     }
 
     void HomePage::doConnect() {
         this->_connection.connect(this->_ui.input_address->text().toStdString(), this->_ui.input_port->value());
-        this->_ui.page_login->setDisabled(false);
     }
 
     void HomePage::doLogin() {
@@ -152,7 +156,7 @@ namespace Babel {
         }
         this->_ui.page_server->setDisabled(false);
         this->doListUsers();
-        this->changeCurrentUITab("page_server");
+        this->changeCurrentUITab(this->_ui.page_server);
     }
 
     void HomePage::sendHandler(const Message<RFCCodes> &m) {
@@ -241,6 +245,7 @@ namespace Babel {
 
         if (codeId != 1) {
             std::cout << "error: callUser " << desc << std::endl;
+	        QMessageBox::warning(nullptr, tr("Babel"), tr(desc.data()));
             return;
         }
 
@@ -254,9 +259,7 @@ namespace Babel {
         message.header.codeId = RFCCodes::JoinCall;
         message << callId;
 
-        std::string address = this->_address;
-        uint16_t port = this->udpPort;
-        this->doJoinCall(callId, address, port);
+        this->doJoinCall(callId, this->_address, this->_audio.getLocalPort());
     }
 
     void HomePage::onJoinCall(const Message<RFCCodes> &m) {
@@ -295,7 +298,7 @@ namespace Babel {
         }
 
         this->_ui.page_call->setDisabled(false);
-        this->changeCurrentUITab("page_call");
+        this->changeCurrentUITab(this->_ui.page_call);
         this->_audio.startCall();
         // switch to call tab
     }
@@ -323,7 +326,7 @@ namespace Babel {
         this->_currentCallId = CurrentlyNotInCall;
         this->sendHandler(m);
         this->_ui.page_call->setDisabled(true);
-        this->changeCurrentUITab("page_server");
+        this->changeCurrentUITab(this->_ui.page_server);
     }
 
     void HomePage::onBasicResponse(const Message<RFCCodes> &m) {
@@ -368,14 +371,14 @@ namespace Babel {
 
         QMessageBox msgBox;
         msgBox.setText(
-                QString::fromStdString("You're receiving an incoming from " + invitator + "\nDo you accept it ?"));
+                QString::fromStdString("You're receiving an incoming call from " + invitator + "\nDo you accept it ?"));
         msgBox.setWindowTitle("Babel");
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
         msgBox.setIcon(QMessageBox::Question);
         switch (msgBox.exec()) {
             case QMessageBox::Yes:
-                this->doJoinCall(callId, this->_address, this->udpPort);
+                this->doJoinCall(callId, this->_address, this->_audio.getLocalPort());
                 break;
             case QMessageBox::No:
             default:

@@ -99,12 +99,16 @@ namespace Babel
 		//! @note useful to send userJoinedCall or UserLeftCall
 		void messageAllParticipants(Call &call, const Message<RFCCodes> &m);
 
+		void announceUserLeftCall(Call &call, const ITCPConnection<RFCCodes> &connectionLeaving);
 
+
+		//! @brief All the connected user
 		std::map<uint64_t, User> _users;
 
+		//! @brief The list of all ongoing calls
 		FreeList<Call> ongoingCalls;
 
-
+		//! @brief Utils struct to store requests information
 		struct RequestHandler
 		{
 			//! @brief the actual function to call to process the request
@@ -113,6 +117,7 @@ namespace Babel
 			bool loginRequired;
 		};
 
+		//! @brief map that map a RFCCode to an requestHandler
 		std::map<RFCCodes, RequestHandler> requestsHandlers{
 			{RFCCodes::Login,
 				             {

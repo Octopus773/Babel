@@ -40,6 +40,9 @@ namespace Babel {
         //! @brief remove a client to the current call
         void removeClient(const std::string &userid);
 
+		//! @brief get the port that the soundHandler is listening
+		uint16_t getLocalPort() const;
+
     private:
         //! @brief pointer to audio input and outputs
         std::shared_ptr<Babel::IAudioManager> _audio;

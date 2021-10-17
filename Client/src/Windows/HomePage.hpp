@@ -22,15 +22,19 @@ namespace Babel
 		//! @brief ctor
 		HomePage();
 
+		//! @brief dtor
+		~HomePage() override= default;
+
 		//! @brief The port to receive udp audio packets
-		const uint16_t udpPort = 23476;
+		//! @note setting it to zero will let the OS choose a random available port
+		const uint16_t startUdpPort = 0;
 
 	private:
 		//! @brief The display window
 		QMainWindow *_window;
 
 		//! @brief The UI Class
-		Ui_babelHome _ui{};
+		Ui::babelHome _ui{};
 
 		//! @brief tcp connection handler
 		QtTCPConnection _connection;
@@ -97,10 +101,9 @@ namespace Babel
 		void updateDisplaySelectedUser();
 
 		//! @brief Change the currently selected tab
-		inline void changeCurrentUITab(const std::string &tabName)
+		inline void changeCurrentUITab(QWidget *tab)
 		{
-			this->_ui.tab_handler->setCurrentWidget(
-				this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
+			this->_ui.tab_handler->setCurrentWidget(tab);
 		};
 
 		//! @brief All the necessary information to handle a response

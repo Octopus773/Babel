@@ -8,12 +8,13 @@
 
 namespace Babel {
 
-    QtTCPConnection::QtTCPConnection(QWidget *parent)
+    QtTCPConnection::QtTCPConnection(QWidget *parent, std::function<void(void)> onConnect)
             : QObject(parent),
               _socket(new QTcpSocket(parent)),
               _bytesRead(0),
               _connectionId(0) {
         QObject::connect(this->_socket, &QTcpSocket::readyRead, this, &QtTCPConnection::readMessage);
+        QObject::connect(this->_socket, &QTcpSocket::connected, onConnect);
         QObject::connect(this->_socket, &QTcpSocket::errorOccurred, [parent, this](int socketError) {
             switch (socketError) {
                 case QAbstractSocket::HostNotFoundError:

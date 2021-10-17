@@ -12,7 +12,7 @@
 #include "Audio/IAudioManager.hpp"
 
 namespace Babel {
-    //! @class wrappers around Qt UDP socket, ICodec and Portaudio
+    //! @brief wrapper around Qt UDP socket, ICodec and Portaudio
     class UDPSocket : public QObject {
     Q_OBJECT
     public:
@@ -31,6 +31,9 @@ namespace Babel {
 
         //! @brief reads the incoming datagrams when they arrive
         void readPending();
+
+	    //! @brief get the port that the UDPSocket is listening
+		uint16_t getLocalPort() const;
 
     private:
 		//! @brief mutex for closing the socket

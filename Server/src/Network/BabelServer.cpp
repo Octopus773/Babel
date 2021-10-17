@@ -61,6 +61,7 @@ namespace Babel
 		this->ongoingCalls.forEach([&](Call &c, int idx) {
 			if (c.isParticipant(*client)) {
 				c.removeParticipant(*client);
+				this->announceUserLeftCall(c, *client);
 			}
 			if (c.participants.empty()) {
 				callsToClose.push_back(idx);
@@ -106,10 +107,10 @@ namespace Babel
 
 		User calledUser;
 		if (!this->getUserByUsername(usernameToCall, calledUser)) {
-			return Utils::response(0, "User not find on the server please recheck the username");
+			return Utils::response(0, "User not found on the server please recheck the username");
 		}
 		if (!calledUser.isCallable()) {
-			return Utils::response(0, "This is user is not currently able to receive calls");
+			return Utils::response(0, "This user is not currently able to receive calls");
 		}
 
 		int idx = this->ongoingCalls.insert(Call());
@@ -170,14 +171,10 @@ namespace Babel
 		return false;
 	}
 
-	Message<RFCCodes> BabelServer::denyCall(std::shared_ptr<ITCPConnection<RFCCodes>>, Message<RFCCodes> message)
+	Message<RFCCodes> BabelServer::denyCall(std::shared_ptr<ITCPConnection<RFCCodes>>, Message<RFCCodes>)
 	{
-		uint16_t callId;
-		message >> callId;
-
 		// maybe check the callId
-
-		// tell the sender that a refused to join
+		// tell the sender that the user refused to join
 		return Utils::response(1, "OK");
 	}
 
@@ -191,13 +188,7 @@ namespace Babel
 		}
 
 		this->ongoingCalls[callId].removeParticipant(*connection);
-
-		Message<RFCCodes> announce;
-		announce.header.codeId = RFCCodes::UserLeftCall;
-		const std::string &username = this->_users[connection->getId()].username;
-		announce << static_cast<uint8_t>(username.size()) << username;
-
-		this->messageAllParticipants(this->ongoingCalls[callId], announce);
+		this->announceUserLeftCall(this->ongoingCalls[callId], *connection);
 
 		return Utils::response(1, "OK");
 	}
@@ -243,5 +234,15 @@ namespace Babel
 			return true;
 		});
 		return isCallIdValid;
+	}
+
+	void BabelServer::announceUserLeftCall(Call &call, const ITCPConnection<RFCCodes> &connectionLeaving)
+	{
+		Message<RFCCodes> announce;
+		announce.header.codeId = RFCCodes::UserLeftCall;
+		const std::string &username = this->_users[connectionLeaving.getId()].username;
+		announce << static_cast<uint8_t>(username.size()) << username;
+
+		this->messageAllParticipants(call, announce);
 	}
 }
