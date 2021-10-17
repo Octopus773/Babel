@@ -5,29 +5,41 @@
 #pragma once
 
 #include "ui/UIHomePage.hpp"
-#include "ui/UiLogin.hpp"
 #include "Network/QtTCPConnection.hpp"
 #include <QMainWindow>
 #include <functional>
 #include <map>
 #include <QObject>
+#include "SoundHandler.hpp"
 
 namespace Babel
 {
-
+	//! @brief Main client Class
 	class HomePage : public QObject
 	{
 	Q_OBJECT
 	public:
+		//! @brief ctor
 		HomePage();
 
+		//! @brief The port to receive udp audio packets
+		const uint16_t udpPort = 23476;
+
+	private:
+		//! @brief The display window
 		QMainWindow *_window;
 
+		//! @brief The UI Class
 		Ui_babelHome _ui{};
 
-		QtTCPConnection connection;
+		//! @brief tcp connection handler
+		QtTCPConnection _connection;
 
+		//! @brief all the request made by the client (expecting a response)
 		TSQueue<RFCCodes> _requestsMade;
+
+		//! @brief Audio call manager
+		SoundHandler _audio;
 
 		//! @brief send the message to the server and add it to the message send queue to handle responses type
 		//! @note The client should always use this function to send messages to the server
@@ -49,7 +61,7 @@ namespace Babel
 		void doCallUser();
 
 		//! @brief join the callId given
-		void doJoinCall(int callId, std::string address, uint16_t port);
+		void doJoinCall(int callId, std::string &address, uint16_t port);
 
 		//! @brief deny a callId
 		void doDenyCall(int callId);
@@ -70,12 +82,15 @@ namespace Babel
 		void onJoinCall(const Message<RFCCodes> &m);
 
 		//! @brief handler for any simple responses (opens a dialog if error) otherwise do nothing
-		void onBasicResponse(const Message<RFCCodes> &m);
+		static void onBasicResponse(const Message<RFCCodes> &m);
 
+		//! @brief handle incoming call request
 		void handleIncomingCall(const Message<RFCCodes> &m);
 
+		//! @brief handle user joined request
 		void handleUserJoined(const Message<RFCCodes> &m);
 
+		//! @brief handle user left request
 		void handleUserLeft(const Message<RFCCodes> &m);
 
 		//! @brief Update qt interface to display the correct username and infos
@@ -87,7 +102,6 @@ namespace Babel
 			this->_ui.tab_handler->setCurrentWidget(
 				this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
 		};
-
 
 		//! @brief All the necessary information to handle a response
 		struct MessageHandler
@@ -121,11 +135,23 @@ namespace Babel
 		//! @brief Userinfo holder the username is the key
 		std::map<std::string, UserInfo> _usersInfos;
 
+		//! @brief a list containing all users in the currentCall
 		std::list<std::string> _usersInCurrentCall;
 
+		//! @brief Used to set and verify the _currentCallId if a call is ongoing
 		static constexpr int CurrentlyNotInCall = -1;
 
+		//! @brief handling the callId of the current call (to be able to hang up, ...)
+		//! @note when set to CurrentlyNotInCall no call is happening
 		int _currentCallId;
+
+		//! @brief The local ip
+		//! @note the address to receive udp audio packets
+		std::string _address;
+
+		//! @brief The username of the connected user
+		//! @note set to an empty string when not connected
+		std::string _username;
 
 	};
 }

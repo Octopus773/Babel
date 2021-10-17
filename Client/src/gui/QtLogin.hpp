@@ -11,29 +11,35 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_ConnectWindow
-{
+class Ui_ConnectWindow {
 public:
-    QPushButton* loginButton;
-    QPushButton* cancelButton;
-    QLineEdit* usernameBox;
+    QPushButton *loginButton;
+    QPushButton *cancelButton;
+    QLineEdit *usernameBox;
 
-    void setupUi(QDialog* Dialog);
-    void retranslateUi(QDialog* Dialog);
+    void setupUi(QDialog *Dialog);
+
+    void retranslateUi(QDialog *Dialog) const;
 };
 
 namespace Babel::Ui {
     class LoginPage : public QDialog, public Ui_ConnectWindow {
-        Q_OBJECT
-	public:
-        explicit LoginPage(QDialog* Dialog = nullptr);
+    Q_OBJECT
+    public:
+        explicit LoginPage(QDialog *Dialog = nullptr);
+
         ~LoginPage() override;
-        LoginPage(const LoginPage&) = delete;
-        LoginPage &operator=(const LoginPage&) = delete;
-    
+
+        LoginPage(const LoginPage &) = delete;
+
+        LoginPage &operator=(const LoginPage &) = delete;
+
     public slots:
+
         void loginButtonCallback();
+
         void cancelButtonCallback();
+
         void userListCallback();
     };
 } // namespace Ui

@@ -13,36 +13,39 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_HomePage
-{
+class Ui_HomePage {
 public:
-    QPushButton* disconnectButton;
-    QPushButton* callUserButton;
-    QPlainTextEdit* onlineUsersTextBox;
-    QLabel* onlineUsersLabel;
+    QPushButton *disconnectButton;
+    QPushButton *callUserButton;
+    QPlainTextEdit *onlineUsersTextBox;
+    QLabel *onlineUsersLabel;
 
-    void setupUi(QWidget* HomePage);
+    void setupUi(QWidget *HomePage);
 
-    void retranslateUi(QDialog* HomePage); // retranslateUi
+    // retranslateUi
 
 };
 
 namespace Babel::Ui {
-    class HomePage : public QObject
-    {
-	Q_OBJECT
+    class HomePage : public QObject {
+    Q_OBJECT
     public:
         explicit HomePage(QWidget *parent = nullptr);
-        ~HomePage();
-        HomePage(const HomePage&) = delete;
-        HomePage &operator=(const HomePage&) = delete;
+
+        ~HomePage() override;
+
+        HomePage(const HomePage &) = delete;
+
+        HomePage &operator=(const HomePage &) = delete;
 
 
-		QMainWindow *window;
+        QMainWindow *window;
 
-		Ui_HomePage _ui;
+        Ui_HomePage _ui;
     public slots:
+
         void disconnectButtonCallback();
+
         void callUserButtonCallback();
     };
 } // namespace Ui

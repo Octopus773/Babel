@@ -4,7 +4,6 @@
 
 #include "UIHomePage.hpp"
 
-namespace Babel
-{
-	
+namespace Babel {
+
 }
