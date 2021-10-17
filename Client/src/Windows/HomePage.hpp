@@ -132,6 +132,8 @@ namespace Babel
 
 		std::string _address;
 
+		std::string _username;
+
 	};
 }
 

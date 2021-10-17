@@ -108,6 +108,7 @@ namespace Babel
 		const std::string &username = this->_ui.input_login_username->text().toStdString();
 		m << static_cast<uint8_t>(username.size()) << username;
 		if (!username.empty()) {
+			this->_username = username;
 			this->sendHandler(m);
 		}
 	}
@@ -151,6 +152,7 @@ namespace Babel
 		if (codeId != 1) {
 			QMessageBox::information(nullptr, tr("Babel"),
 			                         tr(desc.data()));
+			this->_username = "";
 			return;
 		}
 		this->_ui.page_server->setDisabled(false);
@@ -297,12 +299,12 @@ namespace Babel
 			std::string username;
 			Utils::getString(message, username);
 
-
 			this->_usersInfos[username].port = port;
 			this->_usersInfos[username].address = address;
 			this->_usersInCurrentCall.emplace_back(username);
 			this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
-			//this->_audio.addClient(username, address, port);
+			if (username != this->_username)
+				this->_audio.addClient(username, address, port);
 		}
 
 		this->_ui.page_call->setDisabled(false);
