@@ -43,10 +43,10 @@ void Babel::UDPSocket::readPending() {
         std::vector<unsigned char> encodedReceived(sizeRecu);
         std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
 
-        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
+        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer(), 0);
         _codec->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
         try {
-            _audio->writeStream(decodedData);
+            this->_audio->writeStream(decodedData);
         } catch (const std::exception &e) {
         }
     }

@@ -83,7 +83,6 @@ void Babel::SoundHandler::stopCall(void) {
 
 void Babel::SoundHandler::addClient(const std::string &userid, const std::string &address, std::uint16_t port) {
     std::scoped_lock lock(this->_userlist_mtx);
-    std::cout << "adding " << address << ":" << port << std::endl;
     this->_userlist[userid] = std::make_pair(address, port);
 }
 
