@@ -92,7 +92,6 @@ namespace Babel
 				this->_ui.tab_handler->findChild<QWidget *>(QString::fromStdString(tabName)));
 		};
 
-
 		//! @brief All the necessary information to handle a response
 		struct MessageHandler
 		{
@@ -130,6 +129,8 @@ namespace Babel
 		static constexpr int CurrentlyNotInCall = -1;
 
 		int _currentCallId;
+
+		std::string _address;
 
 	};
 }

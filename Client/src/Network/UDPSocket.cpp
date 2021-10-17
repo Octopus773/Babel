@@ -73,66 +73,6 @@ void Babel::UDPSocket::readPending()
             _audio->writeStream(decodedData);
         } catch (const std::exception &e) {
         }
-
-        /*
-        // Unpack
-        AudioPacket *packet = reinterpret_cast<AudioPacket *> (datagram.data().data());
-        std::uint64_t timestamp = packet->timestamp;
-        std::int32_t size = packet->size;
-        std::vector<unsigned char> encoded(size);
-        std::memcpy(encoded.data(), packet->data, size);
-        std::cout << "Received " << timestamp << " & size = " << size << std::endl;
-
-        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-        _codec->decode(encoded.data(), decodedData.data(), size);
-        try {
-            _audio->writeStream(decodedData);
-        } catch (const std::exception &e) {
-
-        }
-
-        //_inputBuffer.insert({timestamp, encoded});
-        //_inputBuffer2.push_back(encoded);
-
-        //auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(_clock - std::chrono::system_clock::now());
-        */
-        /*
-        std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-        std::cout << "packet data size = " << size << std::endl;
-        _codec->decode(encoded.data(), decodedData.data(), size);
-        try
-        {
-            _audio->writeStream(decodedData);
-        }
-        catch(const std::exception& e)
-        {
-            std::cerr << e.what() << '\n';
-        }
-         */
-
-        //std::cout << "Map size = " << _inputBuffer.size() << std::endl;
-        //std::cout << "Vector size = " << _inputBuffer2.size() << std::endl;
-
-        /*
-        if (_inputBuffer2.size() >= 10) {
-            std::cout << "Flushing buffer" << std::endl;
-            for (auto &payload : _inputBuffer2) {
-
-                std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer() * _audio->getInputChannelsNumber(), 0);
-                    _codec->decode(payload.data(), decodedData.data(), decodedData.size());
-                    try
-                    {
-                        _audio->writeStream(decodedData);
-                    }
-                    catch(const std::exception& e)
-                    {
-                        std::cerr << e.what() << '\n';
-                    }
-            }
-            _inputBuffer2.clear();
-            _clock = std::chrono::system_clock::now();
-        }
-        */
     }
 }
 

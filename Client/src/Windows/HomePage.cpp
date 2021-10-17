@@ -86,7 +86,7 @@ namespace Babel
 		const QHostAddress &localhost = QHostAddress(QHostAddress::LocalHost);
 		for (const QHostAddress &address: QNetworkInterface::allAddresses()) {
 			if (address.protocol() == QAbstractSocket::IPv4Protocol && address != localhost)
-				std::cout << address.toString().toStdString() << std::endl;
+				this->_address = address.toString().toStdString();
 		}
 
 		this->_window->show();
@@ -393,7 +393,7 @@ namespace Babel
 		msgBox.setDefaultButton(QMessageBox::Yes);
 		msgBox.setIcon(QMessageBox::Question);
 		switch (msgBox.exec()) {
-		case QMessageBox::Yes: this->doJoinCall(callId, "127.0.0.1", 46579);
+		case QMessageBox::Yes: this->doJoinCall(callId, this->_address, 2456);
 			break;
 		case QMessageBox::No:
 		default: this->doDenyCall(callId);
