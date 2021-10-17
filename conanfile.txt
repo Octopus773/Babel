@@ -1,16 +1,31 @@
 [requires]
-opus/1.3.1@bincrafters/stable
-qt/5.15.2@bincrafters/stable
-libffi/3.4.2
+opus/1.3.1
+qt/5.15.2
+#qt/5.15.2@bincrafters/stable
 portaudio/19.7.0@bincrafters/stable
 asio/1.19.2
 
 
-[options]
-qt:qtx11extras=True
+#[requires]
+#portaudio/19.7.0@bincrafters/stable
+#opus/1.3.1
+# qt was commented due to long build in the CI, feel free to
+# uncomment it with its options if you're compiling it on your machine
+#qt/5.15.2
+#asio/1.19.2
 
 [generators]
 cmake
+cmake_find_package
+cmake_paths
+
+[options]
+#qt:qtx11extras=True
+opus:shared=True
+portaudio:shared=True
+qt:shared=False
+qt:with_mysql=False
+qt:with_odbc=False
 
 [imports]
 lib, *.so* -> ./bin
