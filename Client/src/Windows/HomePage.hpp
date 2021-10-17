@@ -5,7 +5,6 @@
 #pragma once
 
 #include "ui/UIHomePage.hpp"
-#include "ui/UiLogin.hpp"
 #include "Network/QtTCPConnection.hpp"
 #include <QMainWindow>
 #include <functional>

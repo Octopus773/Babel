@@ -290,13 +290,13 @@ namespace Babel {
             this->_usersInfos[username].address = address;
             this->_usersInCurrentCall.emplace_back(username);
             this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
-            if (username != this->_username)
-                this->_audio.addClient(username, address, port);
+            if (username != this->_username) {
+	            this->_audio.addClient(username, address, port);
+            }
         }
 
         this->_ui.page_call->setDisabled(false);
         this->changeCurrentUITab("page_call");
-        // todo send audio packets to every address and port
         this->_audio.startCall();
         // switch to call tab
     }
