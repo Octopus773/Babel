@@ -99,6 +99,8 @@ namespace Babel
 		//! @note useful to send userJoinedCall or UserLeftCall
 		void messageAllParticipants(Call &call, const Message<RFCCodes> &m);
 
+		void announceUserLeftCall(Call &call, const ITCPConnection<RFCCodes> &connectionLeaving);
+
 
 		//! @brief All the connected user
 		std::map<uint64_t, User> _users;
