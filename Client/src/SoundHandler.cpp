@@ -38,6 +38,9 @@ Babel::SoundHandler::SoundHandler(std::int16_t port) : _shouldExit(false), _shou
             this->_play_mtx.lock();
             if (!this->_shouldPlay) {
                 this->_play_mtx.unlock();
+                using namespace std::chrono_literals;
+                std::unique_lock<std::mutex> ul(this->_condVarMutex);
+			    this->_blocker.wait_for(ul, 100ms);
                 continue;
             }
             //std::cout << "playing sound" << std::endl;
