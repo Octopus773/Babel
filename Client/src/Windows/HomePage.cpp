@@ -368,7 +368,7 @@ namespace Babel {
 
         QMessageBox msgBox;
         msgBox.setText(
-                QString::fromStdString("You're receiving an incoming from " + invitator + "\nDo you accept it ?"));
+                QString::fromStdString("You're receiving an incoming call from " + invitator + "\nDo you accept it ?"));
         msgBox.setWindowTitle("Babel");
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);

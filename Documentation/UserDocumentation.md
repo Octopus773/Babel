@@ -89,7 +89,11 @@ You can call a user by selecting its username and click on the call user button
 
 # Call
 
-All the current members of call 
+When a user want's to call you, you will be asked if you want to join or not
+
+![Do you want to join the call?](Ressources/JoinCallPopUp.png "Pop Up that ask to accept the call")
+
+During a call every user in the call will be displayed 
 
 ![Call Interface](Ressources/CallPage.png)
 
