@@ -33,7 +33,7 @@ namespace Babel
 		QMainWindow *_window;
 
 		//! @brief The UI Class
-		Ui_babelHome _ui{};
+		Ui::babelHome _ui{};
 
 		//! @brief tcp connection handler
 		QtTCPConnection _connection;

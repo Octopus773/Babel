@@ -38,11 +38,11 @@ void Babel::UDPSocket::readPending() {
     if (this->_socket->hasPendingDatagrams()) {
         QNetworkDatagram datagram = this->_socket->receiveDatagram();
 
-        auto *packetRecu = reinterpret_cast<Babel::AudioPacket *> (datagram.data().data());
-        std::uint64_t timestamp = packetRecu->timestamp;
-        std::int32_t sizeRecu = packetRecu->size;
+        auto *receivedPacket = reinterpret_cast<Babel::AudioPacket *> (datagram.data().data());
+        //std::uint64_t timestamp = receivedPacket->timestamp;
+        std::int32_t sizeRecu = receivedPacket->size;
         std::vector<unsigned char> encodedReceived(sizeRecu);
-        std::memcpy(encodedReceived.data(), packetRecu->data, sizeRecu);
+        std::memcpy(encodedReceived.data(), receivedPacket->data, sizeRecu);
 
         std::vector<std::int16_t> decodedData(_audio->getFramesPerBuffer(), 0);
         _codec->decode(encodedReceived.data(), decodedData.data(), sizeRecu);
