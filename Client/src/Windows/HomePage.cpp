@@ -267,7 +267,7 @@ namespace Babel
 		message << callId;
 
 		// todo set true values
-		std::string address = "127.0.0.1";
+		std::string address = this->_address;
 		uint16_t port = 2456;
 		this->doJoinCall(callId, address, port);
 	}
