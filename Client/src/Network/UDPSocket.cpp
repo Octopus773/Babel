@@ -14,12 +14,13 @@
 
 Babel::UDPSocket::UDPSocket(std::int16_t port, std::shared_ptr<Babel::IAudioManager> &audio,
                             std::shared_ptr<Babel::ICodec> &opus)
-        : _audio(audio), _codec(opus), _port(port) {
-    this->_socket = std::make_unique<QUdpSocket>(this);
-    if (!this->_socket->bind(QHostAddress::AnyIPv4, port))
-        throw NetworkException("UDPSocket: Cannot bind to port");
-    connect(_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
-    _clock = std::chrono::system_clock::now();
+	: _audio(audio),
+	  _codec(opus)
+{
+	this->_socket = std::make_unique<QUdpSocket>(this);
+	if (!this->_socket->bind(QHostAddress::AnyIPv4, port))
+		throw NetworkException("UDPSocket: Cannot bind to port");
+	QObject::connect(_socket.get(), &QUdpSocket::readyRead, this, &UDPSocket::readPending);
 }
 
 std::int64_t
@@ -53,8 +54,7 @@ void Babel::UDPSocket::readPending() {
 }
 
 Babel::UDPSocket::~UDPSocket() {
-    std::lock_guard<std::mutex> lockGuard(_mutex);
-    this->_socket->close();
+    this->close();
 }
 
 void Babel::UDPSocket::close() {

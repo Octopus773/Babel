@@ -7,11 +7,12 @@
 
 #include <QUdpSocket>
 #include <map>
+#include <mutex>
 #include "Audio/Opus/ICodec.hpp"
 #include "Audio/IAudioManager.hpp"
 
 namespace Babel {
-    //! @class wrappers around Qt UDP socket
+    //! @class wrappers around Qt UDP socket, ICodec and Portaudio
     class UDPSocket : public QObject {
     Q_OBJECT
     public:
@@ -32,13 +33,14 @@ namespace Babel {
         void readPending();
 
     private:
+		//! @brief mutex for closing the socket
         std::mutex _mutex;
+		//! @brief Qt's UDP socket
         std::unique_ptr<QUdpSocket> _socket;
-        std::shared_ptr<Babel::IAudioManager> _audio;
+        //! @brief audio interface to play sound
+		std::shared_ptr<Babel::IAudioManager> _audio;
+		//! @brief codec interface to encode and decode sound
         std::shared_ptr<Babel::ICodec> _codec;
-        std::int16_t _port;
-        std::map<std::uint64_t, std::vector<int16_t>> _inputBuffer;
-        std::chrono::time_point<std::chrono::system_clock> _clock;
     };
 }
 
