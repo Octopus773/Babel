@@ -60,6 +60,7 @@ Babel::SoundHandler::SoundHandler(std::int16_t port) : _shouldExit(false), _shou
 
 Babel::SoundHandler::~SoundHandler()
 {
+    this->stopCall();
     this->_exit_mtx.lock();
     this->_shouldExit = true;
     this->_exit_mtx.unlock();
