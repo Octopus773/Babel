@@ -17,7 +17,7 @@ namespace Babel {
 
     HomePage::HomePage()
             : _window(new QMainWindow()),
-              _audio(2456),
+              _audio(this->udpPort),
               _messageHandlers({
                                        {RFCCodes::Login,
                                                MessageHandler{[this](const Message<RFCCodes> &m) {
@@ -227,7 +227,6 @@ namespace Babel {
         m.header.codeId = RFCCodes::CallUser;
         m << static_cast<uint8_t>(usernameToCall.size()) << usernameToCall;
 
-
         this->sendHandler(m);
     }
 
@@ -256,7 +255,7 @@ namespace Babel {
         message << callId;
 
         std::string address = this->_address;
-        uint16_t port = 2456;
+        uint16_t port = this->udpPort;
         this->doJoinCall(callId, address, port);
     }
 
@@ -311,9 +310,7 @@ namespace Babel {
         m.header.codeId = RFCCodes::HangUp;
         m << static_cast<uint16_t>(this->_currentCallId);
 
-        // todo close all udp sockets from _usersInCurrentCall
-        this->_audio.stopCall();
-
+		this->_audio.stopCall();
 
         this->_ui.output_list_call_members->blockSignals(true);
         this->_ui.output_list_call_members->clearSelection();
@@ -378,7 +375,7 @@ namespace Babel {
         msgBox.setIcon(QMessageBox::Question);
         switch (msgBox.exec()) {
             case QMessageBox::Yes:
-                this->doJoinCall(callId, this->_address, 2456);
+                this->doJoinCall(callId, this->_address, this->udpPort);
                 break;
             case QMessageBox::No:
             default:
@@ -409,8 +406,6 @@ namespace Babel {
 
         this->_ui.output_list_call_members->addItem(QString::fromStdString(username));
 
-        // todo send our udp data to his socket
-        std::cout << port << std::endl;
         this->_audio.addClient(username, address, port);
     }
 

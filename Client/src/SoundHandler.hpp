@@ -23,7 +23,7 @@ namespace Babel {
     class SoundHandler {
     public:
         //! @brief sound handler constructor 
-        explicit SoundHandler(std::int16_t port);
+        explicit SoundHandler(std::uint16_t port);
 
         //! @brief sound handler destructor
         ~SoundHandler();
@@ -35,10 +35,10 @@ namespace Babel {
         void stopCall();
 
         //! @brief add a client to the current call
-        void addClient(const std::string userid, const std::string ipadddres, std::uint16_t port);
+        void addClient(const std::string &userid, const std::string &ipAddres, std::uint16_t port);
 
         //! @brief remove a client to the current call
-        void removeClient(const std::string userid);
+        void removeClient(const std::string &userid);
 
     private:
         //! @brief pointer to audio input and outputs

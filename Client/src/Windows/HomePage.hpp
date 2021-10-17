@@ -14,13 +14,16 @@
 
 namespace Babel
 {
-
+	//! @brief Main client Class
 	class HomePage : public QObject
 	{
 	Q_OBJECT
 	public:
 		//! @brief ctor
 		HomePage();
+
+		//! @brief The port to receive udp audio packets
+		const uint16_t udpPort = 23476;
 
 	private:
 		//! @brief The display window
